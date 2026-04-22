@@ -1,0 +1,2315 @@
+{
+  "_id": {
+    "$oid": "69bb575dfa3bc4763ced2cd6"
+  },
+  "llaves": {
+    "cuartos": [
+      {
+        "local": "Lulu Terssista",
+        "visitante": "Bau",
+        "ida": {
+          "golesLocal": 5,
+          "golesVisitante": 4,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3c1"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 5,
+          "golesVisitante": 1,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3c2"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3c3"
+          }
+        },
+        "golesAgregLocal": 6,
+        "golesAgregVisitante": 9,
+        "completado": true,
+        "ganador": "Bau",
+        "fase": "Cuartos",
+        "_id": {
+          "$oid": "69bf0a615cfd0e5f2997f3c0"
+        }
+      },
+      {
+        "local": "Tato",
+        "visitante": "Terss sureña #Cristinalibre",
+        "ida": {
+          "golesLocal": 5,
+          "golesVisitante": 3,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3c5"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 5,
+          "golesVisitante": 4,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3c6"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3c7"
+          }
+        },
+        "golesAgregLocal": 9,
+        "golesAgregVisitante": 8,
+        "completado": true,
+        "ganador": "Tato",
+        "fase": "Cuartos",
+        "_id": {
+          "$oid": "69bf0a615cfd0e5f2997f3c4"
+        }
+      },
+      {
+        "local": "Alexia Putellas",
+        "visitante": "Niggersito",
+        "ida": {
+          "golesLocal": 3,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3c9"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 2,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3ca"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3cb"
+          }
+        },
+        "golesAgregLocal": 8,
+        "golesAgregVisitante": 7,
+        "completado": true,
+        "ganador": "Alexia Putellas",
+        "fase": "Cuartos",
+        "_id": {
+          "$oid": "69bf0a615cfd0e5f2997f3c8"
+        }
+      },
+      {
+        "local": "Kukita",
+        "visitante": "Sabio de Casilda",
+        "ida": {
+          "golesLocal": 5,
+          "golesVisitante": 2,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3cd"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 2,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3ce"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69bf0a615cfd0e5f2997f3cf"
+          }
+        },
+        "golesAgregLocal": 10,
+        "golesAgregVisitante": 4,
+        "completado": true,
+        "ganador": "Kukita",
+        "fase": "Cuartos",
+        "_id": {
+          "$oid": "69bf0a615cfd0e5f2997f3cc"
+        }
+      }
+    ],
+    "semis": [
+      {
+        "local": "Bau",
+        "visitante": "Tato",
+        "ida": {
+          "golesLocal": 4,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69c058b24f6e8e10e30421b1"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 2,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69c058b24f6e8e10e30421b2"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69c058b24f6e8e10e30421b3"
+          }
+        },
+        "golesAgregLocal": 9,
+        "golesAgregVisitante": 7,
+        "completado": true,
+        "ganador": "Bau",
+        "fase": "Semifinales",
+        "_id": {
+          "$oid": "69c058b24f6e8e10e30421b0"
+        }
+      },
+      {
+        "local": "Alexia Putellas",
+        "visitante": "Kukita",
+        "ida": {
+          "golesLocal": 3,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69c058b24f6e8e10e30421b5"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 5,
+          "golesVisitante": 3,
+          "jugado": true,
+          "_id": {
+            "$oid": "69c058b24f6e8e10e30421b6"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69c058b24f6e8e10e30421b7"
+          }
+        },
+        "golesAgregLocal": 6,
+        "golesAgregVisitante": 10,
+        "completado": true,
+        "ganador": "Kukita",
+        "fase": "Semifinales",
+        "_id": {
+          "$oid": "69c058b24f6e8e10e30421b4"
+        }
+      }
+    ],
+    "final": [
+      {
+        "local": "Bau",
+        "visitante": "Kukita",
+        "ida": {
+          "golesLocal": 2,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69c1fb634f6e8e10e304391e"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 5,
+          "golesVisitante": 3,
+          "jugado": true,
+          "_id": {
+            "$oid": "69c1fb634f6e8e10e304391f"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69c1fb634f6e8e10e3043920"
+          }
+        },
+        "golesAgregLocal": 5,
+        "golesAgregVisitante": 10,
+        "completado": true,
+        "ganador": "Kukita",
+        "fase": "Gran Final",
+        "_id": {
+          "$oid": "69c1fb634f6e8e10e304391d"
+        }
+      }
+    ]
+  },
+  "nombre": "CopaLiga",
+  "estado": "EnCurso",
+  "faseActual": 4,
+  "equipos": [
+    {
+      "nombre": "Terss sureña #Cristinalibre",
+      "discordId": "425414047861571586",
+      "avatar": "https://cdn.discordapp.com/avatars/425414047861571586/30c4f0a13c9a4046e44a3ee0497eff17.png?size=256",
+      "grupo": "A",
+      "puntos": 5,
+      "pj": 3,
+      "pg": 1,
+      "pe": 2,
+      "pp": 0,
+      "gf": 27,
+      "gc": 19,
+      "dif": 8,
+      "_id": {
+        "$oid": "69bb575dfa3bc4763ced2cd7"
+      }
+    },
+    {
+      "nombre": "Lulu Terssista",
+      "discordId": "1393029583778873415",
+      "avatar": "https://cdn.discordapp.com/avatars/1393029583778873415/182622cb6c0d60757ba5888a5b92542a.png?size=256",
+      "grupo": "A",
+      "puntos": 7,
+      "pj": 3,
+      "pg": 2,
+      "pe": 1,
+      "pp": 0,
+      "gf": 28,
+      "gc": 19,
+      "dif": 9,
+      "_id": {
+        "$oid": "69bb576cfa3bc4763ced2cdb"
+      }
+    },
+    {
+      "nombre": "Fabrizio Peruano",
+      "discordId": "760530409557065729",
+      "avatar": "https://cdn.discordapp.com/avatars/760530409557065729/90ca38701f2a250ad642dd19352ab6dd.png?size=256",
+      "grupo": "A",
+      "puntos": 1,
+      "pj": 3,
+      "pg": 0,
+      "pe": 1,
+      "pp": 2,
+      "gf": 17,
+      "gc": 28,
+      "dif": -11,
+      "_id": {
+        "$oid": "69bb5779fa3bc4763ced2ce0"
+      }
+    },
+    {
+      "nombre": "Serve the Servants",
+      "discordId": "934647569701797910",
+      "avatar": "https://cdn.discordapp.com/avatars/934647569701797910/114173dac615eb42a2c1533354e38345.png?size=256",
+      "grupo": "A",
+      "puntos": 2,
+      "pj": 3,
+      "pg": 0,
+      "pe": 2,
+      "pp": 1,
+      "gf": 21,
+      "gc": 27,
+      "dif": -6,
+      "_id": {
+        "$oid": "69bb57abfa3bc4763ced2ce6"
+      }
+    },
+    {
+      "nombre": "ThiagoG",
+      "discordId": "752669799263502356",
+      "avatar": "https://cdn.discordapp.com/avatars/752669799263502356/b564558feaf3d341bb87a561839b1d73.png?size=256",
+      "grupo": "B",
+      "puntos": 0,
+      "pj": 3,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gf": 12,
+      "gc": 29,
+      "dif": -17,
+      "_id": {
+        "$oid": "69bb57c2fa3bc4763ced2ced"
+      }
+    },
+    {
+      "nombre": "Tato",
+      "discordId": "1344037515098849362",
+      "avatar": "https://cdn.discordapp.com/avatars/1344037515098849362/b67d39f823752428d44d763fd545d745.png?size=256",
+      "grupo": "B",
+      "puntos": 9,
+      "pj": 3,
+      "pg": 3,
+      "pe": 0,
+      "pp": 0,
+      "gf": 30,
+      "gc": 12,
+      "dif": 18,
+      "_id": {
+        "$oid": "69bb57cffa3bc4763ced2cf5"
+      }
+    },
+    {
+      "nombre": "Edelaturra",
+      "discordId": "984977596712374282",
+      "avatar": "https://cdn.discordapp.com/avatars/984977596712374282/26c53b059e5bfd3ef78443802374802a.png?size=256",
+      "grupo": "B",
+      "puntos": 3,
+      "pj": 3,
+      "pg": 1,
+      "pe": 0,
+      "pp": 2,
+      "gf": 15,
+      "gc": 27,
+      "dif": -12,
+      "_id": {
+        "$oid": "69bb57d5fa3bc4763ced2cfe"
+      }
+    },
+    {
+      "nombre": "Bau",
+      "discordId": "1152567232933658716",
+      "avatar": "https://cdn.discordapp.com/avatars/1152567232933658716/6bed41e076fa00feb91bd7be99c0f103.png?size=256",
+      "grupo": "B",
+      "puntos": 6,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 26,
+      "gc": 15,
+      "dif": 11,
+      "_id": {
+        "$oid": "69bb57dffa3bc4763ced2d08"
+      }
+    },
+    {
+      "nombre": "Bencarp",
+      "discordId": "1071992059268968468",
+      "avatar": "https://cdn.discordapp.com/avatars/1071992059268968468/fd92cb2050ef65e282b962b765377feb.png?size=256",
+      "grupo": "C",
+      "puntos": 3,
+      "pj": 3,
+      "pg": 1,
+      "pe": 0,
+      "pp": 2,
+      "gf": 15,
+      "gc": 20,
+      "dif": -5,
+      "_id": {
+        "$oid": "69bb57eefa3bc4763ced2d13"
+      }
+    },
+    {
+      "nombre": "Sabio de Casilda",
+      "discordId": "534231523751362580",
+      "avatar": "https://cdn.discordapp.com/avatars/534231523751362580/ce3d21d3ca05dd8ea605755598ee8af4.png?size=256",
+      "grupo": "C",
+      "puntos": 6,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 27,
+      "gc": 17,
+      "dif": 10,
+      "_id": {
+        "$oid": "69bb57f9fa3bc4763ced2d1f"
+      }
+    },
+    {
+      "nombre": "Goyriti",
+      "discordId": "672164926948900864",
+      "avatar": "https://cdn.discordapp.com/avatars/672164926948900864/a_8a5eb9b46a47f6def4b8e0e7ccfd2fc5.gif?size=256",
+      "grupo": "C",
+      "puntos": -2,
+      "pj": 3,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gf": 10,
+      "gc": 24,
+      "dif": -14,
+      "_id": {
+        "$oid": "69bb5849fa3bc4763ced2d2c"
+      }
+    },
+    {
+      "nombre": "Alexia Putellas",
+      "discordId": "1313318947352744067",
+      "avatar": "https://cdn.discordapp.com/avatars/1313318947352744067/b8463bb5fb1e5cd3360bef225b6d872e.png?size=256",
+      "grupo": "C",
+      "puntos": 9,
+      "pj": 3,
+      "pg": 3,
+      "pe": 0,
+      "pp": 0,
+      "gf": 28,
+      "gc": 17,
+      "dif": 11,
+      "_id": {
+        "$oid": "69bb5854fa3bc4763ced2d3a"
+      }
+    },
+    {
+      "nombre": "Rodri",
+      "discordId": "876872822687928381",
+      "avatar": "https://cdn.discordapp.com/avatars/876872822687928381/31a389b8c3e9b172b7c763c8c8869e7e.png?size=256",
+      "grupo": "D",
+      "puntos": 0,
+      "pj": 3,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gf": 15,
+      "gc": 29,
+      "dif": -14,
+      "_id": {
+        "$oid": "69bb5873fa3bc4763ced2d49"
+      }
+    },
+    {
+      "nombre": "Niggersito",
+      "discordId": "1460668682576597065",
+      "avatar": "https://cdn.discordapp.com/avatars/1460668682576597065/e525fbfbcdfbf41d835a315ada71a100.png?size=256",
+      "grupo": "D",
+      "puntos": 6,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 25,
+      "gc": 21,
+      "dif": 4,
+      "_id": {
+        "$oid": "69bb5881fa3bc4763ced2d59"
+      }
+    },
+    {
+      "nombre": "Kukita",
+      "discordId": "1052388988368990279",
+      "avatar": "https://cdn.discordapp.com/avatars/1052388988368990279/5b0ef5c9acac1f40faa1059fee951df8.png?size=256",
+      "grupo": "D",
+      "puntos": 9,
+      "pj": 3,
+      "pg": 3,
+      "pe": 0,
+      "pp": 0,
+      "gf": 29,
+      "gc": 19,
+      "dif": 10,
+      "_id": {
+        "$oid": "69bb5888fa3bc4763ced2d6a"
+      }
+    },
+    {
+      "nombre": "Shuu",
+      "discordId": "803410097224155177",
+      "avatar": "https://cdn.discordapp.com/avatars/803410097224155177/607ca50488090fe10e42e3e1b39716bb.png?size=256",
+      "grupo": "D",
+      "puntos": 3,
+      "pj": 3,
+      "pg": 1,
+      "pe": 0,
+      "pp": 2,
+      "gf": 23,
+      "gc": 23,
+      "dif": 0,
+      "_id": {
+        "$oid": "69bb588dfa3bc4763ced2d7c"
+      }
+    }
+  ],
+  "enfrentamientos": [
+    {
+      "local": "Terss sureña #Cristinalibre",
+      "visitante": "Lulu Terssista",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2dee"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2def"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 8,
+      "puntosLocal": 1,
+      "puntosVisitante": 1,
+      "completado": true,
+      "ganador": "Empate",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2ded"
+      }
+    },
+    {
+      "local": "Terss sureña #Cristinalibre",
+      "visitante": "Fabrizio Peruano",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2df1"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 0,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2df2"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 2,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Terss sureña #Cristinalibre",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2df0"
+      }
+    },
+    {
+      "local": "Terss sureña #Cristinalibre",
+      "visitante": "Serve the Servants",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2df4"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2df5"
+        }
+      },
+      "golesAgregLocal": 9,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 1,
+      "puntosVisitante": 1,
+      "completado": true,
+      "ganador": "Empate",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2df3"
+      }
+    },
+    {
+      "local": "Lulu Terssista",
+      "visitante": "Fabrizio Peruano",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2df7"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2df8"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 7,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Lulu Terssista",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2df6"
+      }
+    },
+    {
+      "local": "Lulu Terssista",
+      "visitante": "Serve the Servants",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 1,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2dfa"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2dfb"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 4,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Lulu Terssista",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2df9"
+      }
+    },
+    {
+      "local": "Fabrizio Peruano",
+      "visitante": "Serve the Servants",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2dfd"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2dfe"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 8,
+      "puntosLocal": 1,
+      "puntosVisitante": 1,
+      "completado": true,
+      "ganador": "Empate",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2dfc"
+      }
+    },
+    {
+      "local": "ThiagoG",
+      "visitante": "Tato",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 0,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e00"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 0,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e01"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Tato",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2dff"
+      }
+    },
+    {
+      "local": "ThiagoG",
+      "visitante": "Edelaturra",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e03"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e04"
+        }
+      },
+      "golesAgregLocal": 7,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Edelaturra",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e02"
+      }
+    },
+    {
+      "local": "ThiagoG",
+      "visitante": "Bau",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e06"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e07"
+        }
+      },
+      "golesAgregLocal": 5,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Bau",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e05"
+      }
+    },
+    {
+      "local": "Tato",
+      "visitante": "Edelaturra",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e09"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e0a"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 6,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Tato",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e08"
+      }
+    },
+    {
+      "local": "Tato",
+      "visitante": "Bau",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e0c"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e0d"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 6,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Tato",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e0b"
+      }
+    },
+    {
+      "local": "Edelaturra",
+      "visitante": "Bau",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 0,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e0f"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 0,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e10"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Bau",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e0e"
+      }
+    },
+    {
+      "local": "Bencarp",
+      "visitante": "Sabio de Casilda",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 1,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e12"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 0,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e13"
+        }
+      },
+      "golesAgregLocal": 1,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Sabio de Casilda",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e11"
+      }
+    },
+    {
+      "local": "Bencarp",
+      "visitante": "Goyriti",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 3,
+        "golesVisitante": 0,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e15"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 0,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e16"
+        }
+      },
+      "golesAgregLocal": 6,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Bencarp",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e14"
+      }
+    },
+    {
+      "local": "Bencarp",
+      "visitante": "Alexia Putellas",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 4,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e18"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e19"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Alexia Putellas",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e17"
+      }
+    },
+    {
+      "local": "Sabio de Casilda",
+      "visitante": "Goyriti",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e1b"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 4,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e1c"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 7,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Sabio de Casilda",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e1a"
+      }
+    },
+    {
+      "local": "Sabio de Casilda",
+      "visitante": "Alexia Putellas",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e1e"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 4,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e1f"
+        }
+      },
+      "golesAgregLocal": 7,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Alexia Putellas",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e1d"
+      }
+    },
+    {
+      "local": "Goyriti",
+      "visitante": "Alexia Putellas",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e21"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 0,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e22"
+        }
+      },
+      "golesAgregLocal": 3,
+      "golesAgregVisitante": 8,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Alexia Putellas",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e20"
+      }
+    },
+    {
+      "local": "Rodri",
+      "visitante": "Niggersito",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e24"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e25"
+        }
+      },
+      "golesAgregLocal": 6,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Niggersito",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e23"
+      }
+    },
+    {
+      "local": "Rodri",
+      "visitante": "Kukita",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 1,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e27"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e28"
+        }
+      },
+      "golesAgregLocal": 4,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Kukita",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e26"
+      }
+    },
+    {
+      "local": "Rodri",
+      "visitante": "Shuu",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e2a"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 0,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e2b"
+        }
+      },
+      "golesAgregLocal": 5,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Shuu",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e29"
+      }
+    },
+    {
+      "local": "Niggersito",
+      "visitante": "Kukita",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e2d"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 4,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e2e"
+        }
+      },
+      "golesAgregLocal": 7,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Kukita",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e2c"
+      }
+    },
+    {
+      "local": "Niggersito",
+      "visitante": "Shuu",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 1,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e30"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e31"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 6,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Niggersito",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e2f"
+      }
+    },
+    {
+      "local": "Kukita",
+      "visitante": "Shuu",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e33"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 4,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69bb5dd5fa3bc4763ced2e34"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 8,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Kukita",
+      "_id": {
+        "$oid": "69bb5dd5fa3bc4763ced2e32"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-03-19T01:54:37.549Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-24T03:05:53.197Z"
+  },
+  "__v": 19
+}
+
+{
+  "_id": {
+    "$oid": "69da06972c67fa9e14e81ff9"
+  },
+  "nombre": "Copa De La Liga",
+  "prefix": "cdl",
+  "estado": "EnCurso",
+  "tipoJugadores": "users",
+  "canalResultados": "1403145757586100244",
+  "tema": {
+    "primario": "#1a1a2e",
+    "secundario": "#16213e",
+    "acento": "#e94560",
+    "texto": "#ffffff",
+    "borde": "#0f3460"
+  },
+  "gruposHabilitados": true,
+  "cantidadGrupos": 4,
+  "jugadoresPorGrupo": 4,
+  "clasificadosPorGrupo": 2,
+  "mejorTercero": false,
+  "cantMejoresTerceros": 0,
+  "sorteoGrupos": true,
+  "criteriosClasificacion": [
+    "puntos",
+    "dif",
+    "gf"
+  ],
+  "playoffsHabilitados": true,
+  "formatoEliminatoria": "ida_vuelta",
+  "hayTercerPuesto": false,
+  "fasesEliminatoria": [
+    "Cuartos",
+    "Semis",
+    "Final"
+  ],
+  "faseActual": 1,
+  "createdBy": "1052388988368990279",
+  "equipos": [
+    {
+      "nombre": "Nicopol",
+      "discordId": "534231523751362580",
+      "avatar": "",
+      "grupo": "B",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da06e02c67fa9e14e81ffe"
+      }
+    },
+    {
+      "nombre": "AAB",
+      "discordId": "664977038905704454",
+      "avatar": "",
+      "grupo": "D",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da06fd2c67fa9e14e82008"
+      }
+    },
+    {
+      "nombre": "Hammeriti",
+      "discordId": "672164926948900864",
+      "avatar": "",
+      "grupo": "D",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da070c2c67fa9e14e8200f"
+      }
+    },
+    {
+      "nombre": "ThiagoCARP",
+      "discordId": "752669799263502356",
+      "avatar": "",
+      "grupo": "A",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da071f2c67fa9e14e82017"
+      }
+    },
+    {
+      "nombre": "Saletrox",
+      "discordId": "760530409557065729",
+      "avatar": "",
+      "grupo": "D",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da072e2c67fa9e14e82020"
+      }
+    },
+    {
+      "nombre": "ThiagoCASLA",
+      "discordId": "767199583326437376",
+      "avatar": "",
+      "grupo": "B",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07402c67fa9e14e8202a"
+      }
+    },
+    {
+      "nombre": "Juancho",
+      "discordId": "934647569701797910",
+      "avatar": "",
+      "grupo": "D",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07552c67fa9e14e82035"
+      }
+    },
+    {
+      "nombre": "Lukitaz",
+      "discordId": "1052388988368990279",
+      "avatar": "",
+      "grupo": "A",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07642c67fa9e14e82041"
+      }
+    },
+    {
+      "nombre": "Lulu",
+      "discordId": "1393029583778873415",
+      "avatar": "",
+      "grupo": "C",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07752c67fa9e14e8204f"
+      }
+    },
+    {
+      "nombre": "Rojas",
+      "discordId": "1281896348643495948",
+      "avatar": "",
+      "grupo": "A",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07812c67fa9e14e8205e"
+      }
+    },
+    {
+      "nombre": "Karkos",
+      "discordId": "1287076064832651327",
+      "avatar": "",
+      "grupo": "B",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da078f2c67fa9e14e8206d"
+      }
+    },
+    {
+      "nombre": "Alexis",
+      "discordId": "1313318947352744067",
+      "avatar": "",
+      "grupo": "A",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da079c2c67fa9e14e8207d"
+      }
+    },
+    {
+      "nombre": "Oziel",
+      "discordId": "1334169720705777746",
+      "avatar": "",
+      "grupo": "C",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07a82c67fa9e14e8208e"
+      }
+    },
+    {
+      "nombre": "Levin",
+      "discordId": "1460668682576597065",
+      "avatar": "",
+      "grupo": "B",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07b62c67fa9e14e820a0"
+      }
+    },
+    {
+      "nombre": "Polenta",
+      "discordId": "1381836864205361273",
+      "avatar": "",
+      "grupo": "C",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07c62c67fa9e14e820b3"
+      }
+    },
+    {
+      "nombre": "Mate",
+      "discordId": "396774328353554442",
+      "avatar": "",
+      "grupo": "C",
+      "puntos": 0,
+      "pj": 0,
+      "pg": 0,
+      "pe": 0,
+      "pp": 0,
+      "gf": 0,
+      "gc": 0,
+      "dif": 0,
+      "_id": {
+        "$oid": "69da07ce2c67fa9e14e820c7"
+      }
+    }
+  ],
+  "enfrentamientosGrupos": [
+    {
+      "local": "ThiagoCARP",
+      "visitante": "Rojas",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820dd"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820de"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820dc"
+      }
+    },
+    {
+      "local": "ThiagoCARP",
+      "visitante": "Lukitaz",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820e0"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820e1"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820df"
+      }
+    },
+    {
+      "local": "ThiagoCARP",
+      "visitante": "Alexis",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820e3"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820e4"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820e2"
+      }
+    },
+    {
+      "local": "Rojas",
+      "visitante": "Lukitaz",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820e6"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820e7"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820e5"
+      }
+    },
+    {
+      "local": "Rojas",
+      "visitante": "Alexis",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820e9"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820ea"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820e8"
+      }
+    },
+    {
+      "local": "Lukitaz",
+      "visitante": "Alexis",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820ec"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820ed"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820eb"
+      }
+    },
+    {
+      "local": "Nicopol",
+      "visitante": "Karkos",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820ef"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820f0"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820ee"
+      }
+    },
+    {
+      "local": "Nicopol",
+      "visitante": "Levin",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820f2"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820f3"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820f1"
+      }
+    },
+    {
+      "local": "Nicopol",
+      "visitante": "ThiagoCASLA",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820f5"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820f6"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820f4"
+      }
+    },
+    {
+      "local": "Karkos",
+      "visitante": "Levin",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820f8"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820f9"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820f7"
+      }
+    },
+    {
+      "local": "Karkos",
+      "visitante": "ThiagoCASLA",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820fb"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820fc"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820fa"
+      }
+    },
+    {
+      "local": "Levin",
+      "visitante": "ThiagoCASLA",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820fe"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e820ff"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e820fd"
+      }
+    },
+    {
+      "local": "Polenta",
+      "visitante": "Oziel",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82101"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82102"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e82100"
+      }
+    },
+    {
+      "local": "Polenta",
+      "visitante": "Mate",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82104"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82105"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e82103"
+      }
+    },
+    {
+      "local": "Polenta",
+      "visitante": "Lulu",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82107"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82108"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e82106"
+      }
+    },
+    {
+      "local": "Oziel",
+      "visitante": "Mate",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e8210a"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e8210b"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e82109"
+      }
+    },
+    {
+      "local": "Oziel",
+      "visitante": "Lulu",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e8210d"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e8210e"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e8210c"
+      }
+    },
+    {
+      "local": "Mate",
+      "visitante": "Lulu",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82110"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82111"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e8210f"
+      }
+    },
+    {
+      "local": "Hammeriti",
+      "visitante": "Saletrox",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82113"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82114"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e82112"
+      }
+    },
+    {
+      "local": "Hammeriti",
+      "visitante": "Juancho",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82116"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82117"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e82115"
+      }
+    },
+    {
+      "local": "Hammeriti",
+      "visitante": "AAB",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82119"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e8211a"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e82118"
+      }
+    },
+    {
+      "local": "Saletrox",
+      "visitante": "Juancho",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e8211c"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e8211d"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e8211b"
+      }
+    },
+    {
+      "local": "Saletrox",
+      "visitante": "AAB",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e8211f"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82120"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e8211e"
+      }
+    },
+    {
+      "local": "Juancho",
+      "visitante": "AAB",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82122"
+        }
+      },
+      "vuelta": {
+        "golesLocal": null,
+        "golesVisitante": null,
+        "jugado": false,
+        "_id": {
+          "$oid": "69da07d62c67fa9e14e82123"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 0,
+      "puntosLocal": 0,
+      "puntosVisitante": 0,
+      "completado": false,
+      "ganador": null,
+      "_id": {
+        "$oid": "69da07d62c67fa9e14e82121"
+      }
+    }
+  ],
+  "llaves": {},
+  "createdAt": {
+    "$date": "2026-04-11T08:30:15.631Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-11T08:35:34.310Z"
+  },
+  "__v": 17
+}

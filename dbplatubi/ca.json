@@ -1,0 +1,1272 @@
+{
+  "_id": {
+    "$oid": "69b1ebcfc6c958c2841f12ec"
+  },
+  "llaves": {
+    "cuartos": [
+      {
+        "local": "Antigua y Barbuda",
+        "visitante": "Islas Virgenes Americanas",
+        "ida": {
+          "golesLocal": 5,
+          "golesVisitante": 2,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaa4"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 5,
+          "golesVisitante": 4,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaa5"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaa6"
+          }
+        },
+        "golesAgregLocal": 9,
+        "golesAgregVisitante": 7,
+        "completado": true,
+        "ganador": "Antigua y Barbuda",
+        "fase": "Cuartos",
+        "_id": {
+          "$oid": "69b773e0668ed150288ffaa3"
+        }
+      },
+      {
+        "local": "Estados Unidos",
+        "visitante": "Granada",
+        "ida": {
+          "golesLocal": 3,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaa8"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 3,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaa9"
+          }
+        },
+        "desempate": {
+          "golesLocal": 3,
+          "golesVisitante": 1,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaaa"
+          }
+        },
+        "golesAgregLocal": 8,
+        "golesAgregVisitante": 8,
+        "completado": true,
+        "ganador": "Estados Unidos",
+        "fase": "Cuartos",
+        "_id": {
+          "$oid": "69b773e0668ed150288ffaa7"
+        }
+      },
+      {
+        "local": "Puerto Rico",
+        "visitante": "Barbados",
+        "ida": {
+          "golesLocal": 4,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaac"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 4,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaad"
+          }
+        },
+        "desempate": {
+          "golesLocal": 3,
+          "golesVisitante": 2,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffaae"
+          }
+        },
+        "golesAgregLocal": 9,
+        "golesAgregVisitante": 9,
+        "completado": true,
+        "ganador": "Puerto Rico",
+        "fase": "Cuartos",
+        "_id": {
+          "$oid": "69b773e0668ed150288ffaab"
+        }
+      },
+      {
+        "local": "Brasil",
+        "visitante": "Argentina",
+        "ida": {
+          "golesLocal": 3,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffab0"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 5,
+          "golesVisitante": 4,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffab1"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69b773e0668ed150288ffab2"
+          }
+        },
+        "golesAgregLocal": 7,
+        "golesAgregVisitante": 10,
+        "completado": true,
+        "ganador": "Argentina",
+        "fase": "Cuartos",
+        "_id": {
+          "$oid": "69b773e0668ed150288ffaaf"
+        }
+      }
+    ],
+    "semis": [
+      {
+        "local": "Antigua y Barbuda",
+        "visitante": "Estados Unidos",
+        "ida": {
+          "golesLocal": 5,
+          "golesVisitante": 3,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b8c9e238ba04c13cb26593"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 3,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b8c9e238ba04c13cb26594"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69b8c9e238ba04c13cb26595"
+          }
+        },
+        "golesAgregLocal": 10,
+        "golesAgregVisitante": 6,
+        "completado": true,
+        "ganador": "Antigua y Barbuda",
+        "fase": "Semifinales",
+        "_id": {
+          "$oid": "69b8c9e238ba04c13cb26592"
+        }
+      },
+      {
+        "local": "Puerto Rico",
+        "visitante": "Argentina",
+        "ida": {
+          "golesLocal": 5,
+          "golesVisitante": 3,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b8c9e238ba04c13cb26597"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 3,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69b8c9e238ba04c13cb26598"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69b8c9e238ba04c13cb26599"
+          }
+        },
+        "golesAgregLocal": 10,
+        "golesAgregVisitante": 6,
+        "completado": true,
+        "ganador": "Puerto Rico",
+        "fase": "Semifinales",
+        "_id": {
+          "$oid": "69b8c9e238ba04c13cb26596"
+        }
+      }
+    ],
+    "tercerPuesto": [],
+    "final": [
+      {
+        "local": "Antigua y Barbuda",
+        "visitante": "Puerto Rico",
+        "ida": {
+          "golesLocal": 3,
+          "golesVisitante": 5,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bb6159fa3bc4763ced2f3f"
+          }
+        },
+        "vuelta": {
+          "golesLocal": 5,
+          "golesVisitante": 2,
+          "jugado": true,
+          "_id": {
+            "$oid": "69bb6159fa3bc4763ced2f40"
+          }
+        },
+        "desempate": {
+          "golesLocal": null,
+          "golesVisitante": null,
+          "jugado": false,
+          "_id": {
+            "$oid": "69bb6159fa3bc4763ced2f41"
+          }
+        },
+        "golesAgregLocal": 5,
+        "golesAgregVisitante": 10,
+        "completado": true,
+        "ganador": "Puerto Rico",
+        "fase": "Gran Final",
+        "_id": {
+          "$oid": "69bb6159fa3bc4763ced2f3e"
+        }
+      }
+    ]
+  },
+  "nombre": "CopaAmerica",
+  "estado": "EnCurso",
+  "faseActual": 4,
+  "equipos": [
+    {
+      "nombre": "Antigua y Barbuda",
+      "discordId": "803410097224155177",
+      "avatar": "🇦🇬",
+      "grupo": "A",
+      "puntos": 7,
+      "pj": 3,
+      "pg": 2,
+      "pe": 1,
+      "pp": 0,
+      "gf": 25,
+      "gc": 18,
+      "dif": 7,
+      "_id": {
+        "$oid": "69b1ebe8c6c958c2841f12f1"
+      }
+    },
+    {
+      "nombre": "Peru",
+      "discordId": "760530409557065729",
+      "avatar": "🇵🇪",
+      "grupo": "A",
+      "puntos": 3,
+      "pj": 3,
+      "pg": 1,
+      "pe": 0,
+      "pp": 2,
+      "gf": 24,
+      "gc": 24,
+      "dif": 0,
+      "_id": {
+        "$oid": "69b1ed21d2f4dc04194e4cdc"
+      }
+    },
+    {
+      "nombre": "Costa Rica",
+      "discordId": "1313318947352744067",
+      "avatar": "🇨🇷",
+      "grupo": "A",
+      "puntos": 1,
+      "pj": 3,
+      "pg": 0,
+      "pe": 1,
+      "pp": 2,
+      "gf": 19,
+      "gc": 27,
+      "dif": -8,
+      "_id": {
+        "$oid": "69b1ed42d2f4dc04194e4ce1"
+      }
+    },
+    {
+      "nombre": "Granada",
+      "discordId": "672164926948900864",
+      "avatar": "🇬🇩",
+      "grupo": "A",
+      "puntos": 6,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 24,
+      "gc": 23,
+      "dif": 1,
+      "_id": {
+        "$oid": "69b1ed67d2f4dc04194e4ce7"
+      }
+    },
+    {
+      "nombre": "Haiti",
+      "discordId": "645629998228832261",
+      "avatar": "🇭🇹",
+      "grupo": "B",
+      "puntos": 0,
+      "pj": 3,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gf": 15,
+      "gc": 35,
+      "dif": -20,
+      "_id": {
+        "$oid": "69b1ed85d2f4dc04194e4cee"
+      }
+    },
+    {
+      "nombre": "Islas Virgenes Americanas",
+      "discordId": "1052388988368990279",
+      "avatar": "🇻🇮",
+      "grupo": "B",
+      "puntos": 6,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 25,
+      "gc": 17,
+      "dif": 12,
+      "_id": {
+        "$oid": "69b1edacd2f4dc04194e4cf6"
+      }
+    },
+    {
+      "nombre": "Estados Unidos",
+      "discordId": "534231523751362580",
+      "avatar": "🇺🇸",
+      "grupo": "B",
+      "puntos": 7,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 27,
+      "gc": 21,
+      "dif": 6,
+      "_id": {
+        "$oid": "69b1edd2d2f4dc04194e4cff"
+      }
+    },
+    {
+      "nombre": "Venezuela",
+      "discordId": "1152567232933658716",
+      "avatar": "🇻🇪",
+      "grupo": "B",
+      "puntos": 6,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 29,
+      "gc": 23,
+      "dif": 6,
+      "_id": {
+        "$oid": "69b1ee0cd2f4dc04194e4d09"
+      }
+    },
+    {
+      "nombre": "Argentina",
+      "discordId": "1393029583778873415",
+      "avatar": "🇦🇷",
+      "grupo": "C",
+      "puntos": 6,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 25,
+      "gc": 22,
+      "dif": 3,
+      "_id": {
+        "$oid": "69b1ee3bd2f4dc04194e4d14"
+      }
+    },
+    {
+      "nombre": "Paraguay",
+      "discordId": "1460668682576597065",
+      "avatar": "🇵🇾",
+      "grupo": "C",
+      "puntos": 3,
+      "pj": 3,
+      "pg": 1,
+      "pe": 0,
+      "pp": 2,
+      "gf": 20,
+      "gc": 27,
+      "dif": -7,
+      "_id": {
+        "$oid": "69b1ee6fd2f4dc04194e4d20"
+      }
+    },
+    {
+      "nombre": "San Vicente y las Granadinas",
+      "discordId": "984977596712374282",
+      "avatar": "🇻🇨",
+      "grupo": "C",
+      "puntos": 0,
+      "pj": 3,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gf": 21,
+      "gc": 25,
+      "dif": -4,
+      "_id": {
+        "$oid": "69b1eeb0d2f4dc04194e4d2d"
+      }
+    },
+    {
+      "nombre": "Puerto Rico",
+      "discordId": "1344037515098849362",
+      "avatar": "🇵🇷",
+      "grupo": "C",
+      "puntos": 9,
+      "pj": 3,
+      "pg": 3,
+      "pe": 0,
+      "pp": 0,
+      "gf": 29,
+      "gc": 21,
+      "dif": 8,
+      "_id": {
+        "$oid": "69b1ef56d2f4dc04194e4d3b"
+      }
+    },
+    {
+      "nombre": "Republica Dominicana",
+      "discordId": "664977038905704454",
+      "avatar": "",
+      "grupo": "D",
+      "puntos": -4,
+      "pj": 3,
+      "pg": 0,
+      "pe": 0,
+      "pp": 3,
+      "gf": 15,
+      "gc": 33,
+      "dif": -18,
+      "_id": {
+        "$oid": "69b1ef9dd2f4dc04194e4d4a"
+      }
+    },
+    {
+      "nombre": "Cuba",
+      "discordId": "752669799263502356",
+      "avatar": "🇨🇺",
+      "grupo": "D",
+      "puntos": 4,
+      "pj": 3,
+      "pg": 1,
+      "pe": 1,
+      "pp": 1,
+      "gf": 23,
+      "gc": 27,
+      "dif": -4,
+      "_id": {
+        "$oid": "69b1efc5d2f4dc04194e4d5a"
+      }
+    },
+    {
+      "nombre": "Barbados",
+      "discordId": "425414047861571586",
+      "avatar": "🇧🇧",
+      "grupo": "D",
+      "puntos": 6,
+      "pj": 3,
+      "pg": 2,
+      "pe": 0,
+      "pp": 1,
+      "gf": 24,
+      "gc": 14,
+      "dif": 10,
+      "_id": {
+        "$oid": "69b1efd9d2f4dc04194e4d6b"
+      }
+    },
+    {
+      "nombre": "Brasil",
+      "discordId": "934647569701797910",
+      "avatar": "🇧🇷",
+      "grupo": "D",
+      "puntos": 7,
+      "pj": 3,
+      "pg": 2,
+      "pe": 1,
+      "pp": 0,
+      "gf": 26,
+      "gc": 19,
+      "dif": 7,
+      "_id": {
+        "$oid": "69b1efeed2f4dc04194e4d7d"
+      }
+    }
+  ],
+  "enfrentamientos": [
+    {
+      "local": "Antigua y Barbuda",
+      "visitante": "Peru",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11a67faa7f31407b9b2"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11a67faa7f31407b9b3"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 7,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Antigua y Barbuda",
+      "_id": {
+        "$oid": "69b1f11a67faa7f31407b9b1"
+      }
+    },
+    {
+      "local": "Antigua y Barbuda",
+      "visitante": "Costa Rica",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11a67faa7f31407b9b5"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11a67faa7f31407b9b6"
+        }
+      },
+      "golesAgregLocal": 7,
+      "golesAgregVisitante": 7,
+      "puntosLocal": 1,
+      "puntosVisitante": 1,
+      "completado": true,
+      "ganador": "Empate",
+      "_id": {
+        "$oid": "69b1f11a67faa7f31407b9b4"
+      }
+    },
+    {
+      "local": "Antigua y Barbuda",
+      "visitante": "Granada",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9b8"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9b9"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 4,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Antigua y Barbuda",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9b7"
+      }
+    },
+    {
+      "local": "Peru",
+      "visitante": "Costa Rica",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9bb"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9bc"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 6,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Peru",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9ba"
+      }
+    },
+    {
+      "local": "Peru",
+      "visitante": "Granada",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9be"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9bf"
+        }
+      },
+      "golesAgregLocal": 7,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Granada",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9bd"
+      }
+    },
+    {
+      "local": "Costa Rica",
+      "visitante": "Granada",
+      "grupo": "A",
+      "ida": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9c1"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9c2"
+        }
+      },
+      "golesAgregLocal": 6,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Granada",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9c0"
+      }
+    },
+    {
+      "local": "Haiti",
+      "visitante": "Islas Virgenes Americanas",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 1,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9c4"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 1,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9c5"
+        }
+      },
+      "golesAgregLocal": 2,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Islas Virgenes Americanas",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9c3"
+      }
+    },
+    {
+      "local": "Haiti",
+      "visitante": "Estados Unidos",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 4,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9c7"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9c8"
+        }
+      },
+      "golesAgregLocal": 7,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Estados Unidos",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9c6"
+      }
+    },
+    {
+      "local": "Haiti",
+      "visitante": "Venezuela",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 1,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9ca"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9cb"
+        }
+      },
+      "golesAgregLocal": 4,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Venezuela",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9c9"
+      }
+    },
+    {
+      "local": "Islas Virgenes Americanas",
+      "visitante": "Estados Unidos",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9cd"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9ce"
+        }
+      },
+      "golesAgregLocal": 5,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Estados Unidos",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9cc"
+      }
+    },
+    {
+      "local": "Islas Virgenes Americanas",
+      "visitante": "Venezuela",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9d0"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9d1"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 5,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Islas Virgenes Americanas",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9cf"
+      }
+    },
+    {
+      "local": "Estados Unidos",
+      "visitante": "Venezuela",
+      "grupo": "B",
+      "ida": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9d3"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 4,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9d4"
+        }
+      },
+      "golesAgregLocal": 7,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Venezuela",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9d2"
+      }
+    },
+    {
+      "local": "Argentina",
+      "visitante": "Paraguay",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9d6"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9d7"
+        }
+      },
+      "golesAgregLocal": 10,
+      "golesAgregVisitante": 6,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Argentina",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9d5"
+      }
+    },
+    {
+      "local": "Argentina",
+      "visitante": "San Vicente y las Granadinas",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9d9"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 1,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9da"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 6,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Argentina",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9d8"
+      }
+    },
+    {
+      "local": "Argentina",
+      "visitante": "Puerto Rico",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9dc"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9dd"
+        }
+      },
+      "golesAgregLocal": 7,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Puerto Rico",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9db"
+      }
+    },
+    {
+      "local": "Paraguay",
+      "visitante": "San Vicente y las Granadinas",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 2,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9df"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9e0"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 7,
+      "puntosLocal": 3,
+      "puntosVisitante": 0,
+      "completado": true,
+      "ganador": "Paraguay",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9de"
+      }
+    },
+    {
+      "local": "Paraguay",
+      "visitante": "Puerto Rico",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9e2"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9e3"
+        }
+      },
+      "golesAgregLocal": 6,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Puerto Rico",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9e1"
+      }
+    },
+    {
+      "local": "San Vicente y las Granadinas",
+      "visitante": "Puerto Rico",
+      "grupo": "C",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9e5"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9e6"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Puerto Rico",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9e4"
+      }
+    },
+    {
+      "local": "Republica Dominicana",
+      "visitante": "Cuba",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9e8"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9e9"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Cuba",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9e7"
+      }
+    },
+    {
+      "local": "Republica Dominicana",
+      "visitante": "Barbados",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 0,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9eb"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 0,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9ec"
+        }
+      },
+      "golesAgregLocal": 0,
+      "golesAgregVisitante": 6,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Barbados",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9ea"
+      }
+    },
+    {
+      "local": "Republica Dominicana",
+      "visitante": "Brasil",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9ee"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 3,
+        "golesVisitante": 0,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9ef"
+        }
+      },
+      "golesAgregLocal": 2,
+      "golesAgregVisitante": 8,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Brasil",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9ed"
+      }
+    },
+    {
+      "local": "Cuba",
+      "visitante": "Barbados",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 2,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9f1"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 3,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9f2"
+        }
+      },
+      "golesAgregLocal": 5,
+      "golesAgregVisitante": 10,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Barbados",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9f0"
+      }
+    },
+    {
+      "local": "Cuba",
+      "visitante": "Brasil",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9f4"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 5,
+        "golesVisitante": 4,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9f5"
+        }
+      },
+      "golesAgregLocal": 9,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 1,
+      "puntosVisitante": 1,
+      "completado": true,
+      "ganador": "Empate",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9f3"
+      }
+    },
+    {
+      "local": "Barbados",
+      "visitante": "Brasil",
+      "grupo": "D",
+      "ida": {
+        "golesLocal": 3,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9f7"
+        }
+      },
+      "vuelta": {
+        "golesLocal": 4,
+        "golesVisitante": 5,
+        "jugado": true,
+        "_id": {
+          "$oid": "69b1f11b67faa7f31407b9f8"
+        }
+      },
+      "golesAgregLocal": 8,
+      "golesAgregVisitante": 9,
+      "puntosLocal": 0,
+      "puntosVisitante": 3,
+      "completado": true,
+      "ganador": "Brasil",
+      "_id": {
+        "$oid": "69b1f11b67faa7f31407b9f6"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2026-03-11T22:25:19.516Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-19T02:37:50.793Z"
+  },
+  "__v": 21
+}
