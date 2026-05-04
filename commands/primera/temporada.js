@@ -3,18 +3,18 @@ import Primera from '../../models/Primera.js';
 import registrarJugadorGlobal from '../../utils/db/registrarJugadorGlobal.js';
 
 export default {
-  name: 'primera-temporada',
-  aliases: ['1temporada', 'temporada1', 'nuevatemporada'],
-  desc: 'Crea nueva temporada de Primera División con inscripción y playoffs automáticos',
+  name: 'platubi-temporada',
+  aliases: ['pltemporada', 'temporadapl', 'nuevatemporadapl'],
+  desc: 'Crea nueva temporada de Platubi con inscripción y playoffs automáticos',
   permisos: ['Administrator'],
   run: async (client, message, args) => {
     const embed = new EmbedBuilder()
-      .setTitle('🏆 Nueva Temporada — Primera División')
+      .setTitle('🏆 Nueva Temporada — Platubi')
       .setDescription(
         'Envía los jugadores en mensajes con el formato:\n' +
         '```\nNombre ID\nNombre2 ID2\n```\n' +
         '**Los primeros 18** entran directo a la liga.\n\n' +
-        '⏳ Tienes **10 minutos** para enviar todos los inscritos.\n' +
+        '<a:loading:1461897825439711468> Tienes **10 minutos** para enviar todos los inscritos.\n' +
         'Escribe `listo` cuando termines.'
       )
       .setColor('#9b59b6')
@@ -77,7 +77,7 @@ export default {
       try {
         // 1. Registro global de todos
         for (const j of inscritos) {
-          await registrarJugadorGlobal(j.nombre, j.id);
+          await registrarJugadorGlobal(j.nombre, j.id, 'Platubi');
         }
 
         // 2. Crear nueva temporada

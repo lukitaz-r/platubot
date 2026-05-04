@@ -9,11 +9,12 @@ import handleJugadores from '../../utils/db/handleJugadores.js';
 import handleStats from '../../utils/db/handleStats.js';
 import handleBorrar from '../../utils/db/handleBorrar.js';
 import handleNombre from '../../utils/db/handleNombre.js';
+import handleCanal from '../../utils/db/handleCanal.js';
 
 export default {
-  name: 'primera-gestion',
-  aliases: ['1gestion', 'gestion1'],
-  desc: 'Panel de gestión de la Primera División',
+  name: 'platubi-gestion',
+  aliases: ['plgestion', 'gestionpl'],
+  desc: 'Panel de gestión de la Platubi',
   permisos: ['Administrator'],
 
   run: async (client, message) => {
@@ -23,7 +24,7 @@ export default {
     ligas.sort((a, b) => new Date(b.fechaDeInicio) - new Date(a.fechaDeInicio));
 
     if (!ligas.length) {
-      return message.reply('❌ No hay temporadas registradas para Primera División.');
+      return message.reply('❌ No hay temporadas registradas para Platubi.');
     }
 
     let liga;
@@ -31,7 +32,6 @@ export default {
     if (ligas.length === 1) {
       liga = ligas[0];
     } else {
-      // Selección de temporada
       const select = new StringSelectMenuBuilder()
         .setCustomId('sel_temporada_primera')
         .setPlaceholder('Selecciona la temporada a gestionar...')
@@ -67,7 +67,7 @@ export default {
       [
         'btn_fixture_primera', 'btn_resultados_primera', 'btn_jugadores_primera',
         'btn_stats_primera', 'btn_reglas_primera', 'btn_borrar_primera',
-        'btn_refresh_primera', 'btn_nombre_primera',
+        'btn_refresh_primera', 'btn_nombre_primera', 'btn_canal_primera',
       ].includes(i.customId) && i.member.permissions.has('Administrator');
 
     const collector = panelMsg.createMessageComponentCollector({
@@ -77,39 +77,18 @@ export default {
     });
 
     collector.on('collect', async i => {
-      // Recargar la temporada específica por _id
       const todas = await Primera.find({}).catch(() => []);
       const ligaFresh = todas.find(l => String(l._id?.$oid ?? l._id) === ligaId) ?? null;
 
       switch (i.customId) {
-        case 'btn_fixture_primera':
-          await handleFixture(i, ligaFresh, panelMsg, div);
-          break;
-
-        case 'btn_resultados_primera':
-          await handleResultados(i, ligaFresh, div);
-          break;
-
-        case 'btn_jugadores_primera':
-          await handleJugadores(i, ligaFresh, panelMsg, div);
-          break;
-
-        case 'btn_stats_primera':
-          await handleStats(i, ligaFresh, div);
-          break;
-
-        case 'btn_reglas_primera':
-          await handleReglas(i, ligaFresh, panelMsg, div);
-          break;
-
-        case 'btn_borrar_primera':
-          await handleBorrar(i, panelMsg, div);
-          break;
-
-        case 'btn_nombre_primera':
-          await handleNombre(i, ligaFresh, panelMsg, div);
-          break;
-
+        case 'btn_fixture_primera': await handleFixture(i, ligaFresh, panelMsg, div); break;
+        case 'btn_resultados_primera': await handleResultados(i, ligaFresh, div); break;
+        case 'btn_jugadores_primera': await handleJugadores(i, ligaFresh, panelMsg, div); break;
+        case 'btn_stats_primera': await handleStats(i, ligaFresh, div); break;
+        case 'btn_reglas_primera': await handleReglas(i, ligaFresh, panelMsg, div); break;
+        case 'btn_borrar_primera': await handleBorrar(i, panelMsg, div); break;
+        case 'btn_nombre_primera': await handleNombre(i, ligaFresh, panelMsg, div); break;
+        case 'btn_canal_primera': await handleCanal(i, ligaFresh, div); break;
         case 'btn_refresh_primera': {
           const todas2 = await Primera.find({}).catch(() => []);
           const ligaR = todas2.find(l => String(l._id?.$oid ?? l._id) === ligaId) ?? null;

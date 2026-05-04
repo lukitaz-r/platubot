@@ -97,7 +97,7 @@ async function fetchAvatars(tabla, client) {
     }
     try {
       const user = await client.users.fetch(j.id);
-      const url = user.displayAvatarURL({ extension: 'png', size: 64 });
+      const url = user.displayAvatarURL({ extension: 'png', size: 256 });
       avatars.set(j.id, url);
     } catch {
       avatars.set(j.id, null);
@@ -170,7 +170,7 @@ export async function generarTablaImagen(liga, client, div = 'primera') {
   const avatars = await fetchAvatars(tabla, client);
   const theme = THEMES[div] ?? THEMES.primera;
 
-  const cols = ['', 'Jugador', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'PTS'];
+  const cols = ['', 'Jugador', 'PJ', 'PG', 'WO', 'PP', 'GF', 'GC', 'DG', 'PTS'];
   const colWidths = [40, 260, 48, 48, 48, 48, 48, 48, 48, 56];
   const totalWidth = colWidths.reduce((s, w) => s + w, 0) + 40; // +padding
   const rowHeight = 40;
@@ -339,10 +339,23 @@ export async function generarTablaImagen(liga, client, div = 'primera') {
     ],
     loadAdditionalAsset: async (code, segment) => {
       if (code === 'emoji') {
-        // Convertir emoji a codepoints para Twemoji CDN
+        // Convertir emoji a codepoints
         const codepoints = [...segment]
           .map(c => c.codePointAt(0).toString(16))
           .join('-');
+        
+        // Intentar cargar localmente primero
+        const localPath = join(process.cwd(), 'assets', 'emojis', `${codepoints}.svg`);
+        try {
+          if (existsSync(localPath)) {
+            const svg = readFileSync(localPath, 'utf8');
+            return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+          }
+        } catch (e) {
+          // Ignorar error y seguir con CDN
+        }
+
+        // Fallback: CDN de Twemoji
         const url = `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codepoints}.svg`;
         try {
           const res = await fetch(url);
@@ -358,7 +371,7 @@ export async function generarTablaImagen(liga, client, div = 'primera') {
   });
 
   const resvg = new Resvg(svg, {
-    fitTo: { mode: 'width', value: totalWidth },
+    fitTo: { mode: 'width', value: totalWidth * 2 },
   });
 
   return resvg.render().asPng();

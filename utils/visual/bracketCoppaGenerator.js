@@ -62,7 +62,7 @@ async function fetchAvatars(equipos, client) {
     if (!e.discordId || !/^\d{17,20}$/.test(e.discordId) || e.discordId === 'BYE') return;
     try {
       const user = await client.users.fetch(e.discordId);
-      avatars.set(e.discordId, user.displayAvatarURL({ extension: 'png', size: 64 }));
+      avatars.set(e.discordId, user.displayAvatarURL({ extension: 'png', size: 256 }));
     } catch {
       avatars.set(e.discordId, null);
     }
@@ -403,5 +403,5 @@ export async function generarBracketImagen(coppa, client) {
     },
   });
 
-  return new Resvg(svg, { fitTo: { mode: 'width', value: CANVAS_W } }).render().asPng();
+  return new Resvg(svg, { fitTo: { mode: 'width', value: CANVAS_W * 2 } }).render().asPng();
 }

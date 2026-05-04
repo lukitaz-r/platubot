@@ -16,7 +16,7 @@ export default {
       return message.reply('❌ No hay una **Coppa** activa o finalizada. Creá una con `!coppa-crear`.');
     }
 
-    const loading = await message.reply('<a:loading:1461897825439711468> **Generando bracket de la Coppa...**');
+    const loading = await message.reply('<a:loading:1461897825439711468> **Generando bracket de la Copa...**');
 
     try {
       const pngBuffer = await generarBracketImagen(coppa, client);

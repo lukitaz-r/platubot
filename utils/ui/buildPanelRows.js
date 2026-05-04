@@ -41,6 +41,11 @@ export default function buildPanelRows(liga, div) {
       .setStyle(ButtonStyle.Secondary)
       .setDisabled(!liga),
     new ButtonBuilder()
+      .setCustomId(`btn_canal_${div}`)
+      .setLabel('📺 Cambiar Canal')
+      .setStyle(ButtonStyle.Secondary)
+      .setDisabled(!liga),
+    new ButtonBuilder()
       .setCustomId(`btn_borrar_${div}`)
       .setLabel('🗑️ Borrar Temporada')
       .setStyle(ButtonStyle.Danger)

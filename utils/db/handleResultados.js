@@ -1,8 +1,8 @@
 import { ActionRowBuilder, StringSelectMenuBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 
 export default async function handleResultados(interaction, liga, div) {
-  const partidos = liga.partidos.flatMap(f =>
-    Array.isArray(f?.partidos) ? f.partidos.filter(p => p && !p.finalizado).map(p => ({ ...p, fechaNum: f.numero })) : []
+  const partidos = liga.fechas.flatMap(f =>
+    (f.partidos ?? f.encuentros).filter(p => p && !p.finalizado).map(p => ({ ...p, fechaNum: f.numero }))
   ).slice(0, 25);
 
   if (!partidos.length) {
@@ -70,11 +70,11 @@ export default async function handleResultados(interaction, liga, div) {
   }
 
   // Guardar resultado en el JSON
-  const fechaIdx = liga.partidos.findIndex(f => f.partidos.some(p => p._id === partidoId));
-  const partIdx = liga.partidos[fechaIdx].partidos.findIndex(p => p._id === partidoId);
-  liga.partidos[fechaIdx].partidos[partIdx].golesLocal = gl;
-  liga.partidos[fechaIdx].partidos[partIdx].golesVisitante = gv;
-  liga.partidos[fechaIdx].partidos[partIdx].finalizado = true;
+  const fechaIdx = liga.fechas.findIndex(f => (f.partidos ?? f.encuentros).some(p => p._id === partidoId));
+  const partIdx = (liga.fechas[fechaIdx].partidos ?? liga.fechas[fechaIdx].encuentros).findIndex(p => p._id === partidoId);
+  liga.fechas[fechaIdx].partidos[partIdx].golesLocal = gl;
+  liga.fechas[fechaIdx].partidos[partIdx].golesVisitante = gv;
+  liga.fechas[fechaIdx].partidos[partIdx].finalizado = true;
   await liga.save();
 
   const p = liga.partidos[fechaIdx].partidos[partIdx];

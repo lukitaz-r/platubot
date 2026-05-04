@@ -15,11 +15,15 @@ export default async function handleReglas(interaction, liga, panelMsg, div) {
 
   const fields = [
     { id: 'campeon', label: 'Puestos → Campeón', val: String(r.puestosCampeon ?? 1) },
-    { id: 'ascenso', label: 'Puestos → Ascenso directo', val: String(r.puestosAscenso ?? 0) },
+    { id: 'ascenso', label: 'Puestos → Libertadubi', val: String(r.puestosAscenso ?? 0) },
     { id: 'promoAscenso', label: 'Puestos → Promoción ascenso', val: String(r.puestosPromocionAscenso ?? 0) },
     { id: 'descenso', label: 'Cantidad de Descensos', val: String(r.cantidadDescenso ?? 0) },
-    { id: 'playoff', label: 'Playoff habilitado (true/false)', val: String(liga.playoff?.habilitado ?? false) },
+
   ];
+
+  if (liga.playoff) {
+    fields.push({ id: 'playoff', label: 'Playoff habilitado (true/false)', val: String(liga.playoff?.habilitado ?? false) })
+  }
 
   modal.addLabelComponents(
     ...fields.map(f =>
@@ -46,7 +50,9 @@ export default async function handleReglas(interaction, liga, panelMsg, div) {
   liga.reglas.puestosAscenso = gi('ascenso');
   liga.reglas.puestosPromocionAscenso = gi('promoAscenso');
   liga.reglas.cantidadDescenso = gi('descenso');
-  liga.playoff.habilitado = modalResp.fields.getTextInputValue('playoff').trim().toLowerCase() === 'true';
+  if (liga.playoff) {
+    liga.playoff.habilitado = modalResp.fields.getTextInputValue('playoff').trim().toLowerCase() === 'true';
+  }
   await liga.save();
 
   await panelMsg.edit({ embeds: [buildPanelEmbed(liga, div)], components: buildPanelRows(liga, div) });

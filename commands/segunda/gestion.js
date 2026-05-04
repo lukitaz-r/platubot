@@ -9,11 +9,12 @@ import handleJugadores from '../../utils/db/handleJugadores.js';
 import handleStats from '../../utils/db/handleStats.js';
 import handleBorrar from '../../utils/db/handleBorrar.js';
 import handleNombre from '../../utils/db/handleNombre.js';
+import handleCanal from '../../utils/db/handleCanal.js';
 
 export default {
-  name: 'segunda-gestion',
-  aliases: ['2gestion', 'gestion2'],
-  desc: 'Panel de gestión de la Segunda División',
+  name: 'palubi-gestion',
+  aliases: ['palubig', 'gestionpalubi'],
+  desc: 'Panel de gestión de la Palubi',
   permisos: ['Administrator'],
 
   run: async (client, message) => {
@@ -23,7 +24,7 @@ export default {
     ligas.sort((a, b) => new Date(b.fechaDeInicio) - new Date(a.fechaDeInicio));
 
     if (!ligas.length) {
-      return message.reply('❌ No hay temporadas registradas para Segunda División.');
+      return message.reply('❌ No hay temporadas registradas para Palubi.');
     }
 
     let liga;
@@ -31,7 +32,6 @@ export default {
     if (ligas.length === 1) {
       liga = ligas[0];
     } else {
-      // Selección de temporada
       const select = new StringSelectMenuBuilder()
         .setCustomId('sel_temporada_segunda')
         .setPlaceholder('Selecciona la temporada a gestionar...')
@@ -67,7 +67,7 @@ export default {
       [
         'btn_fixture_segunda', 'btn_resultados_segunda', 'btn_jugadores_segunda',
         'btn_stats_segunda', 'btn_reglas_segunda', 'btn_borrar_segunda',
-        'btn_refresh_segunda', 'btn_nombre_segunda',
+        'btn_refresh_segunda', 'btn_nombre_segunda', 'btn_canal_segunda',
       ].includes(i.customId) && i.member.permissions.has('Administrator');
 
     const collector = panelMsg.createMessageComponentCollector({
@@ -81,34 +81,14 @@ export default {
       const ligaFresh = todas.find(l => String(l._id?.$oid ?? l._id) === ligaId) ?? null;
 
       switch (i.customId) {
-        case 'btn_fixture_segunda':
-          await handleFixture(i, ligaFresh, panelMsg, div);
-          break;
-
-        case 'btn_resultados_segunda':
-          await handleResultados(i, ligaFresh, div);
-          break;
-
-        case 'btn_jugadores_segunda':
-          await handleJugadores(i, ligaFresh, panelMsg, div);
-          break;
-
-        case 'btn_stats_segunda':
-          await handleStats(i, ligaFresh, div);
-          break;
-
-        case 'btn_reglas_segunda':
-          await handleReglas(i, ligaFresh, panelMsg, div);
-          break;
-
-        case 'btn_borrar_segunda':
-          await handleBorrar(i, panelMsg, div);
-          break;
-
-        case 'btn_nombre_segunda':
-          await handleNombre(i, ligaFresh, panelMsg, div);
-          break;
-
+        case 'btn_fixture_segunda': await handleFixture(i, ligaFresh, panelMsg, div); break;
+        case 'btn_resultados_segunda': await handleResultados(i, ligaFresh, div); break;
+        case 'btn_jugadores_segunda': await handleJugadores(i, ligaFresh, panelMsg, div); break;
+        case 'btn_stats_segunda': await handleStats(i, ligaFresh, div); break;
+        case 'btn_reglas_segunda': await handleReglas(i, ligaFresh, panelMsg, div); break;
+        case 'btn_borrar_segunda': await handleBorrar(i, panelMsg, div); break;
+        case 'btn_nombre_segunda': await handleNombre(i, ligaFresh, panelMsg, div); break;
+        case 'btn_canal_segunda': await handleCanal(i, ligaFresh, div); break;
         case 'btn_refresh_segunda': {
           const todas2 = await Segunda.find({}).catch(() => []);
           const ligaR = todas2.find(l => String(l._id?.$oid ?? l._id) === ligaId) ?? null;

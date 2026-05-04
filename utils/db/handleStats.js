@@ -57,7 +57,7 @@ export default async function handleStats(interaction, liga, div) {
         new TextInputBuilder().setCustomId('pg').setStyle(TextInputStyle.Short).setValue(pg).setRequired(true).setMaxLength(3)
       ),
     new LabelBuilder()
-      .setLabel('Partidos Empatados')
+      .setLabel('WO')
       .setTextInputComponent(
         new TextInputBuilder().setCustomId('pe').setStyle(TextInputStyle.Short).setValue(pe).setRequired(true).setMaxLength(3)
       ),

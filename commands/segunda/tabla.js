@@ -3,9 +3,9 @@ import Segunda from '../../models/Segunda.js';
 import { generarTablaImagen } from '../../utils/visual/tablaGenerator.js';
 
 export default {
-  name: 'segunda-tabla',
-  aliases: ['2tabla', 'tabla2', 'tablasegunda'],
-  desc: 'Muestra la tabla de posiciones de la Segunda División. Uso: !segunda-tabla [temporada]',
+  name: 'palubi-tabla',
+  aliases: ['patabla', 'tablapalubi', 'tablapa'],
+  desc: 'Muestra la tabla de posiciones de la Palubi. Uso: !palubi-tabla [temporada]',
   permisos: [],
 
   run: async (client, message, args) => {
@@ -13,7 +13,7 @@ export default {
     ligas.sort((a, b) => new Date(b.fechaDeInicio) - new Date(a.fechaDeInicio));
 
     if (!ligas.length) {
-      return message.reply('❌ No hay ninguna temporada registrada en Segunda División.');
+      return message.reply('❌ No hay ninguna temporada registrada en Palubi.');
     }
 
     let liga = null;

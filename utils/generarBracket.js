@@ -1,13 +1,9 @@
 /**
  * Genera un bracket de eliminación directa balanceado.
- * - Si el número de participantes no es potencia de 2, se agregan BYEs.
- * - El sorteo es totalmente aleatorio.
- * - Cada llave tiene ida, vuelta y desempate (3er partido si empate global).
- *
- * @param {Array<{nombre: string, discordId: string}>} equipos
- * @returns {{ fasesEliminatoria: string[], llaves: object, equipos: Array }}
+ * @param {Array} equipos 
+ * @param {string} tipoEncuentro 'unico' o 'ida_vuelta'
  */
-export default function generarBracket(equipos) {
+export default function generarBracket(equipos, tipoEncuentro = 'ida_vuelta') {
   // Shuffle aleatorio (Fisher-Yates)
   const shuffled = [...equipos];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -20,20 +16,13 @@ export default function generarBracket(equipos) {
   const bracketSize = Math.pow(2, Math.ceil(Math.log2(Math.max(n, 2))));
   const numByes = bracketSize - n;
 
-  // Generar lista con BYEs intercalados al final
-  // Los primeros equipos que no tengan oponente reciben BYE
   const slots = [...shuffled];
   for (let i = 0; i < numByes; i++) {
     slots.push({ nombre: 'BYE', discordId: 'BYE' });
   }
 
-  // Distribuir BYEs de forma balanceada:
-  // Colocar BYEs en las posiciones más altas del bracket para que
-  // los equipos reales se enfrenten entre sí en las primeras rondas
-  // y los BYEs queden distribuidos uniformemente.
   const seeded = seedBracket(slots, bracketSize);
 
-  // Nombres de fases según tamaño del bracket
   const fasesPorTamaño = {
     2:  ['Final'],
     4:  ['Semifinales', 'Final'],
@@ -45,7 +34,6 @@ export default function generarBracket(equipos) {
 
   const fasesEliminatoria = fasesPorTamaño[bracketSize] ?? generarNombresFases(bracketSize);
 
-  // Generar llaves de la primera ronda
   const llaves = {};
   const primeraFase = fasesEliminatoria[0];
   const matchesR1 = [];
@@ -60,17 +48,16 @@ export default function generarBracket(equipos) {
       equipo1: eq1.discordId !== 'BYE' ? eq1 : eq2,
       equipo2: eq2.discordId !== 'BYE' ? eq2 : eq1,
       ida: { golesLocal: null, golesVisitante: null, finalizado: false },
-      vuelta: { golesLocal: null, golesVisitante: null, finalizado: false },
-      desempate: { golesLocal: null, golesVisitante: null, finalizado: false },
+      vuelta: tipoEncuentro === 'unico' ? null : { golesLocal: null, golesVisitante: null, finalizado: false },
+      desempate: tipoEncuentro === 'unico' ? null : { golesLocal: null, golesVisitante: null, finalizado: false },
       ganador: null,
     };
 
-    // Si uno es BYE, el otro avanza automáticamente
     if (isBye) {
       const winner = eq1.discordId !== 'BYE' ? eq1 : eq2;
       llave.equipo2 = { nombre: 'BYE', discordId: 'BYE' };
       llave.ida.golesLocal = 3; llave.ida.golesVisitante = 0; llave.ida.finalizado = true;
-      llave.vuelta.golesLocal = 3; llave.vuelta.golesVisitante = 0; llave.vuelta.finalizado = true;
+      if (llave.vuelta) { llave.vuelta.golesLocal = 3; llave.vuelta.golesVisitante = 0; llave.vuelta.finalizado = true; }
       llave.ganador = winner.discordId;
     }
 
@@ -79,7 +66,6 @@ export default function generarBracket(equipos) {
 
   llaves[primeraFase] = matchesR1;
 
-  // Generar llaves placeholder para las siguientes fases
   for (let f = 1; f < fasesEliminatoria.length; f++) {
     const fase = fasesEliminatoria[f];
     const prevFase = fasesEliminatoria[f - 1];
@@ -92,8 +78,8 @@ export default function generarBracket(equipos) {
         equipo1: { nombre: 'TBD', discordId: null },
         equipo2: { nombre: 'TBD', discordId: null },
         ida: { golesLocal: null, golesVisitante: null, finalizado: false },
-        vuelta: { golesLocal: null, golesVisitante: null, finalizado: false },
-        desempate: { golesLocal: null, golesVisitante: null, finalizado: false },
+        vuelta: tipoEncuentro === 'unico' ? null : { golesLocal: null, golesVisitante: null, finalizado: false },
+        desempate: tipoEncuentro === 'unico' ? null : { golesLocal: null, golesVisitante: null, finalizado: false },
         ganador: null,
       });
     }

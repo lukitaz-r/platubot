@@ -5,6 +5,14 @@ const defaults = {
   id: '',
   mediaInicial: 80,
   media: 80,
+  stats: {
+    actividad: 80,
+    tiro: 80,
+    pase: 80,
+    iq: 80,
+    aura: 80,
+    esquinazo: 80
+  },
   valor: 500000,
   pais: 'Argentina',
   partidosGanados: 0,

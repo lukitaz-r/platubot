@@ -1,4 +1,5 @@
 import submission from "../../utils/submission.js";
+import Torneo from "../../models/copas/Torneo.js";
 
 export default {
   name: 'messageCreate',
@@ -18,7 +19,9 @@ export default {
     let args
     const content = message.content.trim()
     if (content.startsWith(prefix) || content.startsWith(prefix.toUpperCase()) || content.startsWith(prefix.toLowerCase()) || content.startsWith("!")) {
-      args = content.slice(prefix.length).trim().split(/ +/);
+      // Usamos el primer caracter como prefijo si es ! o el configurado
+      const usedPrefix = content.startsWith("!") ? "!" : prefix;
+      args = content.slice(usedPrefix.length).trim().split(/ +/);
     } else if (mentionRegex.test(content)) {
       const match = content.match(mentionRegex);
       args = content.slice(match[0].length).trim().split(/ +/);
@@ -29,7 +32,22 @@ export default {
     const invoked = args.shift()?.toLowerCase()
     if (!invoked) return
 
-    const command = client.commands.get(invoked) || client.commands.get(client.aliases.get(invoked));
+    let command = client.commands.get(invoked) || client.commands.get(client.aliases.get(invoked));
+
+    // --- Lógica de Torneos Dinámicos ---
+    if (!command && invoked.includes('-')) {
+        const [tPrefix, ...subArgs] = invoked.split('-');
+        const subComando = subArgs.join('-'); // ej: 'tabla'
+        
+        const torneo = await Torneo.findOne({ prefix: tPrefix }).catch(() => null);
+        if (torneo) {
+            const genericCmd = client.commands.get('torneo-generic');
+            if (genericCmd) {
+                return genericCmd.runGeneric(client, message, args, torneo, subComando);
+            }
+        }
+    }
+    // ----------------------------------
 
     if (!command) return
 
