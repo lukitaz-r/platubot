@@ -59,7 +59,7 @@ export default {
         );
     };
 
-    const typingMsg = await message.reply('<a:loading:1461897825439711468> Generando fixture de alta calidad...');
+    const typingMsg = await message.reply('<a:loading:1461897825439711468> Generando fixture de la **Superliga**..');
 
     try {
         const initialAttachments = await renderFixtureImages(currentIdx);

@@ -1,23 +1,7 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-import { readFileSync, existsSync } from 'fs';
+import { renderToBuffer } from './renderPool.js';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { getFlagUrl } from './countryHelper.js';
-
-// ── Cargar fuente ──────────────────────────────────────────────────────────
-let fontData;
-try {
-  fontData = readFileSync(join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf'));
-} catch {
-  fontData = null;
-}
-
-async function getFontData() {
-  if (fontData) return fontData;
-  const res = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf');
-  fontData = Buffer.from(await res.arrayBuffer());
-  return fontData;
-}
 
 // ── Helpers Visuales ────────────────────────────────────────────────────────
 
@@ -48,28 +32,6 @@ function avatarElement(url, nombre, t, size = 32) {
 
 // ── Generador Base ─────────────────────────────────────────────────────────
 
-async function renderToBuffer(element, width, height) {
-    const font = await getFontData();
-    const svg = await satori(element, {
-        width, height,
-        fonts: [{ name: 'Inter', data: font, weight: 700, style: 'normal' }],
-        loadAdditionalAsset: async (code, segment) => {
-            if (code === 'emoji') {
-                const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-                const localPath = join(process.cwd(), 'assets', 'emojis', `${codepoints}.svg`);
-                try {
-                    if (existsSync(localPath)) {
-                        const svgText = readFileSync(localPath, 'utf8');
-                        return `data:image/svg+xml;base64,${Buffer.from(svgText).toString('base64')}`;
-                    }
-                } catch { return undefined; }
-            }
-            return undefined;
-        }
-    });
-    const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: width * 2 } });
-    return resvg.render().asPng();
-}
 
 /**
  * Genera una imagen del fixture con un diseño moderno.

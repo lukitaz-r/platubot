@@ -1,5 +1,4 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import { renderToBuffer } from './renderPool.js';
 import fs from 'fs';
 import path from 'path';
 import { AttachmentBuilder } from 'discord.js';
@@ -305,35 +304,7 @@ export const generarImagenHistorialEquipo = async (equipo, logosMap = {}, page =
             }
         };
 
-        let fontBold;
-        try {
-            fontBold = fs.readFileSync(path.join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf'));
-        } catch(e) {
-            try {
-                const res = await fetch('https://fonts.gstatic.com/s/opensans/v34/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu1aB.ttf');
-                if (res.ok) fontBold = Buffer.from(await res.arrayBuffer());
-            } catch(e2) {}
-        }
-
-        const svg = await satori(element, {
-            width: 1000,
-            height: totalHeight,
-            fonts: fontBold ? [{ name: 'Inter', data: fontBold, weight: 700, style: 'normal' }] : [{ name: 'sans-serif', data: Buffer.from([]), weight: 700, style: 'normal' }],
-            loadAdditionalAsset: async (code, segment) => {
-                if (code === 'emoji') {
-                    const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-                    const url = `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codepoints}.svg`;
-                    try {
-                        const res = await fetch(url);
-                        if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-                    } catch { return undefined; }
-                }
-                return undefined;
-            }
-        });
-
-        const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: 1000 } });
-        const imageBuffer = resvg.render().asPng();
+        const imageBuffer = await renderToBuffer(element, 1000, totalHeight, { scale: 1 });
 
         return new AttachmentBuilder(imageBuffer, { name: 'superliga_historial.png' });
 

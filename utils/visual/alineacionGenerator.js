@@ -1,6 +1,5 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-import { readFileSync, existsSync } from 'fs';
+import { renderToBuffer } from './renderPool.js';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 // Coordenadas hardcodeadas (trasladadas desde s.json)
@@ -20,18 +19,6 @@ const POSITIONS = {
 const CANVAS = { width: 1400, height: 714 };
 const TRANSPARENT_PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
-let fontData = null;
-const getFont = async () => {
-    if (fontData) return fontData;
-    try { fontData = readFileSync(join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf')); }
-    catch {
-        try {
-            const res = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf');
-            if (res.ok) fontData = Buffer.from(await res.arrayBuffer());
-        } catch {}
-    }
-    return fontData;
-};
 
 function toBase64(src) {
     if (!src) return TRANSPARENT_PNG;
@@ -70,7 +57,6 @@ export async function generarAlineacion({
     jugadoresLocalCards = [null, null, null],
     jugadoresVisitanteCards = [],
 }) {
-    const font = await getFont();
     const bgB64 = toBase64(bgPath);
 
     // Build positioned elements
@@ -161,11 +147,5 @@ export async function generarAlineacion({
         }
     };
 
-    const svg = await satori(element, {
-        width: CANVAS.width,
-        height: CANVAS.height,
-        fonts: font ? [{ name: 'Inter', data: font, weight: 700, style: 'normal' }] : [],
-    });
-
-    return new Resvg(svg, { fitTo: { mode: 'width', value: CANVAS.width * 2 } }).render().asPng();
+    return renderToBuffer(element, CANVAS.width, CANVAS.height);
 }

@@ -44,6 +44,20 @@ export default {
       return message.reply(`❌ No se puede finalizar la temporada. Faltan **${pendientes.length}** partidos por jugar:\n` + pendientes.slice(0, 10).join('\n') + (pendientes.length > 10 ? '\n...' : ''));
     }
 
+    // 1.5 Validar equipos con múltiples jugadores 90+ de media
+    const equiposVal = await EquipoSuperliga.find({});
+    const equiposExcedidos = [];
+    equiposVal.forEach(eq => {
+      const jugadores90Mas = eq.jugadores.filter(j => j.media >= 90);
+      if (jugadores90Mas.length >= 2) {
+        equiposExcedidos.push(`• **${eq.nombre}**: ${jugadores90Mas.map(j => `${j.nombre} [${j.media}]`).join(', ')}`);
+      }
+    });
+
+    if (equiposExcedidos.length > 0) {
+      return message.reply(`❌ **No se puede finalizar la temporada.**\nSegún el reglamento, no se permite tener 2 o más jugadores con **90+ de media** en el mismo equipo. Los siguientes equipos deben vender o liberar jugadores antes de poder cerrar la temporada:\n\n${equiposExcedidos.join('\n')}`);
+    }
+
     // 2. Confirmación
     const confirmEmbed = new EmbedBuilder()
       .setTitle('⚠️ Cierre de Temporada')

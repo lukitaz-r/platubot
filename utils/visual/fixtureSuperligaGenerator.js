@@ -1,21 +1,6 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import { renderToBuffer } from './renderPool.js';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-
-let fontData;
-try {
-  fontData = readFileSync(join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf'));
-} catch {
-  fontData = null;
-}
-
-async function getFontData() {
-  if (fontData) return fontData;
-  const res = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf');
-  fontData = Buffer.from(await res.arrayBuffer());
-  return fontData;
-}
 
 function getShieldB64(escudoPath) {
     if (!escudoPath) return null;
@@ -60,7 +45,6 @@ async function fetchAvatars(partidos, client) {
 }
 
 export async function generarFixtureSuperligaImagen(partidos, numeroFecha, temporada, equiposDB, client = null) {
-  const font = await getFontData();
   const avatars = await fetchAvatars(partidos, client);
 
   const THEME = {
@@ -274,25 +258,5 @@ export async function generarFixtureSuperligaImagen(partidos, numeroFecha, tempo
     }
   };
 
-  const svg = await satori(element, {
-    width: width,
-    height: totalHeight,
-    fonts: [{ name: 'Inter', data: font, weight: 700, style: 'normal' }],
-    loadAdditionalAsset: async (code, segment) => {
-      if (code === 'emoji') {
-        const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-        // Normalizar: Twemoji no usa fe0f en los nombres de archivo
-        const cleanCode = codepoints.replace(/-fe0f/g, "");
-        const url = `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cleanCode}.svg`;
-        try {
-          const res = await fetch(url);
-          if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-        } catch { return undefined; }
-      }
-      return undefined;
-    }
-  });
-
-  const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: width * 2 } });
-  return resvg.render().asPng();
+  return renderToBuffer(element, width, totalHeight);
 }

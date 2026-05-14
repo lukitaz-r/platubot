@@ -1,21 +1,6 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-import { readFileSync, existsSync } from 'fs';
+import { renderToBuffer } from './renderPool.js';
+import { existsSync } from 'fs';
 import { join } from 'path';
-
-let fontData;
-try {
-  fontData = readFileSync(join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf'));
-} catch {
-  fontData = null;
-}
-
-async function getFontData() {
-  if (fontData) return fontData;
-  const res = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf');
-  fontData = Buffer.from(await res.arrayBuffer());
-  return fontData;
-}
 
 async function fetchAvatars(jugadores, client) {
   const avatars = new Map();
@@ -37,7 +22,6 @@ async function fetchAvatars(jugadores, client) {
 }
 
 export async function generarStatsSuperligaImagen(jugadores, temporada, rankingOffset = 0, client = null) {
-  const font = await getFontData();
   const avatars = await fetchAvatars(jugadores, client);
 
   const THEME = {
@@ -138,18 +122,5 @@ export async function generarStatsSuperligaImagen(jugadores, temporada, rankingO
     },
   };
 
-  const svg = await satori(element, {
-    width: totalWidth,
-    height: totalHeight,
-    fonts: [{ name: 'Inter', data: font, weight: 700, style: 'normal' }],
-    loadAdditionalAsset: async (code, segment) => {
-      if (code === 'emoji') {
-        const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-        return `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codepoints}.svg`;
-      }
-    }
-  });
-
-  const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: totalWidth * 2 } });
-  return resvg.render().asPng();
+  return renderToBuffer(element, totalWidth, totalHeight);
 }

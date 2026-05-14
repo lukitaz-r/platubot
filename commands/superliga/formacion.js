@@ -72,20 +72,32 @@ export default {
       }
       
       if (ssc && ['semifinales', 'final'].includes(ssc.fase)) {
-        const partidos = ssc.fase === 'semifinales' ? ssc.semifinales : (ssc.final ? [ssc.final] : []);
-        const p = partidos.find(p => 
-          !p.finalizado && (p.localId === eId || p.visitanteId === eId || 
-          p.localNombre === eq.nombre || p.visitanteNombre === eq.nombre)
-        );
-        if (p) {
-          modo = 'supersupercopa';
-          equipo = eq;
-          fechaActual = { numero: ssc.fase === 'semifinales' ? 'Semi' : 'Final' };
-          partido = p;
-          equipoId = eId;
-          competicionRef = ssc;
-          break;
+        const llaves = ssc.fase === 'semifinales' ? ssc.semifinales : (ssc.final ? [ssc.final] : []);
+        for (const ll of llaves) {
+          // Buscar qué partido de la llave está pendiente (Ida -> Vuelta -> Desempate)
+          const matches = [
+            { m: ll.ida, label: 'Ida' },
+            { m: ll.vuelta, label: 'Vuelta' },
+            { m: ll.desempate, label: 'Desempate' }
+          ].filter(x => x.m); // Filtrar desempate si no existe
+
+          const pData = matches.find(x => 
+            !x.m.finalizado && (x.m.localId === eId || x.m.visitanteId === eId || 
+            x.m.localNombre === eq.nombre || x.m.visitanteNombre === eq.nombre)
+          );
+
+          if (pData) {
+            modo = 'supersupercopa';
+            equipo = eq;
+            // Incluir el tipo de partido (Ida/Vuelta/Desempate) en el número de fecha
+            fechaActual = { numero: `${ssc.fase === 'semifinales' ? 'Semi' : 'Final'} - ${pData.label}` };
+            partido = pData.m;
+            equipoId = eId;
+            competicionRef = ssc;
+            break;
+          }
         }
+        if (modo) break;
       }
       
       // Buscar en Superliga
@@ -117,29 +129,45 @@ export default {
       return message.reply('❌ No tienes partidos pendientes en ninguna competición activa, o la fecha anterior aún no terminó.');
     }
 
-    if (equipo.jugadores.length !== 3) {
-      return message.reply(`❌ El equipo **${equipo.nombre}** debe tener exactamente 3 jugadores para formar (tiene ${equipo.jugadores.length}).`);
+    let jugadoresElegibles = [...equipo.jugadores];
+    if (jugadoresElegibles.length === 2 && equipo.coach) {
+      jugadoresElegibles.push({
+        id: equipo.coach.id,
+        nombre: equipo.coach.nombre,
+        media: 80,
+        mediaInicial: 80,
+        pais: 'Argentina'
+      });
+    }
+
+    if (jugadoresElegibles.length !== 3) {
+      return message.reply(`❌ El equipo **${equipo.nombre}** debe tener exactamente 3 jugadores para formar (tiene ${jugadoresElegibles.length}).`);
     }
 
     const loading = await message.reply(`<a:loading:1461897825439711468> Generando alineacion...`);
 
     const esLocal = (partido.localId === equipoId || partido.localNombre === equipo.nombre);
+    const isDesempate = partido.label === 'Desempate' || partido.tipo === 'Desempate' || (fechaActual.numero && String(fechaActual.numero).includes('Desempate'));
+    const expectedDuels = isDesempate ? 1 : 3;
+
     const duelosIndividuales = partido.duelosIndividuales || partido.miniPartidos || [];
 
-    // Asegurar que haya 3 duelosIndividuales inicializados
-    while (duelosIndividuales.length < 3) {
+    // Asegurar que haya expectedDuels duelosIndividuales inicializados
+    while (duelosIndividuales.length < expectedDuels) {
       duelosIndividuales.push({
         localJugadorId: null, localJugadorNombre: null,
         visitanteJugadorId: null, visitanteJugadorNombre: null,
         golesLocal: null, golesVisitante: null, finalizado: false
       });
     }
+    if (duelosIndividuales.length > expectedDuels) duelosIndividuales.length = expectedDuels;
     if (!partido.duelosIndividuales) partido.duelosIndividuales = duelosIndividuales;
 
     // 2.5 Verificar si el visitante ya alineó (si el que ejecuta es local)
-    if (esLocal && !duelosIndividuales.every(d => d.visitanteJugadorId)) {
+    if (esLocal && !duelosIndividuales.slice(0, expectedDuels).every(d => d.visitanteJugadorId)) {
       return loading.edit('❌ El equipo visitante aún no ha alineado. Deben alinear ellos primero.');
     }
+
     // Generar o cargar carta de un miembro
     const getCardB64 = async (miembro, eqRef) => {
       // 1. Si ya tiene la ruta guardada en el objeto
@@ -191,9 +219,9 @@ export default {
     const equiposDB = await EquipoSuperliga.find({});
     const rivalEq = equiposDB.find(e => (e._id?.$oid ?? e._id) === rivalId || e.nombre === rivalNombre);
 
-    // ─── VISITANTE: auto-alinea los 3 jugadores sin interacción ───
-    if (!esLocal) {
-      const jugadores = [...equipo.jugadores];
+    // ─── VISITANTE: auto-alinea los 3 jugadores sin interacción (SOLO para partidos normales) ───
+    if (!esLocal && !isDesempate) {
+      const jugadores = [...jugadoresElegibles];
       for (let i = 0; i < 3; i++) {
         duelosIndividuales[i].visitanteJugadorId = jugadores[i].id;
         duelosIndividuales[i].visitanteJugadorNombre = jugadores[i].nombre;
@@ -225,52 +253,63 @@ export default {
       });
     }
 
-    // ─── LOCAL: menú interactivo visual progresivo ───
-    const dtLocalCard = await getCardB64(equipo.coach, equipo);
-    const dtVisitanteCard = rivalEq ? await getCardB64(rivalEq.coach, rivalEq) : null;
+    // ─── LOCAL o VISITANTE EN DESEMPATE: menú interactivo visual progresivo ───
+    const dtLocalCard = esLocal ? await getCardB64(equipo.coach, equipo) : (rivalEq ? await getCardB64(rivalEq.coach, rivalEq) : null);
+    const dtVisitanteCard = !esLocal ? await getCardB64(equipo.coach, equipo) : (rivalEq ? await getCardB64(rivalEq.coach, rivalEq) : null);
 
-    // Pre-generar cartas de todos los jugadores del local
+    const escudoLocalParam = esLocal ? equipo.escudo : rivalEq?.escudo;
+    const escudoVisitanteParam = !esLocal ? equipo.escudo : rivalEq?.escudo;
+
+    // Pre-generar cartas de todos los jugadores del equipo
     const jugadorCardMap = {};
-    for (const j of equipo.jugadores) {
+    for (const j of jugadoresElegibles) {
       jugadorCardMap[j.id] = await getCardB64(j, equipo);
     }
 
-    // Pre-generar cartas de visitantes alineados
-    const visitanteCards = [];
-    for (let i = 0; i < 3; i++) {
-      const vId = duelosIndividuales[i]?.visitanteJugadorId;
-      if (vId && rivalEq) {
-        const vMem = rivalEq.jugadores.find(j => j.id === vId) || rivalEq.coach;
-        if (vMem) {
-          visitanteCards.push(await getCardB64(vMem, rivalEq));
+    // Identificar cartas ya elegidas por el rival
+    const rivalCards = [null, null, null];
+    if (esLocal && rivalEq) { 
+        for (let i = 0; i < expectedDuels; i++) {
+            const rId = duelosIndividuales[i]?.visitanteJugadorId;
+            if (rId) {
+                const rMem = rivalEq.jugadores.find(j => j.id === rId);
+                if (rMem) {
+                    const card = await getCardB64(rMem, rivalEq);
+                    if (isDesempate) rivalCards[1] = card; // Medio
+                    else rivalCards[i] = card;
+                }
+            }
         }
-      }
     }
 
+    const jugadoresLocalCardsArgs = esLocal ? [null, null, null] : rivalCards;
+    const jugadoresVisitanteCardsArgs = !esLocal ? [null, null, null] : rivalCards;
+
     // Opciones: todos los jugadores del equipo
-    const allOpts = equipo.jugadores.map(j => ({ label: j.nombre, value: j.id, description: `Media: ${Math.trunc(j.media)}` }));
+    const allOpts = jugadoresElegibles.map(j => ({ label: j.nombre, value: j.id, description: `Media: ${Math.trunc(j.media || 80)}` }));
     if (allOpts.length < 3) return loading.edit('❌ El equipo no tiene suficientes jugadores.');
 
     const menu = new ActionRowBuilder().addComponents(
       new StringSelectMenuBuilder()
         .setCustomId('alin_multi')
-        .setPlaceholder('Elegí tus 3 jugadores en orden (Mini 1, 2, 3)')
-        .setMinValues(3)
-        .setMaxValues(3)
+        .setPlaceholder(isDesempate ? 'Elegí a tu jugador para el Desempate' : 'Elegí tus 3 jugadores en orden (Mini 1, 2, 3)')
+        .setMinValues(expectedDuels)
+        .setMaxValues(expectedDuels)
         .addOptions(allOpts)
     );
+
     const imgBuffer = await generarAlineacion({
-        escudoLocal: equipo.escudo,
-        escudoVisitante: rivalEq?.escudo,
+        escudoLocal: escudoLocalParam,
+        escudoVisitante: escudoVisitanteParam,
         dtLocalCard,
         dtVisitanteCard,
-        jugadoresLocalCards: [null, null, null],
-        jugadoresVisitanteCards: visitanteCards,
+        jugadoresLocalCards: jugadoresLocalCardsArgs,
+        jugadoresVisitanteCards: jugadoresVisitanteCardsArgs,
       });
 
     const attach = new AttachmentBuilder(imgBuffer, { name: 'alineacion.png' });
     const m = await loading.edit({
-      content: `📋 **Alineación: ${equipo.nombre}** — **Fecha ${fechaActual.numero}**\nElegí los 3 jugadores en el orden que quieras alinearlos (el orden de selección = Mini 1, 2, 3):`,
+      content: `📋 **Alineación: ${equipo.nombre}** — **${fechaActual.numero}**\n${isDesempate ? 'Elegí a tu jugador para el **Desempate**:' : 'Elegí los 3 jugadores en el orden que quieras alinearlos (el orden de selección = Mini 1, 2, 3):'}`,
       files: [attach],
       components: [menu]
     });
@@ -284,35 +323,53 @@ export default {
     collector.on('collect', async i => {
       await i.deferUpdate();
 
-      const ids = i.values; // array de 3 IDs en orden de selección
+      const ids = i.values;
       const seleccionados = ids.map(id => {
-        const jug = equipo.jugadores.find(j => j.id === id);
+        const jug = jugadoresElegibles.find(j => j.id === id);
         return { id: jug.id, nombre: jug.nombre, cardB64: jugadorCardMap[jug.id] };
       });
 
       // Guardar formación
-      for (let idx = 0; idx < 3; idx++) {
-        duelosIndividuales[idx].localJugadorId = seleccionados[idx].id;
-        duelosIndividuales[idx].localJugadorNombre = seleccionados[idx].nombre;
+      for (let idx = 0; idx < expectedDuels; idx++) {
+        if (esLocal) {
+            duelosIndividuales[idx].localJugadorId = seleccionados[idx].id;
+            duelosIndividuales[idx].localJugadorNombre = seleccionados[idx].nombre;
+        } else {
+            duelosIndividuales[idx].visitanteJugadorId = seleccionados[idx].id;
+            duelosIndividuales[idx].visitanteJugadorNombre = seleccionados[idx].nombre;
+        }
       }
       await competicionRef.save();
 
-      // Generar imagen final (una sola vez)
+      const myCards = [null, null, null];
+      for (let idx = 0; idx < expectedDuels; idx++) {
+          if (isDesempate) myCards[1] = seleccionados[idx].cardB64;
+          else myCards[idx] = seleccionados[idx].cardB64;
+      }
+
+      // Generar imagen final
       const finalImg = await generarAlineacion({
-        escudoLocal: equipo.escudo,
-        escudoVisitante: rivalEq?.escudo,
+        escudoLocal: escudoLocalParam,
+        escudoVisitante: escudoVisitanteParam,
         dtLocalCard,
         dtVisitanteCard,
-        jugadoresLocalCards: seleccionados.map(s => s.cardB64),
-        jugadoresVisitanteCards: visitanteCards,
+        jugadoresLocalCards: esLocal ? myCards : rivalCards,
+        jugadoresVisitanteCards: !esLocal ? myCards : rivalCards,
       });
 
       collector.stop('success');
+
+      let finalContent = `✅ Formación de **${equipo.nombre}** confirmada para la **${fechaActual.numero}**.\n`;
+      if (isDesempate) {
+          finalContent += `**Desempate**: <@${seleccionados[0].id}> vs ${esLocal ? `<@${duelosIndividuales[0].visitanteJugadorId}>` : '⏳'}`;
+      } else {
+          finalContent += `<@${seleccionados[0].id}> vs ${esLocal ? `<@${duelosIndividuales[0].visitanteJugadorId}>` : '⏳'}\n` +
+                          `<@${seleccionados[1].id}> vs ${esLocal ? `<@${duelosIndividuales[1].visitanteJugadorId}>` : '⏳'}\n` +
+                          `<@${seleccionados[2].id}> vs ${esLocal ? `<@${duelosIndividuales[2].visitanteJugadorId}>` : '⏳'}`;
+      }
+
       await m.edit({
-        content: `✅ Formación de **${equipo.nombre}** confirmada para la **Fecha ${fechaActual.numero}**.\n` +
-                 `<@${seleccionados[0].id}> vs <@${partido.duelosIndividuales[0].visitanteJugadorId}>\n` +
-                 `<@${seleccionados[1].id}> vs <@${partido.duelosIndividuales[1].visitanteJugadorId}>\n` +
-                 `<@${seleccionados[2].id}> vs <@${partido.duelosIndividuales[2].visitanteJugadorId}>`,
+        content: finalContent,
         files: [new AttachmentBuilder(finalImg, { name: 'alineacion.png' })],
         components: []
       });

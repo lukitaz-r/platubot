@@ -12,7 +12,8 @@ import {
     ButtonBuilder,
     ButtonStyle,
     StringSelectMenuBuilder,
-    ChannelSelectMenuBuilder
+    ChannelSelectMenuBuilder,
+    ChannelType
 } from 'discord.js';
 import Torneo from '../../models/copas/Torneo.js';
 import { generarTablaImagenCopa, generarImagenParticipantes, generarBracketCopa } from '../../utils/visual/copaVisualGenerator.js';
@@ -94,6 +95,9 @@ async function handleParticipantes(client, message, args, torneo) {
 }
 
 async function handleBracket(client, message, args, torneo) {
+    if (!message.member.permissions.has('Administrator') && message.author.id !== torneo.createdBy) {
+        return message.reply('❌ Solo administradores pueden gestionar el torneo.');
+    }
     if (torneo.estado === 'Configuracion' || !torneo.fasesEliminatoria?.length) return message.reply('❌ El torneo aún no ha generado los brackets.');
     const loading = await message.reply('<a:loading:1461897825439711468> Generando bracket...');
     try {
@@ -278,10 +282,22 @@ async function renderAndSendFixture(client, context, torneo, idx, fasesData, lab
         const teamV = torneo.equipos.find(eq => eq.nombre === visitanteNombre);
 
         let resText = 'Pendiente';
-        if (e.ganador || e.completado) {
-            if (e.resultado) resText = e.resultado;
-            else if (e.ida?.finalizado && e.vuelta?.finalizado) resText = `${e.ida.golesLocal}-${e.ida.golesVisitante} / ${e.vuelta.golesLocal}-${e.vuelta.golesVisitante}`;
-            else if (e.ida?.finalizado) resText = `${e.ida.golesLocal}-${e.ida.golesVisitante}`;
+        if (fase.type === 'bracket' && torneo.tipoEncuentro === 'ida_vuelta') {
+            const resParts = [];
+            if (e.ida?.finalizado) resParts.push(`${e.ida.golesLocal}-${e.ida.golesVisitante}`);
+            if (e.vuelta?.finalizado) resParts.push(`${e.vuelta.golesLocal}-${e.vuelta.golesVisitante}`);
+            if (e.desempate?.finalizado) resParts.push(`(${e.desempate.golesLocal}-${e.desempate.golesVisitante})`);
+            
+            if (resParts.length > 0) {
+                resText = resParts.join(' / ');
+            } else if (e.resultado && (e.ganador || e.completado)) {
+                resText = e.resultado; // Fallback
+            }
+        } else {
+            if (e.ganador || e.completado || e.ida?.finalizado) {
+                if (e.resultado) resText = e.resultado;
+                else if (e.ida?.finalizado) resText = `${e.ida.golesLocal}-${e.ida.golesVisitante}`;
+            }
         }
 
         let ganadorNombre = null;
@@ -601,17 +617,34 @@ async function handleCargarResultadoAdmin(interaction, torneo, panelMsg) {
     const localNombre = match.local || match.equipo1?.nombre;
     const visitanteNombre = match.visitante || match.equipo2?.nombre;
 
+    let tipoMatch = 'unico';
+    let targetInteraction = sel;
+
+    if (!esGrupo && torneo.tipoEncuentro === 'ida_vuelta') {
+        const subSelect = new StringSelectMenuBuilder().setCustomId('gt_sel_t_res_internal').setPlaceholder('¿Qué partido?').addOptions([
+            { label: 'IDA', value: 'ida' }, { label: 'VUELTA', value: 'vuelta' }, { label: 'DESEMPATE', value: 'desempate' }
+        ]);
+        await sel.update({ content: `📊 Partido para: **${localNombre} vs ${visitanteNombre}**`, components: [new ActionRowBuilder().addComponents(subSelect)] });
+        const selTipo = await resp.awaitMessageComponent({ filter, time: 60000 }).catch(() => null);
+        if (!selTipo) return;
+        tipoMatch = selTipo.values[0];
+        targetInteraction = selTipo;
+    }
+
+    const glName = (tipoMatch === 'vuelta') ? visitanteNombre : localNombre;
+    const gvName = (tipoMatch === 'vuelta') ? localNombre : visitanteNombre;
+
     const modal = new ModalBuilder()
         .setCustomId(`modal_res_admin_internal`)
-        .setTitle(`Resultado: ${localNombre} vs ${visitanteNombre}`.slice(0, 45));
+        .setTitle(`${tipoMatch.toUpperCase()}: ${glName} vs ${gvName}`.slice(0, 45));
 
     modal.addComponents(
-        new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('gl').setLabel(`Goles de ${localNombre}`).setStyle(TextInputStyle.Short).setRequired(true)),
-        new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('gv').setLabel(`Goles de ${visitanteNombre}`).setStyle(TextInputStyle.Short).setRequired(true))
+        new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('gl').setLabel(`Goles de ${glName}`).setStyle(TextInputStyle.Short).setRequired(true)),
+        new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('gv').setLabel(`Goles de ${gvName}`).setStyle(TextInputStyle.Short).setRequired(true))
     );
 
-    await sel.showModal(modal);
-    const submit = await sel.awaitModalSubmit({ time: 60000 }).catch(() => null);
+    await targetInteraction.showModal(modal);
+    const submit = await interaction.awaitModalSubmit({ time: 60000 }).catch(() => null);
     if (!submit) return;
 
     const gl = parseInt(submit.fields.getTextInputValue('gl'));
@@ -637,8 +670,23 @@ async function handleCargarResultadoAdmin(interaction, torneo, panelMsg) {
         const fase = fresh.fasesEliminatoria[fresh.faseActual];
         const m = fresh.llaves[fase]?.find(e => e.equipo1.nombre === localNombre && e.equipo2.nombre === visitanteNombre && !e.ganador);
         if (m) {
-            m.ida.golesLocal = gl; m.ida.golesVisitante = gv; m.ida.finalizado = true; m.resultado = `${gl}-${gv}`;
-            if (gl > gv) m.ganador = m.equipo1.discordId; else if (gv > gl) m.ganador = m.equipo2.discordId; else m.ganador = m.equipo1.discordId;
+            let matchObj = null;
+            if (tipoMatch === 'unico' || tipoMatch === 'ida') matchObj = m.ida;
+            else if (tipoMatch === 'vuelta') matchObj = m.vuelta;
+            else if (tipoMatch === 'desempate') matchObj = m.desempate;
+
+            if (matchObj) {
+                matchObj.golesLocal = gl; matchObj.golesVisitante = gv; matchObj.finalizado = true;
+                m.resultado = `${gl}-${gv}`; // Legacy fallback for simple views
+                
+                if (tipoMatch === 'unico') {
+                    if (gl > gv) m.ganador = m.equipo1.discordId; else if (gv > gl) m.ganador = m.equipo2.discordId; else m.ganador = m.equipo1.discordId;
+                } else {
+                    const { determinarGanadorLlave } = await import('../../utils/generarBracket.js');
+                    const ganador = determinarGanadorLlave(m);
+                    if (ganador) m.ganador = ganador;
+                }
+            }
         }
     }
 
@@ -751,9 +799,64 @@ async function handleBorrarTorneo(interaction, torneo, panelMsg) {
 }
 
 async function handleAvanzarFaseAdmin(interaction, torneo, panelMsg) {
-    if (torneo.gruposHabilitados && torneo.enfrentamientosGrupos.some(e => !e.completado)) {
-        return interaction.reply({ content: '❌ No puedes avanzar fase hasta terminar todos los partidos de grupos.', flags: 64 });
-    }
+    const fresh = await Torneo.findOne({ prefix: torneo.prefix });
 
-    await interaction.reply({ content: '🚧 Lógica de avance de fase en desarrollo.', flags: 64 });
+    if (fresh.gruposHabilitados && Object.keys(fresh.llaves || {}).length === 0) {
+        if (fresh.enfrentamientosGrupos.some(e => !e.completado)) {
+            return interaction.reply({ content: '❌ No puedes avanzar fase hasta terminar todos los partidos de grupos.', flags: 64 });
+        }
+
+        if (fresh.playoffsHabilitados) {
+            const tabla = fresh.equipos.sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf);
+            
+            // Determinar cuántos avanzan (la mayor potencia de 2 posible menor o igual al total, max la mitad si son pocos, o ajustarlo a torneo estándar)
+            let n = Math.pow(2, Math.floor(Math.log2(tabla.length)));
+            if (n === tabla.length && n > 2) n = n / 2; // Si hay 4, pasan 2. Si hay 8, pasan 4.
+            if (n < 2) n = 2; // Mínimo una final
+
+            const clasificados = tabla.slice(0, n);
+            const { default: genBracket } = await import('../../utils/generarBracket.js');
+            const data = genBracket(clasificados, fresh.tipoEncuentro);
+            
+            fresh.llaves = data.llaves;
+            fresh.fasesEliminatoria = data.fasesEliminatoria;
+            fresh.faseActual = 0;
+
+            await fresh.save();
+            return interaction.reply({ content: `✅ **Fase de grupos finalizada.** Se generaron los brackets para los **${n}** mejores equipos. Siguiente fase: **${fresh.fasesEliminatoria[0]}**`, flags: 64 });
+        } else {
+            fresh.estado = 'Finalizado';
+            await fresh.save();
+            return interaction.reply({ content: '🏆 **¡La fase de grupos (liga) ha finalizado!** El torneo ha terminado.', flags: 64 });
+        }
+    } else {
+        // Estamos en eliminatorias
+        if (!fresh.fasesEliminatoria || fresh.fasesEliminatoria.length === 0) {
+            return interaction.reply({ content: '❌ No hay fases eliminatorias configuradas.', flags: 64 });
+        }
+
+        const fase = fresh.fasesEliminatoria[fresh.faseActual];
+        const matches = fresh.llaves[fase] || [];
+        
+        // Excluir BYEs de la validación
+        if (matches.some(m => !m.ganador && m.equipo2.discordId !== 'BYE')) {
+            return interaction.reply({ content: `❌ Todos los partidos de la fase **${fase}** deben tener un ganador para poder avanzar.`, flags: 64 });
+        }
+
+        const { avanzarFase } = await import('../../utils/generarBracket.js');
+        const sgte = avanzarFase(fresh);
+
+        if (!sgte) {
+            fresh.estado = 'Finalizado';
+            await fresh.save();
+            
+            const embed = EmbedBuilder.from(panelMsg.embeds[0]).setDescription(`**Estado:** Finalizado\n**Fase Actual:** Completado\n**Prefijo:** \`${fresh.prefix}\``);
+            await panelMsg.edit({ embeds: [embed], components: [] });
+            
+            return interaction.reply({ content: '🏆 **¡El torneo ha finalizado!** Se ha completado la gran final.', flags: 64 });
+        } else {
+            await fresh.save();
+            return interaction.reply({ content: `✅ Fase avanzada con éxito. Se generaron los cruces de **${sgte}**.`, flags: 64 });
+        }
+    }
 }

@@ -40,7 +40,7 @@ export default async function handleJugadores(interaction, liga, panelMsg, div) 
 
     liga.jugadores.push({ nombre, id });
     await liga.save();
-    await registrarJugadorGlobal(nombre, id);
+    await registrarJugadorGlobal(nombre, id, div);
 
     await panelMsg.edit({ embeds: [buildPanelEmbed(liga, div)], components: buildPanelRows(liga, div) });
     interaction.followUp({ content: `✅ **${nombre}** agregado a la ${div.charAt(0).toUpperCase() + div.slice(1)}.`, flags: 64 });

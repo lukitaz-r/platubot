@@ -1,20 +1,6 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-import { readFileSync, existsSync } from 'fs';
+import { renderToBuffer as renderToImage } from './renderPool.js';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
-
-// ── Fuente ──────────────────────────────────────────────────────────────────
-let fontData;
-try {
-  fontData = readFileSync(join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf'));
-} catch { fontData = null; }
-
-async function getFontData() {
-  if (fontData) return fontData;
-  const res = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf');
-  fontData = Buffer.from(await res.arrayBuffer());
-  return fontData;
-}
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function getShieldB64(escudoPath) {
@@ -51,26 +37,6 @@ const THEME = {
   divider: 'rgba(255,255,255,0.08)',
 };
 
-async function renderToImage(element, width, height) {
-  const font = await getFontData();
-  const svg = await satori(element, {
-    width, height,
-    fonts: [{ name: 'Inter', data: font, weight: 700, style: 'normal' }],
-    loadAdditionalAsset: async (code, segment) => {
-      if (code === 'emoji') {
-        const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-        // Normalizar: Twemoji no usa fe0f en los nombres de archivo
-        const cleanCode = codepoints.replace(/-fe0f/g, "");
-        try {
-          const res = await fetch(`https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cleanCode}.svg`);
-          if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-        } catch {}
-      }
-      return undefined;
-    }
-  });
-  return new Resvg(svg, { fitTo: { mode: 'width', value: width * 2 } }).render().asPng();
-}
 
 // ─── Componentes reutilizables ──────────────────────────────────────────────
 

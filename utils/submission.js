@@ -19,10 +19,10 @@ export default async function submission(client, message) {
   let tournamentType = ligaChannels[message.channel.id] || null;
 
   if (!tournamentType) {
-    const torneo = await Torneo.findOne({
-      canalResultados: message.channel.id,
-      estado: { $ne: 'Finalizado' },
+    const torneos = await Torneo.find({
+      canalResultados: message.channel.id
     });
+    const torneo = torneos.find(t => t.estado !== 'Finalizado');
     if (torneo) tournamentType = `COPA_${torneo.prefix.toUpperCase()}`;
   }
 
@@ -55,7 +55,6 @@ export default async function submission(client, message) {
       return warn('❌ Debes adjuntar la **foto del marcador** para reportar un resultado.');
     }
 
-    // Find pending matches for this user in the current phase
     const faseActual = coppa.fasesEliminatoria[coppa.faseActual];
     const llaves = coppa.llaves[faseActual] ?? [];
     const pendingOptions = [];
@@ -66,26 +65,10 @@ export default async function submission(client, message) {
       const isEq2 = llave.equipo2.discordId === message.author.id;
       if (!isEq1 && !isEq2) continue;
 
-      if (!llave.ida.finalizado) {
-        pendingOptions.push({
-          label: `IDA: ${llave.equipo1.nombre} vs ${llave.equipo2.nombre}`.slice(0, 100),
-          value: `${llave.id}|ida`,
-        });
-      } else if (!llave.vuelta.finalizado) {
-        pendingOptions.push({
-          label: `VUELTA: ${llave.equipo2.nombre} vs ${llave.equipo1.nombre}`.slice(0, 100),
-          value: `${llave.id}|vuelta`,
-        });
-      } else {
-        const g1 = llave.ida.golesLocal + llave.vuelta.golesVisitante;
-        const g2 = llave.ida.golesVisitante + llave.vuelta.golesLocal;
-        if (g1 === g2 && !llave.desempate.finalizado) {
-          pendingOptions.push({
-            label: `DESEMPATE: ${llave.equipo1.nombre} vs ${llave.equipo2.nombre}`.slice(0, 100),
-            value: `${llave.id}|desempate`,
-          });
-        }
-      }
+      pendingOptions.push({
+          label: `LLAVE: ${llave.equipo1.nombre} vs ${llave.equipo2.nombre}`.slice(0, 100),
+          value: `${llave.id}`,
+      });
     }
 
     if (!pendingOptions.length) {
@@ -112,13 +95,9 @@ export default async function submission(client, message) {
     }
     await selResp.deferUpdate().catch(() => {});
 
-    const [llaveId, tipo] = selResp.values[0].split('|');
+    const llaveId = selResp.values[0];
     const llave = llaves.find(l => l.id === llaveId);
     if (!llave) return;
-
-    const esVuelta = tipo === 'vuelta';
-    const localNombre = esVuelta ? llave.equipo2.nombre : llave.equipo1.nombre;
-    const visitanteNombre = esVuelta ? llave.equipo1.nombre : llave.equipo2.nombre;
 
     try {
       const approvalChannel = await client.channels.fetch(process.env.CANAL_APROBACION).catch(() => null);
@@ -128,11 +107,11 @@ export default async function submission(client, message) {
       const userNote = message.content?.trim() ? `\n📝 **Nota:** ${message.content}` : '';
 
       const embed = new EmbedBuilder()
-        .setTitle(`📋 Resultado Pendiente — Coppa (${tipo.toUpperCase()})`)
+        .setTitle(`📋 Resultado Pendiente — Coppa`)
         .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
         .setDescription(
-          `**Partido:** ${localNombre} vs ${visitanteNombre}\n` +
-          `**Fase:** ${faseActual} | **Tipo:** ${tipo.toUpperCase()}\n` +
+          `**Llave:** ${llave.equipo1.nombre} vs ${llave.equipo2.nombre}\n` +
+          `**Fase:** ${faseActual}\n` +
           `Reportado por <@${message.author.id}>${userNote}`
         )
         .setColor('#059669')
@@ -140,21 +119,17 @@ export default async function submission(client, message) {
         .setFooter({ text: `Coppa | ${allAttachments.length} imagen(es)` });
 
       const row = new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-          .setCustomId(`aprv|coppa|${llaveId}|${tipo}|${message.author.id}`)
-          .setLabel('✅ Validar')
-          .setStyle(ButtonStyle.Success),
-        new ButtonBuilder()
-          .setCustomId(`deny|coppa|${llaveId}|${tipo}|${message.author.id}`)
-          .setLabel('❌ Denegar')
-          .setStyle(ButtonStyle.Danger),
+        new ButtonBuilder().setCustomId(`aprv|coppa|${llaveId}|ida|${message.author.id}`).setLabel('✅ Validar Ida').setStyle(ButtonStyle.Success),
+        new ButtonBuilder().setCustomId(`aprv|coppa|${llaveId}|vuelta|${message.author.id}`).setLabel('✅ Validar Vuelta').setStyle(ButtonStyle.Success),
+        new ButtonBuilder().setCustomId(`aprv|coppa|${llaveId}|desempate|${message.author.id}`).setLabel('✅ Validar Desempate').setStyle(ButtonStyle.Success),
+        new ButtonBuilder().setCustomId(`deny|coppa|${llaveId}|none|${message.author.id}`).setLabel('❌ Denegar').setStyle(ButtonStyle.Danger)
       );
 
       const files = allAttachments.map(a => a.url);
       await approvalChannel.send({ embeds: [embed], components: [row], files });
 
       const confirm = await message.channel.send(
-        `✅ <@${message.author.id}> Resultado de la Coppa (**${localNombre} vs ${visitanteNombre}** — ${tipo}) enviado a revisión.`
+        `✅ <@${message.author.id}> Resultado de la Coppa (**${llave.equipo1.nombre} vs ${llave.equipo2.nombre}**) enviado a revisión.`
       );
       setTimeout(() => confirm.delete().catch(() => {}), 8000);
     } catch (error) {
@@ -193,7 +168,7 @@ export default async function submission(client, message) {
       return warn('❌ Debes adjuntar la **foto del marcador** para reportar un resultado.');
     }
 
-    const pendingMatches = liga.fechas.flatMap(f =>
+    const pendingMatches = liga.partidos.flatMap(f =>
       (f.partidos ?? f.encuentros)
         .filter(p => !p.finalizado && (p.localId === message.author.id || p.visitanteId === message.author.id))
         .map(p => ({ ...p, fechaNum: f.numero }))
@@ -280,7 +255,8 @@ export default async function submission(client, message) {
 
   if (tournamentType.startsWith('COPA_')) {
     const prefix = tournamentType.replace('COPA_', '').toLowerCase();
-    const torneo = await Torneo.findOne({ prefix, estado: { $ne: 'Finalizado' } });
+    const torneos = await Torneo.find({ prefix });
+    const torneo = torneos.find(t => t.estado !== 'Finalizado');
 
     const warn = async (text) => {
         try {
@@ -354,15 +330,17 @@ export default async function submission(client, message) {
     let displayMatch = '';
     let customId = '';
 
+    let baseCustomId = '';
+
     if (tipo === 'grupo') {
         displayMatch = `${val1} vs ${val2}`;
-        customId = `aprv|torneo|${torneo.prefix}|grupo|${val1}|${val2}|${message.author.id}`;
+        baseCustomId = `aprv|torneo|${torneo.prefix}|grupo|${val1}|${val2}`;
     } else {
         const fase = val1;
         const llId = val2;
         const ll = torneo.llaves[fase].find(l => l.id === llId);
         displayMatch = `${ll.equipo1.nombre} vs ${ll.equipo2.nombre}`;
-        customId = `aprv|torneo|${torneo.prefix}|bracket|${fase}|${llId}|${message.author.id}`;
+        baseCustomId = `aprv|torneo|${torneo.prefix}|bracket|${fase}|${llId}`;
     }
 
     try {
@@ -384,10 +362,25 @@ export default async function submission(client, message) {
             .setTimestamp()
             .setFooter({ text: `Torneo: ${torneo.prefix} | ${allAttachments.length} imagen(es)` });
 
-        const row = new ActionRowBuilder().addComponents(
-            new ButtonBuilder().setCustomId(customId).setLabel('✅ Validar').setStyle(ButtonStyle.Success),
-            new ButtonBuilder().setCustomId(`deny|torneo|${torneo.prefix}|${message.author.id}`).setLabel('❌ Denegar').setStyle(ButtonStyle.Danger),
-        );
+        const row = new ActionRowBuilder();
+        if (tipo === 'bracket' && torneo.tipoEncuentro === 'ida_vuelta') {
+            row.addComponents(
+                new ButtonBuilder().setCustomId(`${baseCustomId}|ida|${message.author.id}`).setLabel('✅ Validar Ida').setStyle(ButtonStyle.Success),
+                new ButtonBuilder().setCustomId(`${baseCustomId}|vuelta|${message.author.id}`).setLabel('✅ Validar Vuelta').setStyle(ButtonStyle.Success),
+                new ButtonBuilder().setCustomId(`${baseCustomId}|desempate|${message.author.id}`).setLabel('✅ Validar Desempate').setStyle(ButtonStyle.Success),
+                new ButtonBuilder().setCustomId(`deny|torneo|${torneo.prefix}|none|${message.author.id}`).setLabel('❌ Denegar').setStyle(ButtonStyle.Danger)
+            );
+        } else if (tipo === 'bracket') {
+            row.addComponents(
+                new ButtonBuilder().setCustomId(`${baseCustomId}|unico|${message.author.id}`).setLabel('✅ Validar Partido').setStyle(ButtonStyle.Success),
+                new ButtonBuilder().setCustomId(`deny|torneo|${torneo.prefix}|none|${message.author.id}`).setLabel('❌ Denegar').setStyle(ButtonStyle.Danger)
+            );
+        } else {
+            row.addComponents(
+                new ButtonBuilder().setCustomId(`${baseCustomId}|${message.author.id}`).setLabel('✅ Validar').setStyle(ButtonStyle.Success),
+                new ButtonBuilder().setCustomId(`deny|torneo|${torneo.prefix}|none|${message.author.id}`).setLabel('❌ Denegar').setStyle(ButtonStyle.Danger)
+            );
+        }
 
         await approvalChannel.send({ embeds: [embed], components: [row], files: allAttachments.map(a => a.url) });
 
@@ -430,17 +423,21 @@ export default async function submission(client, message) {
     // Buscar en Superliga activa
     const superliga = await Superliga.findOne({ actual: true });
     if (superliga && superliga.fechas) {
-      superliga.fechas.forEach((f, fi) => f.encuentros.forEach((p, pi) => {
-        if (p.finalizado) return;
-        if (p.localId === eqId || p.visitanteId === eqId || p.localNombre === eqNombre || p.visitanteNombre === eqNombre) {
-          pendingOptions.push({
-            label: `SL F${f.numero}: ${p.localNombre} vs ${p.visitanteNombre}`.slice(0, 100),
-            description: '⏳ Pendiente',
-            value: `sl_${fi}_${pi}`
+      superliga.fechas.forEach((f, fi) => 
+        {
+          const enc = f.partidos ?? f.encuentros;
+          enc.forEach((p, pi) => {
+            if (p.finalizado) return;
+            if (p.localId === eqId || p.visitanteId === eqId || p.localNombre === eqNombre || p.visitanteNombre === eqNombre) {
+              pendingOptions.push({
+                label: `SL F${f.numero}: ${p.localNombre} vs ${p.visitanteNombre}`.slice(0, 100),
+                description: '⏳ Pendiente',
+                value: `sl_${fi}_${pi}`
+              });
+              competicion = 'Superliga';
+            }
           });
-          competicion = 'Superliga';
-        }
-      }));
+        });
     }
 
     // Buscar en Supersupercopa activa
@@ -459,17 +456,27 @@ export default async function submission(client, message) {
           }
         })));
       } else {
-        const arr = ssc.fase === 'semifinales' ? ssc.semifinales : (ssc.final ? [ssc.final] : []);
-        arr.forEach((p, pi) => {
-          if (p.finalizado) return;
-          if (p.localId === eqId || p.visitanteId === eqId || p.localNombre === eqNombre || p.visitanteNombre === eqNombre) {
-            pendingOptions.push({
-              label: `SSC ${ssc.fase}: ${p.localNombre} vs ${p.visitanteNombre}`.slice(0, 100),
-              description: '⏳ Pendiente',
-              value: `ssc_e_${pi}`
-            });
-            competicion = 'Supersupercopa';
-          }
+        // Eliminatorias: Buscar en llaves de Ida y Vuelta
+        const llaves = ssc.fase === 'semifinales' ? ssc.semifinales : (ssc.final ? [ssc.final] : []);
+        llaves.forEach((ll, li) => {
+          const matches = [
+            { m: ll.ida, label: 'Ida' },
+            { m: ll.vuelta, label: 'Vuelta' },
+            { m: ll.desempate, label: 'Desempate' }
+          ].filter(x => x.m);
+
+          matches.forEach(data => {
+            const p = data.m;
+            if (p.finalizado) return;
+            if (p.localId === eqId || p.visitanteId === eqId || p.localNombre === eqNombre || p.visitanteNombre === eqNombre) {
+              pendingOptions.push({
+                label: `SSC ${ssc.fase} - ${data.label}: ${p.localNombre} vs ${p.visitanteNombre}`.slice(0, 100),
+                description: '⏳ Pendiente',
+                value: `ssc_e_${li}_${data.label.toLowerCase()}`
+              });
+              competicion = 'Supersupercopa';
+            }
+          });
         });
       }
     }
@@ -496,16 +503,25 @@ export default async function submission(client, message) {
     let partido;
     if (val.startsWith('sl_')) {
       const [, fi, pi] = val.split('_').map(Number);
-      partido = superliga.fechas[fi].partidos[pi];
+      const fechaObj = superliga.fechas[fi];
+      const enc = fechaObj?.encuentros ?? fechaObj?.partidos;
+      partido = enc?.[pi];
     } else if (val.startsWith('ssc_g_')) {
       const [,, gi, fi, pi] = val.split('_').map(Number);
       partido = ssc.grupos[gi].fechas[fi].partidos[pi];
-    } else {
-      const [,, pi] = val.split('_').map(Number);
-      partido = ssc.fase === 'semifinales' ? ssc.semifinales[pi] : ssc.final;
+    } else if (val.startsWith('ssc_e_')) {
+      const [,, li, tipo] = val.split('_');
+      const llave = ssc.fase === 'semifinales' ? ssc.semifinales[parseInt(li)] : ssc.final;
+      partido = llave[tipo];
     }
 
     // Segundo paso: Seleccionar Duelo
+    if (!partido || !partido.duelosIndividuales) {
+      await selMsg.edit({ content: '❌ No se pudo encontrar la información de los duelos para este partido o el partido no está alineado.', components: [] });
+      setTimeout(() => selMsg.delete().catch(() => {}), 5000);
+      return;
+    }
+
     const duelOptions = partido.duelosIndividuales
       .map((d, di) => ({
         label: `Duelo ${di + 1}: ${d.localJugadorNombre || 'TBD'} vs ${d.visitanteJugadorNombre || 'TBD'}`,

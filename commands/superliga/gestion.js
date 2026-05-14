@@ -237,12 +237,21 @@ export default {
 
                         // Media individual tras cada minipartido
                         if (gl !== gv && duelo.localJugadorId && duelo.visitanteJugadorId) {
-                            const { aplicarCambioMediaDuelo } = await import('../../utils/db/mediaCalculator.js');
-                            aplicarCambioMediaDuelo(
-                                gl > gv ? duelo.localJugadorId : duelo.visitanteJugadorId,
-                                gl > gv ? duelo.visitanteJugadorId : duelo.localJugadorId,
-                                Math.max(gl, gv), Math.min(gl, gv)
-                            );
+                            try {
+                                const { aplicarCambioMediaDuelo } = await import('../../utils/db/mediaCalculator.js');
+                                const resultadoMedia = await aplicarCambioMediaDuelo(
+                                    gl > gv ? duelo.localJugadorId : duelo.visitanteJugadorId,
+                                    gl > gv ? duelo.visitanteJugadorId : duelo.localJugadorId,
+                                    Math.max(gl, gv), Math.min(gl, gv)
+                                );
+                                if (resultadoMedia) {
+                                    const { ganadorNombre, perdedorNombre, delta, nuevaMediaGanador, nuevaMediaPerdedor } = resultadoMedia;
+                                    await btnInt.channel.send(`🧮 Media de **${ganadorNombre}** subió a **${nuevaMediaGanador.toFixed(2)}** (+${delta.toFixed(2)}) \nMedia de **${perdedorNombre}** bajó a **${nuevaMediaPerdedor.toFixed(2)}** (-${delta.toFixed(2)})`);
+                                    await (await client.channels.fetch(process.env.CANAL_RESULTADOS_SUPERLIGA)).send(`⚽ Partido <@${duelo.localJugadorId}> (${partido.localNombre}) vs <@${duelo.visitanteJugadorId}> (${partido.visitanteNombre})\n✅ Resultado: ${localName} **${gl} - ${gv}** ${visitanteName}\n📊 Cambios en las medias tras el duelo de **Superliga**:\n🧮 Media de **${ganadorNombre}** subió a **${nuevaMediaGanador.toFixed(2)}** (+${delta.toFixed(2)})\n🧮 Media de **${perdedorNombre}** bajó a **${nuevaMediaPerdedor.toFixed(2)}** (-${delta.toFixed(2)})`);
+                                }
+                            } catch (error) {
+                                console.log(error);
+                            }
                         }
 
                         // Recalcular estado global
@@ -290,7 +299,11 @@ export default {
                                     eqL.jugadores.forEach(j => { j.media = Math.round((j.media + 0.2) * 100) / 100; });
                                 } else if (pml < pmv) eqL.jugadores.forEach(j => { j.media = Math.round((j.media - 0.1) * 100) / 100; });
                                 await eqL.save();
-                                if (dineroL > 0) await registrarMovimiento(eqL._id, { tipo: 'Premio', monto: dineroL, detalle: 'Premios de Partido (Admin)' });
+                                if (dineroL > 0) {
+                                    await registrarMovimiento(eqL._id, { tipo: 'Premio', monto: dineroL, detalle: 'Premios de Partido (Admin)' });
+                                    await btnInt.channel.send({ content: `**${eqL.nombre}** ha ganado $**${dineroL}** por la victoria en la Superliga.` });
+                                    await client.channels.fetch(process.env.CANAL_RESULTADOS_SUPERLIGA).then(c => c.send({ content: `**${eqL.nombre}** ha ganado $**${dineroL}** por la victoria en la Superliga.` })).catch(() => {});
+                                }
                             }
                             if (eqV) {
                                 eqV.dinero = (eqV.dinero || 0) + dineroV;
@@ -299,7 +312,11 @@ export default {
                                     eqV.jugadores.forEach(j => { j.media = Math.round((j.media + 0.2) * 100) / 100; });
                                 } else if (pmv < pml) eqV.jugadores.forEach(j => { j.media = Math.round((j.media - 0.1) * 100) / 100; });
                                 await eqV.save();
-                                if (dineroV > 0) await registrarMovimiento(eqV._id, { tipo: 'Premio', monto: dineroV, detalle: 'Premios de Partido (Admin)' });
+                                if (dineroV > 0) {
+                                    await registrarMovimiento(eqV._id, { tipo: 'Premio', monto: dineroV, detalle: 'Premios de Partido (Admin)' });
+                                    await btnInt.channel.send({ content: `**${eqV.nombre}** ha ganado $**${dineroV}** por la victoria en la Superliga.` });
+                                    await client.channels.fetch(process.env.CANAL_RESULTADOS_SUPERLIGA).then(c => c.send({ content: `**${eqV.nombre}** ha ganado $**${dineroV}** por la victoria en la Superliga.` })).catch(() => {});
+                                }
                             }
                         }
 
@@ -319,7 +336,7 @@ export default {
               
               const matchOptions = [];
               for (const f of freshLiga.fechas) {
-                  for (const [idx, p] of f.encuentros.entries()) {
+                  for (const [idx, p] of (f.encuentros || f.partidos).entries()) {
                       if (p.localId === selEqId || p.visitanteId === selEqId) {
                           matchOptions.push({
                               label: `F${f.numero}: ${p.localNombre} vs ${p.visitanteNombre}`,
@@ -343,7 +360,7 @@ export default {
                   
                   const [nFR, nPR] = iMatch.values[0].split('_').map(Number);
                   const fObj = freshLiga.fechas.find(f => f.numero === nFR);
-                  const pObj = fObj?.encuentros[nPR - 1];
+                  const pObj = fObj?.partidos[nPR - 1] || fObj?.encuentros[nPR - 1];
                   
                   if (!pObj) return iMatch.reply({ content: '❌ Partido no encontrado.', flags: 64 });
                   
@@ -501,22 +518,47 @@ export default {
           const nom = subN.fields.getTextInputValue('nombre');
           const v = parseInt(subN.fields.getTextInputValue('vueltas')) || 1;
 
-          const equipos = await EquipoSuperliga.find({});
-          if (equipos.length < 2) return subN.reply({ content: '❌ Se necesitan al menos 2 equipos para iniciar.', flags: 64 });
+          const todosLosEquipos = await EquipoSuperliga.find({});
+          if (todosLosEquipos.length < 2) return subN.reply({ content: '❌ Se necesitan al menos 2 equipos para iniciar.', flags: 64 });
 
-          const fechas = generarRoundRobinSuperliga(equipos, v);
-          const nLiga = await Superliga.create({
-            nombre: 'Superliga',
-            temporada: nom,
-            actual: true,
-            equipos: equipos.map(e => e._id?.$oid ?? e._id),
-            fechas,
-            reglas: { vueltas: v },
-            fechaInicio: Date.now()
+          const eqOptions = todosLosEquipos.slice(0, 25).map(e => ({ label: e.nombre, value: (e._id?.$oid ?? e._id).toString() }));
+          const eqMenu = new StringSelectMenuBuilder()
+              .setCustomId('sel_eq_nueva')
+              .setPlaceholder('Selecciona los equipos participantes')
+              .setMinValues(2)
+              .setMaxValues(eqOptions.length)
+              .addOptions(eqOptions);
+          
+          const mSelect = await subN.reply({
+              content: `Configuración de **${nom}** guardada. Ahora selecciona los equipos que participarán:`,
+              components: [new ActionRowBuilder().addComponents(eqMenu)],
+              flags: 64,
+              fetchReply: true
           });
 
-          await panelMsg.edit({ embeds: [buildSuperligaEmbed(nLiga)], components: buildSuperligaRows(nLiga) });
-          await subN.reply({ content: `✅ Temporada **${nom}** iniciada con fixture generado.`, flags: 64 });
+          const colEqNueva = mSelect.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 120000 });
+          colEqNueva.on('collect', async iEqNueva => {
+              if (iEqNueva.customId !== 'sel_eq_nueva') return;
+              await iEqNueva.deferUpdate();
+
+              const idsSeleccionados = iEqNueva.values;
+              const equiposSeleccionados = todosLosEquipos.filter(e => idsSeleccionados.includes((e._id?.$oid ?? e._id).toString()));
+
+              const fechas = generarRoundRobinSuperliga(equiposSeleccionados, v);
+              const nLiga = await Superliga.create({
+                  nombre: 'Superliga',
+                  temporada: nom,
+                  actual: true,
+                  equipos: equiposSeleccionados.map(e => e._id?.$oid ?? e._id),
+                  fechas,
+                  reglas: { vueltas: v },
+                  fechaInicio: Date.now()
+              });
+
+              await panelMsg.edit({ embeds: [buildSuperligaEmbed(nLiga)], components: buildSuperligaRows(nLiga) });
+              await iEqNueva.editReply({ content: `✅ Temporada **${nom}** iniciada con ${equiposSeleccionados.length} equipos y fixture generado.`, components: [] });
+              colEqNueva.stop();
+          });
           break;
         }
 

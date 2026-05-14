@@ -1,9 +1,8 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import { renderToBuffer } from './renderPool.js';
 import fs from 'fs';
 import path from 'path';
 
-// Helper for local images/fonts
+// ── Helpers de imagen (se ejecutan en el hilo principal para preparar datos) ──
 const getAssetAsBase64 = (relativePath) => {
     try {
         const buffer = fs.readFileSync(path.join(process.cwd(), relativePath));
@@ -30,19 +29,6 @@ const getLogoAsync = async (src) => {
     return local || TRANSPARENT_PNG;
 };
 
-let fontBold = null;
-const getFont = async () => {
-    if (fontBold) return fontBold;
-    try { fontBold = fs.readFileSync(path.join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf')); } 
-    catch(e) {
-        try {
-            const res = await fetch('https://fonts.gstatic.com/s/opensans/v34/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu1aB.ttf');
-            if (res.ok) fontBold = Buffer.from(await res.arrayBuffer());
-        } catch(e2) {}
-    }
-    return fontBold;
-};
-
 const formatCurrency = (num) => {
     if (Math.abs(num) >= 1_000_000) return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
     if (Math.abs(num) >= 1_000) return (num / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
@@ -67,7 +53,6 @@ export const generarImagenMercado = async (titulo, escudoSrc, jugadores) => {
     const height = headerHeight + cardHeight + 250; // Espacio extra para stats debajo
     
     const logoBase64 = await getLogoAsync(escudoSrc);
-    const font = await getFont();
 
     const element = {
         type: 'div',
@@ -151,6 +136,6 @@ export const generarImagenMercado = async (titulo, escudoSrc, jugadores) => {
         }
     };
 
-    const svg = await satori(element, { width, height, fonts: font ? [{ name: 'sans-serif', data: font, weight: 700 }] : [] });
-    return new Resvg(svg, { fitTo: { mode: 'width', value: width } }).render().asPng();
+    const svg_result = await renderToBuffer(element, width, height, { scale: 1 });
+    return svg_result;
 };

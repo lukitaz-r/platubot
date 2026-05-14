@@ -11,7 +11,7 @@ const defaults = {
     texto: '#ffffff',
     borde: '#059669',
   },
-  formatoEliminatoria: 'ida_vuelta',
+  tipoEncuentro: 'ida_vuelta',
   hayTercerPuesto: false,
   fasesEliminatoria: [], // ['Octavos', 'Cuartos', 'Semifinales', 'Final']
   equipos: [],           // [{ nombre, discordId }]

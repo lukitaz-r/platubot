@@ -1,5 +1,4 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import { renderToBuffer } from './renderPool.js';
 import EquipoSuperliga from '../../models/superliga/Equipos.js';
 import { getFlagUrl } from './countryHelper.js';
 import fs from 'fs';
@@ -38,30 +37,6 @@ const positions = {};
 sData.images.forEach(img => {
     positions[img.id] = img;
 });
-
-// ── Cargar fuentes ──────────────────────────────────────────────────────────
-let openSansFontData = null;
-let dinProFontData = null;
-
-async function getFonts() {
-  if (!openSansFontData) {
-      try {
-          const res = await fetch('https://fonts.gstatic.com/s/opensans/v34/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu1aB.ttf');
-          if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-          openSansFontData = Buffer.from(await res.arrayBuffer());
-      } catch(e) {
-          try { openSansFontData = fs.readFileSync(path.join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf')); } catch(err) { }
-      }
-  }
-  if (!dinProFontData) {
-      try {
-          dinProFontData = fs.readFileSync(path.join(process.cwd(), 'assets', 'fonts', 'DinProCondensedMedium.otf'));
-      } catch(e) {
-          console.error("No se pudo cargar DinProCondensedMedium.otf", e);
-      }
-  }
-  return { openSans: openSansFontData, dinPro: dinProFontData };
-}
 
 async function imageToBase64(src) {
     if (!src) return null;
@@ -226,12 +201,11 @@ export async function generarCarta(data) {
         bgPath = 'assets/cartas/bronze.png';
     }
 
-    const [bgB64, avatarB64, flagB64, escudoB64, fonts] = await Promise.all([
+    const [bgB64, avatarB64, flagB64, escudoB64] = await Promise.all([
         imageToBase64(bgPath),
         imageToBase64(avatar),
         imageToBase64(getFlagUrl(pais)?.replace('/w160/', '/w320/')), // Reemplazamos w160 por w320 según request
-        imageToBase64(escudo),
-        getFonts()
+        imageToBase64(escudo)
     ]);
 
     // Función auxiliar para renderizar textos con s.json
@@ -344,37 +318,7 @@ export async function generarCarta(data) {
         },
     };
 
-    const satoriFonts = [];
-    if (fonts.dinPro) {
-        satoriFonts.push({ name: 'DinProCondensedMedium', data: fonts.dinPro, weight: 700, style: 'normal' });
-        satoriFonts.push({ name: 'DinProCondensedMedium', data: fonts.dinPro, weight: 700, style: 'normal' });
-    }
-    if (fonts.openSans) {
-        satoriFonts.push({ name: 'Open Sans', data: fonts.openSans, weight: 700, style: 'normal' });
-    }
-
-    const svg = await satori(element, {
-        width: sData.canvas.width,
-        height: sData.canvas.height,
-        fonts: satoriFonts.length > 0 ? satoriFonts : [{ name: 'sans-serif', data: Buffer.from([]), weight: 700, style: 'normal' }], // Fallback vacio por si todo falla
-        loadAdditionalAsset: async (code, segment) => {
-            if (code === 'emoji') {
-                const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-                const url = `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codepoints}.svg`;
-                try {
-                    const res = await fetch(url);
-                    if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-                } catch { return undefined; }
-            }
-            return undefined;
-        }
-    });
-
-    const resvg = new Resvg(svg, {
-        fitTo: { mode: 'width', value: sData.canvas.width }, // no escalar al doble para no sobrecargar si no hace falta, o dejamos * 2
-    });
-
-    const imageBuffer = resvg.render().asPng();
+    const imageBuffer = await renderToBuffer(element, sData.canvas.width, sData.canvas.height, { scale: 1, fontSet: 'card' });
 
     fs.writeFileSync(cachePath, imageBuffer);
     await actualizarCartaEnBD(id, cachePath, esCoach);

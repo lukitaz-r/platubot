@@ -190,11 +190,13 @@ async function handleResultadoCoppa(interaction, coppa) {
   const selTipo = await resp.awaitMessageComponent({ filter: i => i.user.id === interaction.user.id, time: 60000 }).catch(() => null);
   if (!selTipo) return;
 
+  
+
   const tipo = selTipo.values[0];
   const modal = new ModalBuilder().setCustomId(`mod_res_internal`).setTitle(`${tipo.toUpperCase()}: ${llave.equipo1.nombre.slice(0, 15)} vs ${llave.equipo2.nombre.slice(0, 15)}`);
   modal.addComponents(
-    new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('gl').setLabel('Goles Local').setStyle(TextInputStyle.Short).setRequired(true)),
-    new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('gv').setLabel('Goles Visitante').setStyle(TextInputStyle.Short).setRequired(true))
+    new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('gl').setLabel(`Goles ${(tipo === 'ida' || tipo === 'desempate') ? llave.equipo1.nombre.slice(0, 15) : llave.equipo2.nombre.slice(0, 15)}`).setStyle(TextInputStyle.Short).setRequired(true)),
+    new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('gv').setLabel(`Goles ${(tipo === 'ida' || tipo === 'desempate') ? llave.equipo2.nombre.slice(0, 15) : llave.equipo1.nombre.slice(0, 15)}`).setStyle(TextInputStyle.Short).setRequired(true))
   );
 
   await selTipo.showModal(modal);
@@ -214,8 +216,14 @@ async function handleResultadoCoppa(interaction, coppa) {
   const ganador = determinarGanadorLlave(freshL);
   if (ganador) freshL.ganador = ganador;
   await fresh.save();
-
   await submit.reply({ content: `✅ Resultado guardado.`, flags: 64 });
+  await client.channels.fetch(coppa.canalResultados)
+    .then(channel => channel.send({ content: `**Resultado de la Coppa:** ${tipo.toUpperCase()} | ${
+     (tipo === 'ida' || tipo === 'desempate' ) ? freshL.equipo1.nombre : freshL.equipo2.nombre
+    } ${gl} - ${gv} ${
+      (tipo === 'ida' || tipo === 'desempate' ) ? freshL.equipo2.nombre : freshL.equipo1.nombre
+    } ${ganador ? `| **Gana:** ${ganador.nombre}` : ''}` }))
+    .catch(() => { })
 }
 
 async function handleAvanzarCoppa(interaction, coppa, panelMsg) {

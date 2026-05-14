@@ -35,7 +35,7 @@ const defaults = {
   criteriosClasificacion: ['puntos', 'dif', 'gf'],
 
   playoffsHabilitados: true,
-  formatoEliminatoria: 'partido_unico',
+  tipoEncuentro: 'unico',
   hayTercerPuesto: false,
   fasesEliminatoria: [],
 

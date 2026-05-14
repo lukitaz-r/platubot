@@ -22,7 +22,8 @@ export default {
 
     // 1. Recopilar estadísticas con FILTRO DE ACTIVIDAD REAL
     liga.fechas.forEach(fecha => {
-      fecha.partidos.forEach(partido => {
+      const enc = fecha.partidos ?? fecha.encuentros;
+      enc.forEach(partido => {
         if (!partido.finalizado || !Array.isArray(partido.duelosIndividuales)) return;
 
         partido.duelosIndividuales.forEach(duelo => {

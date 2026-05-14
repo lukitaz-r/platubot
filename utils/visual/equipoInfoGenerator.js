@@ -1,9 +1,8 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import { renderToBuffer } from './renderPool.js';
 import fs from 'fs';
 import path from 'path';
 
-// Helper for local images/fonts
+// ── Helpers de imagen (se ejecutan en el hilo principal para preparar datos) ──
 const getAssetAsBase64 = (relativePath) => {
     try {
         const buffer = fs.readFileSync(path.join(process.cwd(), relativePath));
@@ -38,17 +37,11 @@ const getLogoAsync = async (src) => {
     return local;
 };
 
-let fontBold = null;
-const getFont = async () => {
-    if (fontBold) return fontBold;
-    try { fontBold = fs.readFileSync(path.join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf')); } 
-    catch(e) {
-        try {
-            const res = await fetch('https://fonts.gstatic.com/s/opensans/v34/memvYaGs126MiZpBA-UvWbX2vVnXBbObj2OVTSKmu1aB.ttf');
-            if (res.ok) fontBold = Buffer.from(await res.arrayBuffer());
-        } catch(e2) {}
-    }
-    return fontBold;
+const hexToRgba = (hex, alpha) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
 // 1. Plantilla (Cards side by side)
@@ -58,14 +51,13 @@ export const generarImagenPlantilla = async (equipoNombre, escudoSrc, buffersCar
     
     const cartasBase64 = buffersCartas.map(b => `data:image/png;base64,${b.toString('base64')}`);
     const logoBase64 = await getLogoAsync(escudoSrc);
-    const font = await getFont();
 
     const element = {
         type: 'div',
         props: {
             style: {
                 display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`,
-                backgroundColor: '#0d1117', padding: '40px', fontFamily: 'sans-serif'
+                backgroundColor: '#0d1117', padding: '40px', fontFamily: 'Inter'
             },
             children: [
                 {
@@ -93,7 +85,7 @@ export const generarImagenPlantilla = async (equipoNombre, escudoSrc, buffersCar
                         style: { display: 'flex', justifyContent: 'center', gap: '40px', width: '100%', alignItems: 'center' },
                         children: cartasBase64.map(src => ({
                             type: 'img',
-                            props: { src, style: { width: '300px', height: '455px', objectFit: 'contain' } } // 1080x1640 ratio
+                            props: { src, style: { width: '300px', height: '455px', objectFit: 'contain' } }
                         }))
                     }
                 }
@@ -101,25 +93,7 @@ export const generarImagenPlantilla = async (equipoNombre, escudoSrc, buffersCar
         }
     };
 
-    const svg = await satori(element, { 
-        width, 
-        height, 
-        fonts: font ? [{ name: 'sans-serif', data: font, weight: 700 }] : [],
-            loadAdditionalAsset: async (code, segment) => {
-            if (code === 'emoji') {
-                const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-                // Normalizar: Twemoji no usa fe0f en los nombres de archivo
-                const cleanCode = codepoints.replace(/-fe0f/g, "");
-                const url = `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cleanCode}.svg`;
-                try {
-                    const res = await fetch(url);
-                    if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-                } catch { return undefined; }
-            }
-            return undefined;
-        }
-    });
-    return new Resvg(svg).render().asPng();
+    return renderToBuffer(element, width, height, { scale: 1 });
 };
 
 // 2. Temporada Actual
@@ -127,12 +101,11 @@ export const generarImagenStatsTemporada = async (equipoNombre, escudoSrc, stats
     const width = 1000;
     const height = 450;
     const logoBase64 = await getLogoAsync(escudoSrc);
-    const font = await getFont();
 
     const element = {
         type: 'div',
         props: {
-            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, backgroundColor: '#0d1117', padding: '40px', fontFamily: 'sans-serif' },
+            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, backgroundColor: '#0d1117', padding: '40px', fontFamily: 'Inter' },
             children: [
                 {
                     type: 'div',
@@ -178,39 +151,20 @@ export const generarImagenStatsTemporada = async (equipoNombre, escudoSrc, stats
             ]
         }
     };
-    const svg = await satori(element, { 
-        width, 
-        height, 
-        fonts: font ? [{ name: 'sans-serif', data: font, weight: 700 }] : [],
-            loadAdditionalAsset: async (code, segment) => {
-            if (code === 'emoji') {
-                const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-                // Normalizar: Twemoji no usa fe0f en los nombres de archivo
-                const cleanCode = codepoints.replace(/-fe0f/g, "");
-                const url = `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cleanCode}.svg`;
-                try {
-                    const res = await fetch(url);
-                    if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-                } catch { return undefined; }
-            }
-            return undefined;
-        }
-    });
-    return new Resvg(svg).render().asPng();
+
+    return renderToBuffer(element, width, height, { scale: 1 });
 };
 
-// 3. Economía (With simple SVG graph)
+// 3. Economía
 export const generarImagenEconomia = async (equipoNombre, escudoSrc, ecoData) => {
     const width = 1280;
-    // Dynamic height to fit all players
     const height = Math.max(650, 350 + (ecoData.players.length * 150));
     const logoBase64 = await getLogoAsync(escudoSrc);
-    const font = await getFont();
 
     const element = {
         type: 'div',
         props: {
-            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, backgroundColor: '#0d1117', padding: '40px', fontFamily: 'sans-serif' },
+            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, backgroundColor: '#0d1117', padding: '40px', fontFamily: 'Inter' },
             children: [
                 {
                     type: 'div',
@@ -236,15 +190,12 @@ export const generarImagenEconomia = async (equipoNombre, escudoSrc, ecoData) =>
                     props: {
                         style: { display: 'flex', gap: '30px' },
                         children: [
-                            // Left Side (Stats)
                             {
                                 type: 'div',
                                 props: {
                                     style: { display: 'flex', flexDirection: 'column', flex: 1, gap: '15px', justifyContent: 'flex-start' },
                                     children: [
                                         { type: 'div', props: { style: { display: 'flex', justifyContent: 'space-between', backgroundColor: '#1f2937', padding: '15px 20px', borderRadius: '10px' }, children: [{ type: 'span', props: { style: { color: '#9ca3af' }, children: 'Dinero Actual' } }, { type: 'span', props: { style: { color: '#fff', fontSize: '20px' }, children: ecoData.dineroStr } }] } },
-                                        
-                                        // Ingresos Totales con Desglose
                                         { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', backgroundColor: '#1f2937', padding: '15px 20px', borderRadius: '10px' }, children: [
                                             { type: 'div', props: { style: { display: 'flex', justifyContent: 'space-between' }, children: [{ type: 'span', props: { style: { color: '#9ca3af' }, children: 'Ingresos Totales' } }, { type: 'span', props: { style: { color: '#4ade80', fontSize: '20px', fontWeight: 900 }, children: ecoData.ingresosStr } }] } },
                                             { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', marginTop: '10px', marginLeft: '15px', paddingLeft: '15px', borderLeft: '2px solid #374151' }, children: [
@@ -252,14 +203,12 @@ export const generarImagenEconomia = async (equipoNombre, escudoSrc, ecoData) =>
                                                 { type: 'div', props: { style: { display: 'flex', justifyContent: 'space-between' }, children: [{ type: 'span', props: { style: { color: '#9ca3af', fontSize: '14px' }, children: `🏆 Premio Liga (#${ecoData.posicionActual})` } }, { type: 'span', props: { style: { color: '#fbbf24', fontSize: '14px', fontWeight: 700 }, children: ecoData.proyeccionPremioLigaStr } }] } }
                                             ] } }
                                         ] } },
-
                                         { type: 'div', props: { style: { display: 'flex', justifyContent: 'space-between', backgroundColor: '#1f2937', padding: '15px 20px', borderRadius: '10px' }, children: [{ type: 'span', props: { style: { color: '#9ca3af' }, children: 'Total Salarios' } }, { type: 'span', props: { style: { color: '#f87171', fontSize: '20px' }, children: ecoData.salariosStr } }] } },
                                         { type: 'div', props: { style: { display: 'flex', justifyContent: 'space-between', backgroundColor: '#1f2937', padding: '15px 20px', borderRadius: '10px', border: `1px solid ${ecoData.balance >= 0 ? '#16a34a' : '#dc2626'}` }, children: [{ type: 'span', props: { style: { color: '#9ca3af', fontWeight: 900 }, children: 'BALANCE' } }, { type: 'span', props: { style: { color: ecoData.balance >= 0 ? '#4ade80' : '#f87171', fontSize: '24px', fontWeight: 900 }, children: ecoData.balanceStr } }] } },
                                         { type: 'div', props: { style: { display: 'flex', justifyContent: 'space-between', backgroundColor: '#111827', padding: '15px 20px', borderRadius: '10px', border: '2px dashed #6366f1', marginTop: '10px' }, children: [{ type: 'span', props: { style: { color: '#818cf8', fontWeight: 900 }, children: 'PROYECCIÓN' } }, { type: 'span', props: { style: { color: ecoData.proyeccion >= 0 ? '#60a5fa' : '#f87171', fontSize: '24px', fontWeight: 900 }, children: ecoData.proyeccionStr } }] } },
                                     ]
                                 }
                             },
-                            // Right Side (Line Graph values)
                             {
                                 type: 'div',
                                 props: {
@@ -274,26 +223,17 @@ export const generarImagenEconomia = async (equipoNombre, escudoSrc, ecoData) =>
                                                     const isUp = p.media > p.mediaIni;
                                                     const isFlat = p.media === p.mediaIni;
                                                     const color = isFlat ? '#9ca3af' : (isUp ? '#4ade80' : '#f87171');
-                                                    
                                                     const y1 = isFlat ? 20 : (isUp ? 35 : 5);
                                                     const y2 = isFlat ? 20 : (isUp ? 5 : 35);
-                                                    
-                                                    // Generate jagged line mimicking 0.25 jumps
-                                                    const jumps = Math.abs(p.media - p.mediaIni) / 0.25;
-                                                    const numPoints = isFlat ? 5 : Math.max(3, Math.min(25, Math.floor(jumps) + 1));
-                                                    
+                                                    const numPoints = isFlat ? 5 : Math.max(3, Math.min(25, Math.floor(Math.abs(p.media - p.mediaIni) / 0.25) + 1));
                                                     let pointsArray = [];
                                                     for (let i = 0; i < numPoints; i++) {
                                                         let x = 5 + (i * 190) / (numPoints - 1);
                                                         let perfectY = y1 + (i * (y2 - y1)) / (numPoints - 1);
-                                                        
-                                                        if (i > 0 && i < numPoints - 1) {
-                                                            perfectY += (Math.random() * 10 - 5); // noise
-                                                        }
+                                                        if (i > 0 && i < numPoints - 1) perfectY += (Math.random() * 10 - 5);
                                                         perfectY = Math.max(2, Math.min(38, perfectY));
                                                         pointsArray.push(`${x},${perfectY}`);
                                                     }
-
                                                     const svgGraph = {
                                                         type: 'svg',
                                                         props: {
@@ -308,7 +248,6 @@ export const generarImagenEconomia = async (equipoNombre, escudoSrc, ecoData) =>
                                                             ]
                                                         }
                                                     };
-
                                                     return {
                                                         type: 'div',
                                                         props: {
@@ -338,7 +277,7 @@ export const generarImagenEconomia = async (equipoNombre, escudoSrc, ecoData) =>
                                                                 ] } }
                                                             ]
                                                         }
-                                                    }
+                                                    };
                                                 })
                                             }
                                         }
@@ -351,43 +290,23 @@ export const generarImagenEconomia = async (equipoNombre, escudoSrc, ecoData) =>
             ]
         }
     };
-    const svg = await satori(element, { 
-        width, 
-        height, 
-        fonts: font ? [{ name: 'sans-serif', data: font, weight: 700 }] : [],
-            loadAdditionalAsset: async (code, segment) => {
-            if (code === 'emoji') {
-                const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-                // Normalizar: Twemoji no usa fe0f en los nombres de archivo
-                const cleanCode = codepoints.replace(/-fe0f/g, "");
-                const url = `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cleanCode}.svg`;
-                try {
-                    const res = await fetch(url);
-                    if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-                } catch { return undefined; }
-            }
-            return undefined;
-        }
-    });
-    return new Resvg(svg).render().asPng();
+
+    return renderToBuffer(element, width, height, { scale: 1 });
 };
 
-// 4. Historial Plantillas (B&W cards)
+// 4. Historial Plantillas
 export const generarImagenHistorial = async (equipoNombre, escudoSrc, buffersCartas, labels) => {
-    // Max 8 cards, 2 rows of 4
     const columns = 4;
     const rows = Math.ceil(buffersCartas.length / columns);
     const width = 1250;
     const height = 250 + (rows * 500);
-    
     const cartasBase64 = buffersCartas.map(b => `data:image/png;base64,${b.toString('base64')}`);
     const logoBase64 = await getLogoAsync(escudoSrc);
-    const font = await getFont();
 
     const element = {
         type: 'div',
         props: {
-            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, backgroundColor: '#0d1117', padding: '40px', fontFamily: 'sans-serif' },
+            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, backgroundColor: '#0d1117', padding: '40px', fontFamily: 'Inter' },
             children: [
                 {
                     type: 'div',
@@ -427,25 +346,7 @@ export const generarImagenHistorial = async (equipoNombre, escudoSrc, buffersCar
             ]
         }
     };
-    const svg = await satori(element, { 
-        width, 
-        height, 
-        fonts: font ? [{ name: 'sans-serif', data: font, weight: 700 }] : [],
-            loadAdditionalAsset: async (code, segment) => {
-            if (code === 'emoji') {
-                const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-                // Normalizar: Twemoji no usa fe0f en los nombres de archivo
-                const cleanCode = codepoints.replace(/-fe0f/g, "");
-                const url = `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cleanCode}.svg`;
-                try {
-                    const res = await fetch(url);
-                    if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-                } catch { return undefined; }
-            }
-            return undefined;
-        }
-    });
-    return new Resvg(svg).render().asPng();
+    return renderToBuffer(element, width, height, { scale: 1 });
 };
 
 // 5. Traspasos (FIFA Style)
@@ -453,12 +354,11 @@ export const generarImagenTraspasos = async (equipoNombre, escudoSrc, traspasosD
     const width = 1000;
     const height = 300 + (traspasosData.length * 120);
     const logoBase64 = await getLogoAsync(escudoSrc);
-    const font = await getFont();
 
     const element = {
         type: 'div',
         props: {
-            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, backgroundColor: '#0d1117', padding: '40px', fontFamily: 'sans-serif' },
+            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, backgroundColor: '#0d1117', padding: '40px', fontFamily: 'Inter' },
             children: [
                 {
                     type: 'div',
@@ -488,84 +388,35 @@ export const generarImagenTraspasos = async (equipoNombre, escudoSrc, traspasosD
                             let isAlta = t.tipo === 'Alta';
                             let isBaja = t.tipo === 'Baja';
                             let isMod = t.tipo?.includes('Mod') || t.tipo === 'Intercambio' || t.tipo === 'Modificación';
-
                             if (isAlta) color = '#22c55e';
                             else if (isBaja) color = '#ef4444';
                             else if (isMod) color = '#fbbf24';
-
                             const avatarSrc = await getLogoAsync(t.avatarJugador);
                             const escudoRelSrc = await getLogoAsync(t.equipoRelacionado === 'Agente Libre' ? 'assets/equipos/vacio.png' : t.escudoRelacionado);
-
-                            // SVG Arrow logic
                             const arrowSvg = {
                                 type: 'svg',
                                 props: {
-                                    viewBox: "0 0 160 40",
-                                    width: "160",
-                                    height: "40",
+                                    viewBox: "0 0 160 40", width: "160", height: "40",
                                     children: [
-                                        // Line
                                         { type: 'line', props: { x1: "10", y1: "20", x2: "150", y2: "20", stroke: color, strokeWidth: "4", strokeLinecap: "round" } },
-                                        // Head (Directional)
-                                        isAlta
-                                            ? { type: 'polyline', props: { points: "30,10 10,20 30,30", fill: "none", stroke: color, strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" } }
-                                            : (isBaja ? { type: 'polyline', props: { points: "130,10 150,20 130,30", fill: "none", stroke: color, strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" } } : null),
-                                        // Double head for Mod
+                                        isAlta ? { type: 'polyline', props: { points: "30,10 10,20 30,30", fill: "none", stroke: color, strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" } } : (isBaja ? { type: 'polyline', props: { points: "130,10 150,20 130,30", fill: "none", stroke: color, strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" } } : null),
                                         isMod ? { type: 'polyline', props: { points: "30,10 10,20 30,30", fill: "none", stroke: color, strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" } } : null,
                                         isMod ? { type: 'polyline', props: { points: "130,10 150,20 130,30", fill: "none", stroke: color, strokeWidth: "4", strokeLinecap: "round", strokeLinejoin: "round" } } : null,
                                     ].filter(Boolean)
                                 }
                             };
-
                             return {
                                 type: 'div',
                                 props: {
                                     style: { 
                                         display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
                                         backgroundColor: '#111827', padding: '15px 30px', borderRadius: '15px', 
-                                        border: `2px solid ${color}`,
-                                        boxShadow: `0 4px 15px ${color}22`
+                                        border: `2px solid ${color}`, boxShadow: `0 4px 15px ${color}22`
                                     },
                                     children: [
-                                        {
-                                            type: 'div',
-                                            props: {
-                                                style: { display: 'flex', alignItems: 'center', gap: '20px', width: '320px' },
-                                                children: [
-                                                    { type: 'img', props: { src: avatarSrc, style: { width: '70px', height: '70px', borderRadius: '50%', objectFit: 'cover', border: `3px solid ${color}` } } },
-                                                    {
-                                                        type: 'div',
-                                                        props: {
-                                                            style: { display: 'flex', flexDirection: 'column' },
-                                                            children: [
-                                                                { type: 'span', props: { style: { color: '#fff', fontSize: '22px', fontWeight: 900 }, children: t.jugadorNombre } },
-                                                                { type: 'span', props: { style: { color: '#9ca3af', fontSize: '14px', fontWeight: 700 }, children: t.fechaStr } }
-                                                            ]
-                                                         }
-                                                    }
-                                                ]
-                                            }
-                                        },
-                                        {
-                                            type: 'div',
-                                            props: {
-                                                style: { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '200px' },
-                                                children: [
-                                                    arrowSvg,
-                                                    { type: 'span', props: { style: { color: color, fontSize: '20px', fontWeight: 900, marginTop: '8px' }, children: t.montoStr !== '0' ? `$${t.montoStr}` : t.tipo } }
-                                                ]
-                                            }
-                                        },
-                                        {
-                                            type: 'div',
-                                            props: {
-                                                style: { display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '20px', width: '320px' },
-                                                children: [
-                                                    { type: 'span', props: { style: { color: '#fff', fontSize: '20px', fontWeight: 900, textAlign: 'right' }, children: t.equipoRelacionado } },
-                                                    { type: 'img', props: { src: escudoRelSrc, style: { width: '70px', height: '70px', objectFit: 'contain' } } }
-                                                ]
-                                            }
-                                        }
+                                        { type: 'div', props: { style: { display: 'flex', alignItems: 'center', gap: '20px', width: '320px' }, children: [ { type: 'img', props: { src: avatarSrc, style: { width: '70px', height: '70px', borderRadius: '50%', objectFit: 'cover', border: `3px solid ${color}` } } }, { type: 'div', props: { style: { display: 'flex', flexDirection: 'column' }, children: [ { type: 'span', props: { style: { color: '#fff', fontSize: '22px', fontWeight: 900 }, children: t.jugadorNombre } }, { type: 'span', props: { style: { color: '#9ca3af', fontSize: '14px', fontWeight: 700 }, children: t.fechaStr } } ] } } ] } },
+                                        { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '200px' }, children: [ arrowSvg, { type: 'span', props: { style: { color: color, fontSize: '20px', fontWeight: 900, marginTop: '8px' }, children: t.montoStr !== '0' ? `$${t.montoStr}` : t.tipo } } ] } },
+                                        { type: 'div', props: { style: { display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '20px', width: '320px' }, children: [ { type: 'span', props: { style: { color: '#fff', fontSize: '20px', fontWeight: 900, textAlign: 'right' }, children: t.equipoRelacionado } }, { type: 'img', props: { src: escudoRelSrc, style: { width: '70px', height: '70px', objectFit: 'contain' } } } ] } }
                                     ]
                                 }
                             };
@@ -575,19 +426,5 @@ export const generarImagenTraspasos = async (equipoNombre, escudoSrc, traspasosD
             ]
         }
     };
-    const svg = await satori(element, { width, height, fonts: font ? [{ name: 'sans-serif', data: font, weight: 700 }] : [],
-        loadAdditionalAsset: async (code, segment) => {
-            if (code === 'emoji') {
-                const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-                // Normalizar: Twemoji no usa fe0f en los nombres de archivo
-                const cleanCode = codepoints.replace(/-fe0f/g, "");
-                const url = `https://cdn.jsdelivr.net/gh/jdecked/twemoji@latest/assets/svg/${cleanCode}.svg`;
-                try {
-                    const res = await fetch(url);
-                    if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-                } catch { return undefined; }
-            }
-            return undefined;
-        } });
-    return new Resvg(svg).render().asPng();
+    return renderToBuffer(element, width, height, { scale: 1 });
 };

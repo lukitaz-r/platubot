@@ -1,22 +1,6 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import { renderToBuffer } from './renderPool.js';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-
-// ── Cargar fuente ──────────────────────────────────────────────────────────
-let fontData;
-try {
-  fontData = readFileSync(join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf'));
-} catch {
-  fontData = null;
-}
-
-async function getFontData() {
-  if (fontData) return fontData;
-  const res = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf');
-  fontData = Buffer.from(await res.arrayBuffer());
-  return fontData;
-}
 
 /**
  * Convierte un escudo local a Base64 para Satori
@@ -34,17 +18,18 @@ function getShieldB64(escudoPath) {
 }
 
 export async function generarTablaSuperligaImagen(tabla, temporada) {
-  const font = await getFontData();
-
   const THEME = {
-    bg: '#0a0e14', 
-    rowEven: '#0f141c',
-    rowOdd: '#0a0e14',
+    bg: '#0a0e14',
+    oceanic: '#2ecc71',
     text: '#ffffff',
     textMuted: '#94a3b8',
-    oceanic: '#2ecc71', 
-    oceanicGlow: 'rgba(46, 204, 113, 0.2)',
-    podiumGold: '#f1c40f',
+    cardBg: '#161d26',
+    border: 'rgba(46, 204, 113, 0.25)',
+    winnerColor: '#f1c40f',
+    rowEven: 'rgba(255,255,255,0.02)',
+    rowOdd: 'rgba(255,255,255,0.05)',
+    podiumGold: '#ffd700',
+    oceanicGlow: 'rgba(46,204,113,0.6)',
   };
 
   // Pos, Escudo, Equipo, PTS, PJ, PG, PP, GF, GC, DG
@@ -113,20 +98,7 @@ export async function generarTablaSuperligaImagen(tabla, temporada) {
     }
   };
 
-  const svg = await satori(element, {
-    width: totalWidth,
-    height: totalHeight,
-    fonts: [{ name: 'Inter', data: font, weight: 700, style: 'normal' }],
-    loadAdditionalAsset: async (code, segment) => {
-      if (code === 'emoji') {
-        const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-        return `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codepoints}.svg`;
-      }
-    }
-  });
-
-  const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: totalWidth * 2 } });
-  return resvg.render().asPng();
+  return renderToBuffer(element, totalWidth, totalHeight);
 }
 
 export function prepararDatosTabla(listaTabla, equipos) {

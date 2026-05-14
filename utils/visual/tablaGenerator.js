@@ -1,25 +1,6 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-import { readFileSync } from 'fs';
+import { renderToBuffer } from './renderPool.js';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-
-// ── Cargar fuente ──────────────────────────────────────────────────────────
-// Usa la fuente Inter de Google Fonts (descargada localmente)
-let fontData;
-try {
-  fontData = readFileSync(join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf'));
-} catch {
-  // Fallback: descargar en runtime si no existe localmente
-  fontData = null;
-}
-
-async function getFontData() {
-  if (fontData) return fontData;
-  // Descargar Inter de Google Fonts CDN
-  const res = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf');
-  fontData = Buffer.from(await res.arrayBuffer());
-  return fontData;
-}
 
 // ── Calcular tabla de posiciones ───────────────────────────────────────────
 
@@ -56,8 +37,8 @@ export function calcularTabla(liga) {
         visitante.pg++; visitante.pts += 3;
         local.pp++;
       } else {
-        local.pe++; local.pts += 1;
-        visitante.pe++; visitante.pts += 1;
+        local.pe++; local.pts -= 2;
+        visitante.pe++; visitante.pts -= 2;
       }
     }
   }
@@ -65,19 +46,19 @@ export function calcularTabla(liga) {
   // Calcular diferencia de gol y ordenar
   const jugMap = new Map(liga.jugadores.map(j => [j.id, j]));
   const tabla = [...mapa.values()].map(j => {
-    const override = jugMap.get(j.id)?.statsOverride;
-    if (override) {
-      const pg = override.pg ?? j.pg;
-      const pe = override.pe ?? j.pe;
-      const pp = override.pp ?? j.pp;
-      const gf = override.gf ?? j.gf;
-      const gc = override.gc ?? j.gc;
+    const jugDb = jugMap.get(j.id);
+    if (jugDb && (jugDb.pg !== undefined || jugDb.puntos !== undefined)) {
+      const pg = jugDb.pg ?? j.pg;
+      const pe = jugDb.pe ?? j.pe;
+      const pp = jugDb.pp ?? j.pp;
+      const gf = jugDb.gf ?? j.gf;
+      const gc = jugDb.gc ?? j.gc;
       return {
         ...j,
         pg, pe, pp, gf, gc,
-        pj: pg + pe + pp,
+        pj: jugDb.pj ?? (pg + pe + pp),
         dg: gf - gc,
-        pts: pg * 3 + pe,
+        pts: jugDb.puntos ?? (pg * 3 - (pe * 2)),
       };
     }
     return { ...j, dg: j.gf - j.gc };
@@ -166,7 +147,6 @@ const THEMES = {
 
 export async function generarTablaImagen(liga, client, div = 'primera') {
   const tabla = calcularTabla(liga);
-  const font = await getFontData();
   const avatars = await fetchAvatars(tabla, client);
   const theme = THEMES[div] ?? THEMES.primera;
 
@@ -326,53 +306,5 @@ export async function generarTablaImagen(liga, client, div = 'primera') {
     },
   };
 
-  const svg = await satori(element, {
-    width: totalWidth,
-    height: totalHeight,
-    fonts: [
-      {
-        name: 'Inter',
-        data: font,
-        weight: 700,
-        style: 'normal',
-      },
-    ],
-    loadAdditionalAsset: async (code, segment) => {
-      if (code === 'emoji') {
-        // Convertir emoji a codepoints
-        const codepoints = [...segment]
-          .map(c => c.codePointAt(0).toString(16))
-          .join('-');
-        
-        // Intentar cargar localmente primero
-        const localPath = join(process.cwd(), 'assets', 'emojis', `${codepoints}.svg`);
-        try {
-          if (existsSync(localPath)) {
-            const svg = readFileSync(localPath, 'utf8');
-            return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
-          }
-        } catch (e) {
-          // Ignorar error y seguir con CDN
-        }
-
-        // Fallback: CDN de Twemoji
-        const url = `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codepoints}.svg`;
-        try {
-          const res = await fetch(url);
-          if (!res.ok) return undefined;
-          const svg = await res.text();
-          return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
-        } catch {
-          return undefined;
-        }
-      }
-      return undefined;
-    },
-  });
-
-  const resvg = new Resvg(svg, {
-    fitTo: { mode: 'width', value: totalWidth * 2 },
-  });
-
-  return resvg.render().asPng();
+  return renderToBuffer(element, totalWidth, totalHeight);
 }

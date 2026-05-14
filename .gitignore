@@ -37,3 +37,4 @@ data/
 
 .gemini/
 gha-creds-*.json
+generadas/

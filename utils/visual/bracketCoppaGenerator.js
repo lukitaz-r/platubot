@@ -1,22 +1,6 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import { renderToBuffer } from './renderPool.js';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-
-// ── Font ───────────────────────────────────────────────────────────────────
-let fontData;
-try {
-  fontData = readFileSync(join(process.cwd(), 'assets', 'fonts', 'Inter-Bold.ttf'));
-} catch {
-  fontData = null;
-}
-
-async function getFontData() {
-  if (fontData) return fontData;
-  const res = await fetch('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf');
-  fontData = Buffer.from(await res.arrayBuffer());
-  return fontData;
-}
 
 // ── Background Image ────────────────────────────────────────────────────────
 function getBgImageB64() {
@@ -228,7 +212,6 @@ function buildConnectors(fromTops, toTops, xStart, width, direction = 'right') {
 
 // ── Main Generator ──────────────────────────────────────────────────────────
 export async function generarBracketImagen(coppa, client) {
-  const font = await getFontData();
   const avatars = await fetchAvatars(coppa.equipos, client);
   const bgB64 = getBgImageB64();
 
@@ -387,21 +370,5 @@ export async function generarBracketImagen(coppa, client) {
     }
   };
 
-  const svg = await satori(root, {
-    width: CANVAS_W, height: CANVAS_H,
-    fonts: [{ name: 'Inter', data: font, weight: 700, style: 'normal' }],
-    loadAdditionalAsset: async (code, segment) => {
-      if (code === 'emoji') {
-        const codepoints = [...segment].map(c => c.codePointAt(0).toString(16)).join('-');
-        const url = `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${codepoints}.svg`;
-        try {
-          const res = await fetch(url);
-          if (res.ok) return `data:image/svg+xml;base64,${Buffer.from(await res.text()).toString('base64')}`;
-        } catch { return undefined; }
-      }
-      return undefined;
-    },
-  });
-
-  return new Resvg(svg, { fitTo: { mode: 'width', value: CANVAS_W * 2 } }).render().asPng();
+  return renderToBuffer(root, CANVAS_W, CANVAS_H);
 }

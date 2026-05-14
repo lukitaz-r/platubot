@@ -1,8 +1,9 @@
 import { ActionRowBuilder, StringSelectMenuBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 
 export default async function handleResultados(interaction, liga, div) {
-  const partidos = liga.fechas.flatMap(f =>
-    (f.partidos ?? f.encuentros).filter(p => p && !p.finalizado).map(p => ({ ...p, fechaNum: f.numero }))
+  const schedule = liga.fechas ?? liga.partidos ?? [];
+  const partidos = schedule.flatMap(f =>
+    (f.partidos ?? f.encuentros ?? []).filter(p => p && !p.finalizado).map(p => ({ ...p, fechaNum: f.numero }))
   ).slice(0, 25);
 
   if (!partidos.length) {
@@ -70,18 +71,26 @@ export default async function handleResultados(interaction, liga, div) {
   }
 
   // Guardar resultado en el JSON
-  const fechaIdx = liga.fechas.findIndex(f => (f.partidos ?? f.encuentros).some(p => p._id === partidoId));
-  const partIdx = (liga.fechas[fechaIdx].partidos ?? liga.fechas[fechaIdx].encuentros).findIndex(p => p._id === partidoId);
-  liga.fechas[fechaIdx].partidos[partIdx].golesLocal = gl;
-  liga.fechas[fechaIdx].partidos[partIdx].golesVisitante = gv;
-  liga.fechas[fechaIdx].partidos[partIdx].finalizado = true;
+  const scheduleUpdate = liga.fechas ?? liga.partidos ?? [];
+  const fechaIdx = scheduleUpdate.findIndex(f => (f.partidos ?? f.encuentros ?? []).some(p => p._id === partidoId));
+  if (fechaIdx === -1) return modalResp.reply({ content: '❌ No se encontró el partido en el calendario.', flags: 64 });
+
+  const targetFecha = scheduleUpdate[fechaIdx];
+  const pArray = targetFecha.partidos ?? targetFecha.encuentros ?? [];
+  const partIdx = pArray.findIndex(p => p._id === partidoId);
+  if (partIdx === -1) return modalResp.reply({ content: '❌ No se encontró el partido en la fecha.', flags: 64 });
+
+  const pRef = pArray[partIdx];
+  pRef.golesLocal = gl;
+  pRef.golesVisitante = gv;
+  pRef.finalizado = true;
+
   await liga.save();
 
-  const p = liga.partidos[fechaIdx].partidos[partIdx];
-  const imgLine = p.imagenResultado ? `\n📷 [Ver imagen del resultado](${p.imagenResultado})` : '';
+  const imgLine = pRef.imagenResultado ? `\n📷 [Ver imagen del resultado](${pRef.imagenResultado})` : '';
 
   await modalResp.reply({
-    content: `✅ Resultado cargado: **${p.localNombre} ${gl} - ${gv} ${p.visitanteNombre}**${imgLine}`,
+    content: `✅ Resultado cargado: **${pRef.localNombre} ${gl} - ${gv} ${pRef.visitanteNombre}**${imgLine}`,
     flags: 64,
   });
 }
