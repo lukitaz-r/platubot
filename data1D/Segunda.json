@@ -15,134 +15,112 @@
       {
         "nombre": "Búho",
         "id": "664977038905704454",
-        "pj": 5,
-        "pg": 3,
+        "pj": 18,
+        "pg": 11,
         "pe": 0,
-        "pp": 2,
-        "gf": 23,
-        "gc": 18,
-        "puntos": 9
+        "pp": 7,
+        "gf": 77,
+        "gc": 64,
+        "puntos": 33
       },
       {
         "nombre": "Thiago",
         "id": "752669799263502356",
-        "pj": 4,
-        "pg": 2,
+        "pj": 18,
+        "pg": 4,
         "pe": 0,
-        "pp": 2,
-        "gf": 16,
-        "gc": 18,
-        "puntos": 6
+        "pp": 14,
+        "gf": 61,
+        "gc": 81,
+        "puntos": 12
       },
       {
         "nombre": "Shuu",
         "id": "747095738269433917",
-        "pj": 7,
-        "pg": 6,
+        "pj": 18,
+        "pg": 8,
         "pe": 0,
-        "pp": 1,
-        "gf": 33,
-        "gc": 22,
-        "puntos": 18
+        "pp": 10,
+        "gf": 70,
+        "gc": 72,
+        "puntos": 24
       },
       {
         "nombre": "Pepsi",
         "id": "425414047861571586",
-        "pj": 4,
-        "pg": 1,
+        "pj": 18,
+        "pg": 11,
         "pe": 0,
-        "pp": 3,
-        "gf": 13,
-        "gc": 15,
-        "puntos": 3
+        "pp": 7,
+        "gf": 73,
+        "gc": 60,
+        "puntos": 33
       },
       {
         "nombre": "Gabriel",
         "id": "534499521653112844",
-        "pj": 6,
-        "pg": 1,
-        "pe": 0,
-        "pp": 5,
-        "gf": 16,
-        "gc": 29,
-        "puntos": 3
-      },
-      {
-        "nombre": "Beier",
-        "id": "848039636726054962",
-        "pj": 1,
-        "pg": 0,
-        "pe": 4,
-        "pp": 1,
-        "gf": 2,
-        "gc": 25,
-        "puntos": 0
+        "pj": 18,
+        "pg": 8,
+        "pe": 1,
+        "pp": 9,
+        "gf": 58,
+        "gc": 69,
+        "puntos": 22
       },
       {
         "nombre": "Raph",
         "id": "689386903203610685",
-        "pj": 6,
-        "pg": 2,
+        "pj": 17,
+        "pg": 7,
         "pe": 0,
-        "pp": 4,
-        "gf": 19,
-        "gc": 25,
-        "puntos": 6
-      },
-      {
-        "nombre": "Santulado",
-        "id": "1495584399725432883",
-        "pj": 3,
-        "pg": 1,
-        "pe": 0,
-        "pp": 2,
-        "gf": 9,
-        "gc": 14,
-        "puntos": 3
+        "pp": 10,
+        "gf": 59,
+        "gc": 69,
+        "puntos": 21
       },
       {
         "nombre": "Sebas",
         "id": "1449512445549871125",
-        "pj": 5,
-        "pg": 3,
+        "pj": 18,
+        "pg": 11,
         "pe": 0,
-        "pp": 2,
-        "gf": 21,
-        "gc": 20,
-        "puntos": 9
+        "pp": 7,
+        "gf": 77,
+        "gc": 73,
+        "puntos": 33
       },
       {
         "nombre": "Benja",
         "id": "992866773047193710",
-        "pj": 6,
-        "pg": 4,
+        "pj": 18,
+        "pg": 11,
         "pe": 0,
-        "pp": 2,
-        "gf": 27,
-        "gc": 18,
-        "puntos": 12
+        "pp": 7,
+        "gf": 82,
+        "gc": 62,
+        "puntos": 33
       },
       {
         "nombre": "Lulú",
         "id": "1393029583778873415",
-        "pj": 7,
-        "pg": 4,
+        "pj": 18,
+        "pg": 11,
         "pe": 0,
-        "pp": 3,
-        "gf": 32,
-        "gc": 25,
-        "puntos": 12
+        "pp": 7,
+        "gf": 78,
+        "gc": 67,
+        "puntos": 33
       },
       {
         "nombre": "Facu",
         "id": "1285655821346144267",
-        "pj": 6,
-        "pg": 3,
-        "pe": 0,
-        "pp": 3,
-        "gf": 22,
-        "gc": 24,
-        "puntos": 9
+        "pj": 17,
+        "pg": 6,
+        "pe": 4,
+        "pp": 7,
+        "gf": 50,
+        "gc": 63,
+        "puntos": 10
       }
     ],
     "partidos": [
@@ -182,17 +160,6 @@
             "imagenResultado": null
           },
           {
-            "_id": "1777786769932_9sh34fazane",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "425414047861571586",
-            "visitanteNombre": "Pepsi",
-            "golesLocal": 0,
-            "golesVisitante": 5,
-            "finalizado": true,
-            "imagenResultado": null
-          },
-          {
             "_id": "1777786769932_p2vz41dqjgj",
             "localId": "747095738269433917",
             "localNombre": "Shuu",
@@ -216,17 +183,6 @@
             "visitanteNombre": "Benja",
             "golesLocal": 3,
             "golesVisitante": 5,
-            "finalizado": true,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769932_rfditxaevpr",
-            "localId": "747095738269433917",
-            "localNombre": "Shuu",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": 5,
-            "golesVisitante": 2,
             "finalizado": true,
             "imagenResultado": null
           },
@@ -298,17 +254,6 @@
             "visitanteNombre": "Búho",
             "golesLocal": 5,
             "golesVisitante": 4,
-            "finalizado": true,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769932_rp1go1iebug",
-            "localId": "752669799263502356",
-            "localNombre": "Thiago",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": 5,
-            "golesVisitante": 0,
             "finalizado": true,
             "imagenResultado": null
           },
@@ -400,17 +345,6 @@
             "imagenResultado": null
           },
           {
-            "_id": "1777786769931_r1rsw04wvm8",
-            "localId": "1449512445549871125",
-            "localNombre": "Sebas",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": 5,
-            "golesVisitante": 0,
-            "finalizado": true,
-            "imagenResultado": null
-          },
-          {
             "_id": "1777786769931_0nx46gr4tdke",
             "localId": "747095738269433917",
             "localNombre": "Shuu",
@@ -449,25 +383,14 @@
       {
         "partidos": [
           {
-            "_id": "1777786769932_2ucbflo2qay",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "534499521653112844",
-            "visitanteNombre": "Gabriel",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
             "_id": "1777786769932_9ryov02zb4u",
             "localId": "752669799263502356",
             "localNombre": "Thiago",
             "visitanteId": "1285655821346144267",
             "visitanteNombre": "Facu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -476,9 +399,9 @@
             "localNombre": "Shuu",
             "visitanteId": "992866773047193710",
             "visitanteNombre": "Benja",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -487,9 +410,9 @@
             "localNombre": "Lulú",
             "visitanteId": "664977038905704454",
             "visitanteNombre": "Búho",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 1,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -498,9 +421,9 @@
             "localNombre": "Raph",
             "visitanteId": "1449512445549871125",
             "visitanteNombre": "Sebas",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -514,9 +437,9 @@
             "localNombre": "Shuu",
             "visitanteId": "1449512445549871125",
             "visitanteNombre": "Sebas",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -525,9 +448,9 @@
             "localNombre": "Lulú",
             "visitanteId": "534499521653112844",
             "visitanteNombre": "Gabriel",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -536,9 +459,9 @@
             "localNombre": "Benja",
             "visitanteId": "664977038905704454",
             "visitanteNombre": "Búho",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -547,20 +470,9 @@
             "localNombre": "Raph",
             "visitanteId": "425414047861571586",
             "visitanteNombre": "Pepsi",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769931_ffyt15jr3o9",
-            "localId": "1285655821346144267",
-            "localNombre": "Facu",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -580,17 +492,6 @@
             "imagenResultado": null
           },
           {
-            "_id": "1777786769931_ln9ugtmu9ot",
-            "localId": "664977038905704454",
-            "localNombre": "Búho",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
             "_id": "1777786769931_kj9zhjms1b",
             "localId": "1393029583778873415",
             "localNombre": "Lulú",
@@ -607,9 +508,9 @@
             "localNombre": "Thiago",
             "visitanteId": "425414047861571586",
             "visitanteNombre": "Pepsi",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -618,9 +519,9 @@
             "localNombre": "Facu",
             "visitanteId": "1449512445549871125",
             "visitanteNombre": "Sebas",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -634,20 +535,9 @@
             "localNombre": "Facu",
             "visitanteId": "664977038905704454",
             "visitanteNombre": "Búho",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769931_u0rwey4770e",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "689386903203610685",
-            "visitanteNombre": "Raph",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -667,9 +557,9 @@
             "localNombre": "Lulú",
             "visitanteId": "425414047861571586",
             "visitanteNombre": "Pepsi",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -678,9 +568,9 @@
             "localNombre": "Thiago",
             "visitanteId": "534499521653112844",
             "visitanteNombre": "Gabriel",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -716,20 +606,9 @@
             "localNombre": "Pepsi",
             "visitanteId": "534499521653112844",
             "visitanteNombre": "Gabriel",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769932_gpe89ue3yoi",
-            "localId": "992866773047193710",
-            "localNombre": "Benja",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 3,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -738,9 +617,9 @@
             "localNombre": "Thiago",
             "visitanteId": "664977038905704454",
             "visitanteNombre": "Búho",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -754,9 +633,9 @@
             "localNombre": "Benja",
             "visitanteId": "534499521653112844",
             "visitanteNombre": "Gabriel",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -765,9 +644,9 @@
             "localNombre": "Shuu",
             "visitanteId": "425414047861571586",
             "visitanteNombre": "Pepsi",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -776,9 +655,9 @@
             "localNombre": "Thiago",
             "visitanteId": "689386903203610685",
             "visitanteNombre": "Raph",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -787,20 +666,9 @@
             "localNombre": "Búho",
             "visitanteId": "1449512445549871125",
             "visitanteNombre": "Sebas",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769931_mqpg8iopal8",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "1393029583778873415",
-            "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 1,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -814,9 +682,9 @@
             "localNombre": "Shuu",
             "visitanteId": "1393029583778873415",
             "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -825,20 +693,9 @@
             "localNombre": "Benja",
             "visitanteId": "689386903203610685",
             "visitanteNombre": "Raph",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_ojd16uqzey",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "752669799263502356",
-            "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -847,9 +704,9 @@
             "localNombre": "Búho",
             "visitanteId": "534499521653112844",
             "visitanteNombre": "Gabriel",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -858,9 +715,9 @@
             "localNombre": "Facu",
             "visitanteId": "425414047861571586",
             "visitanteNombre": "Pepsi",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 1,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -874,20 +731,9 @@
             "localNombre": "Búho",
             "visitanteId": "1285655821346144267",
             "visitanteNombre": "Facu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_wxt03nad94t",
-            "localId": "689386903203610685",
-            "localNombre": "Raph",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 2,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -896,9 +742,9 @@
             "localNombre": "Sebas",
             "visitanteId": "992866773047193710",
             "visitanteNombre": "Benja",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 4,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -907,9 +753,9 @@
             "localNombre": "Gabriel",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 3,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -918,9 +764,9 @@
             "localNombre": "Pepsi",
             "visitanteId": "1393029583778873415",
             "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 4,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -934,9 +780,9 @@
             "localNombre": "Gabriel",
             "visitanteId": "747095738269433917",
             "visitanteNombre": "Shuu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 2,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -945,9 +791,9 @@
             "localNombre": "Raph",
             "visitanteId": "1393029583778873415",
             "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 3,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -956,9 +802,9 @@
             "localNombre": "Pepsi",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -967,20 +813,9 @@
             "localNombre": "Sebas",
             "visitanteId": "1285655821346144267",
             "visitanteNombre": "Facu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_te419f7gb5",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "664977038905704454",
-            "visitanteNombre": "Búho",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -994,9 +829,9 @@
             "localNombre": "Gabriel",
             "visitanteId": "425414047861571586",
             "visitanteNombre": "Pepsi",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 1,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1005,20 +840,9 @@
             "localNombre": "Búho",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_xn9swu9r0d",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "992866773047193710",
-            "visitanteNombre": "Benja",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 4,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1027,9 +851,9 @@
             "localNombre": "Facu",
             "visitanteId": "747095738269433917",
             "visitanteNombre": "Shuu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 1,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1038,9 +862,9 @@
             "localNombre": "Sebas",
             "visitanteId": "1393029583778873415",
             "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -1054,9 +878,9 @@
             "localNombre": "Pepsi",
             "visitanteId": "747095738269433917",
             "visitanteNombre": "Shuu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1065,9 +889,9 @@
             "localNombre": "Raph",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 0,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1076,9 +900,9 @@
             "localNombre": "Sebas",
             "visitanteId": "664977038905704454",
             "visitanteNombre": "Búho",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 4,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1087,20 +911,9 @@
             "localNombre": "Gabriel",
             "visitanteId": "992866773047193710",
             "visitanteNombre": "Benja",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_932ydpooeof",
-            "localId": "1393029583778873415",
-            "localNombre": "Lulú",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -1114,9 +927,9 @@
             "localNombre": "Benja",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 4,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1125,20 +938,9 @@
             "localNombre": "Sebas",
             "visitanteId": "425414047861571586",
             "visitanteNombre": "Pepsi",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_ar499l027ya",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "747095738269433917",
-            "visitanteNombre": "Shuu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1147,9 +949,9 @@
             "localNombre": "Búho",
             "visitanteId": "689386903203610685",
             "visitanteNombre": "Raph",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 3,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1158,9 +960,9 @@
             "localNombre": "Facu",
             "visitanteId": "1393029583778873415",
             "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -1174,9 +976,9 @@
             "localNombre": "Benja",
             "visitanteId": "747095738269433917",
             "visitanteNombre": "Shuu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 2,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1185,9 +987,9 @@
             "localNombre": "Sebas",
             "visitanteId": "689386903203610685",
             "visitanteNombre": "Raph",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 3,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1196,9 +998,9 @@
             "localNombre": "Facu",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 0,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1207,20 +1009,9 @@
             "localNombre": "Búho",
             "visitanteId": "1393029583778873415",
             "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_xl616x87tui",
-            "localId": "534499521653112844",
-            "localNombre": "Gabriel",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -1234,9 +1025,9 @@
             "localNombre": "Raph",
             "visitanteId": "747095738269433917",
             "visitanteNombre": "Shuu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1245,9 +1036,9 @@
             "localNombre": "Pepsi",
             "visitanteId": "992866773047193710",
             "visitanteNombre": "Benja",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 0,
+            "golesVisitante": 0,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1256,9 +1047,9 @@
             "localNombre": "Lulú",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 3,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1267,20 +1058,9 @@
             "localNombre": "Gabriel",
             "visitanteId": "1285655821346144267",
             "visitanteNombre": "Facu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769932_165y6iqs07b",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "1449512445549871125",
-            "visitanteNombre": "Sebas",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 0,
+            "golesVisitante": 0,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -1294,9 +1074,9 @@
             "localNombre": "Sebas",
             "visitanteId": "747095738269433917",
             "visitanteNombre": "Shuu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 3,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1305,9 +1085,9 @@
             "localNombre": "Búho",
             "visitanteId": "992866773047193710",
             "visitanteNombre": "Benja",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1316,9 +1096,9 @@
             "localNombre": "Pepsi",
             "visitanteId": "689386903203610685",
             "visitanteNombre": "Raph",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 2,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1327,20 +1107,9 @@
             "localNombre": "Gabriel",
             "visitanteId": "1393029583778873415",
             "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_0b3yzwocjjn",
-            "localId": "848039636726054962",
-            "localNombre": "Beier",
-            "visitanteId": "1285655821346144267",
-            "visitanteNombre": "Facu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 1,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -1354,20 +1123,9 @@
             "localNombre": "Sebas",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
-            "imagenResultado": null
-          },
-          {
-            "_id": "1777786769933_ssl5a2yqy9f",
-            "localId": "425414047861571586",
-            "localNombre": "Pepsi",
-            "visitanteId": "848039636726054962",
-            "visitanteNombre": "Beier",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 4,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1376,9 +1134,9 @@
             "localNombre": "Facu",
             "visitanteId": "992866773047193710",
             "visitanteNombre": "Benja",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 2,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1387,9 +1145,9 @@
             "localNombre": "Búho",
             "visitanteId": "747095738269433917",
             "visitanteNombre": "Shuu",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 4,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1398,9 +1156,9 @@
             "localNombre": "Gabriel",
             "visitanteId": "689386903203610685",
             "visitanteNombre": "Raph",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],
@@ -1414,9 +1172,9 @@
             "localNombre": "Benja",
             "visitanteId": "1393029583778873415",
             "visitanteNombre": "Lulú",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 4,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1436,9 +1194,9 @@
             "localNombre": "Sebas",
             "visitanteId": "534499521653112844",
             "visitanteNombre": "Gabriel",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 3,
+            "golesVisitante": 5,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1447,9 +1205,9 @@
             "localNombre": "Shuu",
             "visitanteId": "752669799263502356",
             "visitanteNombre": "Thiago",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 1,
+            "finalizado": true,
             "imagenResultado": null
           },
           {
@@ -1458,9 +1216,9 @@
             "localNombre": "Búho",
             "visitanteId": "425414047861571586",
             "visitanteNombre": "Pepsi",
-            "golesLocal": null,
-            "golesVisitante": null,
-            "finalizado": false,
+            "golesLocal": 5,
+            "golesVisitante": 0,
+            "finalizado": true,
             "imagenResultado": null
           }
         ],

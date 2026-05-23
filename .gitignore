@@ -38,3 +38,6 @@ data/
 .gemini/
 gha-creds-*.json
 generadas/
+.agents
+.antigravitycli
+skills-lock.json

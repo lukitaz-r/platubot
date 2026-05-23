@@ -151,19 +151,22 @@ async function handleInscripcion(client, message, args, torneo) {
         const modal = new ModalBuilder().setCustomId(modalId).setTitle(`Inscribir a ${selectedUser.username}`);
 
         const label = torneo.tipoJugadores === 'countries' ? 'Nombre del País' : 'Nombre del Equipo';
-        const nameInput = new TextInputBuilder()
-            .setCustomId('nombre')
+        const nLabel = new LabelBuilder()
             .setLabel(label)
-            .setStyle(TextInputStyle.Short)
-            .setPlaceholder('Ej: Argentina / Real Madrid')
-            .setRequired(true);
-        
-        modal.addComponents(new ActionRowBuilder().addComponents(nameInput));
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId('nombre')
+                    .setStyle(TextInputStyle.Short)
+                    .setPlaceholder('Ej: Argentina / Real Madrid')
+                    .setRequired(true)
+            );
 
         if (torneo.tipoJugadores === 'teams') {
             const fileInput = new FileUploadBuilder().setCustomId('logo').setMaxValues(1).setRequired(true);
             const labelInput = new LabelBuilder().setLabel("Logo").setDescription("Subi una imagen para usarla como logo del equipo").setFileUploadComponent(fileInput);
-            modal.addLabelComponents(labelInput);
+            modal.addLabelComponents(nLabel, labelInput);
+        } else {
+            modal.addLabelComponents(nLabel);
         }
 
         await interaction.showModal(modal);
@@ -547,13 +550,22 @@ async function handleGestionParticipantes(interaction, torneo, panelMsg) {
 
     // Modal
     const modal = new ModalBuilder().setCustomId(`modal_edit_p_${idx}`).setTitle(`Editar: ${equipo.nombre}`);
-    const nameInput = new TextInputBuilder().setCustomId('nombre').setLabel('Nuevo Nombre').setValue(equipo.nombre).setStyle(TextInputStyle.Short).setRequired(true);
-    modal.addComponents(new ActionRowBuilder().addComponents(nameInput));
+    const nLabel = new LabelBuilder()
+        .setLabel('Nuevo Nombre')
+        .setTextInputComponent(
+            new TextInputBuilder()
+                .setCustomId('nombre')
+                .setStyle(TextInputStyle.Short)
+                .setValue(equipo.nombre)
+                .setRequired(true)
+        );
 
     if (torneo.tipoJugadores === 'teams') {
         const fileInput = new FileUploadBuilder().setCustomId('logo').setMaxValues(1).setRequired(false);
         const labelInput = new LabelBuilder().setLabel("Nuevo Logo (Opcional)").setFileUploadComponent(fileInput);
-        modal.addLabelComponents(labelInput);
+        modal.addLabelComponents(nLabel, labelInput);
+    } else {
+        modal.addLabelComponents(nLabel);
     }
 
     await actionBtn.showModal(modal);

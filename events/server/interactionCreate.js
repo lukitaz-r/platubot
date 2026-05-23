@@ -78,12 +78,15 @@ export default {
             .setCustomId('modal_crear_equipo')
             .setTitle('Crear Equipo');
 
-          const nInput = new TextInputBuilder()
-            .setCustomId('n')
+          const nLabel = new LabelBuilder()
             .setLabel('Nombre del Equipo')
-            .setStyle(TextInputStyle.Short)
-            .setPlaceholder('Ej: Platense')
-            .setRequired(true);
+            .setTextInputComponent(
+              new TextInputBuilder()
+                .setCustomId('n')
+                .setStyle(TextInputStyle.Short)
+                .setPlaceholder('Ej: Platense')
+                .setRequired(true)
+            );
 
           const fileInput = new FileUploadBuilder()
             .setCustomId('e')
@@ -91,10 +94,9 @@ export default {
           
           const inputLabel = new LabelBuilder()
             .setLabel("Escudo del Equipo")
-            .setFileUploadComponent(fileInput)
+            .setFileUploadComponent(fileInput);
 
-          modal.addComponents(new ActionRowBuilder().addComponents(nInput));
-          modal.addLabelComponents(inputLabel);
+          modal.addLabelComponents(nLabel, inputLabel);
 
           return interaction.showModal(modal);
       }

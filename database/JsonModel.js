@@ -3,6 +3,10 @@ import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 import crypto from 'crypto';
 
+export const jsonModelEvents = {
+  onWrite: null
+};
+
 const DATA_DIR = join(process.cwd(), 'data');
 
 if (!existsSync(DATA_DIR)) {
@@ -72,6 +76,13 @@ export default class JsonModel {
 
   async _write(data) {
     await writeFile(this.filePath, JSON.stringify(data, null, 2), 'utf8');
+    if (jsonModelEvents.onWrite) {
+      try {
+        jsonModelEvents.onWrite(this.collectionName);
+      } catch (err) {
+        console.error('Error in jsonModelEvents.onWrite:', err);
+      }
+    }
   }
 
   _wrap(doc) {

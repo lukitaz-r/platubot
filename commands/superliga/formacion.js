@@ -129,7 +129,7 @@ export default {
       return message.reply('❌ No tienes partidos pendientes en ninguna competición activa, o la fecha anterior aún no terminó.');
     }
 
-    let jugadoresElegibles = [...equipo.jugadores];
+    let jugadoresElegibles = equipo.jugadores.filter(j => (j.suspendido || 0) < 1);
     if (jugadoresElegibles.length === 2 && equipo.coach) {
       jugadoresElegibles.push({
         id: equipo.coach.id,
@@ -140,8 +140,8 @@ export default {
       });
     }
 
-    if (jugadoresElegibles.length !== 3) {
-      return message.reply(`❌ El equipo **${equipo.nombre}** debe tener exactamente 3 jugadores para formar (tiene ${jugadoresElegibles.length}).`);
+    if (jugadoresElegibles.length < 3) {
+      return message.reply(`❌ El equipo **${equipo.nombre}** no tiene suficientes jugadores disponibles para formar (tiene ${jugadoresElegibles.length} disponibles).`);
     }
 
     const loading = await message.reply(`<a:loading:1461897825439711468> Generando alineacion...`);

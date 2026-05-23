@@ -404,26 +404,36 @@ export default {
                   
                   if (action === 'edit_club') {
                       const modalClub = new ModalBuilder().setCustomId(`m_club_${selEqId}`).setTitle('Editar Club');
+                      const nLabel = new LabelBuilder()
+                          .setLabel('Nombre del Equipo')
+                          .setTextInputComponent(
+                              new TextInputBuilder()
+                                  .setCustomId('n')
+                                  .setStyle(TextInputStyle.Short)
+                                  .setValue(selEq.nombre)
+                                  .setRequired(true)
+                          );
+
                       const fileInput = new FileUploadBuilder()
                           .setCustomId('e')
                           .setRequired(true);
 
                       const inputLabel = new LabelBuilder()
                           .setLabel("Escudo del Equipo")
-                          .setFileUploadComponent(fileInput)
+                          .setFileUploadComponent(fileInput);
 
-                      modalClub.addComponents(new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('n').setLabel('Nombre del Equipo').setStyle(TextInputStyle.Short).setValue(selEq.nombre).setRequired(true)));
-                      modalClub.addLabelComponents(inputLabel);
+                      modalClub.addLabelComponents(nLabel, inputLabel);
                       await iAct.showModal(modalClub);
                       
                       const subClub = await iAct.awaitModalSubmit({ time: 60000 }).catch(() => null);
                       if (!subClub) return;
 
+                      await subClub.deferReply({ flags: 64 });
                       const nombre = subClub.fields.getTextInputValue('n');
                       const escudo = subClub.fields.getField('e');
 
                       const url = escudo?.attachments.first()?.url;
-                      if (!url) return interaction.editReply('❌ No se ha subido ninguna imagen para el escudo.');
+                      if (!url) return subClub.editReply('❌ No se ha subido ninguna imagen para el escudo.');
 
                       const ext = url.split('.').pop().split('?')[0] || 'png';
                       const fileName = `${nombre.toLowerCase().replace(/ /g, '_')}_${Date.now()}.${ext}`;
@@ -433,7 +443,7 @@ export default {
                       selEq.escudo = localPath;
 
                       await selEq.save();
-                      await subClub.reply({ content: `✅ Equipo **${selEq.nombre}** actualizado.`, flags: 64 });
+                      await subClub.editReply({ content: `✅ Equipo **${selEq.nombre}** actualizado.`, flags: 64 });
                   } else {
                       const idJug = action.split('_')[2];
                       const esCoach = action.startsWith('edit_coach');
