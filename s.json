@@ -1,0 +1,78 @@
+{
+  "canvas": {
+    "width": 1400,
+    "height": 714
+  },
+  "images": [
+    {
+      "id": "dt_local",
+      "x": 1226,
+      "y": 459,
+      "width": 160,
+      "height": 242
+    },
+    {
+      "id": "jugador_local1",
+      "x": 376,
+      "y": 292,
+      "width": 146,
+      "height": 222
+    },
+    {
+      "id": "jugador_local2",
+      "x": 619,
+      "y": 443,
+      "width": 146,
+      "height": 222
+    },
+    {
+      "id": "jugador_local3",
+      "x": 868,
+      "y": 291,
+      "width": 146,
+      "height": 222
+    },
+    {
+      "id": "dt_visitante",
+      "x": 145,
+      "y": 0,
+      "width": 132,
+      "height": 200
+    },
+    {
+      "id": "jugador_visitante3",
+      "x": 876,
+      "y": 64,
+      "width": 132,
+      "height": 200
+    },
+    {
+      "id": "jugador_visitante1",
+      "x": 383,
+      "y": 64,
+      "width": 132,
+      "height": 200
+    },
+    {
+      "id": "jugador_visitante2",
+      "x": 634,
+      "y": 0,
+      "width": 132,
+      "height": 200
+    },
+    {
+      "id": "escudo_local",
+      "x": 51,
+      "y": 487,
+      "width": 180,
+      "height": 180
+    },
+    {
+      "id": "escudo_visitante",
+      "x": 1110,
+      "y": 11,
+      "width": 135,
+      "height": 135
+    }
+  ]
+}

@@ -1,0 +1,332 @@
+import { readdir, copyFile, mkdir, readFile, writeFile } from 'fs/promises';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import { jsonModelEvents } from './JsonModel.js';
+import JsonModel from './JsonModel.js';
+
+const execAsync = promisify(exec);
+
+// Path definitions
+const DATA_DIR = join(process.cwd(), 'data');
+const STATE_FILE = join(process.cwd(), 'backup_state.json');
+const DIRS = {
+  '1D': join(process.cwd(), 'data1D'),
+  '3D': join(process.cwd(), 'data3D'),
+  '1S': join(process.cwd(), 'data1S')
+};
+
+// State
+let lastBackupTimes = {
+  last1D: 0,
+  last3D: 0,
+  last1S: 0
+};
+
+let isGitOperating = false;
+let gitDebounceTimeout = null;
+let clientInstance = null;
+
+// Deep copy helper for JSON data directory
+async function copyDataDir(destDir) {
+  if (!existsSync(destDir)) {
+    await mkdir(destDir, { recursive: true });
+  }
+  const files = await readdir(DATA_DIR);
+  for (const file of files) {
+    if (file.endsWith('.json') && file !== 'backup_state.json') {
+      await copyFile(join(DATA_DIR, file), join(destDir, file));
+    }
+  }
+}
+
+// Write the backup state file
+async function saveBackupState() {
+  await writeFile(STATE_FILE, JSON.stringify(lastBackupTimes, null, 2), 'utf8');
+}
+
+// Git operation helper
+async function runGitBackup(message) {
+  if (isGitOperating) {
+    console.log('[Backup] Git operation in progress. Deferring...');
+    return;
+  }
+  isGitOperating = true;
+  try {
+    console.log(`[Backup] Running Git: ${message}`.cyan);
+    await execAsync('git add backup_state.json data data1D data3D data1S');
+    const { stdout: statusOut } = await execAsync('git status --porcelain');
+    if (!statusOut.trim()) {
+      console.log('[Backup] No changes detected in Git repository.'.yellow);
+      isGitOperating = false;
+      return;
+    }
+    const { stdout: branchOut } = await execAsync('git rev-parse --abbrev-ref HEAD');
+    const currentBranch = branchOut.trim();
+    await execAsync(`git commit -m "${message}"`);
+    await execAsync(`git push origin ${currentBranch}`);
+    console.log(`[Backup] Git backup pushed successfully to ${currentBranch}!`.green);
+  } catch (err) {
+    console.error('[Backup] Git push failed:'.red, err);
+  } finally {
+    isGitOperating = false;
+  }
+}
+
+// Debounced Git backup for immediate writes
+function queueDebouncedBackup() {
+  if (gitDebounceTimeout) {
+    clearTimeout(gitDebounceTimeout);
+  }
+  gitDebounceTimeout = setTimeout(() => {
+    runGitBackup('Backup: automatic database update from bot/web editor');
+  }, 30000); // 30 seconds debounce to bundle multiple writes
+}
+
+// Periodic check for 1D, 3D, and 1S folders
+async function checkPeriodicBackups() {
+  const now = Date.now();
+  let updatedAny = false;
+
+  // 1D: 24 hours (86400000 ms)
+  if (now - lastBackupTimes.last1D >= 24 * 60 * 60 * 1000) {
+    console.log('[Backup] Updating data1D (24h)...'.yellow);
+    await copyDataDir(DIRS['1D']);
+    lastBackupTimes.last1D = now;
+    updatedAny = true;
+  }
+
+  // 3D: 3 days (259200000 ms)
+  if (now - lastBackupTimes.last3D >= 3 * 24 * 60 * 60 * 1000) {
+    console.log('[Backup] Updating data3D (3 days)...'.yellow);
+    await copyDataDir(DIRS['3D']);
+    lastBackupTimes.last3D = now;
+    updatedAny = true;
+  }
+
+  // 1S: 7 days (604800000 ms)
+  if (now - lastBackupTimes.last1S >= 7 * 24 * 60 * 60 * 1000) {
+    console.log('[Backup] Updating data1S (7 days)...'.yellow);
+    await copyDataDir(DIRS['1S']);
+    lastBackupTimes.last1S = now;
+    updatedAny = true;
+  }
+
+  if (updatedAny) {
+    await saveBackupState();
+    await runGitBackup('Backup: scheduled periodic folder updates (1D/3D/1S)');
+  }
+}
+
+// Resolve a specific JsonModel instance by name
+async function getModel(collectionName) {
+  const paths = [
+    `../models/${collectionName}.js`,
+    `../models/copas/${collectionName}.js`,
+    `../models/superliga/${collectionName}.js`
+  ];
+
+  for (const p of paths) {
+    try {
+      const mod = await import(p);
+      if (mod.default) return mod.default;
+    } catch (e) {
+      // Keep searching in paths
+    }
+  }
+  return new JsonModel(collectionName);
+}
+
+// HTTP API Server powered by Bun
+function startHttpServer() {
+  const port = process.env.DASHBOARD_PORT || 3001;
+  const secret = process.env.DASHBOARD_API_SECRET || 'platubot-super-secret-key-1234';
+
+  Bun.serve({
+    port,
+    async fetch(req) {
+      const url = new URL(req.url);
+      const pathname = url.pathname.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
+      
+      console.log(`[API Request] Method: ${req.method}, Path: ${pathname}`.yellow);
+      
+      // Handle CORS for all requests
+      const corsHeaders = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Content-Type': 'application/json'
+      };
+
+      if (req.method === 'OPTIONS') {
+        return new Response(null, { headers: corsHeaders });
+      }
+
+      // Security check: Verify Bearer secret token
+      const authHeader = req.headers.get('Authorization');
+      if (!authHeader || authHeader !== `Bearer ${secret}`) {
+        return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders });
+      }
+
+      try {
+        // 1. Auth check endpoint (Verifies user ID and Server/Role)
+        if (pathname === '/api/auth-check' && req.method === 'POST') {
+          const { userId } = await req.json();
+          if (!userId) {
+            return new Response(JSON.stringify({ error: 'Missing userId' }), { status: 400, headers: corsHeaders });
+          }
+
+          if (!clientInstance) {
+            return new Response(JSON.stringify({ error: 'Discord client not ready' }), { status: 503, headers: corsHeaders });
+          }
+
+          const guildId = '1403145326717833408';
+          const roleId = '1455042543770407156';
+
+          const guild = await clientInstance.guilds.fetch(guildId).catch(() => null);
+          if (!guild) {
+            return new Response(JSON.stringify({ authorized: false, reason: 'Guild not found' }), { headers: corsHeaders });
+          }
+
+          const member = await guild.members.fetch(userId).catch(() => null);
+          if (!member) {
+            return new Response(JSON.stringify({ authorized: false, reason: 'Member not found in guild' }), { headers: corsHeaders });
+          }
+
+          const hasRole = member.roles.cache.has(roleId);
+          return new Response(JSON.stringify({
+            authorized: hasRole,
+            user: {
+              id: member.user.id,
+              username: member.user.username,
+              avatar: member.user.avatar,
+              displayName: member.displayName
+            }
+          }), { headers: corsHeaders });
+        }
+
+        // 2. Get list of all collections
+        if (pathname === '/api/collections' && req.method === 'GET') {
+          const files = await readdir(DATA_DIR);
+          const collections = files
+            .filter(file => file.endsWith('.json') && file !== 'backup_state.json')
+            .map(file => file.replace('.json', ''));
+          return new Response(JSON.stringify({ collections }), { headers: corsHeaders });
+        }
+
+        // 3. Collection CRUD Operations
+        const collectionMatch = pathname.match(/^\/api\/collections\/([^/]+)$/);
+        const docMatch = pathname.match(/^\/api\/collections\/([^/]+)\/([^/]+)$/);
+
+        // Fetch all documents in a collection
+        if (collectionMatch && req.method === 'GET') {
+          const collectionName = collectionMatch[1];
+          const model = await getModel(collectionName);
+          const docs = await model.find({});
+          return new Response(JSON.stringify(docs), { headers: corsHeaders });
+        }
+
+        // Create new document in a collection
+        if (collectionMatch && req.method === 'POST') {
+          const collectionName = collectionMatch[1];
+          const body = await req.json();
+          const model = await getModel(collectionName);
+          const doc = await model.create(body);
+          return new Response(JSON.stringify(doc), { status: 201, headers: corsHeaders });
+        }
+
+        // Update document
+        if (docMatch && req.method === 'PUT') {
+          const collectionName = docMatch[1];
+          const docId = docMatch[2];
+          const body = await req.json();
+          const model = await getModel(collectionName);
+          
+          // Use standard JsonModel update
+          const result = await model.findOneAndUpdate({ _id: docId }, { $set: body });
+          return new Response(JSON.stringify(result), { headers: corsHeaders });
+        }
+
+        // Delete document
+        if (docMatch && req.method === 'DELETE') {
+          const collectionName = docMatch[1];
+          const docId = docMatch[2];
+          const model = await getModel(collectionName);
+          const result = await model.deleteOne({ _id: docId });
+          return new Response(JSON.stringify(result), { headers: corsHeaders });
+        }
+
+        // Endpoint not found
+        return new Response(JSON.stringify({ error: 'Not found' }), { status: 404, headers: corsHeaders });
+
+      } catch (err) {
+        console.error('[API Server Error]:'.red, err);
+        return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders });
+      }
+    }
+  });
+
+  console.log(`[API Server] Bun HTTP Server running on port ${port}`.green);
+}
+
+// Main initialization
+export async function init(client) {
+  clientInstance = client;
+
+  // Set up hook in JsonModel events
+  jsonModelEvents.onWrite = (collectionName) => {
+    console.log(`[DB Change] Dynamic update detected in collection: ${collectionName}`.magenta);
+    queueDebouncedBackup();
+  };
+
+  // Verify paths exist
+  if (!existsSync(DATA_DIR)) {
+    await mkdir(DATA_DIR, { recursive: true });
+  }
+
+  // Moment 0 check
+  if (!existsSync(STATE_FILE)) {
+    console.log('[Backup] Moment 0: Initializing all backup folders...'.yellow);
+    
+    // Copy current state
+    await copyDataDir(DIRS['1D']);
+    await copyDataDir(DIRS['3D']);
+    await copyDataDir(DIRS['1S']);
+
+    // Set initial timestamps
+    const now = Date.now();
+    lastBackupTimes = {
+      last1D: now,
+      last3D: now,
+      last1S: now
+    };
+    await saveBackupState();
+
+    // Commit and push initial folders
+    await runGitBackup('Backup: Initial moment 0 folders creation (1D/3D/1S)');
+  } else {
+    try {
+      const data = await readFile(STATE_FILE, 'utf8');
+      lastBackupTimes = JSON.parse(data);
+      console.log('[Backup] State successfully loaded.'.green);
+    } catch (e) {
+      console.error('[Backup] Failed to read state file, resetting state:'.red, e);
+      lastBackupTimes = {
+        last1D: Date.now(),
+        last3D: Date.now(),
+        last1S: Date.now()
+      };
+      await saveBackupState();
+    }
+  }
+
+  // Start check timer every 1 hour (3600000 ms)
+  setInterval(checkPeriodicBackups, 60 * 60 * 1000);
+  
+  // Also run an immediate check just in case
+  checkPeriodicBackups();
+
+  // Start HTTP API
+  startHttpServer();
+}

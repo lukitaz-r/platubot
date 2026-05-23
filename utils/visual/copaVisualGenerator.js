@@ -1,0 +1,486 @@
+import { renderToBuffer } from './renderPool.js';
+import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
+import { getFlagUrl } from './countryHelper.js';
+
+// ── Helpers de Utilidad ──────────────────────────────────────────────────────
+
+function getTheme(tema = {}) {
+    return {
+        primario: tema.primario || '#1a1a2e',
+        secundario: tema.secundario || '#16213e',
+        acento: tema.acento || '#e94560',
+        texto: tema.texto || '#ffffff',
+        borde: tema.borde || '#0f3460',
+    };
+}
+
+function hexToRgba(hex, alpha) {
+    if (!hex || typeof hex !== 'string') return 'transparent';
+    if (!hex.startsWith('#')) return hex;
+    
+    let r = 0, g = 0, b = 0;
+    if (hex.length === 4) {
+        r = parseInt(hex[1] + hex[1], 16);
+        g = parseInt(hex[2] + hex[2], 16);
+        b = parseInt(hex[3] + hex[3], 16);
+    } else if (hex.length === 7) {
+        r = parseInt(hex.slice(1, 3), 16);
+        g = parseInt(hex.slice(3, 5), 16);
+        b = parseInt(hex.slice(5, 7), 16);
+    } else {
+        return hex;
+    }
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+const avatarCache = {};
+function getSafeAvatar(avatarUrl) {
+    if (!avatarUrl) return null;
+    if (avatarUrl.startsWith('http')) return avatarUrl;
+    if (avatarCache[avatarUrl]) return avatarCache[avatarUrl];
+    try {
+        if (existsSync(avatarUrl)) {
+            const buffer = readFileSync(avatarUrl);
+            const ext = avatarUrl.split('.').pop() || 'png';
+            const data = `data:image/${ext};base64,${buffer.toString('base64')}`;
+            avatarCache[avatarUrl] = data;
+            return data;
+        }
+    } catch (e) {}
+    return null;
+}
+
+function avatarElement(url, nombre, t, size = 28, filter = 'none') {
+  const flagUrl = getFlagUrl(nombre);
+  const safeUrl = getSafeAvatar(url || flagUrl);
+  const imgSz = size;
+  
+  return {
+    type: 'div',
+    props: {
+      style: {
+        width: `${imgSz}px`, height: `${imgSz}px`, borderRadius: '6px',
+        background: '#111', flexShrink: 0, overflow: 'hidden', display: 'flex',
+        filter: filter, border: `1px solid ${hexToRgba(t.borde, 0.2)}`
+      },
+      children: safeUrl ? {
+        type: 'img',
+        props: { src: safeUrl, width: imgSz, height: imgSz, style: { objectFit: 'cover' } }
+      } : {
+        type: 'div',
+        props: {
+          style: { width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: hexToRgba(t.texto, 0.25), fontSize: `${Math.round(imgSz * 0.45)}px`, fontWeight: 800 },
+          children: (nombre && nombre !== 'TBD') ? nombre[0].toUpperCase() : '?'
+        }
+      }
+    }
+  };
+}
+
+// ── Renderizado ─────────────────────────────────────────────────────────────
+
+const emojiCache = {};
+
+
+// ── Lógica de Bracket Premium ─────────────────────────────────────────────
+
+function buildTeamRowBracket(equipo, isWinner, isLoser, isBye, gIda, gVue, gDes, t, size, reversed = false) {
+    const { rowH } = size;
+    const borderColor = isWinner ? t.acento : isLoser ? '#ef4444' : 'transparent';
+    const bg = isWinner ? hexToRgba(t.acento, 0.12) : isLoser ? 'rgba(239,68,68,0.12)' : 'transparent';
+    const nameColor = isWinner ? t.acento : isLoser ? '#fca5a5' : '#e2e8f0';
+    const scoreBg = isWinner ? t.acento : isLoser ? '#7f1d1d' : hexToRgba(t.borde, 0.4);
+    const scoreColor = isWinner ? t.primario : isLoser ? '#fca5a5' : '#94a3b8';
+    const avFilter = isLoser ? 'grayscale(100%)' : 'none';
+
+    const scoreText = isBye ? 'B' : (gIda !== undefined && gIda !== null ? `${gIda}` : '-');
+    const scoreTextVuelta = (gVue !== undefined && gVue !== null) ? `${gVue}` : null;
+    const scoreTextDes = (gDes !== undefined && gDes !== null) ? `${gDes}` : null;
+
+    const scoreSz = Math.round(rowH * 0.7);
+    const scoreContainer = {
+        type: 'div',
+        props: {
+            style: { display: 'flex', gap: '4px' },
+            children: [
+                { type: 'div', props: { style: { minWidth: `${scoreSz}px`, height: `${scoreSz}px`, borderRadius: '6px', background: scoreBg, color: scoreColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: `${Math.round(scoreSz*0.55)}px`, fontWeight: 900, padding: '0 8px' }, children: scoreText } },
+                scoreTextVuelta !== null ? { type: 'div', props: { style: { minWidth: `${scoreSz}px`, height: `${scoreSz}px`, borderRadius: '4px', background: scoreBg, color: scoreColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: `${Math.round(scoreSz*0.55)}px`, fontWeight: 900, opacity: 0.8, padding: '0 8px' }, children: scoreTextVuelta } } : null,
+                scoreTextDes !== null ? { type: 'div', props: { style: { minWidth: `${scoreSz}px`, height: `${scoreSz}px`, borderRadius: '4px', background: t.acento, color: t.primario, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: `${Math.round(scoreSz*0.55)}px`, fontWeight: 900, padding: '0 8px', border: '1px solid #ffffff' }, children: scoreTextDes } } : null
+            ]
+        }
+    };
+
+    const avatar = avatarElement(equipo.avatar, equipo.nombre, t, rowH - 12, avFilter);
+    const name = { 
+        type: 'div', 
+        props: { 
+            style: { 
+                flex: 1, fontSize: `${Math.round(rowH*0.4)}px`, fontWeight: isWinner ? 900 : 500, color: nameColor, 
+                textAlign: reversed ? 'right' : 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' 
+            }, 
+            children: isBye ? 'BYE' : equipo.nombre || 'TBD' 
+        } 
+    };
+
+    const children = reversed ? [scoreContainer, name, avatar] : [avatar, name, scoreContainer];
+
+    return {
+        type: 'div',
+        props: {
+            style: { 
+                display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '12px', 
+                padding: '0 20px', height: `${rowH}px`, background: bg,
+                borderLeft: !reversed ? `4px solid ${borderColor}` : 'none',
+                borderRight: reversed ? `4px solid ${borderColor}` : 'none',
+            },
+            children
+        }
+    };
+}
+
+function buildMatchCardBracket(llave, t, size, reversed = false, isFinal = false) {
+    const { cardW } = size;
+    const { equipo1, equipo2, ida, vuelta, desempate, ganador } = llave;
+    const done = !!ganador;
+    const isWinner1 = ganador === equipo1?.discordId;
+    const isWinner2 = ganador === equipo2?.discordId;
+    const isTBD = !equipo1?.discordId && !equipo2?.discordId;
+
+    return {
+        type: 'div',
+        props: {
+            style: { 
+                width: `${cardW + (vuelta ? 40 : 0) + (desempate ? 40 : 0)}px`, background: hexToRgba(t.secundario, 0.98), border: `2px solid ${isFinal ? t.acento : hexToRgba(t.borde, 0.5)}`, 
+                borderRadius: '14px', overflow: 'hidden', display: 'flex', flexDirection: 'column', 
+                boxShadow: isFinal ? `0 0 40px ${hexToRgba(t.acento, 0.3)}` : '0 15px 40px rgba(0,0,0,0.6)', opacity: isTBD ? 0.4 : 1 
+            },
+            children: [
+                buildTeamRowBracket(equipo1 || { nombre: 'TBD' }, isWinner1, done && !isWinner1, equipo1?.discordId === 'BYE', ida?.golesLocal, vuelta?.golesVisitante, desempate?.golesLocal, t, size, reversed),
+                { type: 'div', props: { style: { height: '1.5px', background: hexToRgba(t.borde, 0.2), width: '100%' } } },
+                buildTeamRowBracket(equipo2 || { nombre: 'TBD' }, isWinner2, done && !isWinner2, equipo2?.discordId === 'BYE', ida?.golesVisitante, vuelta?.golesLocal, desempate?.golesVisitante, t, size, reversed)
+            ]
+        }
+    };
+}
+
+function buildConnectors(fromTops, toTops, xStart, width, color, cardH, direction = 'right') {
+    const lines = [];
+    const xMid = xStart + width / 2;
+    for (let i = 0; i < toTops.length; i++) {
+        const yA = fromTops[i * 2] + cardH / 2;
+        const yB = fromTops[i * 2 + 1] !== undefined ? fromTops[i * 2 + 1] + cardH / 2 : yA;
+        const yT = toTops[i] + cardH / 2;
+        const yMid = (yA + yB) / 2;
+        const lineStyle = { position: 'absolute', background: color, height: '2px' };
+
+        if (direction === 'right') {
+            lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xStart}px`, top: `${yA}px`, width: `${width/2}px` } } });
+            if (fromTops[i * 2 + 1] !== undefined) {
+                lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xStart}px`, top: `${yB}px`, width: `${width/2}px` } } });
+                lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xMid}px`, top: `${Math.min(yA, yB)}px`, width: '2px', height: `${Math.abs(yB - yA)}px` } } });
+            }
+            lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xMid}px`, top: `${Math.min(yMid, yT)}px`, width: '2px', height: `${Math.abs(yT - yMid) + 2}px` } } });
+            lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xMid}px`, top: `${yT}px`, width: `${width/2}px` } } });
+        } else {
+            lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xMid}px`, top: `${yA}px`, width: `${width/2}px` } } });
+            if (fromTops[i * 2 + 1] !== undefined) {
+                lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xMid}px`, top: `${yB}px`, width: `${width/2}px` } } });
+                lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xMid}px`, top: `${Math.min(yA, yB)}px`, width: '2px', height: `${Math.abs(yB - yA)}px` } } });
+            }
+            lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xMid}px`, top: `${Math.min(yMid, yT)}px`, width: '2px', height: `${Math.abs(yT - yMid) + 2}px` } } });
+            lines.push({ type: 'div', props: { style: { ...lineStyle, left: `${xStart}px`, top: `${yT}px`, width: `${width/2}px` } } });
+        }
+    }
+    return lines;
+}
+
+export async function generarBracketCopa(torneo) {
+    const t = getTheme(torneo.tema);
+    const phases = torneo.fasesEliminatoria || ['Semifinales', 'Final'];
+    const nPhases = phases.length;
+
+    const isSmall = nPhases <= 2;
+    const sizeNormal = { cardW: 200, cardH: 100, rowH: 48 };
+    const sizeLarge = { cardW: 320, cardH: 140, rowH: 68 };
+    
+    const currentSize = isSmall ? sizeLarge : sizeNormal;
+    const finalSize = { cardW: Math.round(currentSize.cardW * 1.15), cardH: Math.round(currentSize.cardH * 1.15), rowH: Math.round(currentSize.rowH * 1.15) };
+
+    const wingData = phases.map((phaseName, idx) => {
+        const matches = (torneo.llaves && torneo.llaves[phaseName]) || [];
+        if (idx === nPhases - 1) return { label: '🏆 FINAL', center: matches[0] };
+        const mid = Math.ceil(matches.length / 2);
+        return { label: phaseName.toUpperCase(), left: matches.slice(0, mid), right: matches.slice(mid).reverse() };
+    });
+
+    const maxMatchesSide = Math.max(
+        0,
+        ...wingData.slice(0, nPhases - 1).map(w => Math.max(w.left?.length || 0, w.right?.length || 0))
+    );
+
+    const minCardSpace = currentSize.cardH + 20; 
+    const areaH = Math.max(440, maxMatchesSide * minCardSpace);
+    const yOffset = 180; 
+    const CANVAS_H = Math.max(720, areaH + yOffset + 50);
+
+    const headerTop = 135; 
+    const padX = isSmall ? 80 : 40;
+    
+    let maxSideW = currentSize.cardW;
+    let maxFinalW = finalSize.cardW;
+    phases.forEach((p, idx) => {
+        const matches = (torneo.llaves && torneo.llaves[p]) || [];
+        matches.forEach(m => {
+            const extra = (m.vuelta ? 40 : 0) + (m.desempate ? 40 : 0);
+            if (idx === nPhases - 1) {
+                if (finalSize.cardW + extra > maxFinalW) maxFinalW = finalSize.cardW + extra;
+            } else {
+                if (currentSize.cardW + extra > maxSideW) maxSideW = currentSize.cardW + extra;
+            }
+        });
+    });
+
+    const gapBetweenCols = 60; 
+    const numSideCols = nPhases - 1;
+
+    const minSideWidth = numSideCols * maxSideW + (numSideCols > 0 ? (numSideCols - 1) * gapBetweenCols : 0);
+    const minCanvasW = padX * 2 + minSideWidth * 2 + maxFinalW + gapBetweenCols * 2;
+    
+    const CANVAS_W = Math.max(1280, minCanvasW);
+    const x_Final = (CANVAS_W - maxFinalW) / 2;
+    
+    let gapX;
+    if (numSideCols > 1) {
+        const sideW = x_Final - padX - gapBetweenCols;
+        gapX = (sideW - maxSideW) / (numSideCols - 1);
+    } else {
+        gapX = maxSideW + gapBetweenCols;
+    }
+
+    function getTops(n) {
+        if (n === 0) return [];
+        const sp = areaH / n;
+        return Array.from({ length: n }, (_, i) => Math.round(i * sp + sp / 2) - currentSize.cardH / 2);
+    }
+
+    const elements = [];
+    const x_L = Array.from({ length: nPhases - 1 }, (_, i) => padX + i * gapX);
+    const x_R_Edge = Array.from({ length: nPhases - 1 }, (_, i) => CANVAS_W - padX - i * gapX);
+
+    for (let i = 0; i < nPhases - 1; i++) {
+        const leftMatches = wingData[i].left || [];
+        const rightMatches = wingData[i].right || [];
+        const lTops = getTops(leftMatches.length);
+        const rTops = getTops(rightMatches.length);
+
+        // Headers
+        elements.push({
+            type: 'div',
+            props: {
+                style: { position: 'absolute', top: `${headerTop}px`, left: `${x_L[i]}px`, width: `${maxSideW}px`, display: 'flex', justifyContent: 'center' },
+                children: {
+                    type: 'div',
+                    props: {
+                        style: { fontSize: '13px', fontWeight: 900, color: t.acento, padding: '6px 20px', background: hexToRgba(t.acento, 0.1), border: `2px solid ${hexToRgba(t.acento, 0.25)}`, borderRadius: '30px', textTransform: 'uppercase', letterSpacing: '2px' },
+                        children: wingData[i].label
+                    }
+                }
+            }
+        });
+        
+        elements.push({
+            type: 'div',
+            props: {
+                style: { position: 'absolute', top: `${headerTop}px`, left: `${x_R_Edge[i] - maxSideW}px`, width: `${maxSideW}px`, display: 'flex', justifyContent: 'center' },
+                children: {
+                    type: 'div',
+                    props: {
+                        style: { fontSize: '13px', fontWeight: 900, color: t.acento, padding: '6px 20px', background: hexToRgba(t.acento, 0.1), border: `2px solid ${hexToRgba(t.acento, 0.25)}`, borderRadius: '30px', textTransform: 'uppercase', letterSpacing: '2px' },
+                        children: wingData[i].label
+                    }
+                }
+            }
+        });
+
+        leftMatches.forEach((m, idx) => {
+            elements.push({ type: 'div', props: { style: { position: 'absolute', left: `${x_L[i]}px`, top: `${yOffset + lTops[idx]}px`, display: 'flex' }, children: [buildMatchCardBracket(m, t, currentSize, false)] } });
+        });
+        
+        rightMatches.forEach((m, idx) => {
+            const w = currentSize.cardW + (m.vuelta ? 40 : 0) + (m.desempate ? 40 : 0);
+            elements.push({ type: 'div', props: { style: { position: 'absolute', left: `${x_R_Edge[i] - w}px`, top: `${yOffset + rTops[idx]}px`, display: 'flex' }, children: [buildMatchCardBracket(m, t, currentSize, true)] } });
+        });
+
+        // Conectores
+        if (i < nPhases - 1) {
+            const nextLCount = wingData[i+1]?.left?.length || (i === nPhases - 2 ? 1 : 0);
+            const nextRCount = wingData[i+1]?.right?.length || (i === nPhases - 2 ? 1 : 0);
+            
+            const nextLTops = (i === nPhases - 2) ? [areaH/2 - currentSize.cardH/2] : getTops(nextLCount);
+            const nextRTops = (i === nPhases - 2) ? [areaH/2 - currentSize.cardH/2] : getTops(nextRCount);
+            
+            if (leftMatches.length > 0 && nextLCount > 0) {
+                // To connect accurately, we must find the exact right-edge of each left match
+                const fromTopsL = lTops;
+                const nextXT = (i === nPhases - 2) ? x_Final : x_L[i+1];
+                
+                // Simple average width for the connector start
+                const startX = x_L[i] + maxSideW;
+                const connW = nextXT - startX;
+                
+                elements.push(...buildConnectors(fromTopsL, nextLTops, startX, connW, hexToRgba(t.acento, 0.25), currentSize.cardH, 'right').map(l => ({ ...l, props: { ...l.props, style: { ...l.props.style, top: `${parseFloat(l.props.style.top) + yOffset}px` } } })));
+            }
+            
+            if (rightMatches.length > 0 && nextRCount > 0) {
+                const fromTopsR = rTops;
+                const startX = (i === nPhases - 2) ? x_Final + maxFinalW : x_R_Edge[i+1];
+                const connW = (x_R_Edge[i] - maxSideW) - startX;
+                
+                elements.push(...buildConnectors(fromTopsR, nextRTops, startX, connW, hexToRgba(t.acento, 0.25), currentSize.cardH, 'left').map(l => ({ ...l, props: { ...l.props, style: { ...l.props.style, top: `${parseFloat(l.props.style.top) + yOffset}px` } } })));
+            }
+        }
+    }
+
+    // Final
+    const finalMatch = wingData[nPhases - 1].center;
+    if (finalMatch) {
+        elements.push({
+            type: 'div',
+            props: {
+                style: { position: 'absolute', top: `${headerTop - 10}px`, left: `${x_Final}px`, width: `${maxFinalW}px`, display: 'flex', justifyContent: 'center' },
+                children: {
+                    type: 'div',
+                    props: {
+                        style: { fontSize: '16px', fontWeight: 900, letterSpacing: '5px', color: '#fbbf24', padding: '8px 32px', background: 'rgba(251,191,36,0.15)', border: '2px solid rgba(251,191,36,0.6)', borderRadius: '40px', boxShadow: '0 0 30px rgba(251,191,36,0.3)' },
+                        children: '🏆 GRAN FINAL'
+                    }
+                }
+            }
+        });
+        
+        const finalW = finalSize.cardW + (finalMatch.vuelta ? 40 : 0) + (finalMatch.desempate ? 40 : 0);
+        // Center the actual card inside the x_Final area
+        const centeredX = x_Final + (maxFinalW - finalW) / 2;
+        
+        elements.push({ type: 'div', props: { style: { position: 'absolute', left: `${centeredX}px`, top: `${yOffset + areaH/2 - finalSize.cardH/2}px`, display: 'flex' }, children: [buildMatchCardBracket(finalMatch, t, finalSize, false, true)] } });
+    }
+
+    const root = {
+        type: 'div',
+        props: {
+            style: { display: 'flex', width: `${CANVAS_W}px`, height: `${CANVAS_H}px`, background: t.primario, color: t.texto, fontFamily: 'Inter', position: 'relative', overflow: 'hidden' },
+            children: [
+                { type: 'div', props: { style: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: `linear-gradient(180deg, ${hexToRgba(t.secundario, 0.7)} 0%, ${t.primario} 100%)` } } },
+                { type: 'div', props: { style: { position: 'absolute', top: '50%', left: '50%', width: '1000px', height: '1000px', background: `radial-gradient(circle, ${hexToRgba(t.acento, 0.07)} 0%, transparent 70%)`, transform: 'translate(-50%, -50%)' } } },
+                {
+                    type: 'div',
+                    props: {
+                        style: { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '30px', position: 'relative' },
+                        children: [
+                            { type: 'div', props: { style: { fontSize: '42px', fontWeight: 900, color: t.texto, letterSpacing: '10px', textShadow: `0 0 30px ${t.acento}66` }, children: torneo.nombre?.toUpperCase() } },
+                            { type: 'div', props: { style: { fontSize: '13px', fontWeight: 600, color: t.acento, textTransform: 'uppercase', letterSpacing: '6px', marginTop: '10px', opacity: 0.8 }, children: 'Brackets de Eliminación Directa' } }
+                        ]
+                    }
+                },
+                ...elements
+            ]
+        }
+    };
+    return await renderToBuffer(root, CANVAS_W, CANVAS_H);
+}
+
+// ── Tablas y Participantes (Sin cambios) ───────────────────────────────────
+
+async function renderTablaBase(torneo, equipos, titulo, subtitulo) {
+    const t = getTheme(torneo.tema);
+    const cols = ['', 'Jugador', 'PJ', 'PG', 'WO', 'PP', 'GF', 'GC', 'DG', 'PTS'];
+    const colWidths = [40, 260, 48, 48, 48, 48, 48, 48, 48, 56];
+    const totalWidth = colWidths.reduce((s, w) => s + w, 0) + 40;
+    const rowHeight = 40;
+    const headerHeight = 80;
+    const totalHeight = headerHeight + 48 + equipos.length * rowHeight + 30;
+
+    const rows = equipos.map((e, idx) => {
+        const dif = (e.gf || 0) - (e.gc || 0);
+        return {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'row', alignItems: 'center', height: `${rowHeight}px`, background: idx % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.07)', borderBottom: `1px solid ${hexToRgba(t.borde, 0.15)}` },
+                children: [
+                    { type: 'div', props: { style: { width: `${colWidths[0]}px`, textAlign: 'center', fontSize: '14px', fontWeight: 700, paddingLeft: '10px', color: idx < (torneo.clasificadosPorGrupo || 1) ? '#ffd700' : t.texto }, children: `${idx + 1}` } },
+                    { type: 'div', props: { style: { width: `${colWidths[1]}px`, display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '8px', overflow: 'hidden' }, children: [avatarElement(e.avatar, e.nombre, t), { type: 'div', props: { style: { fontSize: '14px', fontWeight: 600, color: '#ffffff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, children: e.nombre } }] } },
+                    ...[e.pj || 0, e.pg || 0, e.pe || 0, e.pp || 0, e.gf || 0, e.gc || 0, dif, e.puntos || 0].map((val, vi) => ({
+                        type: 'div',
+                        props: { style: { width: `${colWidths[vi + 2]}px`, textAlign: 'center', fontSize: '13px', fontWeight: vi === 7 ? 700 : 400, color: vi === 7 ? t.acento : vi === 6 ? (val > 0 ? '#2ecc71' : val < 0 ? '#e74c3c' : '#a0a0c0') : '#d0d0d0' }, children: `${val > 0 && vi === 6 ? '+' : ''}${val}` }
+                    }))
+                ]
+            }
+        };
+    });
+
+    const root = {
+        type: 'div',
+        props: {
+            style: { display: 'flex', flexDirection: 'column', width: `${totalWidth}px`, height: `${totalHeight}px`, background: `linear-gradient(135deg, ${t.primario} 0%, ${t.secundario} 100%)`, fontFamily: 'Inter', color: '#e0e0e0', padding: '20px' },
+            children: [
+                { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '12px' }, children: [{ type: 'div', props: { style: { fontSize: '22px', fontWeight: 700, color: '#ffffff', letterSpacing: '1px' }, children: `🏆 ${titulo}` } }, subtitulo ? { type: 'div', props: { style: { fontSize: '11px', opacity: 0.5, letterSpacing: '2px', textTransform: 'uppercase', marginTop: '4px' }, children: subtitulo } } : null] } },
+                { type: 'div', props: { style: { display: 'flex', flexDirection: 'row', background: hexToRgba(t.acento, 0.1), borderRadius: '8px 8px 0 0', padding: '8px 0', borderBottom: `1px solid ${hexToRgba(t.acento, 0.25)}` }, children: cols.map((col, i) => ({ type: 'div', props: { style: { width: `${colWidths[i]}px`, textAlign: i === 1 ? 'left' : 'center', fontSize: '12px', fontWeight: 700, color: t.acento, textTransform: 'uppercase', letterSpacing: '0.5px', paddingLeft: i === 1 ? '8px' : '0' }, children: col } })) } },
+                ...rows
+            ]
+        }
+    };
+    return await renderToBuffer(root, totalWidth, totalHeight);
+}
+
+export async function generarImagenParticipantes(torneo) {
+    const t = getTheme(torneo.tema);
+    const equipos = [...torneo.equipos].sort((a, b) => a.nombre.localeCompare(b.nombre));
+    const colCount = equipos.length > 12 ? 2 : 1;
+    const itemsPerCol = Math.ceil(equipos.length / colCount);
+    const rowHeight = 46;
+    const width = colCount === 2 ? 720 : 400;
+    const height = 120 + (itemsPerCol * rowHeight) + 40;
+
+    const renderColumn = (items) => ({
+        type: 'div',
+        props: {
+            style: { display: 'flex', flexDirection: 'column', flex: 1, gap: '4px' },
+            children: items.map((e, idx) => ({
+                type: 'div',
+                props: {
+                    style: { display: 'flex', alignItems: 'center', padding: '8px 16px', background: hexToRgba(t.secundario, 0.5), borderRadius: '8px', border: `1px solid ${hexToRgba(t.borde, 0.25)}` },
+                    children: [
+                        { type: 'div', props: { style: { fontSize: '12px', color: t.acento, fontWeight: 800, width: '24px' }, children: `${equipos.indexOf(e) + 1}.` } },
+                        avatarElement(e.avatar, e.nombre, t, 30),
+                        { type: 'div', props: { style: { fontSize: '14px', fontWeight: 600, color: t.texto, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap' }, children: e.nombre } }
+                    ]
+                }
+            }))
+        }
+    });
+
+    const root = {
+        type: 'div',
+        props: {
+            style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, background: t.primario, padding: '32px', fontFamily: 'Inter' },
+            children: [
+                { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' }, children: [{ type: 'div', props: { style: { fontSize: '24px', fontWeight: 900, color: t.texto, letterSpacing: '1px' }, children: `👥 PARTICIPANTES` } }, { type: 'div', props: { style: { fontSize: '11px', color: t.acento, fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', marginTop: '4px' }, children: torneo.nombre } }] } },
+                { type: 'div', props: { style: { display: 'flex', gap: '20px' }, children: colCount === 2 ? [renderColumn(equipos.slice(0, itemsPerCol)), renderColumn(equipos.slice(itemsPerCol))] : [renderColumn(equipos)] } }
+            ]
+        }
+    };
+    return await renderToBuffer(root, width, height);
+}
+
+export async function generarTablaImagenCopa(torneo, tabla, titulo) {
+    return await renderTablaBase(torneo, tabla, titulo, 'Tabla de Posiciones');
+}
+
+export async function generarPreviewTema(nombre, tema) {
+    const mockTabla = [
+        { nombre: 'Ejemplo Local', avatar: '', puntos: 9, pj: 3, pg: 3, pe: 0, pp: 0, gf: 10, gc: 2 },
+        { nombre: 'Ejemplo Visitante', avatar: '', puntos: 6, pj: 3, pg: 2, pe: 0, pp: 1, gf: 5, gc: 4 }
+    ];
+    return await renderTablaBase({ tema, clasificadosPorGrupo: 1 }, mockTabla, nombre, 'Vista Previa del Diseño');
+}

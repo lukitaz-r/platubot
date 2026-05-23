@@ -1,0 +1,20 @@
+{
+  "name": "platubot2",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun index.js"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "axios": "^1.15.2",
+    "discord.js": "^14.26.2",
+    "node-html-to-image": "^5.0.0",
+    "piscina": "^5.1.4",
+    "satori": "^0.26.0"
+  }
+}
