@@ -55,7 +55,7 @@ async function runGitBackup(message) {
   isGitOperating = true;
   try {
     console.log(`[Backup] Running Git: ${message}`.cyan);
-    await execAsync('git add backup_state.json data data1D data3D data1S');
+    await execAsync('git add backup_state.json data1D data3D data1S');
     const { stdout: statusOut } = await execAsync('git status --porcelain');
     if (!statusOut.trim()) {
       console.log('[Backup] No changes detected in Git repository.'.yellow);
