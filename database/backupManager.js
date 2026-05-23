@@ -10,7 +10,7 @@ const execAsync = promisify(exec);
 
 // Path definitions
 const DATA_DIR = join(process.cwd(), 'data');
-const STATE_FILE = join(DATA_DIR, 'backup_state.json');
+const STATE_FILE = join(process.cwd(), 'backup_state.json');
 const DIRS = {
   '1D': join(process.cwd(), 'data1D'),
   '3D': join(process.cwd(), 'data3D'),
@@ -55,16 +55,18 @@ async function runGitBackup(message) {
   isGitOperating = true;
   try {
     console.log(`[Backup] Running Git: ${message}`.cyan);
-    await execAsync('git add data data1D data3D data1S');
+    await execAsync('git add backup_state.json data data1D data3D data1S');
     const { stdout: statusOut } = await execAsync('git status --porcelain');
     if (!statusOut.trim()) {
       console.log('[Backup] No changes detected in Git repository.'.yellow);
       isGitOperating = false;
       return;
     }
+    const { stdout: branchOut } = await execAsync('git rev-parse --abbrev-ref HEAD');
+    const currentBranch = branchOut.trim();
     await execAsync(`git commit -m "${message}"`);
-    await execAsync('git push origin main');
-    console.log('[Backup] Git backup pushed successfully!'.green);
+    await execAsync(`git push origin ${currentBranch}`);
+    console.log(`[Backup] Git backup pushed successfully to ${currentBranch}!`.green);
   } catch (err) {
     console.error('[Backup] Git push failed:'.red, err);
   } finally {
@@ -145,6 +147,9 @@ function startHttpServer() {
     port,
     async fetch(req) {
       const url = new URL(req.url);
+      const pathname = url.pathname.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
+      
+      console.log(`[API Request] Method: ${req.method}, Path: ${pathname}`.yellow);
       
       // Handle CORS for all requests
       const corsHeaders = {
@@ -166,7 +171,7 @@ function startHttpServer() {
 
       try {
         // 1. Auth check endpoint (Verifies user ID and Server/Role)
-        if (url.pathname === '/api/auth-check' && req.method === 'POST') {
+        if (pathname === '/api/auth-check' && req.method === 'POST') {
           const { userId } = await req.json();
           if (!userId) {
             return new Response(JSON.stringify({ error: 'Missing userId' }), { status: 400, headers: corsHeaders });
@@ -202,7 +207,7 @@ function startHttpServer() {
         }
 
         // 2. Get list of all collections
-        if (url.pathname === '/api/collections' && req.method === 'GET') {
+        if (pathname === '/api/collections' && req.method === 'GET') {
           const files = await readdir(DATA_DIR);
           const collections = files
             .filter(file => file.endsWith('.json') && file !== 'backup_state.json')
@@ -211,8 +216,8 @@ function startHttpServer() {
         }
 
         // 3. Collection CRUD Operations
-        const collectionMatch = url.pathname.match(/^\/api\/collections\/([^/]+)$/);
-        const docMatch = url.pathname.match(/^\/api\/collections\/([^/]+)\/([^/]+)$/);
+        const collectionMatch = pathname.match(/^\/api\/collections\/([^/]+)$/);
+        const docMatch = pathname.match(/^\/api\/collections\/([^/]+)\/([^/]+)$/);
 
         // Fetch all documents in a collection
         if (collectionMatch && req.method === 'GET') {
