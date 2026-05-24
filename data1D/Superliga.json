@@ -7722,22 +7722,24 @@
                 "localJugadorNombre": "Shuu",
                 "visitanteJugadorId": "1503855137708441841",
                 "visitanteJugadorNombre": "420_dav",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 1,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **420_dav**: 81.21 (+0.91)\n📉 **Shuu**: 84.17 (-0.91)"
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 1,
-            "golesTotalLocal": 3,
-            "golesTotalVisitante": 5,
-            "finalizado": false,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 4,
+            "golesTotalVisitante": 10,
+            "finalizado": true,
             "golesLocal": 0,
-            "golesVisitante": 1,
+            "golesVisitante": 2,
             "resultado": {
               "golesLocal": 0,
-              "golesVisitante": 1
-            }
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254841_zhnbsbmkqh7",
@@ -7802,18 +7804,20 @@
                 "localJugadorNombre": "Rojas 🃏",
                 "visitanteJugadorId": "1381836864205361273",
                 "visitanteJugadorNombre": "polentarg",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 1,
+                "finalizado": true,
+                "logMedia": "📈 **Rojas 🃏**: 86.26 (+0.55)\n📉 **polentarg**: 81.66 (-0.55)"
               },
               {
                 "localJugadorId": "672164926948900864",
                 "localJugadorNombre": "hammeriti",
                 "visitanteJugadorId": "1155616783580020788",
                 "visitanteJugadorNombre": "martin_8899",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 2,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **martin_8899**: 78.4 (+0.87)\n📉 **hammeriti**: 78.57 (-0.87)"
               },
               {
                 "localJugadorId": "689386903203610685",
@@ -7825,11 +7829,17 @@
                 "finalizado": false
               }
             ],
-            "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniLocal": 1,
+            "puntosMiniVisitante": 1,
+            "golesTotalLocal": 7,
+            "golesTotalVisitante": 6,
+            "finalizado": false,
+            "golesLocal": 1,
+            "golesVisitante": 1,
+            "resultado": {
+              "golesLocal": 1,
+              "golesVisitante": 1
+            }
           },
           {
             "_id": "1778862254841_1qquned65l",
@@ -7843,18 +7853,20 @@
                 "localJugadorNombre": "Confe2007",
                 "visitanteJugadorId": "497936937793880065",
                 "visitanteJugadorNombre": "Maurii",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 1,
+                "finalizado": true,
+                "logMedia": "📈 **Confe2007**: 92.29 (+0.55)\n📉 **Maurii**: 84.22 (-0.55)"
               },
               {
                 "localJugadorId": "534231523751362580",
                 "localJugadorNombre": "nicoar1",
                 "visitanteJugadorId": "1495584399725432883",
                 "visitanteJugadorNombre": "santulado",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 2,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **santulado**: 80.17 (+0.94)\n📉 **nicoar1**: 85.59 (-0.94)"
               },
               {
                 "localJugadorId": "664977038905704454",
@@ -7867,17 +7879,18 @@
                 "logMedia": "📈 **mario_67.3**: 82.17 (+0.55)\n📉 **luca_aaaj**: 80 (-0.55)"
               }
             ],
-            "puntosMiniLocal": 1,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 5,
-            "golesTotalVisitante": 1,
-            "finalizado": false,
-            "golesLocal": 1,
-            "golesVisitante": 0,
+            "puntosMiniLocal": 2,
+            "puntosMiniVisitante": 1,
+            "golesTotalLocal": 12,
+            "golesTotalVisitante": 7,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 1,
             "resultado": {
-              "golesLocal": 1,
-              "golesVisitante": 0
-            }
+              "golesLocal": 2,
+              "golesVisitante": 1
+            },
+            "premiosEntregados": true
           }
         ],
         "numero": 7
