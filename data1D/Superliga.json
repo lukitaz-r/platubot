@@ -6452,7 +6452,7 @@
           {
             "_id": "1778862254843_22koz2bq5z",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "69cf284150f045493d72d175",
             "visitanteNombre": "Atletico Monarquia",
             "duelosIndividuales": [
@@ -6809,7 +6809,7 @@
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
             "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "1289028230078140467",
@@ -7015,7 +7015,7 @@
             "localId": "699fe1e370331e79012517ea",
             "localNombre": "Razgrad Camels",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "664977038905704454",
@@ -7122,7 +7122,7 @@
             "localId": "699fe6b970331e7901251808",
             "localNombre": "Super Bebelones Peronistas",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "425414047861571586",
@@ -7431,7 +7431,7 @@
             "localId": "69a0495570331e79012518c5",
             "localNombre": "Ghosts",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "934647569701797910",
@@ -7639,7 +7639,7 @@
             "localId": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4",
             "localNombre": "Super Libertarios Progresistas",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "1313318947352744067",
@@ -7797,7 +7797,7 @@
             "localId": "69a07b2fb7655dc96ac216a9",
             "localNombre": "Dutch Lions",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "1281896348643495948",
@@ -7953,7 +7953,7 @@
           {
             "_id": "1778862254844_1wiqlmsalai",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "69a0495570331e79012518c5",
             "visitanteNombre": "Ghosts",
             "duelosIndividuales": [
@@ -8162,7 +8162,7 @@
             "localId": "69cf284150f045493d72d175",
             "localNombre": "Atletico Monarquia",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "992866773047193710",
@@ -8335,30 +8335,39 @@
                 "localJugadorNombre": "alexiscarp9122018",
                 "visitanteJugadorId": "534231523751362580",
                 "visitanteJugadorNombre": "nicoar1",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 2,
+                "finalizado": true,
+                "logMedia": "📈 **alexiscarp9122018**: 87.88 (+0.55)\n📉 **nicoar1**: 84.24 (-0.55)"
               },
               {
                 "localJugadorId": "1261015690874196012",
                 "localJugadorNombre": "Gabucba",
                 "visitanteJugadorId": "664977038905704454",
                 "visitanteJugadorNombre": "mario_67.3",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 4,
+                "finalizado": true,
+                "logMedia": "📈 **Gabucba**: 91.25 (+0.25)\n📉 **mario_67.3**: 81.42 (-0.25)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 6,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 2,
+              "golesVisitante": 0
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_wsf9aeytfr",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "699fe6b970331e7901251808",
             "visitanteNombre": "Super Bebelones Peronistas",
             "duelosIndividuales": [
@@ -8411,8 +8420,8 @@
             "visitanteNombre": "Dutch Lions",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
+                "localJugadorId": "1289028230078140467",
+                "localJugadorNombre": "luca_aaaj",
                 "visitanteJugadorId": "1281896348643495948",
                 "visitanteJugadorNombre": "Rojas 🃏",
                 "golesLocal": null,
@@ -8420,8 +8429,8 @@
                 "finalizado": false
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
+                "localJugadorId": "1495584399725432883",
+                "localJugadorNombre": "santulado",
                 "visitanteJugadorId": "689386903203610685",
                 "visitanteJugadorNombre": "Raph",
                 "golesLocal": null,
@@ -8429,8 +8438,8 @@
                 "finalizado": false
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
+                "localJugadorId": "497936937793880065",
+                "localJugadorNombre": "Maurii",
                 "visitanteJugadorId": "672164926948900864",
                 "visitanteJugadorNombre": "hammeriti",
                 "golesLocal": null,
@@ -8544,7 +8553,7 @@
           {
             "_id": "1778862254844_d3oaitzsjws",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4",
             "visitanteNombre": "Super Libertarios Progresistas",
             "duelosIndividuales": [
@@ -8754,7 +8763,7 @@
           {
             "_id": "1778862254844_8lqgpr4u3p",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "69a07b2fb7655dc96ac216a9",
             "visitanteNombre": "Dutch Lions",
             "duelosIndividuales": [
@@ -8841,7 +8850,7 @@
           {
             "_id": "1778862254844_uwkz2g4wm2",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
             "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
             "duelosIndividuales": [
@@ -9010,7 +9019,7 @@
           {
             "_id": "1778862254844_8j4kyg1lxrq",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "699fe1e370331e79012517ea",
             "visitanteNombre": "Razgrad Camels",
             "duelosIndividuales": [
