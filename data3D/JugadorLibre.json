@@ -242,37 +242,27 @@
     "_id": "69f501c19011f9dcf38372b8"
   },
   {
-    "nombre": "ThiagoG",
-    "id": "752669799263502356",
-    "mediaInicial": 78,
-    "media": 78.32,
+    "nombre": "nicoar1",
+    "id": "534231523751362580",
+    "mediaInicial": 80,
+    "media": 84.14,
     "stats": {
-      "actividad": 90,
-      "tiro": 70,
-      "pase": 75,
-      "iq": 20,
-      "aura": 80,
-      "esquinazo": 0
+      "actividad": 81,
+      "tiro": 76,
+      "pase": 81,
+      "iq": 84,
+      "aura": 82,
+      "esquinazo": 76
     },
-    "valor": 1200000,
+    "valor": 500000,
     "pais": "Argentina",
-    "partidosGanados": 5,
-    "partidosPerdidos": 3,
-    "golesAFavor": 5,
-    "golesEnContra": 3,
+    "partidosGanados": 0,
+    "partidosPerdidos": 0,
+    "golesAFavor": 0,
+    "golesEnContra": 0,
     "suspendido": 0,
-    "exEquipo": "Libertadores",
-    "_id": "69f2c62af78a647e4be62765",
-    "createdAt": "2026-04-30T03:02:02.111Z",
-    "updatedAt": "2026-04-30T03:02:02.111Z",
-    "__v": 0,
-    "contrato": 1,
-    "carta": "assets/cartas/generadas/752669799263502356_f4c574f3e14315b7.png",
-    "prestadoDe": {
-      "equipoId": "699fdb81c96e4af9dc494691",
-      "equipoNombre": "Tel Aviv City",
-      "temporadasRestantes": 1,
-      "contratoOriginal": 1
-    }
+    "exEquipo": "Razgrad Camels",
+    "carta": "assets/cartas/generadas/534231523751362580_0f92bf32fbc62a72.png",
+    "_id": "699fe1e370331e79012517eb"
   }
 ]
