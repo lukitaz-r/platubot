@@ -12,6 +12,7 @@ const execAsync = promisify(exec);
 const DATA_DIR = join(process.cwd(), 'data');
 const STATE_FILE = join(process.cwd(), 'backup_state.json');
 const DIRS = {
+  '30M': join(process.cwd(), 'data30M'),
   '1D': join(process.cwd(), 'data1D'),
   '3D': join(process.cwd(), 'data3D'),
   '1S': join(process.cwd(), 'data1S')
@@ -19,6 +20,7 @@ const DIRS = {
 
 // State
 let lastBackupTimes = {
+  last30M: 0,
   last1D: 0,
   last3D: 0,
   last1S: 0
@@ -55,7 +57,7 @@ async function runGitBackup(message) {
   isGitOperating = true;
   try {
     console.log(`[Backup] Running Git: ${message}`.cyan);
-    await execAsync('git add backup_state.json data1D data3D data1S');
+    await execAsync('git add backup_state.json data30M data1D data3D data1S');
     const { stdout: statusOut } = await execAsync('git status --porcelain');
     if (!statusOut.trim()) {
       console.log('[Backup] No changes detected in Git repository.'.yellow);
@@ -84,10 +86,18 @@ function queueDebouncedBackup() {
   }, 30000); // 30 seconds debounce to bundle multiple writes
 }
 
-// Periodic check for 1D, 3D, and 1S folders
+// Periodic check for 30M, 1D, 3D, and 1S folders
 async function checkPeriodicBackups() {
   const now = Date.now();
   let updatedAny = false;
+
+  // 30M: 30 minutes (1800000 ms)
+  if (now - lastBackupTimes.last30M >= 30 * 60 * 1000) {
+    console.log('[Backup] Updating data30M (30 min)...'.yellow);
+    await copyDataDir(DIRS['30M']);
+    lastBackupTimes.last30M = now;
+    updatedAny = true;
+  }
 
   // 1D: 24 hours (86400000 ms)
   if (now - lastBackupTimes.last1D >= 24 * 60 * 60 * 1000) {
@@ -115,7 +125,7 @@ async function checkPeriodicBackups() {
 
   if (updatedAny) {
     await saveBackupState();
-    await runGitBackup('Backup: scheduled periodic folder updates (1D/3D/1S)');
+    await runGitBackup('Backup: scheduled periodic folder updates (30M/1D/3D/1S)');
   }
 }
 
@@ -211,7 +221,7 @@ function startHttpServer() {
           let logOutput = '';
           try {
             // Try to fetch active PM2 logs or process stdout
-            const { stdout } = await execAsync('pm2 logs platubot --raw --lines 100');
+            const { stdout } = await execAsync('pm2 logs platubot --raw --lines 20 --nostream');
             logOutput = stdout;
           } catch (e) {
             // Fallback: Return dynamic system trace
@@ -239,7 +249,7 @@ function startHttpServer() {
             if (command === 'restart') {
               // Graceful self-restart preset
               try {
-                const { stdout } = await execAsync('pm2 restart all');
+                const { stdout } = await execAsync('pm2 restart platubot');
                 output = stdout;
               } catch (e) {
                 output = 'Simulando reinicio: Proceso del bot refrescado con éxito.';
@@ -363,6 +373,7 @@ export async function init(client) {
     console.log('[Backup] Moment 0: Initializing all backup folders...'.yellow);
     
     // Copy current state
+    await copyDataDir(DIRS['30M']);
     await copyDataDir(DIRS['1D']);
     await copyDataDir(DIRS['3D']);
     await copyDataDir(DIRS['1S']);
@@ -370,6 +381,7 @@ export async function init(client) {
     // Set initial timestamps
     const now = Date.now();
     lastBackupTimes = {
+      last30M: now,
       last1D: now,
       last3D: now,
       last1S: now
@@ -377,15 +389,19 @@ export async function init(client) {
     await saveBackupState();
 
     // Commit and push initial folders
-    await runGitBackup('Backup: Initial moment 0 folders creation (1D/3D/1S)');
+    await runGitBackup('Backup: Initial moment 0 folders creation (30M/1D/3D/1S)');
   } else {
     try {
       const data = await readFile(STATE_FILE, 'utf8');
       lastBackupTimes = JSON.parse(data);
+      if (lastBackupTimes.last30M === undefined) {
+        lastBackupTimes.last30M = 0;
+      }
       console.log('[Backup] State successfully loaded.'.green);
     } catch (e) {
       console.error('[Backup] Failed to read state file, resetting state:'.red, e);
       lastBackupTimes = {
+        last30M: Date.now(),
         last1D: Date.now(),
         last3D: Date.now(),
         last1S: Date.now()
@@ -394,8 +410,8 @@ export async function init(client) {
     }
   }
 
-  // Start check timer every 1 hour (3600000 ms)
-  setInterval(checkPeriodicBackups, 60 * 60 * 1000);
+  // Start check timer every 15 minutes (900000 ms) to accurately support 30M backups
+  setInterval(checkPeriodicBackups, 15 * 60 * 1000);
   
   // Also run an immediate check just in case
   checkPeriodicBackups();

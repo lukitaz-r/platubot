@@ -6452,7 +6452,7 @@
           {
             "_id": "1778862254843_22koz2bq5z",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "69cf284150f045493d72d175",
             "visitanteNombre": "Atletico Monarquia",
             "duelosIndividuales": [
@@ -6809,7 +6809,7 @@
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
             "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "1289028230078140467",
@@ -7015,7 +7015,7 @@
             "localId": "699fe1e370331e79012517ea",
             "localNombre": "Razgrad Camels",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "664977038905704454",
@@ -7122,7 +7122,7 @@
             "localId": "699fe6b970331e7901251808",
             "localNombre": "Super Bebelones Peronistas",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "425414047861571586",
@@ -7431,7 +7431,7 @@
             "localId": "69a0495570331e79012518c5",
             "localNombre": "Ghosts",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "934647569701797910",
@@ -7639,7 +7639,7 @@
             "localId": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4",
             "localNombre": "Super Libertarios Progresistas",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "1313318947352744067",
@@ -7797,7 +7797,7 @@
             "localId": "69a07b2fb7655dc96ac216a9",
             "localNombre": "Dutch Lions",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "1281896348643495948",
@@ -7953,7 +7953,7 @@
           {
             "_id": "1778862254844_1wiqlmsalai",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "69a0495570331e79012518c5",
             "visitanteNombre": "Ghosts",
             "duelosIndividuales": [
@@ -8162,7 +8162,7 @@
             "localId": "69cf284150f045493d72d175",
             "localNombre": "Atletico Monarquia",
             "visitanteId": "69cf277750f045493d72cfaa",
-            "visitanteNombre": "Atlético Obrero Alemán del Keke",
+            "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
               {
                 "localJugadorId": "992866773047193710",
@@ -8335,30 +8335,39 @@
                 "localJugadorNombre": "alexiscarp9122018",
                 "visitanteJugadorId": "534231523751362580",
                 "visitanteJugadorNombre": "nicoar1",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 2,
+                "finalizado": true,
+                "logMedia": "📈 **alexiscarp9122018**: 87.88 (+0.55)\n📉 **nicoar1**: 84.24 (-0.55)"
               },
               {
                 "localJugadorId": "1261015690874196012",
                 "localJugadorNombre": "Gabucba",
                 "visitanteJugadorId": "664977038905704454",
                 "visitanteJugadorNombre": "mario_67.3",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 4,
+                "finalizado": true,
+                "logMedia": "📈 **Gabucba**: 91.25 (+0.25)\n📉 **mario_67.3**: 81.42 (-0.25)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 6,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 2,
+              "golesVisitante": 0
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_wsf9aeytfr",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "699fe6b970331e7901251808",
             "visitanteNombre": "Super Bebelones Peronistas",
             "duelosIndividuales": [
@@ -8379,27 +8388,28 @@
                 "visitanteJugadorNombre": "Shuu",
                 "golesLocal": null,
                 "golesVisitante": null,
-                "finalizado": false
+                "finalizado": true
               },
               {
                 "localJugadorId": "1381836864205361273",
                 "localJugadorNombre": "polentarg",
                 "visitanteJugadorId": "425414047861571586",
                 "visitanteJugadorNombre": "sarajevocabj",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 4,
+                "finalizado": true,
+                "logMedia": "📈 **polentarg**: 81.49 (+0.63)\n📉 **sarajevocabj**: 86.72 (-0.63)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 1,
-            "golesTotalLocal": 2,
-            "golesTotalVisitante": 5,
-            "finalizado": false,
-            "golesLocal": 0,
+            "golesTotalLocal": 6,
+            "golesTotalVisitante": 9,
+            "finalizado": true,
+            "golesLocal": 2,
             "golesVisitante": 1,
             "resultado": {
-              "golesLocal": 0,
+              "golesLocal": 2,
               "golesVisitante": 1
             }
           },
@@ -8411,38 +8421,48 @@
             "visitanteNombre": "Dutch Lions",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
+                "localJugadorId": "1289028230078140467",
+                "localJugadorNombre": "luca_aaaj",
                 "visitanteJugadorId": "1281896348643495948",
                 "visitanteJugadorNombre": "Rojas 🃏",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 3,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Rojas 🃏**: 85.84 (+0.25)\n📉 **luca_aaaj**: 80 (-0.25)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
+                "localJugadorId": "1495584399725432883",
+                "localJugadorNombre": "santulado",
                 "visitanteJugadorId": "689386903203610685",
                 "visitanteJugadorNombre": "Raph",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 2,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Raph**: 87.87 (+0.55)\n📉 **santulado**: 78.22 (-0.55)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
+                "localJugadorId": "497936937793880065",
+                "localJugadorNombre": "Maurii",
                 "visitanteJugadorId": "672164926948900864",
                 "visitanteJugadorNombre": "hammeriti",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 2,
+                "finalizado": true,
+                "logMedia": "📈 **Maurii**: 83.34 (+0.55)\n📉 **hammeriti**: 76.92 (-0.55)"
               }
             ],
-            "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniLocal": 1,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 12,
+            "finalizado": true,
+            "golesLocal": 1,
+            "golesVisitante": 2,
+            "resultado": {
+              "golesLocal": 1,
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_wjvjlyoh33n",
@@ -8508,79 +8528,98 @@
             "visitanteNombre": "Dutch Lions",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "425414047861571586",
+                "localJugadorNombre": "sarajevocabj",
+                "visitanteJugadorId": "1281896348643495948",
+                "visitanteJugadorNombre": "Rojas 🃏",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1393029583778873415",
+                "localJugadorNombre": "moonzzz14",
+                "visitanteJugadorId": "689386903203610685",
+                "visitanteJugadorNombre": "Raph",
+                "golesLocal": 5,
+                "golesVisitante": 4,
+                "finalizado": true,
+                "logMedia": "📈 **moonzzz14**: 86.83 (+0.57)\n📉 **Raph**: 87.5 (-0.57)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "747095738269433917",
+                "localJugadorNombre": "Shuu",
+                "visitanteJugadorId": "672164926948900864",
+                "visitanteJugadorNombre": "hammeriti",
+                "golesLocal": 5,
+                "golesVisitante": 2,
+                "finalizado": true,
+                "logMedia": "📈 **Shuu**: 84.37 (+0.55)\n📉 **hammeriti**: 76.57 (-0.55)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 6,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 2,
+              "golesVisitante": 0
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_d3oaitzsjws",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4",
             "visitanteNombre": "Super Libertarios Progresistas",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "979152495811100743",
+                "localJugadorNombre": "agus_nah",
+                "visitanteJugadorId": "1313318947352744067",
+                "visitanteJugadorNombre": "alexiscarp9122018",
+                "golesLocal": 5,
+                "golesVisitante": 4,
+                "finalizado": true,
+                "logMedia": "📈 **agus_nah**: 80 (+0.65)\n📉 **alexiscarp9122018**: 87.43 (-0.65)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1381836864205361273",
+                "localJugadorNombre": "polentarg",
+                "visitanteJugadorId": "760530409557065729",
+                "visitanteJugadorNombre": "saletrox123",
+                "golesLocal": 2,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **saletrox123**: 82.72 (+0.55)\n📉 **polentarg**: 80.94 (-0.55)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "752669799263502356",
+                "localJugadorNombre": "ThiagoG",
+                "visitanteJugadorId": "1261015690874196012",
+                "visitanteJugadorNombre": "Gabucba",
+                "golesLocal": 2,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Gabucba**: 92 (+0.55)\n📉 **ThiagoG**: 77.77 (-0.55)"
               }
             ],
-            "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniLocal": 1,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 9,
+            "golesTotalVisitante": 14,
+            "finalizado": true,
+            "golesLocal": 1,
+            "golesVisitante": 2,
+            "resultado": {
+              "golesLocal": 1,
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_44byd0zo71v",
@@ -8590,38 +8629,48 @@
             "visitanteNombre": "Ghosts",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "497936937793880065",
+                "localJugadorNombre": "Maurii",
+                "visitanteJugadorId": "751663890441699409",
+                "visitanteJugadorNombre": "tterss",
+                "golesLocal": 5,
+                "golesVisitante": 3,
+                "finalizado": true,
+                "logMedia": "📈 **Maurii**: 83.85 (+0.61)\n📉 **tterss**: 87.97 (-0.61)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1289028230078140467",
+                "localJugadorNombre": "luca_aaaj",
+                "visitanteJugadorId": "934647569701797910",
+                "visitanteJugadorNombre": "jaded10078",
+                "golesLocal": 5,
+                "golesVisitante": 3,
+                "finalizado": true,
+                "logMedia": "📈 **luca_aaaj**: 80 (+0.69)\n📉 **jaded10078**: 90.25 (-0.69)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1495584399725432883",
+                "localJugadorNombre": "santulado",
+                "visitanteJugadorId": "1449512445549871125",
+                "visitanteJugadorNombre": "Sebas",
+                "golesLocal": 1,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Sebas**: 89.52 (+0.55)\n📉 **santulado**: 77.57 (-0.55)"
               }
             ],
-            "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniLocal": 2,
+            "puntosMiniVisitante": 1,
+            "golesTotalLocal": 11,
+            "golesTotalVisitante": 11,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 1,
+            "resultado": {
+              "golesLocal": 2,
+              "golesVisitante": 1
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_e4zmbcfolsj",
@@ -8631,41 +8680,51 @@
             "visitanteNombre": "Razgrad Camels",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1285655821346144267",
+                "localJugadorNombre": "FacuZ16 🇵🇦",
+                "visitanteJugadorId": "625472211779584030",
+                "visitanteJugadorNombre": "Confe2007",
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Confe2007**: 92.99 (+0.25)\n📉 **FacuZ16 🇵🇦**: 85.32 (-0.25)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1503855137708441841",
+                "localJugadorNombre": "420_dav",
+                "visitanteJugadorId": "664977038905704454",
+                "visitanteJugadorNombre": "mario_67.3",
+                "golesLocal": 3,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **mario_67.3**: 81.91 (+0.59)\n📉 **420_dav**: 83.78 (-0.59)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "992866773047193710",
+                "localJugadorNombre": "Benja",
+                "visitanteJugadorId": "1152567232933658716",
+                "visitanteJugadorNombre": "medinaconzurda",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 7,
+            "golesTotalVisitante": 10,
+            "finalizado": true,
+            "golesLocal": 0,
+            "golesVisitante": 2,
+            "resultado": {
+              "golesLocal": 0,
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           }
         ],
-        "numero": 11
+        "numero": 11,
+        "suspensionesProcesadas": true
       },
       {
         "partidos": [
@@ -8677,38 +8736,45 @@
             "visitanteNombre": "Ghosts",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "1313318947352744067",
+                "localJugadorNombre": "alexiscarp9122018",
+                "visitanteJugadorId": "751663890441699409",
+                "visitanteJugadorNombre": "tterss",
+                "golesLocal": 0,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **tterss**: 88.42 (+0.55)\n📉 **alexiscarp9122018**: 87.08 (-0.55)"
+              },
+              {
+                "localJugadorId": "1261015690874196012",
+                "localJugadorNombre": "Gabucba",
+                "visitanteJugadorId": "934647569701797910",
+                "visitanteJugadorNombre": "jaded10078",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
-              },
-              {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "760530409557065729",
+                "localJugadorNombre": "saletrox123",
+                "visitanteJugadorId": "1449512445549871125",
+                "visitanteJugadorNombre": "Sebas",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
+            "puntosMiniVisitante": 1,
             "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalVisitante": 5,
+            "finalizado": false,
+            "golesLocal": 0,
+            "golesVisitante": 1,
+            "resultado": {
+              "golesLocal": 0,
+              "golesVisitante": 1
+            }
           },
           {
             "_id": "1778862254844_onpuqndtb3",
@@ -8718,69 +8784,78 @@
             "visitanteNombre": "Razgrad Camels",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1289028230078140467",
+                "localJugadorNombre": "luca_aaaj",
+                "visitanteJugadorId": "625472211779584030",
+                "visitanteJugadorNombre": "Confe2007",
+                "golesLocal": 3,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Confe2007**: 93.44 (+0.25)\n📉 **luca_aaaj**: 80 (-0.25)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "497936937793880065",
+                "localJugadorNombre": "Maurii",
+                "visitanteJugadorId": "664977038905704454",
+                "visitanteJugadorNombre": "mario_67.3",
+                "golesLocal": 2,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **mario_67.3**: 82.98 (+0.87)\n📉 **Maurii**: 83.18 (-0.87)"
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "1495584399725432883",
+                "localJugadorNombre": "santulado",
+                "visitanteJugadorId": "1152567232933658716",
+                "visitanteJugadorNombre": "medinaconzurda",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 5,
+            "golesTotalVisitante": 10,
+            "finalizado": true,
+            "golesLocal": 0,
+            "golesVisitante": 2,
+            "resultado": {
+              "golesLocal": 0,
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_8lqgpr4u3p",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "69a07b2fb7655dc96ac216a9",
             "visitanteNombre": "Dutch Lions",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "752669799263502356",
+                "localJugadorNombre": "ThiagoG",
+                "visitanteJugadorId": "1281896348643495948",
+                "visitanteJugadorNombre": "Rojas 🃏",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "979152495811100743",
+                "localJugadorNombre": "agus_nah",
+                "visitanteJugadorId": "689386903203610685",
+                "visitanteJugadorNombre": "Raph",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "1381836864205361273",
+                "localJugadorNombre": "polentarg",
+                "visitanteJugadorId": "672164926948900864",
+                "visitanteJugadorNombre": "hammeriti",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
@@ -8800,38 +8875,47 @@
             "visitanteNombre": "Super Bebelones Peronistas",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "992866773047193710",
+                "localJugadorNombre": "Benja",
+                "visitanteJugadorId": "1393029583778873415",
+                "visitanteJugadorNombre": "moonzzz14",
+                "golesLocal": 5,
+                "golesVisitante": 3,
+                "finalizado": true,
+                "logMedia": "📈 **Benja**: 90 (+0.25)\n📉 **moonzzz14**: 86.78 (-0.25)"
+              },
+              {
+                "localJugadorId": "1503855137708441841",
+                "localJugadorNombre": "420_dav",
+                "visitanteJugadorId": "747095738269433917",
+                "visitanteJugadorNombre": "Shuu",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
-              },
-              {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1285655821346144267",
+                "localJugadorNombre": "FacuZ16 🇵🇦",
+                "visitanteJugadorId": "425414047861571586",
+                "visitanteJugadorNombre": "sarajevocabj",
+                "golesLocal": 5,
+                "golesVisitante": 2,
+                "finalizado": true,
+                "logMedia": "📈 **FacuZ16 🇵🇦**: 86.09 (+0.87)\n📉 **sarajevocabj**: 86.05 (-0.87)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 5,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 2,
+              "golesVisitante": 0
+            },
+            "premiosEntregados": true
           }
         ],
         "numero": 12
@@ -8841,7 +8925,7 @@
           {
             "_id": "1778862254844_uwkz2g4wm2",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
             "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
             "duelosIndividuales": [
@@ -9010,7 +9094,7 @@
           {
             "_id": "1778862254844_8j4kyg1lxrq",
             "localId": "69cf277750f045493d72cfaa",
-            "localNombre": "Atlético Obrero Alemán del Keke",
+            "localNombre": "Libertadores",
             "visitanteId": "699fe1e370331e79012517ea",
             "visitanteNombre": "Razgrad Camels",
             "duelosIndividuales": [

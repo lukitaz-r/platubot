@@ -763,14 +763,14 @@
         "aura": 77,
         "esquinazo": 75
       },
-      "media": 92
+      "media": 92.5
     },
     "jugadores": [
       {
         "nombre": "tterss",
         "id": "751663890441699409",
         "pais": "Argentina",
-        "media": 88.42,
+        "media": 88.62,
         "carta": "assets/cartas/generadas/751663890441699409_b85aacab13c9e006.png",
         "stats": {
           "actividad": 98,
@@ -794,7 +794,7 @@
         "nombre": "jaded10078",
         "id": "934647569701797910",
         "mediaInicial": 89,
-        "media": 90.15,
+        "media": 90.35,
         "valor": 2150000,
         "pais": "Argentina",
         "partidosGanados": 18,
@@ -828,7 +828,7 @@
         "carta": "assets/cartas/generadas/1449512445549871125_4abe89681073f635.png",
         "contrato": 3,
         "mediaInicial": 88,
-        "media": 89.42,
+        "media": 90.17,
         "valor": 2050000,
         "pais": "Peru",
         "prestadoDe": null,
@@ -898,7 +898,7 @@
     "createdAt": "2026-02-26T13:23:33.303Z",
     "updatedAt": "2026-05-01T02:56:09.873Z",
     "__v": 19,
-    "dinero": 6350000,
+    "dinero": 6550000,
     "tablaHistorica": {
       "puntosAcumulados": 84,
       "partidosGanados": 28,
@@ -952,6 +952,13 @@
       {
         "tipo": "Premio",
         "fecha": "2026-05-25T20:26:58.160Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-29T23:50:21.004Z",
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
@@ -1032,7 +1039,7 @@
         "nombre": "Raph",
         "id": "689386903203610685",
         "mediaInicial": 84,
-        "media": 87.4,
+        "media": 87.95,
         "valor": 1710000,
         "pais": "Francia",
         "partidosGanados": 1,
@@ -1957,7 +1964,7 @@
         "carta": "assets/cartas/generadas/1313318947352744067_af83aa1fdd68eae8.png",
         "contrato": 1,
         "mediaInicial": 83,
-        "media": 87.08,
+        "media": 86.98,
         "valor": 1630000,
         "clausula": {
           "tipo": null,
@@ -1992,7 +1999,7 @@
         "carta": "assets/cartas/generadas/760530409557065729_068050dd2f07f74f.png",
         "contrato": 1,
         "mediaInicial": 81,
-        "media": 82.92,
+        "media": 82.27,
         "valor": 1480000,
         "clausula": {
           "tipo": null,
@@ -2028,7 +2035,7 @@
         "nombre": "Gabucba",
         "id": "1261015690874196012",
         "mediaInicial": 86,
-        "media": 92.2,
+        "media": 92.1,
         "valor": 1900000,
         "pais": "Argentina",
         "partidosGanados": 3,

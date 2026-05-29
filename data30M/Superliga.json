@@ -8759,22 +8759,24 @@
                 "localJugadorNombre": "saletrox123",
                 "visitanteJugadorId": "1449512445549871125",
                 "visitanteJugadorNombre": "Sebas",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 2,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Sebas**: 89.97 (+0.55)\n📉 **saletrox123**: 82.37 (-0.55)"
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 1,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 5,
-            "finalizado": false,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 2,
+            "golesTotalVisitante": 10,
+            "finalizado": true,
             "golesLocal": 0,
-            "golesVisitante": 1,
+            "golesVisitante": 2,
             "resultado": {
               "golesLocal": 0,
-              "golesVisitante": 1
-            }
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_onpuqndtb3",
@@ -8847,9 +8849,10 @@
                 "localJugadorNombre": "agus_nah",
                 "visitanteJugadorId": "689386903203610685",
                 "visitanteJugadorNombre": "Raph",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 1,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Raph**: 87.95 (+0.55)\n📉 **agus_nah**: 80 (-0.55)"
               },
               {
                 "localJugadorId": "1381836864205361273",
@@ -8862,10 +8865,16 @@
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniVisitante": 1,
+            "golesTotalLocal": 1,
+            "golesTotalVisitante": 5,
+            "finalizado": false,
+            "golesLocal": 0,
+            "golesVisitante": 1,
+            "resultado": {
+              "golesLocal": 0,
+              "golesVisitante": 1
+            }
           },
           {
             "_id": "1778862254844_y90r1qqk6e",
