@@ -39,6 +39,7 @@ export default {
             ];
 
             participantes.forEach(p => {
+            console.log(p)
             if (!p.id || p.id === 'BYE' || p.id === '') return;
 
             if (!jugadoresStats[p.id]) {
@@ -51,8 +52,6 @@ export default {
                     equipo: eq?.nombre || '?', 
                     pj: 0, gf: 0, gc: 0, dg: 0, id: p.id 
                 };
-
-                console.log(jugadoresStats)
             }
 
             jugadoresStats[p.id].pj++;
