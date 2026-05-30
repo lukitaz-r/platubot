@@ -770,7 +770,7 @@
         "nombre": "tterss",
         "id": "751663890441699409",
         "pais": "Argentina",
-        "media": 88.62,
+        "media": 89.17,
         "carta": "assets/cartas/generadas/751663890441699409_b85aacab13c9e006.png",
         "stats": {
           "actividad": 98,
@@ -1039,7 +1039,7 @@
         "nombre": "Raph",
         "id": "689386903203610685",
         "mediaInicial": 84,
-        "media": 88.15,
+        "media": 87.60000000000001,
         "valor": 1710000,
         "pais": "Francia",
         "partidosGanados": 1,
@@ -1047,7 +1047,7 @@
         "golesAFavor": 1,
         "golesEnContra": 6,
         "suspendido": 0,
-        "contrato": 1,
+        "contrato": 3,
         "createdAt": "2026-05-01T02:56:09.273Z",
         "updatedAt": "2026-05-01T02:56:09.273Z",
         "__v": 0,
@@ -1059,7 +1059,7 @@
           "aura": 87,
           "esquinazo": 87
         },
-        "carta": "assets/cartas/generadas/689386903203610685_c404ac9d292a0097.png"
+        "carta": ""
       },
       {
         "nombre": "hammeriti",

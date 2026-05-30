@@ -8947,8 +8947,8 @@
               {
                 "localJugadorId": null,
                 "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "visitanteJugadorId": "497936937793880065",
+                "visitanteJugadorNombre": "Maurii",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
@@ -8956,8 +8956,8 @@
               {
                 "localJugadorId": null,
                 "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "visitanteJugadorId": "1495584399725432883",
+                "visitanteJugadorNombre": "santulado",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
@@ -8965,8 +8965,8 @@
               {
                 "localJugadorId": null,
                 "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "visitanteJugadorId": "1289028230078140467",
+                "visitanteJugadorNombre": "luca_aaaj",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
@@ -9081,9 +9081,10 @@
                 "localJugadorNombre": "tterss",
                 "visitanteJugadorId": "689386903203610685",
                 "visitanteJugadorNombre": "Raph",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 2,
+                "finalizado": true,
+                "logMedia": "📈 **tterss**: 89.17 (+0.55)\n📉 **Raph**: 87.6 (-0.55)"
               },
               {
                 "localJugadorId": "934647569701797910",
@@ -9095,11 +9096,17 @@
                 "finalizado": false
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 1,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 5,
+            "golesTotalVisitante": 2,
+            "finalizado": false,
+            "golesLocal": 1,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 1,
+              "golesVisitante": 0
+            }
           }
         ],
         "numero": 13
