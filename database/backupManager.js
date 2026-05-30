@@ -159,7 +159,9 @@ function startHttpServer() {
       const url = new URL(req.url);
       const pathname = url.pathname.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
       
-      console.log(`[API Request] Method: ${req.method}, Path: ${pathname}`.yellow);
+      if (pathname !== '/api/vps/logs' && pathname !== '/api/vps/status') {
+        console.log(`[API Request] Method: ${req.method}, Path: ${pathname}`.yellow);
+      }
       
       // Handle CORS for all requests
       const corsHeaders = {
