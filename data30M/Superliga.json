@@ -8999,9 +8999,10 @@
                 "localJugadorNombre": "Shuu",
                 "visitanteJugadorId": "664977038905704454",
                 "visitanteJugadorNombre": "mario_67.3",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 3,
+                "finalizado": true,
+                "logMedia": "📈 **Shuu**: 84.72 (+0.25)\n📉 **mario_67.3**: 82.93 (-0.25)"
               },
               {
                 "localJugadorId": "1393029583778873415",
@@ -9013,11 +9014,17 @@
                 "finalizado": false
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 1,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 5,
+            "golesTotalVisitante": 3,
+            "finalizado": false,
+            "golesLocal": 1,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 1,
+              "golesVisitante": 0
+            }
           },
           {
             "_id": "1778862254844_jtepqb526e",
@@ -9091,22 +9098,24 @@
                 "localJugadorNombre": "jaded10078",
                 "visitanteJugadorId": "672164926948900864",
                 "visitanteJugadorNombre": "hammeriti",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 3,
+                "finalizado": true,
+                "logMedia": "📈 **jaded10078**: 90.6 (+0.25)\n📉 **hammeriti**: 77.03 (-0.25)"
               }
             ],
-            "puntosMiniLocal": 1,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 5,
-            "golesTotalVisitante": 2,
-            "finalizado": false,
-            "golesLocal": 1,
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 5,
+            "finalizado": true,
+            "golesLocal": 2,
             "golesVisitante": 0,
             "resultado": {
-              "golesLocal": 1,
+              "golesLocal": 2,
               "golesVisitante": 0
-            }
+            },
+            "premiosEntregados": true
           }
         ],
         "numero": 13
