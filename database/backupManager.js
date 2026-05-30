@@ -249,15 +249,18 @@ function startHttpServer() {
 
           try {
             if (command === 'restart') {
-              // Graceful self-restart preset
-              try {
-                const { stdout } = await execAsync('pm2 restart platubot');
-                output = stdout;
-              } catch (e) {
-                output = 'Simulando reinicio: Proceso del bot refrescado con éxito.';
-              }
+              // Graceful delayed self-restart to allow HTTP response to be delivered first
+              setTimeout(() => {
+                exec('pm2 restart platubot', (err) => {
+                  if (err) {
+                    exec('pm2 restart all');
+                  }
+                });
+              }, 1000);
+              output = 'Reinicio solicitado: El bot y el servidor HTTP se reiniciarán en 1 segundo.';
+              success = true;
             } else if (command === 'pull') {
-              const { stdout } = await execAsync('git pull');
+              const { stdout } = await execAsync('git pull origin main');
               output = stdout || 'Ya actualizado.';
             } else if (command === 'status') {
               try {
