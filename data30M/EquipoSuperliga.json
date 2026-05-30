@@ -1648,13 +1648,13 @@
     "_id": "69cf284150f045493d72d175",
     "nombre": "Atletico Monarquia",
     "escudo": "assets/equipos/atletico_monarquia.png",
-    "dinero": 10860000,
+    "dinero": 11060000,
     "coach": {
       "_id": "69f2c62af78a647e4be62766",
       "nombre": "Dmilito2010",
       "id": "1333674349152174091",
       "mediaInicial": 72,
-      "media": 78.57,
+      "media": 79.07,
       "valor": 710000,
       "pais": "Argentina",
       "partidosGanados": 0,
@@ -1682,7 +1682,7 @@
         "carta": "assets/cartas/generadas/992866773047193710_46200bad66cab693.png",
         "contrato": 2,
         "mediaInicial": 80,
-        "media": 90.2,
+        "media": 90.4,
         "valor": 500000,
         "pais": "Argentina",
         "prestadoDe": null,
@@ -1712,7 +1712,7 @@
         "carta": "assets/cartas/generadas/1285655821346144267_da3ee7dbedf8add8.png",
         "contrato": 3,
         "mediaInicial": 86,
-        "media": 86.29,
+        "media": 87.41,
         "valor": 1930000,
         "pais": "Panama",
         "prestadoDe": null,
@@ -1740,7 +1740,7 @@
         "nombre": "420_dav",
         "id": "1503855137708441841",
         "pais": "Colombia",
-        "media": 83.88,
+        "media": 84.67,
         "stats": {
           "actividad": 78,
           "tiro": 81,
@@ -1936,6 +1936,13 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T03:25:55.924Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
       }
     ]
   },
@@ -1978,7 +1985,7 @@
         "carta": "assets/cartas/generadas/1313318947352744067_af83aa1fdd68eae8.png",
         "contrato": 1,
         "mediaInicial": 83,
-        "media": 86.98,
+        "media": 86.29,
         "valor": 1630000,
         "clausula": {
           "tipo": null,
@@ -2013,7 +2020,7 @@
         "carta": "assets/cartas/generadas/760530409557065729_068050dd2f07f74f.png",
         "contrato": 1,
         "mediaInicial": 81,
-        "media": 82.27,
+        "media": 82.17,
         "valor": 1480000,
         "clausula": {
           "tipo": null,
@@ -2049,7 +2056,7 @@
         "nombre": "Gabucba",
         "id": "1261015690874196012",
         "mediaInicial": 86,
-        "media": 92.1,
+        "media": 91.08,
         "valor": 1900000,
         "pais": "Argentina",
         "partidosGanados": 3,

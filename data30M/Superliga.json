@@ -9038,9 +9038,10 @@
                 "localJugadorNombre": "420_dav",
                 "visitanteJugadorId": "1313318947352744067",
                 "visitanteJugadorNombre": "alexiscarp9122018",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 3,
+                "finalizado": true,
+                "logMedia": "📈 **420_dav**: 84.47 (+0.59)\n📉 **alexiscarp9122018**: 86.39 (-0.59)"
               },
               {
                 "localJugadorId": "992866773047193710",
@@ -9056,16 +9057,24 @@
                 "localJugadorNombre": "FacuZ16 🇵🇦",
                 "visitanteJugadorId": "1261015690874196012",
                 "visitanteJugadorNombre": "Gabucba",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 0,
+                "finalizado": true,
+                "logMedia": "📈 **FacuZ16 🇵🇦**: 87.21 (+0.92)\n📉 **Gabucba**: 91.18 (-0.92)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 3,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 2,
+              "golesVisitante": 0
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_mt4agxosdei",
