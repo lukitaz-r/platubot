@@ -9010,22 +9010,24 @@
                 "localJugadorNombre": "moonzzz14",
                 "visitanteJugadorId": "1152567232933658716",
                 "visitanteJugadorNombre": "medinaconzurda",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **medinaconzurda**: 80 (+0.63)\n📉 **moonzzz14**: 86.05 (-0.63)"
               }
             ],
             "puntosMiniLocal": 1,
-            "puntosMiniVisitante": 1,
-            "golesTotalLocal": 7,
-            "golesTotalVisitante": 8,
-            "finalizado": false,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 11,
+            "golesTotalVisitante": 13,
+            "finalizado": true,
             "golesLocal": 1,
-            "golesVisitante": 1,
+            "golesVisitante": 2,
             "resultado": {
               "golesLocal": 1,
-              "golesVisitante": 1
-            }
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_jtepqb526e",

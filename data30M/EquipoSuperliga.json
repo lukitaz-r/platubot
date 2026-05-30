@@ -243,7 +243,7 @@
       "partidosPerdidos": 0,
       "golesAFavor": 0,
       "golesEnContra": 0,
-      "media": 91,
+      "media": 91.5,
       "mediaInicial": 87,
       "stats": {
         "actividad": 80,
@@ -260,7 +260,7 @@
         "nombre": "Confe2007",
         "id": "625472211779584030",
         "mediaInicial": 87,
-        "media": 94.19,
+        "media": 94.39,
         "valor": 2000000,
         "pais": "Argentina",
         "partidosGanados": 6,
@@ -292,7 +292,7 @@
         "nombre": "mario_67.3",
         "id": "664977038905704454",
         "pais": "Argentina",
-        "media": 82.93,
+        "media": 83.13,
         "stats": {
           "actividad": 85,
           "tiro": 81,
@@ -349,7 +349,7 @@
     "createdAt": "2026-02-26T06:02:11.082Z",
     "updatedAt": "2026-05-01T02:56:09.713Z",
     "__v": 20,
-    "dinero": 6820000,
+    "dinero": 7020000,
     "tablaHistorica": {
       "puntosAcumulados": 57,
       "partidosGanados": 19,
@@ -482,6 +482,13 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T21:38:08.504Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
       }
     ]
   },
@@ -515,7 +522,7 @@
         "nombre": "moonzzz14",
         "id": "1393029583778873415",
         "mediaInicial": 84,
-        "media": 86.68,
+        "media": 85.95,
         "valor": 1780000,
         "pais": "Argentina",
         "partidosGanados": 12,
@@ -542,7 +549,7 @@
         "nombre": "Shuu",
         "id": "747095738269433917",
         "mediaInicial": 83,
-        "media": 84.72,
+        "media": 84.62,
         "valor": 1670000,
         "pais": "Argentina",
         "partidosGanados": 15,
@@ -570,7 +577,7 @@
         "carta": "assets/cartas/generadas/425414047861571586_aa8468586499f417.png",
         "contrato": 3,
         "mediaInicial": 85,
-        "media": 85.4,
+        "media": 85.3,
         "valor": 1840000,
         "clausula": {
           "tipo": null,
