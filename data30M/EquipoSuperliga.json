@@ -260,7 +260,7 @@
         "nombre": "Confe2007",
         "id": "625472211779584030",
         "mediaInicial": 87,
-        "media": 93.64,
+        "media": 94.19,
         "valor": 2000000,
         "pais": "Argentina",
         "partidosGanados": 6,
@@ -570,7 +570,7 @@
         "carta": "assets/cartas/generadas/425414047861571586_aa8468586499f417.png",
         "contrato": 3,
         "mediaInicial": 85,
-        "media": 85.95,
+        "media": 85.4,
         "valor": 1840000,
         "clausula": {
           "tipo": null,
@@ -1066,7 +1066,7 @@
           "aura": 87,
           "esquinazo": 87
         },
-        "carta": ""
+        "carta": "assets/cartas/generadas/689386903203610685_13eb8f9e4bc33da2.png"
       },
       {
         "nombre": "hammeriti",

@@ -8990,9 +8990,10 @@
                 "localJugadorNombre": "sarajevocabj",
                 "visitanteJugadorId": "625472211779584030",
                 "visitanteJugadorNombre": "Confe2007",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 2,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Confe2007**: 94.19 (+0.55)\n📉 **sarajevocabj**: 85.4 (-0.55)"
               },
               {
                 "localJugadorId": "747095738269433917",
@@ -9015,15 +9016,15 @@
               }
             ],
             "puntosMiniLocal": 1,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 5,
-            "golesTotalVisitante": 3,
+            "puntosMiniVisitante": 1,
+            "golesTotalLocal": 7,
+            "golesTotalVisitante": 8,
             "finalizado": false,
             "golesLocal": 1,
-            "golesVisitante": 0,
+            "golesVisitante": 1,
             "resultado": {
               "golesLocal": 1,
-              "golesVisitante": 0
+              "golesVisitante": 1
             }
           },
           {
