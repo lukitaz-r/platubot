@@ -260,6 +260,7 @@ function startHttpServer() {
               output = 'Reinicio solicitado: El bot y el servidor HTTP se reiniciarán en 1 segundo.';
               success = true;
             } else if (command === 'pull') {
+              // Pulleamos de Github
               const { stdout } = await execAsync('git pull origin main');
               output = stdout || 'Ya actualizado.';
             } else if (command === 'status') {
