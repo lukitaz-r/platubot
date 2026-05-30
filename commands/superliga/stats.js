@@ -22,24 +22,25 @@ export default {
 
     // 1. Recopilar estadísticas con FILTRO DE ACTIVIDAD REAL
     liga.fechas.forEach(fecha => {
-      const enc = fecha.partidos ?? fecha.encuentros;
-      enc.forEach(partido => {
+        const enc = fecha.partidos ?? fecha.encuentros;
+        console.log(enc)
+        enc.forEach(partido => {
         if (!partido.finalizado || !Array.isArray(partido.duelosIndividuales)) return;
 
         partido.duelosIndividuales.forEach(duelo => {
-          const gl = duelo.golesLocal;
-          const gv = duelo.golesVisitante;
+            const gl = duelo.golesLocal;
+            const gv = duelo.golesVisitante;
 
-          const fueJugadoRealmente = (gl > 0 || gv > 0 || (duelo.ganadorId && duelo.ganadorId !== ''));
+            const fueJugadoRealmente = (gl > 0 || gv > 0 || (duelo.ganadorId && duelo.ganadorId !== ''));
 
-          if (!fueJugadoRealmente) return; 
+            if (!fueJugadoRealmente) return; 
 
-          const participantes = [
+            const participantes = [
             { id: duelo.jugadorLocalId, gf: gl, gc: gv },
             { id: duelo.jugadorVisitanteId, gf: gv, gc: gl }
-          ];
+            ];
 
-          participantes.forEach(p => {
+            participantes.forEach(p => {
             if (!p.id || p.id === 'BYE' || p.id === '') return;
 
             if (!jugadoresStats[p.id]) {
