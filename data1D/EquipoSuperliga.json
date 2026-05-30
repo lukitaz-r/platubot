@@ -260,7 +260,7 @@
         "nombre": "Confe2007",
         "id": "625472211779584030",
         "mediaInicial": 87,
-        "media": 93.64,
+        "media": 94.19,
         "valor": 2000000,
         "pais": "Argentina",
         "partidosGanados": 6,
@@ -292,7 +292,7 @@
         "nombre": "mario_67.3",
         "id": "664977038905704454",
         "pais": "Argentina",
-        "media": 83.18,
+        "media": 82.93,
         "stats": {
           "actividad": 85,
           "tiro": 81,
@@ -542,7 +542,7 @@
         "nombre": "Shuu",
         "id": "747095738269433917",
         "mediaInicial": 83,
-        "media": 84.47,
+        "media": 84.72,
         "valor": 1670000,
         "pais": "Argentina",
         "partidosGanados": 15,
@@ -570,7 +570,7 @@
         "carta": "assets/cartas/generadas/425414047861571586_aa8468586499f417.png",
         "contrato": 3,
         "mediaInicial": 85,
-        "media": 85.95,
+        "media": 85.4,
         "valor": 1840000,
         "clausula": {
           "tipo": null,
@@ -763,14 +763,14 @@
         "aura": 77,
         "esquinazo": 75
       },
-      "media": 92
+      "media": 93
     },
     "jugadores": [
       {
         "nombre": "tterss",
         "id": "751663890441699409",
         "pais": "Argentina",
-        "media": 88.42,
+        "media": 89.37,
         "carta": "assets/cartas/generadas/751663890441699409_b85aacab13c9e006.png",
         "stats": {
           "actividad": 98,
@@ -794,7 +794,7 @@
         "nombre": "jaded10078",
         "id": "934647569701797910",
         "mediaInicial": 89,
-        "media": 90.15,
+        "media": 90.8,
         "valor": 2150000,
         "pais": "Argentina",
         "partidosGanados": 18,
@@ -828,7 +828,7 @@
         "carta": "assets/cartas/generadas/1449512445549871125_4abe89681073f635.png",
         "contrato": 3,
         "mediaInicial": 88,
-        "media": 89.42,
+        "media": 90.37,
         "valor": 2050000,
         "pais": "Peru",
         "prestadoDe": null,
@@ -898,7 +898,7 @@
     "createdAt": "2026-02-26T13:23:33.303Z",
     "updatedAt": "2026-05-01T02:56:09.873Z",
     "__v": 19,
-    "dinero": 6350000,
+    "dinero": 6750000,
     "tablaHistorica": {
       "puntosAcumulados": 84,
       "partidosGanados": 28,
@@ -955,6 +955,20 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-29T23:50:21.004Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T01:37:46.051Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
       }
     ]
   },
@@ -968,7 +982,7 @@
       "nombre": "tato_aa",
       "id": "1344037515098849362",
       "mediaInicial": 95,
-      "media": 99.5,
+      "media": 100,
       "valor": 2650000,
       "pais": "Uruguay",
       "partidosGanados": 15,
@@ -1003,7 +1017,7 @@
         "carta": "assets/cartas/generadas/1281896348643495948_b50533956ae58a73.png",
         "contrato": 3,
         "mediaInicial": 81,
-        "media": 85.94,
+        "media": 86.04,
         "valor": 1450000,
         "clausula": {
           "tipo": null,
@@ -1032,7 +1046,7 @@
         "nombre": "Raph",
         "id": "689386903203610685",
         "mediaInicial": 84,
-        "media": 87.4,
+        "media": 87.5,
         "valor": 1710000,
         "pais": "Francia",
         "partidosGanados": 1,
@@ -1040,7 +1054,7 @@
         "golesAFavor": 1,
         "golesEnContra": 6,
         "suspendido": 0,
-        "contrato": 1,
+        "contrato": 3,
         "createdAt": "2026-05-01T02:56:09.273Z",
         "updatedAt": "2026-05-01T02:56:09.273Z",
         "__v": 0,
@@ -1052,13 +1066,13 @@
           "aura": 87,
           "esquinazo": 87
         },
-        "carta": "assets/cartas/generadas/689386903203610685_c404ac9d292a0097.png"
+        "carta": "assets/cartas/generadas/689386903203610685_13eb8f9e4bc33da2.png"
       },
       {
         "nombre": "hammeriti",
         "id": "672164926948900864",
         "pais": "Argentina",
-        "media": 76.47,
+        "media": 76.93,
         "stats": {
           "actividad": 76,
           "tiro": 81,
@@ -1116,7 +1130,7 @@
     "createdAt": "2026-02-26T16:56:15.122Z",
     "updatedAt": "2026-05-01T19:40:49.528Z",
     "__v": 23,
-    "dinero": 4300000,
+    "dinero": 4500000,
     "tablaHistorica": {
       "puntosAcumulados": 27,
       "partidosGanados": 9,
@@ -1202,6 +1216,13 @@
       {
         "tipo": "Premio",
         "fecha": "2026-05-28T02:57:17.967Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T00:18:05.776Z",
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
@@ -1344,7 +1365,7 @@
         "nombre": "polentarg",
         "id": "1381836864205361273",
         "mediaInicial": 78,
-        "media": 80.84,
+        "media": 80.13,
         "stats": {
           "actividad": 69,
           "tiro": 80,
@@ -1372,7 +1393,7 @@
         "nombre": "Colette 🇻🇪✏️",
         "id": "743891228969533482",
         "mediaInicial": 85,
-        "media": 85.82,
+        "media": 85.72,
         "stats": {
           "actividad": 82,
           "tiro": 84,
@@ -1387,7 +1408,7 @@
         "partidosPerdidos": 2,
         "golesAFavor": 8,
         "golesEnContra": 2,
-        "suspendido": 14,
+        "suspendido": 13,
         "exEquipo": "Tel Aviv City",
         "carta": "assets/cartas/generadas/743891228969533482_bc976bf07969361e.png",
         "contrato": 1,
@@ -1429,7 +1450,7 @@
         "nombre": "ThiagoG",
         "id": "752669799263502356",
         "mediaInicial": 78,
-        "media": 77.67,
+        "media": 77.57,
         "stats": {
           "actividad": 90,
           "tiro": 70,
@@ -1627,13 +1648,13 @@
     "_id": "69cf284150f045493d72d175",
     "nombre": "Atletico Monarquia",
     "escudo": "assets/equipos/atletico_monarquia.png",
-    "dinero": 10860000,
+    "dinero": 11060000,
     "coach": {
       "_id": "69f2c62af78a647e4be62766",
       "nombre": "Dmilito2010",
       "id": "1333674349152174091",
       "mediaInicial": 72,
-      "media": 78.57,
+      "media": 79.07,
       "valor": 710000,
       "pais": "Argentina",
       "partidosGanados": 0,
@@ -1661,7 +1682,7 @@
         "carta": "assets/cartas/generadas/992866773047193710_46200bad66cab693.png",
         "contrato": 2,
         "mediaInicial": 80,
-        "media": 90.2,
+        "media": 90.4,
         "valor": 500000,
         "pais": "Argentina",
         "prestadoDe": null,
@@ -1691,7 +1712,7 @@
         "carta": "assets/cartas/generadas/1285655821346144267_da3ee7dbedf8add8.png",
         "contrato": 3,
         "mediaInicial": 86,
-        "media": 86.29,
+        "media": 87.41,
         "valor": 1930000,
         "pais": "Panama",
         "prestadoDe": null,
@@ -1719,7 +1740,7 @@
         "nombre": "420_dav",
         "id": "1503855137708441841",
         "pais": "Colombia",
-        "media": 83.88,
+        "media": 84.67,
         "stats": {
           "actividad": 78,
           "tiro": 81,
@@ -1915,6 +1936,13 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T03:25:55.924Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
       }
     ]
   },
@@ -1957,7 +1985,7 @@
         "carta": "assets/cartas/generadas/1313318947352744067_af83aa1fdd68eae8.png",
         "contrato": 1,
         "mediaInicial": 83,
-        "media": 87.08,
+        "media": 86.29,
         "valor": 1630000,
         "clausula": {
           "tipo": null,
@@ -1992,7 +2020,7 @@
         "carta": "assets/cartas/generadas/760530409557065729_068050dd2f07f74f.png",
         "contrato": 1,
         "mediaInicial": 81,
-        "media": 82.92,
+        "media": 82.17,
         "valor": 1480000,
         "clausula": {
           "tipo": null,
@@ -2028,7 +2056,7 @@
         "nombre": "Gabucba",
         "id": "1261015690874196012",
         "mediaInicial": 86,
-        "media": 92.2,
+        "media": 91.08,
         "valor": 1900000,
         "pais": "Argentina",
         "partidosGanados": 3,
