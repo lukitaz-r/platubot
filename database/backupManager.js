@@ -221,7 +221,7 @@ function startHttpServer() {
           let logOutput = '';
           try {
             // Try to fetch active PM2 logs or process stdout
-            const { stdout } = await execAsync('pm2 logs platubot --raw --lines 20');
+            const { stdout } = await execAsync('pm2 logs platubot --raw --lines 20 --nostream');
             logOutput = stdout;
           } catch (e) {
             // Fallback: Return dynamic system trace
