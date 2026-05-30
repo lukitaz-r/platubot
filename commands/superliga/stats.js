@@ -34,12 +34,11 @@ export default {
             if (!fueJugadoRealmente) return; 
 
             const participantes = [
-            { id: duelo.jugadorLocalId, gf: gl, gc: gv },
-            { id: duelo.jugadorVisitanteId, gf: gv, gc: gl }
+            { id: duelo.jugadorLocalId ?? duelo.localJugadorId, gf: gl, gc: gv },
+            { id: duelo.jugadorVisitanteId ?? duelo.visitanteJugadorId, gf: gv, gc: gl }
             ];
 
             participantes.forEach(p => {
-            console.log(p)
             if (!p.id || p.id === 'BYE' || p.id === '') return;
 
             if (!jugadoresStats[p.id]) {
