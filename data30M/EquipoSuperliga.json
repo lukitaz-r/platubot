@@ -182,7 +182,7 @@
         "jugadorId": "1287076064832651327",
         "fecha": "2026-05-01T23:22:35.079Z",
         "monto": 0,
-        "equipoRelacionado": "Escuadrón Marrón por la Salvación de Occidente",
+        "equipoRelacionado": "Mafia Twittera S.A.",
         "detalle": "Sale a préstamo por 3 temporada(s)"
       },
       {
@@ -1214,7 +1214,7 @@
         "jugadorId": "672164926948900864",
         "fecha": "2026-05-14T21:46:44.675Z",
         "monto": 1500000,
-        "equipoRelacionado": "Escuadrón Marrón por la Salvación de Occidente",
+        "equipoRelacionado": "Mafia Twittera S.A.",
         "detalle": "Compra de jugador"
       },
       {
@@ -2240,23 +2240,23 @@
     "_id": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4"
   },
   {
-    "nombre": "Escuadrón Marrón por la Salvación de Occidente",
-    "escudo": "assets/equipos/escuadrón_marrón_por_la_salvación_de_occidente_1777677643476.png",
+    "nombre": "Mafia Twittera S.A.",
+    "escudo": "assets/equipos/mafia_twittera_s.a._1780270081360.png",
     "dinero": 4100000,
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
     "coach": {
-      "nombre": "luca_aaaj",
-      "id": "1289028230078140467",
-      "carta": "assets/cartas/generadas/1289028230078140467_99d61d73e40bbdd3.png",
+      "nombre": "benjamin9010.",
+      "id": "1071992059268968468",
+      "carta": "assets/cartas/generadas/1071992059268968468_948b3d9bd01cda6f.png",
       "pais": "Argentina",
       "partidosGanados": 0,
       "partidosPerdidos": 0,
       "golesAFavor": 0,
       "golesEnContra": 0,
       "media": 85.5,
-      "mediaInicial": 80,
+      "mediaInicial": 85,
       "stats": {
         "actividad": 80,
         "tiro": 80,
@@ -2276,7 +2276,7 @@
         "nombre": "Maurii",
         "id": "497936937793880065",
         "carta": "assets/cartas/generadas/497936937793880065_bc6e0085020a5807.png",
-        "contrato": 1,
+        "contrato": 4,
         "mediaInicial": 80,
         "media": 81.71,
         "valor": 500000,
@@ -2303,20 +2303,28 @@
         }
       },
       {
-        "nombre": "santulado",
-        "id": "1495584399725432883",
-        "pais": "Argentina",
-        "media": 76.92,
+        "nombre": "nicoar1",
+        "id": "534231523751362580",
+        "mediaInicial": 80,
+        "media": 84.14,
         "stats": {
-          "actividad": 78,
-          "tiro": 77,
-          "pase": 83,
-          "iq": 88,
-          "aura": 79,
-          "esquinazo": 75
+          "actividad": 81,
+          "tiro": 76,
+          "pase": 81,
+          "iq": 84,
+          "aura": 82,
+          "esquinazo": 76
         },
-        "carta": "assets/cartas/generadas/1495584399725432883_6fcefd58bf55957a.png",
-        "contrato": 3
+        "valor": 500000,
+        "pais": "Argentina",
+        "partidosGanados": 0,
+        "partidosPerdidos": 0,
+        "golesAFavor": 0,
+        "golesEnContra": 0,
+        "suspendido": 0,
+        "contrato": 2,
+        "carta": "assets/cartas/generadas/534231523751362580_0f92bf32fbc62a72.png",
+        "_id": "699fe1e370331e79012517eb"
       }
     ],
     "historial": [],
