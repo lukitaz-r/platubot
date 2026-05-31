@@ -292,7 +292,7 @@
         "nombre": "mario_67.3",
         "id": "664977038905704454",
         "pais": "Argentina",
-        "media": 83.13,
+        "media": 82.52,
         "stats": {
           "actividad": 85,
           "tiro": 81,
@@ -1351,12 +1351,12 @@
     "_id": "69cf277750f045493d72cfaa",
     "nombre": "Libertadores",
     "escudo": "assets/equipos/libertadores_1779767568649.png",
-    "dinero": 20000,
+    "dinero": 220000,
     "coach": {
       "nombre": "agus_nah",
       "id": "979152495811100743",
       "pais": "Uruguay",
-      "media": 89,
+      "media": 89.5,
       "carta": "assets/cartas/generadas/979152495811100743_bf903021683d451f.png",
       "stats": {
         "actividad": 82,
@@ -1372,7 +1372,7 @@
         "nombre": "polentarg",
         "id": "1381836864205361273",
         "mediaInicial": 78,
-        "media": 79.58,
+        "media": 79.78,
         "stats": {
           "actividad": 69,
           "tiro": 80,
@@ -1400,7 +1400,7 @@
         "nombre": "Colette 🇻🇪✏️",
         "id": "743891228969533482",
         "mediaInicial": 85,
-        "media": 85.72,
+        "media": 85.92,
         "stats": {
           "actividad": 82,
           "tiro": 84,
@@ -1415,7 +1415,7 @@
         "partidosPerdidos": 2,
         "golesAFavor": 8,
         "golesEnContra": 2,
-        "suspendido": 13,
+        "suspendido": 12,
         "exEquipo": "Tel Aviv City",
         "carta": "assets/cartas/generadas/743891228969533482_bc976bf07969361e.png",
         "contrato": 1,
@@ -1457,7 +1457,7 @@
         "nombre": "ThiagoG",
         "id": "752669799263502356",
         "mediaInicial": 78,
-        "media": 78.19,
+        "media": 79,
         "stats": {
           "actividad": 90,
           "tiro": 70,
@@ -1648,6 +1648,13 @@
         "monto": 1200000,
         "equipoRelacionado": "Agente Libre",
         "detalle": "Contratación de agente libre"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-31T02:48:24.657Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
       }
     ]
   },
@@ -2239,7 +2246,7 @@
         "carta": "assets/cartas/generadas/497936937793880065_bc6e0085020a5807.png",
         "contrato": 1,
         "mediaInicial": 80,
-        "media": 82.46,
+        "media": 82.36,
         "valor": 500000,
         "pais": "Uruguay",
         "prestadoDe": null,
@@ -2267,7 +2274,7 @@
         "nombre": "santulado",
         "id": "1495584399725432883",
         "pais": "Argentina",
-        "media": 77.67,
+        "media": 77.02,
         "stats": {
           "actividad": 78,
           "tiro": 77,
