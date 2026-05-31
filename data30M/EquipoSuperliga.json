@@ -237,7 +237,7 @@
     "coach": {
       "nombre": "medinaconzurda",
       "id": "1152567232933658716",
-      "carta": "assets/cartas/generadas/1152567232933658716_a9da2e9f4f5b601f.png",
+      "carta": "assets/cartas/generadas/1152567232933658716_4579d0c40d4ce69b.png",
       "pais": "Argentina",
       "partidosGanados": 0,
       "partidosPerdidos": 0,
@@ -302,6 +302,33 @@
           "esquinazo": 76
         },
         "carta": "assets/cartas/generadas/664977038905704454_c756ea78d4d2500a.png"
+      },
+      {
+        "_id": "69f4164901938fc3c8fd94f7",
+        "nombre": "moonzzz14",
+        "id": "1393029583778873415",
+        "mediaInicial": 84,
+        "media": 85.3,
+        "valor": 1780000,
+        "pais": "Argentina",
+        "partidosGanados": 12,
+        "partidosPerdidos": 12,
+        "golesAFavor": 16,
+        "golesEnContra": 16,
+        "suspendido": 0,
+        "contrato": 1,
+        "createdAt": "2026-05-01T02:56:09.129Z",
+        "updatedAt": "2026-05-01T02:56:09.129Z",
+        "__v": 0,
+        "stats": {
+          "actividad": 79,
+          "tiro": 90,
+          "pase": 80,
+          "iq": 84,
+          "aura": 89,
+          "esquinazo": 82
+        },
+        "carta": "assets/cartas/generadas/1393029583778873415_152065834fe85edf.png"
       }
     ],
     "historial": [
@@ -349,7 +376,7 @@
     "createdAt": "2026-02-26T06:02:11.082Z",
     "updatedAt": "2026-05-01T02:56:09.713Z",
     "__v": 20,
-    "dinero": 7020000,
+    "dinero": 5020000,
     "tablaHistorica": {
       "puntosAcumulados": 57,
       "partidosGanados": 19,
@@ -489,6 +516,15 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "moonzzz14",
+        "jugadorId": "1393029583778873415",
+        "fecha": "2026-05-31T22:45:16.807Z",
+        "monto": 2000000,
+        "equipoRelacionado": "Super Bebelones Peronistas",
+        "detalle": "Compra de jugador"
       }
     ]
   },
@@ -518,38 +554,11 @@
     },
     "jugadores": [
       {
-        "_id": "69f4164901938fc3c8fd94f7",
-        "nombre": "moonzzz14",
-        "id": "1393029583778873415",
-        "mediaInicial": 84,
-        "media": 85.95,
-        "valor": 1780000,
-        "pais": "Argentina",
-        "partidosGanados": 12,
-        "partidosPerdidos": 12,
-        "golesAFavor": 16,
-        "golesEnContra": 16,
-        "suspendido": 0,
-        "contrato": 3,
-        "createdAt": "2026-05-01T02:56:09.129Z",
-        "updatedAt": "2026-05-01T02:56:09.129Z",
-        "__v": 0,
-        "stats": {
-          "actividad": 79,
-          "tiro": 90,
-          "pase": 80,
-          "iq": 84,
-          "aura": 89,
-          "esquinazo": 82
-        },
-        "carta": "assets/cartas/generadas/1393029583778873415_990fa3b37b21ed70.png"
-      },
-      {
         "_id": "69f4164901938fc3c8fd94f6",
         "nombre": "Shuu",
         "id": "747095738269433917",
         "mediaInicial": 83,
-        "media": 84.62,
+        "media": 84.52,
         "valor": 1670000,
         "pais": "Argentina",
         "partidosGanados": 15,
@@ -577,7 +586,7 @@
         "carta": "assets/cartas/generadas/425414047861571586_aa8468586499f417.png",
         "contrato": 3,
         "mediaInicial": 85,
-        "media": 85.3,
+        "media": 84.95,
         "valor": 1840000,
         "clausula": {
           "tipo": null,
@@ -647,7 +656,7 @@
     "createdAt": "2026-02-26T06:22:49.139Z",
     "updatedAt": "2026-05-01T02:56:09.792Z",
     "__v": 18,
-    "dinero": 9750000,
+    "dinero": 11750000,
     "tablaHistorica": {
       "puntosAcumulados": 72,
       "partidosGanados": 24,
@@ -745,6 +754,15 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "moonzzz14",
+        "jugadorId": "1393029583778873415",
+        "fecha": "2026-05-31T22:45:16.817Z",
+        "monto": 2000000,
+        "equipoRelacionado": "Razgrad Camels",
+        "detalle": "Venta de jugador"
       }
     ]
   },
@@ -770,14 +788,14 @@
         "aura": 77,
         "esquinazo": 75
       },
-      "media": 93
+      "media": 93.5
     },
     "jugadores": [
       {
         "nombre": "tterss",
         "id": "751663890441699409",
         "pais": "Argentina",
-        "media": 89.37,
+        "media": 90.12,
         "carta": "assets/cartas/generadas/751663890441699409_b85aacab13c9e006.png",
         "stats": {
           "actividad": 98,
@@ -801,7 +819,7 @@
         "nombre": "jaded10078",
         "id": "934647569701797910",
         "mediaInicial": 89,
-        "media": 90.8,
+        "media": 91.25,
         "valor": 2150000,
         "pais": "Argentina",
         "partidosGanados": 18,
@@ -835,7 +853,7 @@
         "carta": "assets/cartas/generadas/1449512445549871125_4abe89681073f635.png",
         "contrato": 3,
         "mediaInicial": 88,
-        "media": 90.37,
+        "media": 90.57,
         "valor": 2050000,
         "pais": "Peru",
         "prestadoDe": null,
@@ -905,7 +923,7 @@
     "createdAt": "2026-02-26T13:23:33.303Z",
     "updatedAt": "2026-05-01T02:56:09.873Z",
     "__v": 19,
-    "dinero": 6750000,
+    "dinero": 6950000,
     "tablaHistorica": {
       "puntosAcumulados": 84,
       "partidosGanados": 28,
@@ -973,6 +991,13 @@
       {
         "tipo": "Premio",
         "fecha": "2026-05-30T01:37:46.051Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-31T22:20:02.848Z",
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
@@ -1963,7 +1988,7 @@
   {
     "nombre": "Super Libertarios Progresistas",
     "escudo": "assets/equipos/super_libertarios_progresistas_1777768636756.png",
-    "dinero": 2000000,
+    "dinero": 2200000,
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
@@ -1976,7 +2001,7 @@
       "partidosPerdidos": 0,
       "golesAFavor": 0,
       "golesEnContra": 0,
-      "media": 83,
+      "media": 83.5,
       "mediaInicial": 80,
       "stats": {
         "actividad": 80,
@@ -1999,7 +2024,7 @@
         "carta": "assets/cartas/generadas/1313318947352744067_af83aa1fdd68eae8.png",
         "contrato": 1,
         "mediaInicial": 83,
-        "media": 86.29,
+        "media": 87.04,
         "valor": 1630000,
         "clausula": {
           "tipo": null,
@@ -2034,7 +2059,7 @@
         "carta": "assets/cartas/generadas/760530409557065729_068050dd2f07f74f.png",
         "contrato": 1,
         "mediaInicial": 81,
-        "media": 82.17,
+        "media": 82.37,
         "valor": 1480000,
         "clausula": {
           "tipo": null,
@@ -2070,7 +2095,7 @@
         "nombre": "Gabucba",
         "id": "1261015690874196012",
         "mediaInicial": 86,
-        "media": 91.08,
+        "media": 91.83,
         "valor": 1900000,
         "pais": "Argentina",
         "partidosGanados": 3,
@@ -2196,6 +2221,13 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-31T22:35:30.646Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
       }
     ],
     "tablaHistorica": {
@@ -2246,7 +2278,7 @@
         "carta": "assets/cartas/generadas/497936937793880065_bc6e0085020a5807.png",
         "contrato": 1,
         "mediaInicial": 80,
-        "media": 82.36,
+        "media": 81.71,
         "valor": 500000,
         "pais": "Uruguay",
         "prestadoDe": null,
@@ -2274,7 +2306,7 @@
         "nombre": "santulado",
         "id": "1495584399725432883",
         "pais": "Argentina",
-        "media": 77.02,
+        "media": 76.92,
         "stats": {
           "actividad": 78,
           "tiro": 77,

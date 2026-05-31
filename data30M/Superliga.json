@@ -9255,9 +9255,10 @@
                 "localJugadorNombre": "tterss",
                 "visitanteJugadorId": "1393029583778873415",
                 "visitanteJugadorNombre": "moonzzz14",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 1,
+                "finalizado": true,
+                "logMedia": "📈 **tterss**: 89.92 (+0.55)\n📉 **moonzzz14**: 85.4 (-0.55)"
               },
               {
                 "localJugadorId": "1449512445549871125",
@@ -9273,16 +9274,24 @@
                 "localJugadorNombre": "jaded10078",
                 "visitanteJugadorId": "425414047861571586",
                 "visitanteJugadorNombre": "sarajevocabj",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 3,
+                "finalizado": true,
+                "logMedia": "📈 **jaded10078**: 91.05 (+0.25)\n📉 **sarajevocabj**: 85.05 (-0.25)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 4,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 2,
+              "golesVisitante": 0
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_8qvo3hibt1e",
@@ -9296,9 +9305,10 @@
                 "localJugadorNombre": "Maurii",
                 "visitanteJugadorId": "1313318947352744067",
                 "visitanteJugadorNombre": "alexiscarp9122018",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 1,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **alexiscarp9122018**: 86.84 (+0.55)\n📉 **Maurii**: 81.81 (-0.55)"
               },
               {
                 "localJugadorId": "1495584399725432883",
@@ -9314,16 +9324,24 @@
                 "localJugadorNombre": "luca_aaaj",
                 "visitanteJugadorId": "1261015690874196012",
                 "visitanteJugadorNombre": "Gabucba",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 0,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Gabucba**: 91.63 (+0.55)\n📉 **luca_aaaj**: 80 (-0.55)"
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 1,
+            "golesTotalVisitante": 10,
+            "finalizado": true,
+            "golesLocal": 0,
+            "golesVisitante": 2,
+            "resultado": {
+              "golesLocal": 0,
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           }
         ],
         "numero": 14
