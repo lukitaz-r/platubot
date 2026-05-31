@@ -542,7 +542,7 @@
           "aura": 89,
           "esquinazo": 82
         },
-        "carta": "assets/cartas/generadas/1393029583778873415_b3448995fd867589.png"
+        "carta": "assets/cartas/generadas/1393029583778873415_990fa3b37b21ed70.png"
       },
       {
         "_id": "69f4164901938fc3c8fd94f6",
@@ -1079,7 +1079,7 @@
         "nombre": "hammeriti",
         "id": "672164926948900864",
         "pais": "Argentina",
-        "media": 76.93,
+        "media": 76.68,
         "stats": {
           "actividad": 76,
           "tiro": 81,
@@ -1687,7 +1687,7 @@
         "aura": 74,
         "esquinazo": 77
       },
-      "carta": "assets/cartas/generadas/1333674349152174091_cd8aeb163f8749d3.png"
+      "carta": "assets/cartas/generadas/1333674349152174091_9724ab8bda9dd332.png"
     },
     "jugadores": [
       {
@@ -1726,7 +1726,7 @@
         "carta": "assets/cartas/generadas/1285655821346144267_da3ee7dbedf8add8.png",
         "contrato": 3,
         "mediaInicial": 86,
-        "media": 87.41,
+        "media": 87.66,
         "valor": 1930000,
         "pais": "Panama",
         "prestadoDe": null,

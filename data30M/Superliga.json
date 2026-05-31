@@ -9225,20 +9225,21 @@
                 "localJugadorNombre": "FacuZ16 🇵🇦",
                 "visitanteJugadorId": "672164926948900864",
                 "visitanteJugadorNombre": "hammeriti",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 4,
+                "finalizado": true,
+                "logMedia": "📈 **FacuZ16 🇵🇦**: 87.66 (+0.25)\n📉 **hammeriti**: 76.68 (-0.25)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 1,
             "puntosMiniVisitante": 1,
-            "golesTotalLocal": 4,
-            "golesTotalVisitante": 5,
+            "golesTotalLocal": 9,
+            "golesTotalVisitante": 9,
             "finalizado": false,
-            "golesLocal": 0,
+            "golesLocal": 1,
             "golesVisitante": 1,
             "resultado": {
-              "golesLocal": 0,
+              "golesLocal": 1,
               "golesVisitante": 1
             }
           },
