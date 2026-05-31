@@ -8949,9 +8949,10 @@
                 "localJugadorNombre": "ThiagoG",
                 "visitanteJugadorId": "497936937793880065",
                 "visitanteJugadorNombre": "Maurii",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 4,
+                "finalizado": true,
+                "logMedia": "📈 **ThiagoG**: 78.19 (+0.62)\n📉 **Maurii**: 82.46 (-0.62)"
               },
               {
                 "localJugadorId": "979152495811100743",
@@ -8973,15 +8974,15 @@
                 "logMedia": "📈 **luca_aaaj**: 80 (+0.55)\n📉 **polentarg**: 79.58 (-0.55)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 1,
             "puntosMiniVisitante": 1,
-            "golesTotalLocal": 4,
-            "golesTotalVisitante": 5,
+            "golesTotalLocal": 9,
+            "golesTotalVisitante": 9,
             "finalizado": false,
-            "golesLocal": 0,
+            "golesLocal": 1,
             "golesVisitante": 1,
             "resultado": {
-              "golesLocal": 0,
+              "golesLocal": 1,
               "golesVisitante": 1
             }
           },
