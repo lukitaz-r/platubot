@@ -9176,21 +9176,22 @@
                 "localJugadorNombre": "polentarg",
                 "visitanteJugadorId": "1152567232933658716",
                 "visitanteJugadorNombre": "medinaconzurda",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **medinaconzurda**: 80 (+0.25)\n📉 **polentarg**: 79.53 (-0.25)"
               }
             ],
             "puntosMiniLocal": 1,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 5,
-            "golesTotalVisitante": 3,
+            "puntosMiniVisitante": 1,
+            "golesTotalLocal": 9,
+            "golesTotalVisitante": 8,
             "finalizado": false,
             "golesLocal": 1,
-            "golesVisitante": 0,
+            "golesVisitante": 1,
             "resultado": {
               "golesLocal": 1,
-              "golesVisitante": 0
+              "golesVisitante": 1
             }
           },
           {
@@ -9214,9 +9215,10 @@
                 "localJugadorNombre": "Benja",
                 "visitanteJugadorId": "689386903203610685",
                 "visitanteJugadorNombre": "Raph",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Raph**: 88.08 (+0.58)\n📉 **Benja**: 89.82 (-0.58)"
               },
               {
                 "localJugadorId": "1285655821346144267",
@@ -9229,10 +9231,16 @@
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniVisitante": 1,
+            "golesTotalLocal": 4,
+            "golesTotalVisitante": 5,
+            "finalizado": false,
+            "golesLocal": 0,
+            "golesVisitante": 1,
+            "resultado": {
+              "golesLocal": 0,
+              "golesVisitante": 1
+            }
           },
           {
             "_id": "1778862254844_0c39up4kpcnj",
