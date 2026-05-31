@@ -8967,16 +8967,23 @@
                 "localJugadorNombre": "polentarg",
                 "visitanteJugadorId": "1289028230078140467",
                 "visitanteJugadorNombre": "luca_aaaj",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **luca_aaaj**: 80 (+0.55)\n📉 **polentarg**: 79.58 (-0.55)"
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniVisitante": 1,
+            "golesTotalLocal": 4,
+            "golesTotalVisitante": 5,
+            "finalizado": false,
+            "golesLocal": 0,
+            "golesVisitante": 1,
+            "resultado": {
+              "golesLocal": 0,
+              "golesVisitante": 1
+            }
           },
           {
             "_id": "1778862254844_a215h8ouhw",
