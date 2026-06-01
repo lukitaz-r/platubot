@@ -846,7 +846,7 @@
         "id": "751663890441699409",
         "pais": "Argentina",
         "media": 92.12,
-        "carta": "assets/cartas/generadas/751663890441699409_b85aacab13c9e006.png",
+        "carta": "assets/cartas/generadas/751663890441699409_b8f564787696b283.png",
         "stats": {
           "actividad": 98,
           "tiro": 86,
@@ -885,7 +885,7 @@
         "golesEnContra": 2,
         "suspendido": 12,
         "exEquipo": "Tel Aviv City",
-        "carta": "",
+        "carta": "assets/cartas/generadas/743891228969533482_fe3d48987e560483.png",
         "contrato": 1,
         "prestadoDe": {
           "equipoId": "69cf277750f045493d72cfaa",
