@@ -6448,7 +6448,7 @@
   {
     "nombre": "Superliga",
     "temporada": "Temporada 4",
-    "actual": true,
+    "actual": false,
     "fechas": [
       {
         "partidos": [
@@ -6553,7 +6553,7 @@
           {
             "_id": "1778862254843_7m1x6xzpohd",
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "localNombre": "Mafia Twittera S.A.",
             "visitanteId": "699fe6b970331e7901251808",
             "visitanteNombre": "Super Bebelones Peronistas",
             "duelosIndividuales": [
@@ -6810,7 +6810,7 @@
           {
             "_id": "1778862254842_i61g6o8xn5s",
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "localNombre": "Mafia Twittera S.A.",
             "visitanteId": "69cf277750f045493d72cfaa",
             "visitanteNombre": "Libertadores",
             "duelosIndividuales": [
@@ -6868,7 +6868,7 @@
             "localId": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4",
             "localNombre": "Super Libertarios Progresistas",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "visitanteNombre": "Mafia Twittera S.A.",
             "duelosIndividuales": [
               {
                 "localJugadorId": "1261015690874196012",
@@ -7227,7 +7227,7 @@
             "localId": "69a07b2fb7655dc96ac216a9",
             "localNombre": "Dutch Lions",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "visitanteNombre": "Mafia Twittera S.A.",
             "duelosIndividuales": [
               {
                 "localJugadorId": "689386903203610685",
@@ -7332,7 +7332,7 @@
           {
             "_id": "1778862254843_wuqcd1avlu",
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "localNombre": "Mafia Twittera S.A.",
             "visitanteId": "69cf284150f045493d72d175",
             "visitanteNombre": "Atletico Monarquia",
             "duelosIndividuales": [
@@ -7591,7 +7591,7 @@
             "localId": "69a0495570331e79012518c5",
             "localNombre": "Ghosts",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "visitanteNombre": "Mafia Twittera S.A.",
             "duelosIndividuales": [
               {
                 "localJugadorId": "934647569701797910",
@@ -7851,7 +7851,7 @@
             "localId": "699fe1e370331e79012517ea",
             "localNombre": "Razgrad Camels",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "visitanteNombre": "Mafia Twittera S.A.",
             "duelosIndividuales": [
               {
                 "localJugadorId": "625472211779584030",
@@ -7908,7 +7908,7 @@
             "localId": "69cf284150f045493d72d175",
             "localNombre": "Atletico Monarquia",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "visitanteNombre": "Mafia Twittera S.A.",
             "duelosIndividuales": [
               {
                 "localJugadorId": "1503855137708441841",
@@ -8115,7 +8115,7 @@
             "localId": "699fe6b970331e7901251808",
             "localNombre": "Super Bebelones Peronistas",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "visitanteNombre": "Mafia Twittera S.A.",
             "duelosIndividuales": [
               {
                 "localJugadorId": "747095738269433917",
@@ -8419,7 +8419,7 @@
           {
             "_id": "1778862254844_yhp7s94ly49",
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "localNombre": "Mafia Twittera S.A.",
             "visitanteId": "69a07b2fb7655dc96ac216a9",
             "visitanteNombre": "Dutch Lions",
             "duelosIndividuales": [
@@ -8627,7 +8627,7 @@
           {
             "_id": "1778862254844_44byd0zo71v",
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "localNombre": "Mafia Twittera S.A.",
             "visitanteId": "69a0495570331e79012518c5",
             "visitanteNombre": "Ghosts",
             "duelosIndividuales": [
@@ -8784,7 +8784,7 @@
           {
             "_id": "1778862254844_onpuqndtb3",
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "localNombre": "Mafia Twittera S.A.",
             "visitanteId": "699fe1e370331e79012517ea",
             "visitanteNombre": "Razgrad Camels",
             "duelosIndividuales": [
@@ -8942,7 +8942,7 @@
             "localId": "69cf277750f045493d72cfaa",
             "localNombre": "Libertadores",
             "visitanteId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "visitanteNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "visitanteNombre": "Mafia Twittera S.A.",
             "duelosIndividuales": [
               {
                 "localJugadorId": "752669799263502356",
@@ -9157,9 +9157,9 @@
                 "localJugadorNombre": "agus_nah",
                 "visitanteJugadorId": "625472211779584030",
                 "visitanteJugadorNombre": "Confe2007",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true
               },
               {
                 "localJugadorId": "752669799263502356",
@@ -9183,15 +9183,15 @@
               }
             ],
             "puntosMiniLocal": 1,
-            "puntosMiniVisitante": 1,
-            "golesTotalLocal": 9,
-            "golesTotalVisitante": 8,
-            "finalizado": false,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 13,
+            "golesTotalVisitante": 13,
+            "finalizado": true,
             "golesLocal": 1,
-            "golesVisitante": 1,
+            "golesVisitante": 2,
             "resultado": {
               "golesLocal": 1,
-              "golesVisitante": 1
+              "golesVisitante": 2
             }
           },
           {
@@ -9206,9 +9206,10 @@
                 "localJugadorNombre": "420_dav",
                 "visitanteJugadorId": "1281896348643495948",
                 "visitanteJugadorNombre": "Rojas 🃏",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Rojas 🃏**: 86.29 (+0.25)\n📉 **420_dav**: 84.42 (-0.25)"
               },
               {
                 "localJugadorId": "992866773047193710",
@@ -9225,22 +9226,24 @@
                 "localJugadorNombre": "FacuZ16 🇵🇦",
                 "visitanteJugadorId": "672164926948900864",
                 "visitanteJugadorNombre": "hammeriti",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 4,
+                "finalizado": true,
+                "logMedia": "📈 **FacuZ16 🇵🇦**: 87.66 (+0.25)\n📉 **hammeriti**: 76.68 (-0.25)"
               }
             ],
-            "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 1,
-            "golesTotalLocal": 4,
-            "golesTotalVisitante": 5,
-            "finalizado": false,
-            "golesLocal": 0,
-            "golesVisitante": 1,
+            "puntosMiniLocal": 1,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 13,
+            "golesTotalVisitante": 14,
+            "finalizado": true,
+            "golesLocal": 1,
+            "golesVisitante": 2,
             "resultado": {
-              "golesLocal": 0,
-              "golesVisitante": 1
-            }
+              "golesLocal": 1,
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_0c39up4kpcnj",
@@ -9254,9 +9257,10 @@
                 "localJugadorNombre": "tterss",
                 "visitanteJugadorId": "1393029583778873415",
                 "visitanteJugadorNombre": "moonzzz14",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 1,
+                "finalizado": true,
+                "logMedia": "📈 **tterss**: 89.92 (+0.55)\n📉 **moonzzz14**: 85.4 (-0.55)"
               },
               {
                 "localJugadorId": "1449512445549871125",
@@ -9272,64 +9276,81 @@
                 "localJugadorNombre": "jaded10078",
                 "visitanteJugadorId": "425414047861571586",
                 "visitanteJugadorNombre": "sarajevocabj",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 5,
+                "golesVisitante": 3,
+                "finalizado": true,
+                "logMedia": "📈 **jaded10078**: 91.05 (+0.25)\n📉 **sarajevocabj**: 85.05 (-0.25)"
               }
             ],
-            "puntosMiniLocal": 0,
+            "puntosMiniLocal": 2,
             "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "golesTotalLocal": 10,
+            "golesTotalVisitante": 4,
+            "finalizado": true,
+            "golesLocal": 2,
+            "golesVisitante": 0,
+            "resultado": {
+              "golesLocal": 2,
+              "golesVisitante": 0
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_8qvo3hibt1e",
             "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-            "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+            "localNombre": "Mafia Twittera S.A.",
             "visitanteId": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4",
             "visitanteNombre": "Super Libertarios Progresistas",
             "duelosIndividuales": [
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
+                "localJugadorId": "497936937793880065",
+                "localJugadorNombre": "Maurii",
+                "visitanteJugadorId": "1313318947352744067",
+                "visitanteJugadorNombre": "alexiscarp9122018",
+                "golesLocal": 1,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **alexiscarp9122018**: 86.84 (+0.55)\n📉 **Maurii**: 81.81 (-0.55)"
+              },
+              {
+                "localJugadorId": "1495584399725432883",
+                "localJugadorNombre": "santulado",
+                "visitanteJugadorId": "760530409557065729",
+                "visitanteJugadorNombre": "saletrox123",
                 "golesLocal": null,
                 "golesVisitante": null,
                 "finalizado": false
               },
               {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
-              },
-              {
-                "localJugadorId": null,
-                "localJugadorNombre": null,
-                "visitanteJugadorId": null,
-                "visitanteJugadorNombre": null,
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "localJugadorId": "1289028230078140467",
+                "localJugadorNombre": "luca_aaaj",
+                "visitanteJugadorId": "1261015690874196012",
+                "visitanteJugadorNombre": "Gabucba",
+                "golesLocal": 0,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Gabucba**: 91.63 (+0.55)\n📉 **luca_aaaj**: 80 (-0.55)"
               }
             ],
             "puntosMiniLocal": 0,
-            "puntosMiniVisitante": 0,
-            "golesTotalLocal": 0,
-            "golesTotalVisitante": 0,
-            "finalizado": false
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 1,
+            "golesTotalVisitante": 10,
+            "finalizado": true,
+            "golesLocal": 0,
+            "golesVisitante": 2,
+            "resultado": {
+              "golesLocal": 0,
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           }
         ],
         "numero": 14
       }
     ],
     "fechaInicio": 1778862254845,
-    "fechaFin": null,
+    "fechaFin": 1780330108113,
     "equipos": [
       "699fe1e370331e79012517ea",
       "699fe6b970331e7901251808",
