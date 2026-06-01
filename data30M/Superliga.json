@@ -9157,9 +9157,9 @@
                 "localJugadorNombre": "agus_nah",
                 "visitanteJugadorId": "625472211779584030",
                 "visitanteJugadorNombre": "Confe2007",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true
               },
               {
                 "localJugadorId": "752669799263502356",
@@ -9183,15 +9183,15 @@
               }
             ],
             "puntosMiniLocal": 1,
-            "puntosMiniVisitante": 1,
-            "golesTotalLocal": 9,
-            "golesTotalVisitante": 8,
-            "finalizado": false,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 13,
+            "golesTotalVisitante": 13,
+            "finalizado": true,
             "golesLocal": 1,
-            "golesVisitante": 1,
+            "golesVisitante": 2,
             "resultado": {
               "golesLocal": 1,
-              "golesVisitante": 1
+              "golesVisitante": 2
             }
           },
           {
@@ -9206,9 +9206,10 @@
                 "localJugadorNombre": "420_dav",
                 "visitanteJugadorId": "1281896348643495948",
                 "visitanteJugadorNombre": "Rojas 🃏",
-                "golesLocal": null,
-                "golesVisitante": null,
-                "finalizado": false
+                "golesLocal": 4,
+                "golesVisitante": 5,
+                "finalizado": true,
+                "logMedia": "📈 **Rojas 🃏**: 86.29 (+0.25)\n📉 **420_dav**: 84.42 (-0.25)"
               },
               {
                 "localJugadorId": "992866773047193710",
@@ -9232,16 +9233,17 @@
               }
             ],
             "puntosMiniLocal": 1,
-            "puntosMiniVisitante": 1,
-            "golesTotalLocal": 9,
-            "golesTotalVisitante": 9,
-            "finalizado": false,
+            "puntosMiniVisitante": 2,
+            "golesTotalLocal": 13,
+            "golesTotalVisitante": 14,
+            "finalizado": true,
             "golesLocal": 1,
-            "golesVisitante": 1,
+            "golesVisitante": 2,
             "resultado": {
               "golesLocal": 1,
-              "golesVisitante": 1
-            }
+              "golesVisitante": 2
+            },
+            "premiosEntregados": true
           },
           {
             "_id": "1778862254844_0c39up4kpcnj",

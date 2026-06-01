@@ -6,7 +6,7 @@
     "coach": {
       "nombre": "lukitaz_r",
       "id": "1052388988368990279",
-      "carta": "assets/cartas/generadas/1052388988368990279_047d5c99a77fe409.png",
+      "carta": "assets/cartas/generadas/1052388988368990279_2b1f67625773fb84.png",
       "_id": "699fdb81c96e4af9dc494692",
       "pais": "Argentina",
       "golesAFavor": 1,
@@ -158,7 +158,7 @@
     "createdAt": "2026-02-26T05:34:57.411Z",
     "updatedAt": "2026-05-01T02:56:09.631Z",
     "__v": 15,
-    "dinero": 3200000,
+    "dinero": 200000,
     "tablaHistorica": {
       "puntosAcumulados": 48,
       "partidosGanados": 16,
@@ -227,6 +227,24 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:56:11.164Z",
+        "monto": 3000000,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Compra de jugador"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:57:42.327Z",
+        "monto": 0,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Sale a préstamo por 2 temporada(s)"
       }
     ]
   },
@@ -260,7 +278,7 @@
         "nombre": "Confe2007",
         "id": "625472211779584030",
         "mediaInicial": 87,
-        "media": 94.39,
+        "media": 94.64,
         "valor": 2000000,
         "pais": "Argentina",
         "partidosGanados": 6,
@@ -622,7 +640,8 @@
           "iq": 80,
           "aura": 79,
           "esquinazo": 83
-        }
+        },
+        "carta": "assets/cartas/generadas/1052388988368990279_426870e53b55faf9.png"
       }
     ],
     "historial": [
@@ -1044,7 +1063,7 @@
       "nombre": "tato_aa",
       "id": "1344037515098849362",
       "mediaInicial": 95,
-      "media": 100,
+      "media": 100.5,
       "valor": 2650000,
       "pais": "Uruguay",
       "partidosGanados": 15,
@@ -1079,7 +1098,7 @@
         "carta": "assets/cartas/generadas/1281896348643495948_b50533956ae58a73.png",
         "contrato": 3,
         "mediaInicial": 81,
-        "media": 86.04,
+        "media": 86.49,
         "valor": 1450000,
         "clausula": {
           "tipo": null,
@@ -1108,7 +1127,7 @@
         "nombre": "Raph",
         "id": "689386903203610685",
         "mediaInicial": 84,
-        "media": 88.08,
+        "media": 88.28,
         "valor": 1710000,
         "pais": "Francia",
         "partidosGanados": 1,
@@ -1129,22 +1148,6 @@
           "esquinazo": 87
         },
         "carta": "assets/cartas/generadas/689386903203610685_13eb8f9e4bc33da2.png"
-      },
-      {
-        "nombre": "hammeriti",
-        "id": "672164926948900864",
-        "pais": "Argentina",
-        "media": 76.68,
-        "stats": {
-          "actividad": 76,
-          "tiro": 81,
-          "pase": 78,
-          "iq": 88,
-          "aura": 82,
-          "esquinazo": 75
-        },
-        "carta": "assets/cartas/generadas/672164926948900864_cac4dae38b56c339.png",
-        "contrato": 1
       }
     ],
     "historial": [
@@ -1192,7 +1195,7 @@
     "createdAt": "2026-02-26T16:56:15.122Z",
     "updatedAt": "2026-05-01T19:40:49.528Z",
     "__v": 23,
-    "dinero": 4500000,
+    "dinero": 4700000,
     "tablaHistorica": {
       "puntosAcumulados": 27,
       "partidosGanados": 9,
@@ -1288,6 +1291,22 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-06-01T00:20:42.704Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "hammeriti",
+        "jugadorId": "672164926948900864",
+        "fecha": "2026-06-01T00:48:15.096Z",
+        "monto": 0,
+        "equipoRelacionado": "Agente Libre",
+        "detalle": "Rescisión por mutuo acuerdo"
       }
     ]
   },
@@ -1408,11 +1427,11 @@
     "escudo": "assets/equipos/libertadores_1779767568649.png",
     "dinero": 220000,
     "coach": {
-      "nombre": "agus_nah",
-      "id": "979152495811100743",
-      "pais": "Uruguay",
-      "media": 89.5,
-      "carta": "assets/cartas/generadas/979152495811100743_bf903021683d451f.png",
+      "nombre": "hammeriti",
+      "id": "672164926948900864",
+      "pais": "Argentina",
+      "media": 77,
+      "carta": "assets/cartas/generadas/672164926948900864_e03e803b2fa717f3.png",
       "stats": {
         "actividad": 82,
         "tiro": 77,
@@ -1711,7 +1730,8 @@
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
       }
-    ]
+    ],
+    "_raw_coach": "{\n  \"nombre\": \"hammeriti\",\n  \"id\": \"672164926948900864\",\n  \"pais\": \"Argentina\",\n  \"media\": 77,\n  \"carta\": \"https://cdn.discordapp.com/attachments/1403382463258165259/1510806526493987028/carta-672164926948900864.png?ex=6a1e27b9&is=6a1cd639&hm=77fe1f037fc890ee44f4cf651c1c5ca6b62d864af36811e79fe946d418467a1b&\",\n  \"stats\": {\n    \"actividad\": 82,\n    \"tiro\": 77,\n    \"pase\": 81,\n    \"iq\": 75,\n    \"aura\": 29,\n    \"esquinazo\": 87\n  }\n}"
   },
   {
     "_id": "69cf284150f045493d72d175",
@@ -1751,7 +1771,7 @@
         "carta": "assets/cartas/generadas/992866773047193710_46200bad66cab693.png",
         "contrato": 2,
         "mediaInicial": 80,
-        "media": 89.82000000000001,
+        "media": 89.72,
         "valor": 500000,
         "pais": "Argentina",
         "prestadoDe": null,
@@ -1779,7 +1799,7 @@
         "nombre": "420_dav",
         "id": "1503855137708441841",
         "pais": "Colombia",
-        "media": 84.67,
+        "media": 84.32,
         "stats": {
           "actividad": 78,
           "tiro": 81,
@@ -2094,6 +2114,41 @@
           "aura": 87,
           "esquinazo": 86
         }
+      },
+      {
+        "nombre": "Maurii",
+        "id": "497936937793880065",
+        "carta": "assets/cartas/generadas/497936937793880065_bc6e0085020a5807.png",
+        "contrato": 4,
+        "mediaInicial": 80,
+        "media": 81.71,
+        "valor": 500000,
+        "pais": "Uruguay",
+        "prestadoDe": {
+          "equipoId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
+          "equipoNombre": "Mafia Twittera S.A.",
+          "temporadasRestantes": 1,
+          "contratoOriginal": 4
+        },
+        "partidosGanados": 0,
+        "partidosPerdidos": 0,
+        "golesAFavor": 0,
+        "golesEnContra": 0,
+        "suspendido": 0,
+        "_id": "69f49a119011f9dcf38335cb",
+        "clausula": {
+          "tipo": null,
+          "monto": null,
+          "cantidadPartidos": null
+        },
+        "stats": {
+          "actividad": 80,
+          "tiro": 75,
+          "pase": 78,
+          "iq": 80,
+          "aura": 84,
+          "esquinazo": 83
+        }
       }
     ],
     "historial": [],
@@ -2211,6 +2266,15 @@
         "monto": 3900000,
         "equipoRelacionado": "Mafia Twittera S.A.",
         "detalle": "Venta de jugador"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "Maurii",
+        "jugadorId": "497936937793880065",
+        "fecha": "2026-06-01T00:24:33.562Z",
+        "monto": 0,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Llega a préstamo por 1 temporada(s)"
       }
     ],
     "tablaHistorica": {
@@ -2225,7 +2289,7 @@
   {
     "nombre": "Mafia Twittera S.A.",
     "escudo": "assets/equipos/mafia_twittera_s.a._1780270081360.png",
-    "dinero": 200000,
+    "dinero": 3200000,
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
@@ -2255,36 +2319,6 @@
       }
     },
     "jugadores": [
-      {
-        "nombre": "Maurii",
-        "id": "497936937793880065",
-        "carta": "assets/cartas/generadas/497936937793880065_bc6e0085020a5807.png",
-        "contrato": 4,
-        "mediaInicial": 80,
-        "media": 81.71,
-        "valor": 500000,
-        "pais": "Uruguay",
-        "prestadoDe": null,
-        "partidosGanados": 0,
-        "partidosPerdidos": 0,
-        "golesAFavor": 0,
-        "golesEnContra": 0,
-        "suspendido": 0,
-        "_id": "69f49a119011f9dcf38335cb",
-        "clausula": {
-          "tipo": null,
-          "monto": null,
-          "cantidadPartidos": null
-        },
-        "stats": {
-          "actividad": 80,
-          "tiro": 75,
-          "pase": 78,
-          "iq": 80,
-          "aura": 84,
-          "esquinazo": 83
-        }
-      },
       {
         "nombre": "nicoar1",
         "id": "534231523751362580",
@@ -2324,9 +2358,9 @@
         },
         "pais": "Argentina",
         "prestadoDe": {
-          "equipoId": "699fe6b970331e7901251808",
-          "equipoNombre": "Super Bebelones Peronistas",
-          "temporadasRestantes": 1,
+          "equipoId": "699fdb81c96e4af9dc494691",
+          "equipoNombre": "Tel Aviv City",
+          "temporadasRestantes": 2,
           "contratoOriginal": 1
         },
         "partidosGanados": 14,
@@ -2400,6 +2434,33 @@
         "monto": 3900000,
         "equipoRelacionado": "Super Libertarios Progresistas",
         "detalle": "Compra de jugador"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "Maurii",
+        "jugadorId": "497936937793880065",
+        "fecha": "2026-06-01T00:24:33.578Z",
+        "monto": 0,
+        "equipoRelacionado": "Super Libertarios Progresistas",
+        "detalle": "Sale a préstamo por 1 temporada(s)"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:56:11.169Z",
+        "monto": 3000000,
+        "equipoRelacionado": "Tel Aviv City",
+        "detalle": "Venta de jugador"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:57:42.314Z",
+        "monto": 0,
+        "equipoRelacionado": "Tel Aviv City",
+        "detalle": "Llega a préstamo por 2 temporada(s)"
       }
     ],
     "tablaHistorica": {

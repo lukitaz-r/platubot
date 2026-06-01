@@ -266,20 +266,45 @@
     "_id": "699fe1e370331e79012517eb"
   },
   {
-        "nombre": "santulado",
-        "id": "1495584399725432883",
-        "pais": "Argentina",
-        "media": 76.92,
-        "stats": {
-          "actividad": 78,
-          "tiro": 77,
-          "pase": 83,
-          "iq": 88,
-          "aura": 79,
-          "esquinazo": 75
-        },
-        "carta": "assets/cartas/generadas/1495584399725432883_6fcefd58bf55957a.png",
-        "contrato": 3,
-        "exEquipo": "Mafia Twittera S.A."
-      }
+    "nombre": "santulado",
+    "id": "1495584399725432883",
+    "pais": "Argentina",
+    "media": 76.92,
+    "stats": {
+      "actividad": 78,
+      "tiro": 77,
+      "pase": 83,
+      "iq": 88,
+      "aura": 79,
+      "esquinazo": 75
+    },
+    "carta": "assets/cartas/generadas/1495584399725432883_6fcefd58bf55957a.png",
+    "contrato": 3,
+    "exEquipo": "Mafia Twittera S.A."
+  },
+  {
+    "nombre": "hammeriti",
+    "id": "672164926948900864",
+    "mediaInicial": 80,
+    "media": 76.88,
+    "stats": {
+      "actividad": 76,
+      "tiro": 81,
+      "pase": 78,
+      "iq": 88,
+      "aura": 82,
+      "esquinazo": 75
+    },
+    "valor": 500000,
+    "pais": "Argentina",
+    "partidosGanados": 0,
+    "partidosPerdidos": 0,
+    "golesAFavor": 0,
+    "golesEnContra": 0,
+    "suspendido": 0,
+    "exEquipo": "Dutch Lions",
+    "carta": "assets/cartas/generadas/672164926948900864_8b22c2a67b708472.png",
+    "contrato": 1,
+    "_id": "c41e5fba-ff7c-4c54-a630-94677bbc5f2e"
+  }
 ]
