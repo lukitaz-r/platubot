@@ -1096,7 +1096,7 @@
       {
         "nombre": "Rojas 🃏",
         "id": "1281896348643495948",
-        "carta": "assets/cartas/generadas/1281896348643495948_b50533956ae58a73.png",
+        "carta": "assets/cartas/generadas/1281896348643495948_29870bb9bc168a24.png",
         "contrato": 2,
         "mediaInicial": 86,
         "media": 86.71,
@@ -1174,7 +1174,7 @@
         "updatedAt": "2026-04-04T16:14:43.966Z",
         "__v": 0,
         "contrato": 2,
-        "carta": "assets/cartas/generadas/934647569701797910_a1bf9f1bd0618b60.png",
+        "carta": "assets/cartas/generadas/934647569701797910_6765658465ec4b69.png",
         "clausula": {
           "tipo": null,
           "monto": null,
@@ -2362,7 +2362,7 @@
         "golesEnContra": 0,
         "suspendido": 0,
         "contrato": 1,
-        "carta": "assets/cartas/generadas/534231523751362580_90f5906ae1a192f0.png",
+        "carta": "assets/cartas/generadas/534231523751362580_6c631413d5813193.png",
         "_id": "699fe1e370331e79012517eb"
       },
       {
