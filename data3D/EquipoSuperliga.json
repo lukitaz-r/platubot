@@ -3,26 +3,7 @@
     "_id": "699fdb81c96e4af9dc494691",
     "nombre": "Tel Aviv City",
     "escudo": "assets/equipos/tel_aviv_city.png",
-    "coach": {
-      "nombre": "lukitaz_r",
-      "id": "1052388988368990279",
-      "carta": "assets/cartas/generadas/1052388988368990279_047d5c99a77fe409.png",
-      "_id": "699fdb81c96e4af9dc494692",
-      "pais": "Argentina",
-      "golesAFavor": 1,
-      "golesEnContra": 1,
-      "partidosGanados": 1,
-      "partidosPerdidos": 1,
-      "stats": {
-        "actividad": 83,
-        "tiro": 90,
-        "pase": 73,
-        "iq": 81,
-        "aura": 74,
-        "esquinazo": 79
-      },
-      "media": 85
-    },
+    "coach": {},
     "jugadores": [
       {
         "prestadoDe": null,
@@ -158,7 +139,7 @@
     "createdAt": "2026-02-26T05:34:57.411Z",
     "updatedAt": "2026-05-01T02:56:09.631Z",
     "__v": 15,
-    "dinero": 3200000,
+    "dinero": 200000,
     "tablaHistorica": {
       "puntosAcumulados": 48,
       "partidosGanados": 16,
@@ -182,7 +163,7 @@
         "jugadorId": "1287076064832651327",
         "fecha": "2026-05-01T23:22:35.079Z",
         "monto": 0,
-        "equipoRelacionado": "Escuadrón Marrón por la Salvación de Occidente",
+        "equipoRelacionado": "Mafia Twittera S.A.",
         "detalle": "Sale a préstamo por 3 temporada(s)"
       },
       {
@@ -227,6 +208,24 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:56:11.164Z",
+        "monto": 3000000,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Compra de jugador"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:57:42.327Z",
+        "monto": 0,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Sale a préstamo por 2 temporada(s)"
       }
     ]
   },
@@ -237,13 +236,13 @@
     "coach": {
       "nombre": "medinaconzurda",
       "id": "1152567232933658716",
-      "carta": "assets/cartas/generadas/1152567232933658716_c8f460b1e18f9752.png",
+      "carta": "assets/cartas/generadas/1152567232933658716_4579d0c40d4ce69b.png",
       "pais": "Argentina",
       "partidosGanados": 0,
       "partidosPerdidos": 0,
       "golesAFavor": 0,
       "golesEnContra": 0,
-      "media": 91,
+      "media": 91.5,
       "mediaInicial": 87,
       "stats": {
         "actividad": 80,
@@ -260,7 +259,7 @@
         "nombre": "Confe2007",
         "id": "625472211779584030",
         "mediaInicial": 87,
-        "media": 93.64,
+        "media": 94.64,
         "valor": 2000000,
         "pais": "Argentina",
         "partidosGanados": 6,
@@ -289,19 +288,45 @@
         }
       },
       {
-        "nombre": "mario_67.3",
-        "id": "664977038905704454",
+        "_id": "69f4164901938fc3c8fd94f7",
+        "nombre": "moonzzz14",
+        "id": "1393029583778873415",
+        "mediaInicial": 84,
+        "media": 85.3,
+        "valor": 1780000,
         "pais": "Argentina",
-        "media": 83.18,
+        "partidosGanados": 12,
+        "partidosPerdidos": 12,
+        "golesAFavor": 16,
+        "golesEnContra": 16,
+        "suspendido": 0,
+        "contrato": 1,
+        "createdAt": "2026-05-01T02:56:09.129Z",
+        "updatedAt": "2026-05-01T02:56:09.129Z",
+        "__v": 0,
         "stats": {
-          "actividad": 85,
-          "tiro": 81,
-          "pase": 82,
-          "iq": 71,
-          "aura": 85,
-          "esquinazo": 76
+          "actividad": 79,
+          "tiro": 90,
+          "pase": 80,
+          "iq": 84,
+          "aura": 89,
+          "esquinazo": 82
         },
-        "carta": "assets/cartas/generadas/664977038905704454_c756ea78d4d2500a.png"
+        "carta": "assets/cartas/generadas/1393029583778873415_152065834fe85edf.png"
+      },
+      {
+        "nombre": "fran8oje",
+        "id": "377495586758328321",
+        "pais": "Argentina",
+        "media": 80,
+        "stats": {
+          "actividad": 79,
+          "tiro": 75,
+          "pase": 84,
+          "iq": 81,
+          "aura": 78,
+          "esquinazo": 83
+        }
       }
     ],
     "historial": [
@@ -349,7 +374,7 @@
     "createdAt": "2026-02-26T06:02:11.082Z",
     "updatedAt": "2026-05-01T02:56:09.713Z",
     "__v": 20,
-    "dinero": 6820000,
+    "dinero": 5020900,
     "tablaHistorica": {
       "puntosAcumulados": 57,
       "partidosGanados": 19,
@@ -482,6 +507,38 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T21:38:08.504Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "moonzzz14",
+        "jugadorId": "1393029583778873415",
+        "fecha": "2026-05-31T22:45:16.807Z",
+        "monto": 2000000,
+        "equipoRelacionado": "Super Bebelones Peronistas",
+        "detalle": "Compra de jugador"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "mario_67.3",
+        "jugadorId": "664977038905704454",
+        "fecha": "2026-06-01T01:54:12.411Z",
+        "monto": 900,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Venta de jugador"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "fran8oje",
+        "fecha": "2026-06-01T01:55:41.368Z",
+        "monto": 0,
+        "equipoRelacionado": "Agente Libre"
       }
     ]
   },
@@ -511,38 +568,11 @@
     },
     "jugadores": [
       {
-        "_id": "69f4164901938fc3c8fd94f7",
-        "nombre": "moonzzz14",
-        "id": "1393029583778873415",
-        "mediaInicial": 84,
-        "media": 86.68,
-        "valor": 1780000,
-        "pais": "Argentina",
-        "partidosGanados": 12,
-        "partidosPerdidos": 12,
-        "golesAFavor": 16,
-        "golesEnContra": 16,
-        "suspendido": 0,
-        "contrato": 3,
-        "createdAt": "2026-05-01T02:56:09.129Z",
-        "updatedAt": "2026-05-01T02:56:09.129Z",
-        "__v": 0,
-        "stats": {
-          "actividad": 79,
-          "tiro": 90,
-          "pase": 80,
-          "iq": 84,
-          "aura": 89,
-          "esquinazo": 82
-        },
-        "carta": "assets/cartas/generadas/1393029583778873415_b3448995fd867589.png"
-      },
-      {
         "_id": "69f4164901938fc3c8fd94f6",
         "nombre": "Shuu",
         "id": "747095738269433917",
         "mediaInicial": 83,
-        "media": 84.47,
+        "media": 84.52,
         "valor": 1670000,
         "pais": "Argentina",
         "partidosGanados": 15,
@@ -565,34 +595,49 @@
         "carta": "assets/cartas/generadas/747095738269433917_50ebf505f9f89e90.png"
       },
       {
-        "nombre": "sarajevocabj",
-        "id": "425414047861571586",
-        "carta": "assets/cartas/generadas/425414047861571586_aa8468586499f417.png",
-        "contrato": 3,
-        "mediaInicial": 85,
-        "media": 85.95,
-        "valor": 1840000,
+        "nombre": "FacuZ16 🇵🇦",
+        "id": "1285655821346144267",
+        "carta": "assets/cartas/generadas/1285655821346144267_ae1b57929677160a.png",
+        "contrato": 1,
+        "mediaInicial": 86,
+        "media": 87.66,
+        "valor": 1930000,
+        "pais": "Panama",
+        "prestadoDe": null,
+        "partidosGanados": 3,
+        "partidosPerdidos": 2,
+        "golesAFavor": 3,
+        "golesEnContra": 2,
+        "suspendido": 0,
+        "_id": "69cf331ea65f2a5a54326180",
         "clausula": {
           "tipo": null,
           "monto": null,
           "cantidadPartidos": null
         },
-        "pais": "Argentina",
-        "prestadoDe": null,
-        "partidosGanados": 10,
-        "partidosPerdidos": 5,
-        "golesAFavor": 10,
-        "golesEnContra": 5,
-        "suspendido": 0,
-        "_id": "69cf37b8a65f2a5a54327855",
         "stats": {
-          "actividad": 84,
-          "tiro": 78,
-          "pase": 93,
-          "iq": 84,
-          "aura": 91,
-          "esquinazo": 80
+          "actividad": 94,
+          "tiro": 81,
+          "pase": 79,
+          "iq": 88,
+          "aura": 82,
+          "esquinazo": 92
         }
+      },
+      {
+        "nombre": "lukitaz_r",
+        "id": "1052388988368990279",
+        "pais": "Argentina",
+        "media": 80,
+        "stats": {
+          "actividad": 87,
+          "tiro": 70,
+          "pase": 81,
+          "iq": 80,
+          "aura": 79,
+          "esquinazo": 83
+        },
+        "carta": "assets/cartas/generadas/1052388988368990279_1dbc6171c0b7bf90.png"
       }
     ],
     "historial": [
@@ -640,7 +685,7 @@
     "createdAt": "2026-02-26T06:22:49.139Z",
     "updatedAt": "2026-05-01T02:56:09.792Z",
     "__v": 18,
-    "dinero": 9750000,
+    "dinero": 9250000,
     "tablaHistorica": {
       "puntosAcumulados": 72,
       "partidosGanados": 24,
@@ -738,6 +783,31 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "moonzzz14",
+        "jugadorId": "1393029583778873415",
+        "fecha": "2026-05-31T22:45:16.817Z",
+        "monto": 2000000,
+        "equipoRelacionado": "Razgrad Camels",
+        "detalle": "Venta de jugador"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "FacuZ16 🇵🇦",
+        "jugadorId": "1285655821346144267",
+        "fecha": "2026-05-31T23:52:19.012Z",
+        "monto": 2500000,
+        "equipoRelacionado": "Atletico Monarquia",
+        "detalle": "Compra de jugador"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "lukitaz_r",
+        "fecha": "2026-06-01T00:07:52.385Z",
+        "monto": 0,
+        "equipoRelacionado": "Agente Libre"
       }
     ]
   },
@@ -763,14 +833,14 @@
         "aura": 77,
         "esquinazo": 75
       },
-      "media": 92
+      "media": 93.5
     },
     "jugadores": [
       {
         "nombre": "tterss",
         "id": "751663890441699409",
         "pais": "Argentina",
-        "media": 88.42,
+        "media": 90.12,
         "carta": "assets/cartas/generadas/751663890441699409_b85aacab13c9e006.png",
         "stats": {
           "actividad": 98,
@@ -794,7 +864,7 @@
         "nombre": "jaded10078",
         "id": "934647569701797910",
         "mediaInicial": 89,
-        "media": 90.15,
+        "media": 91.25,
         "valor": 2150000,
         "pais": "Argentina",
         "partidosGanados": 18,
@@ -828,7 +898,7 @@
         "carta": "assets/cartas/generadas/1449512445549871125_4abe89681073f635.png",
         "contrato": 3,
         "mediaInicial": 88,
-        "media": 89.42,
+        "media": 90.57,
         "valor": 2050000,
         "pais": "Peru",
         "prestadoDe": null,
@@ -898,7 +968,7 @@
     "createdAt": "2026-02-26T13:23:33.303Z",
     "updatedAt": "2026-05-01T02:56:09.873Z",
     "__v": 19,
-    "dinero": 6350000,
+    "dinero": 6950000,
     "tablaHistorica": {
       "puntosAcumulados": 84,
       "partidosGanados": 28,
@@ -955,6 +1025,27 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-29T23:50:21.004Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T01:37:46.051Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-31T22:20:02.848Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
       }
     ]
   },
@@ -968,7 +1059,7 @@
       "nombre": "tato_aa",
       "id": "1344037515098849362",
       "mediaInicial": 95,
-      "media": 99.5,
+      "media": 100.5,
       "valor": 2650000,
       "pais": "Uruguay",
       "partidosGanados": 15,
@@ -1003,7 +1094,7 @@
         "carta": "assets/cartas/generadas/1281896348643495948_b50533956ae58a73.png",
         "contrato": 3,
         "mediaInicial": 81,
-        "media": 85.94,
+        "media": 86.49,
         "valor": 1450000,
         "clausula": {
           "tipo": null,
@@ -1032,7 +1123,7 @@
         "nombre": "Raph",
         "id": "689386903203610685",
         "mediaInicial": 84,
-        "media": 87.4,
+        "media": 88.28,
         "valor": 1710000,
         "pais": "Francia",
         "partidosGanados": 1,
@@ -1040,7 +1131,7 @@
         "golesAFavor": 1,
         "golesEnContra": 6,
         "suspendido": 0,
-        "contrato": 1,
+        "contrato": 3,
         "createdAt": "2026-05-01T02:56:09.273Z",
         "updatedAt": "2026-05-01T02:56:09.273Z",
         "__v": 0,
@@ -1052,23 +1143,7 @@
           "aura": 87,
           "esquinazo": 87
         },
-        "carta": "assets/cartas/generadas/689386903203610685_c404ac9d292a0097.png"
-      },
-      {
-        "nombre": "hammeriti",
-        "id": "672164926948900864",
-        "pais": "Argentina",
-        "media": 76.47,
-        "stats": {
-          "actividad": 76,
-          "tiro": 81,
-          "pase": 78,
-          "iq": 88,
-          "aura": 82,
-          "esquinazo": 75
-        },
-        "carta": "assets/cartas/generadas/672164926948900864_cac4dae38b56c339.png",
-        "contrato": 1
+        "carta": "assets/cartas/generadas/689386903203610685_13eb8f9e4bc33da2.png"
       }
     ],
     "historial": [
@@ -1116,7 +1191,7 @@
     "createdAt": "2026-02-26T16:56:15.122Z",
     "updatedAt": "2026-05-01T19:40:49.528Z",
     "__v": 23,
-    "dinero": 4300000,
+    "dinero": 4700000,
     "tablaHistorica": {
       "puntosAcumulados": 27,
       "partidosGanados": 9,
@@ -1168,7 +1243,7 @@
         "jugadorId": "672164926948900864",
         "fecha": "2026-05-14T21:46:44.675Z",
         "monto": 1500000,
-        "equipoRelacionado": "Escuadrón Marrón por la Salvación de Occidente",
+        "equipoRelacionado": "Mafia Twittera S.A.",
         "detalle": "Compra de jugador"
       },
       {
@@ -1205,6 +1280,29 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T00:18:05.776Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-06-01T00:20:42.704Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "hammeriti",
+        "jugadorId": "672164926948900864",
+        "fecha": "2026-06-01T00:48:15.096Z",
+        "monto": 0,
+        "equipoRelacionado": "Agente Libre",
+        "detalle": "Rescisión por mutuo acuerdo"
       }
     ]
   },
@@ -1323,13 +1421,13 @@
     "_id": "69cf277750f045493d72cfaa",
     "nombre": "Libertadores",
     "escudo": "assets/equipos/libertadores_1779767568649.png",
-    "dinero": 20000,
+    "dinero": 220000,
     "coach": {
-      "nombre": "agus_nah",
-      "id": "979152495811100743",
-      "pais": "Uruguay",
-      "media": 89,
-      "carta": "assets/cartas/generadas/979152495811100743_bf903021683d451f.png",
+      "nombre": "hammeriti",
+      "id": "672164926948900864",
+      "pais": "Argentina",
+      "media": 77,
+      "carta": "assets/cartas/generadas/672164926948900864_e03e803b2fa717f3.png",
       "stats": {
         "actividad": 82,
         "tiro": 77,
@@ -1344,7 +1442,7 @@
         "nombre": "polentarg",
         "id": "1381836864205361273",
         "mediaInicial": 78,
-        "media": 80.84,
+        "media": 79.53,
         "stats": {
           "actividad": 69,
           "tiro": 80,
@@ -1372,7 +1470,7 @@
         "nombre": "Colette 🇻🇪✏️",
         "id": "743891228969533482",
         "mediaInicial": 85,
-        "media": 85.82,
+        "media": 85.92,
         "stats": {
           "actividad": 82,
           "tiro": 84,
@@ -1387,7 +1485,7 @@
         "partidosPerdidos": 2,
         "golesAFavor": 8,
         "golesEnContra": 2,
-        "suspendido": 14,
+        "suspendido": 12,
         "exEquipo": "Tel Aviv City",
         "carta": "assets/cartas/generadas/743891228969533482_bc976bf07969361e.png",
         "contrato": 1,
@@ -1397,66 +1495,6 @@
           "tipo": null,
           "monto": null,
           "cantidadPartidos": null
-        }
-      },
-      {
-        "_modelInfo": {
-          "collectionName": "JugadorLibre",
-          "schemaDefaults": {
-            "nombre": "",
-            "id": "",
-            "mediaInicial": 80,
-            "media": 80,
-            "stats": {
-              "actividad": 80,
-              "tiro": 80,
-              "pase": 80,
-              "iq": 80,
-              "aura": 80,
-              "esquinazo": 80
-            },
-            "valor": 500000,
-            "pais": "Argentina",
-            "partidosGanados": 0,
-            "partidosPerdidos": 0,
-            "golesAFavor": 0,
-            "golesEnContra": 0,
-            "suspendido": 0,
-            "exEquipo": ""
-          },
-          "filePath": "/home/luca/platubot/data/JugadorLibre.json"
-        },
-        "nombre": "ThiagoG",
-        "id": "752669799263502356",
-        "mediaInicial": 78,
-        "media": 77.67,
-        "stats": {
-          "actividad": 90,
-          "tiro": 70,
-          "pase": 75,
-          "iq": 20,
-          "aura": 80,
-          "esquinazo": 0
-        },
-        "valor": 1200000,
-        "pais": "Argentina",
-        "partidosGanados": 5,
-        "partidosPerdidos": 3,
-        "golesAFavor": 5,
-        "golesEnContra": 3,
-        "suspendido": 0,
-        "exEquipo": "Libertadores",
-        "_id": "69f2c62af78a647e4be62765",
-        "createdAt": "2026-04-30T03:02:02.111Z",
-        "updatedAt": "2026-04-30T03:02:02.111Z",
-        "__v": 0,
-        "contrato": 1,
-        "carta": "assets/cartas/generadas/752669799263502356_cb206a2fba16cf19.png",
-        "prestadoDe": {
-          "equipoId": "699fdb81c96e4af9dc494691",
-          "equipoNombre": "Tel Aviv City",
-          "temporadasRestantes": 1,
-          "contratoOriginal": 1
         }
       }
     ],
@@ -1620,20 +1658,37 @@
         "monto": 1200000,
         "equipoRelacionado": "Agente Libre",
         "detalle": "Contratación de agente libre"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-31T02:48:24.657Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "ThiagoG",
+        "jugadorId": "752669799263502356",
+        "fecha": "2026-06-01T01:28:52.774Z",
+        "monto": 0,
+        "equipoRelacionado": "Agente Libre",
+        "detalle": "Rescisión por mutuo acuerdo"
       }
-    ]
+    ],
+    "_raw_coach": "{\n  \"nombre\": \"hammeriti\",\n  \"id\": \"672164926948900864\",\n  \"pais\": \"Argentina\",\n  \"media\": 77,\n  \"carta\": \"https://cdn.discordapp.com/attachments/1403382463258165259/1510806526493987028/carta-672164926948900864.png?ex=6a1e27b9&is=6a1cd639&hm=77fe1f037fc890ee44f4cf651c1c5ca6b62d864af36811e79fe946d418467a1b&\",\n  \"stats\": {\n    \"actividad\": 82,\n    \"tiro\": 77,\n    \"pase\": 81,\n    \"iq\": 75,\n    \"aura\": 29,\n    \"esquinazo\": 87\n  }\n}"
   },
   {
     "_id": "69cf284150f045493d72d175",
     "nombre": "Atletico Monarquia",
     "escudo": "assets/equipos/atletico_monarquia.png",
-    "dinero": 10860000,
+    "dinero": 13560000,
     "coach": {
       "_id": "69f2c62af78a647e4be62766",
       "nombre": "Dmilito2010",
       "id": "1333674349152174091",
       "mediaInicial": 72,
-      "media": 78.57,
+      "media": 79.07,
       "valor": 710000,
       "pais": "Argentina",
       "partidosGanados": 0,
@@ -1652,7 +1707,7 @@
         "aura": 74,
         "esquinazo": 77
       },
-      "carta": "assets/cartas/generadas/1333674349152174091_cd8aeb163f8749d3.png"
+      "carta": "assets/cartas/generadas/1333674349152174091_9724ab8bda9dd332.png"
     },
     "jugadores": [
       {
@@ -1661,7 +1716,7 @@
         "carta": "assets/cartas/generadas/992866773047193710_46200bad66cab693.png",
         "contrato": 2,
         "mediaInicial": 80,
-        "media": 90.2,
+        "media": 89.72,
         "valor": 500000,
         "pais": "Argentina",
         "prestadoDe": null,
@@ -1686,40 +1741,10 @@
         }
       },
       {
-        "nombre": "FacuZ16 🇵🇦",
-        "id": "1285655821346144267",
-        "carta": "assets/cartas/generadas/1285655821346144267_da3ee7dbedf8add8.png",
-        "contrato": 3,
-        "mediaInicial": 86,
-        "media": 86.29,
-        "valor": 1930000,
-        "pais": "Panama",
-        "prestadoDe": null,
-        "partidosGanados": 3,
-        "partidosPerdidos": 2,
-        "golesAFavor": 3,
-        "golesEnContra": 2,
-        "suspendido": 0,
-        "_id": "69cf331ea65f2a5a54326180",
-        "clausula": {
-          "tipo": null,
-          "monto": null,
-          "cantidadPartidos": null
-        },
-        "stats": {
-          "actividad": 94,
-          "tiro": 81,
-          "pase": 79,
-          "iq": 88,
-          "aura": 82,
-          "esquinazo": 92
-        }
-      },
-      {
         "nombre": "420_dav",
         "id": "1503855137708441841",
         "pais": "Colombia",
-        "media": 83.88,
+        "media": 84.32,
         "stats": {
           "actividad": 78,
           "tiro": 81,
@@ -1915,13 +1940,29 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-30T03:25:55.924Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "FacuZ16 🇵🇦",
+        "jugadorId": "1285655821346144267",
+        "fecha": "2026-05-31T23:52:19.017Z",
+        "monto": 2500000,
+        "equipoRelacionado": "Super Bebelones Peronistas",
+        "detalle": "Venta de jugador"
       }
     ]
   },
   {
     "nombre": "Super Libertarios Progresistas",
     "escudo": "assets/equipos/super_libertarios_progresistas_1777768636756.png",
-    "dinero": 2000000,
+    "dinero": 6100000,
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
@@ -1934,7 +1975,7 @@
       "partidosPerdidos": 0,
       "golesAFavor": 0,
       "golesEnContra": 0,
-      "media": 83,
+      "media": 83.5,
       "mediaInicial": 80,
       "stats": {
         "actividad": 80,
@@ -1952,47 +1993,12 @@
     },
     "jugadores": [
       {
-        "nombre": "alexiscarp9122018",
-        "id": "1313318947352744067",
-        "carta": "assets/cartas/generadas/1313318947352744067_af83aa1fdd68eae8.png",
-        "contrato": 1,
-        "mediaInicial": 83,
-        "media": 87.08,
-        "valor": 1630000,
-        "clausula": {
-          "tipo": null,
-          "monto": null,
-          "cantidadPartidos": null
-        },
-        "pais": "Argentina",
-        "prestadoDe": {
-          "equipoId": "699fe6b970331e7901251808",
-          "equipoNombre": "Super Bebelones Peronistas",
-          "temporadasRestantes": 1,
-          "contratoOriginal": 1
-        },
-        "partidosGanados": 14,
-        "partidosPerdidos": 11,
-        "golesAFavor": 15,
-        "golesEnContra": 15,
-        "suspendido": 0,
-        "_id": "69f2c9bdf78a647e4be64533",
-        "stats": {
-          "actividad": 87,
-          "tiro": 90,
-          "pase": 77,
-          "iq": 85,
-          "aura": 81,
-          "esquinazo": 78
-        }
-      },
-      {
         "nombre": "saletrox123",
         "id": "760530409557065729",
         "carta": "assets/cartas/generadas/760530409557065729_068050dd2f07f74f.png",
         "contrato": 1,
         "mediaInicial": 81,
-        "media": 82.92,
+        "media": 82.37,
         "valor": 1480000,
         "clausula": {
           "tipo": null,
@@ -2028,7 +2034,7 @@
         "nombre": "Gabucba",
         "id": "1261015690874196012",
         "mediaInicial": 86,
-        "media": 92.2,
+        "media": 91.83,
         "valor": 1900000,
         "pais": "Argentina",
         "partidosGanados": 3,
@@ -2052,6 +2058,41 @@
           "iq": 89,
           "aura": 87,
           "esquinazo": 86
+        }
+      },
+      {
+        "nombre": "Maurii",
+        "id": "497936937793880065",
+        "carta": "assets/cartas/generadas/497936937793880065_bc6e0085020a5807.png",
+        "contrato": 4,
+        "mediaInicial": 80,
+        "media": 81.71,
+        "valor": 500000,
+        "pais": "Uruguay",
+        "prestadoDe": {
+          "equipoId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
+          "equipoNombre": "Mafia Twittera S.A.",
+          "temporadasRestantes": 1,
+          "contratoOriginal": 4
+        },
+        "partidosGanados": 0,
+        "partidosPerdidos": 0,
+        "golesAFavor": 0,
+        "golesEnContra": 0,
+        "suspendido": 0,
+        "_id": "69f49a119011f9dcf38335cb",
+        "clausula": {
+          "tipo": null,
+          "monto": null,
+          "cantidadPartidos": null
+        },
+        "stats": {
+          "actividad": 80,
+          "tiro": 75,
+          "pase": 78,
+          "iq": 80,
+          "aura": 84,
+          "esquinazo": 83
         }
       }
     ],
@@ -2154,6 +2195,31 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Premio",
+        "fecha": "2026-05-31T22:35:30.646Z",
+        "monto": 200000,
+        "equipoRelacionado": "",
+        "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:14:03.488Z",
+        "monto": 3900000,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Venta de jugador"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "Maurii",
+        "jugadorId": "497936937793880065",
+        "fecha": "2026-06-01T00:24:33.562Z",
+        "monto": 0,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Llega a préstamo por 1 temporada(s)"
       }
     ],
     "tablaHistorica": {
@@ -2166,23 +2232,23 @@
     "_id": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4"
   },
   {
-    "nombre": "Escuadrón Marrón por la Salvación de Occidente",
-    "escudo": "assets/equipos/escuadrón_marrón_por_la_salvación_de_occidente_1777677643476.png",
-    "dinero": 4100000,
+    "nombre": "Mafia Twittera S.A.",
+    "escudo": "assets/equipos/mafia_twittera_s.a._1780270081360.png",
+    "dinero": 3199100,
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
     "coach": {
-      "nombre": "luca_aaaj",
-      "id": "1289028230078140467",
-      "carta": "assets/cartas/generadas/1289028230078140467_99d61d73e40bbdd3.png",
+      "nombre": "benjamin9010.",
+      "id": "1071992059268968468",
+      "carta": "assets/cartas/generadas/1071992059268968468_24fe37ca40141c41.png",
       "pais": "Argentina",
       "partidosGanados": 0,
       "partidosPerdidos": 0,
       "golesAFavor": 0,
       "golesEnContra": 0,
       "media": 85.5,
-      "mediaInicial": 80,
+      "mediaInicial": 85,
       "stats": {
         "actividad": 80,
         "tiro": 80,
@@ -2199,50 +2265,79 @@
     },
     "jugadores": [
       {
-        "nombre": "Maurii",
-        "id": "497936937793880065",
-        "carta": "assets/cartas/generadas/497936937793880065_bc6e0085020a5807.png",
-        "contrato": 1,
+        "nombre": "nicoar1",
+        "id": "534231523751362580",
         "mediaInicial": 80,
-        "media": 83.08,
+        "media": 84.14,
+        "stats": {
+          "actividad": 81,
+          "tiro": 76,
+          "pase": 81,
+          "iq": 84,
+          "aura": 82,
+          "esquinazo": 76
+        },
         "valor": 500000,
-        "pais": "Uruguay",
-        "prestadoDe": null,
+        "pais": "Argentina",
         "partidosGanados": 0,
         "partidosPerdidos": 0,
         "golesAFavor": 0,
         "golesEnContra": 0,
         "suspendido": 0,
-        "_id": "69f49a119011f9dcf38335cb",
+        "contrato": 2,
+        "carta": "assets/cartas/generadas/534231523751362580_90f5906ae1a192f0.png",
+        "_id": "699fe1e370331e79012517eb"
+      },
+      {
+        "nombre": "alexiscarp9122018",
+        "id": "1313318947352744067",
+        "carta": "assets/cartas/generadas/1313318947352744067_281bdf5df68f7185.png",
+        "contrato": 1,
+        "mediaInicial": 83,
+        "media": 87.04,
+        "valor": 1630000,
         "clausula": {
           "tipo": null,
           "monto": null,
           "cantidadPartidos": null
         },
+        "pais": "Argentina",
+        "prestadoDe": {
+          "equipoId": "699fdb81c96e4af9dc494691",
+          "equipoNombre": "Tel Aviv City",
+          "temporadasRestantes": 2,
+          "contratoOriginal": 1
+        },
+        "partidosGanados": 14,
+        "partidosPerdidos": 11,
+        "golesAFavor": 15,
+        "golesEnContra": 15,
+        "suspendido": 0,
+        "_id": "69f2c9bdf78a647e4be64533",
         "stats": {
-          "actividad": 80,
-          "tiro": 75,
-          "pase": 78,
-          "iq": 80,
-          "aura": 84,
-          "esquinazo": 83
+          "actividad": 87,
+          "tiro": 90,
+          "pase": 77,
+          "iq": 85,
+          "aura": 81,
+          "esquinazo": 78
         }
       },
       {
-        "nombre": "santulado",
-        "id": "1495584399725432883",
+        "nombre": "mario_67.3",
+        "id": "664977038905704454",
         "pais": "Argentina",
-        "media": 77.67,
+        "media": 82.52,
         "stats": {
-          "actividad": 78,
-          "tiro": 77,
-          "pase": 83,
-          "iq": 88,
-          "aura": 79,
-          "esquinazo": 75
+          "actividad": 85,
+          "tiro": 81,
+          "pase": 82,
+          "iq": 71,
+          "aura": 85,
+          "esquinazo": 76
         },
-        "carta": "assets/cartas/generadas/1495584399725432883_6fcefd58bf55957a.png",
-        "contrato": 3
+        "carta": "assets/cartas/generadas/664977038905704454_a36191cf2b8aa58d.png",
+        "contrato": 1
       }
     ],
     "historial": [],
@@ -2291,6 +2386,51 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:14:03.484Z",
+        "monto": 3900000,
+        "equipoRelacionado": "Super Libertarios Progresistas",
+        "detalle": "Compra de jugador"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "Maurii",
+        "jugadorId": "497936937793880065",
+        "fecha": "2026-06-01T00:24:33.578Z",
+        "monto": 0,
+        "equipoRelacionado": "Super Libertarios Progresistas",
+        "detalle": "Sale a préstamo por 1 temporada(s)"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:56:11.169Z",
+        "monto": 3000000,
+        "equipoRelacionado": "Tel Aviv City",
+        "detalle": "Venta de jugador"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:57:42.314Z",
+        "monto": 0,
+        "equipoRelacionado": "Tel Aviv City",
+        "detalle": "Llega a préstamo por 2 temporada(s)"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "mario_67.3",
+        "jugadorId": "664977038905704454",
+        "fecha": "2026-06-01T01:54:12.406Z",
+        "monto": 900,
+        "equipoRelacionado": "Razgrad Camels",
+        "detalle": "Compra de jugador"
       }
     ],
     "tablaHistorica": {

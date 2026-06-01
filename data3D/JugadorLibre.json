@@ -264,5 +264,107 @@
     "exEquipo": "Razgrad Camels",
     "carta": "assets/cartas/generadas/534231523751362580_0f92bf32fbc62a72.png",
     "_id": "699fe1e370331e79012517eb"
+  },
+  {
+    "nombre": "santulado",
+    "id": "1495584399725432883",
+    "pais": "Argentina",
+    "media": 76.92,
+    "stats": {
+      "actividad": 78,
+      "tiro": 77,
+      "pase": 83,
+      "iq": 88,
+      "aura": 79,
+      "esquinazo": 75
+    },
+    "carta": "assets/cartas/generadas/1495584399725432883_6fcefd58bf55957a.png",
+    "contrato": 3,
+    "exEquipo": "Mafia Twittera S.A."
+  },
+  {
+    "nombre": "hammeriti",
+    "id": "672164926948900864",
+    "mediaInicial": 80,
+    "media": 76.88,
+    "stats": {
+      "actividad": 76,
+      "tiro": 81,
+      "pase": 78,
+      "iq": 88,
+      "aura": 82,
+      "esquinazo": 75
+    },
+    "valor": 500000,
+    "pais": "Argentina",
+    "partidosGanados": 0,
+    "partidosPerdidos": 0,
+    "golesAFavor": 0,
+    "golesEnContra": 0,
+    "suspendido": 0,
+    "exEquipo": "Dutch Lions",
+    "carta": "assets/cartas/generadas/672164926948900864_8b22c2a67b708472.png",
+    "contrato": 1,
+    "_id": "c41e5fba-ff7c-4c54-a630-94677bbc5f2e"
+  },
+  {
+    "nombre": "ThiagoG",
+    "id": "752669799263502356",
+    "mediaInicial": 78,
+    "media": 79,
+    "stats": {
+      "actividad": 90,
+      "tiro": 70,
+      "pase": 75,
+      "iq": 20,
+      "aura": 80,
+      "esquinazo": 0
+    },
+    "valor": 1200000,
+    "pais": "Argentina",
+    "partidosGanados": 5,
+    "partidosPerdidos": 3,
+    "golesAFavor": 5,
+    "golesEnContra": 3,
+    "suspendido": 0,
+    "exEquipo": "Libertadores",
+    "_modelInfo": {
+      "collectionName": "JugadorLibre",
+      "schemaDefaults": {
+        "nombre": "",
+        "id": "",
+        "mediaInicial": 80,
+        "media": 80,
+        "stats": {
+          "actividad": 80,
+          "tiro": 80,
+          "pase": 80,
+          "iq": 80,
+          "aura": 80,
+          "esquinazo": 80
+        },
+        "valor": 500000,
+        "pais": "Argentina",
+        "partidosGanados": 0,
+        "partidosPerdidos": 0,
+        "golesAFavor": 0,
+        "golesEnContra": 0,
+        "suspendido": 0,
+        "exEquipo": ""
+      },
+      "filePath": "/home/luca/platubot/data/JugadorLibre.json"
+    },
+    "_id": "69f2c62af78a647e4be62765",
+    "createdAt": "2026-04-30T03:02:02.111Z",
+    "updatedAt": "2026-04-30T03:02:02.111Z",
+    "__v": 0,
+    "contrato": 1,
+    "carta": "assets/cartas/generadas/752669799263502356_cb206a2fba16cf19.png",
+    "prestadoDe": {
+      "equipoId": "699fdb81c96e4af9dc494691",
+      "equipoNombre": "Tel Aviv City",
+      "temporadasRestantes": 1,
+      "contratoOriginal": 1
+    }
   }
 ]
