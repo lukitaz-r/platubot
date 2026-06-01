@@ -288,21 +288,6 @@
         }
       },
       {
-        "nombre": "mario_67.3",
-        "id": "664977038905704454",
-        "pais": "Argentina",
-        "media": 82.52,
-        "stats": {
-          "actividad": 85,
-          "tiro": 81,
-          "pase": 82,
-          "iq": 71,
-          "aura": 85,
-          "esquinazo": 76
-        },
-        "carta": "assets/cartas/generadas/664977038905704454_c756ea78d4d2500a.png"
-      },
-      {
         "_id": "69f4164901938fc3c8fd94f7",
         "nombre": "moonzzz14",
         "id": "1393029583778873415",
@@ -328,6 +313,20 @@
           "esquinazo": 82
         },
         "carta": "assets/cartas/generadas/1393029583778873415_152065834fe85edf.png"
+      },
+      {
+        "nombre": "fran8oje",
+        "id": "377495586758328321",
+        "pais": "Argentina",
+        "media": 80,
+        "stats": {
+          "actividad": 79,
+          "tiro": 75,
+          "pase": 84,
+          "iq": 81,
+          "aura": 78,
+          "esquinazo": 83
+        }
       }
     ],
     "historial": [
@@ -375,7 +374,7 @@
     "createdAt": "2026-02-26T06:02:11.082Z",
     "updatedAt": "2026-05-01T02:56:09.713Z",
     "__v": 20,
-    "dinero": 5020000,
+    "dinero": 5020900,
     "tablaHistorica": {
       "puntosAcumulados": 57,
       "partidosGanados": 19,
@@ -524,6 +523,22 @@
         "monto": 2000000,
         "equipoRelacionado": "Super Bebelones Peronistas",
         "detalle": "Compra de jugador"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "mario_67.3",
+        "jugadorId": "664977038905704454",
+        "fecha": "2026-06-01T01:54:12.411Z",
+        "monto": 900,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Venta de jugador"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "fran8oje",
+        "fecha": "2026-06-01T01:55:41.368Z",
+        "monto": 0,
+        "equipoRelacionado": "Agente Libre"
       }
     ]
   },
@@ -2219,7 +2234,7 @@
   {
     "nombre": "Mafia Twittera S.A.",
     "escudo": "assets/equipos/mafia_twittera_s.a._1780270081360.png",
-    "dinero": 3200000,
+    "dinero": 3199100,
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
@@ -2307,6 +2322,22 @@
           "aura": 81,
           "esquinazo": 78
         }
+      },
+      {
+        "nombre": "mario_67.3",
+        "id": "664977038905704454",
+        "pais": "Argentina",
+        "media": 82.52,
+        "stats": {
+          "actividad": 85,
+          "tiro": 81,
+          "pase": 82,
+          "iq": 71,
+          "aura": 85,
+          "esquinazo": 76
+        },
+        "carta": "assets/cartas/generadas/664977038905704454_c756ea78d4d2500a.png",
+        "contrato": 1
       }
     ],
     "historial": [],
@@ -2391,6 +2422,15 @@
         "monto": 0,
         "equipoRelacionado": "Tel Aviv City",
         "detalle": "Llega a préstamo por 2 temporada(s)"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "mario_67.3",
+        "jugadorId": "664977038905704454",
+        "fecha": "2026-06-01T01:54:12.406Z",
+        "monto": 900,
+        "equipoRelacionado": "Razgrad Camels",
+        "detalle": "Compra de jugador"
       }
     ],
     "tablaHistorica": {
