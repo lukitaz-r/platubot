@@ -581,33 +581,47 @@
         "carta": "assets/cartas/generadas/747095738269433917_50ebf505f9f89e90.png"
       },
       {
-        "nombre": "sarajevocabj",
-        "id": "425414047861571586",
-        "carta": "assets/cartas/generadas/425414047861571586_aa8468586499f417.png",
-        "contrato": 3,
-        "mediaInicial": 85,
-        "media": 84.95,
-        "valor": 1840000,
+        "nombre": "FacuZ16 🇵🇦",
+        "id": "1285655821346144267",
+        "carta": "assets/cartas/generadas/1285655821346144267_ae1b57929677160a.png",
+        "contrato": 1,
+        "mediaInicial": 86,
+        "media": 87.66,
+        "valor": 1930000,
+        "pais": "Panama",
+        "prestadoDe": null,
+        "partidosGanados": 3,
+        "partidosPerdidos": 2,
+        "golesAFavor": 3,
+        "golesEnContra": 2,
+        "suspendido": 0,
+        "_id": "69cf331ea65f2a5a54326180",
         "clausula": {
           "tipo": null,
           "monto": null,
           "cantidadPartidos": null
         },
-        "pais": "Argentina",
-        "prestadoDe": null,
-        "partidosGanados": 10,
-        "partidosPerdidos": 5,
-        "golesAFavor": 10,
-        "golesEnContra": 5,
-        "suspendido": 0,
-        "_id": "69cf37b8a65f2a5a54327855",
         "stats": {
-          "actividad": 84,
-          "tiro": 78,
-          "pase": 93,
-          "iq": 84,
-          "aura": 91,
-          "esquinazo": 80
+          "actividad": 94,
+          "tiro": 81,
+          "pase": 79,
+          "iq": 88,
+          "aura": 82,
+          "esquinazo": 92
+        }
+      },
+      {
+        "nombre": "lukitaz_r",
+        "id": "1052388988368990279",
+        "pais": "Argentina",
+        "media": 80,
+        "stats": {
+          "actividad": 87,
+          "tiro": 70,
+          "pase": 81,
+          "iq": 80,
+          "aura": 79,
+          "esquinazo": 83
         }
       }
     ],
@@ -656,7 +670,7 @@
     "createdAt": "2026-02-26T06:22:49.139Z",
     "updatedAt": "2026-05-01T02:56:09.792Z",
     "__v": 18,
-    "dinero": 11750000,
+    "dinero": 9250000,
     "tablaHistorica": {
       "puntosAcumulados": 72,
       "partidosGanados": 24,
@@ -763,6 +777,22 @@
         "monto": 2000000,
         "equipoRelacionado": "Razgrad Camels",
         "detalle": "Venta de jugador"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "FacuZ16 🇵🇦",
+        "jugadorId": "1285655821346144267",
+        "fecha": "2026-05-31T23:52:19.012Z",
+        "monto": 2500000,
+        "equipoRelacionado": "Atletico Monarquia",
+        "detalle": "Compra de jugador"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "lukitaz_r",
+        "fecha": "2026-06-01T00:07:52.385Z",
+        "monto": 0,
+        "equipoRelacionado": "Agente Libre"
       }
     ]
   },
@@ -1687,7 +1717,7 @@
     "_id": "69cf284150f045493d72d175",
     "nombre": "Atletico Monarquia",
     "escudo": "assets/equipos/atletico_monarquia.png",
-    "dinero": 11060000,
+    "dinero": 13560000,
     "coach": {
       "_id": "69f2c62af78a647e4be62766",
       "nombre": "Dmilito2010",
@@ -1743,36 +1773,6 @@
           "iq": 82,
           "aura": 81,
           "esquinazo": 81
-        }
-      },
-      {
-        "nombre": "FacuZ16 🇵🇦",
-        "id": "1285655821346144267",
-        "carta": "assets/cartas/generadas/1285655821346144267_da3ee7dbedf8add8.png",
-        "contrato": 3,
-        "mediaInicial": 86,
-        "media": 87.66,
-        "valor": 1930000,
-        "pais": "Panama",
-        "prestadoDe": null,
-        "partidosGanados": 3,
-        "partidosPerdidos": 2,
-        "golesAFavor": 3,
-        "golesEnContra": 2,
-        "suspendido": 0,
-        "_id": "69cf331ea65f2a5a54326180",
-        "clausula": {
-          "tipo": null,
-          "monto": null,
-          "cantidadPartidos": null
-        },
-        "stats": {
-          "actividad": 94,
-          "tiro": 81,
-          "pase": 79,
-          "iq": 88,
-          "aura": 82,
-          "esquinazo": 92
         }
       },
       {
@@ -1982,13 +1982,22 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "FacuZ16 🇵🇦",
+        "jugadorId": "1285655821346144267",
+        "fecha": "2026-05-31T23:52:19.017Z",
+        "monto": 2500000,
+        "equipoRelacionado": "Super Bebelones Peronistas",
+        "detalle": "Venta de jugador"
       }
     ]
   },
   {
     "nombre": "Super Libertarios Progresistas",
     "escudo": "assets/equipos/super_libertarios_progresistas_1777768636756.png",
-    "dinero": 2200000,
+    "dinero": 6100000,
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
@@ -2018,41 +2027,6 @@
       }
     },
     "jugadores": [
-      {
-        "nombre": "alexiscarp9122018",
-        "id": "1313318947352744067",
-        "carta": "assets/cartas/generadas/1313318947352744067_af83aa1fdd68eae8.png",
-        "contrato": 1,
-        "mediaInicial": 83,
-        "media": 87.04,
-        "valor": 1630000,
-        "clausula": {
-          "tipo": null,
-          "monto": null,
-          "cantidadPartidos": null
-        },
-        "pais": "Argentina",
-        "prestadoDe": {
-          "equipoId": "699fe6b970331e7901251808",
-          "equipoNombre": "Super Bebelones Peronistas",
-          "temporadasRestantes": 1,
-          "contratoOriginal": 1
-        },
-        "partidosGanados": 14,
-        "partidosPerdidos": 11,
-        "golesAFavor": 15,
-        "golesEnContra": 15,
-        "suspendido": 0,
-        "_id": "69f2c9bdf78a647e4be64533",
-        "stats": {
-          "actividad": 87,
-          "tiro": 90,
-          "pase": 77,
-          "iq": 85,
-          "aura": 81,
-          "esquinazo": 78
-        }
-      },
       {
         "nombre": "saletrox123",
         "id": "760530409557065729",
@@ -2228,6 +2202,15 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:14:03.488Z",
+        "monto": 3900000,
+        "equipoRelacionado": "Mafia Twittera S.A.",
+        "detalle": "Venta de jugador"
       }
     ],
     "tablaHistorica": {
@@ -2242,7 +2225,7 @@
   {
     "nombre": "Mafia Twittera S.A.",
     "escudo": "assets/equipos/mafia_twittera_s.a._1780270081360.png",
-    "dinero": 4100000,
+    "dinero": 200000,
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
@@ -2323,8 +2306,43 @@
         "golesEnContra": 0,
         "suspendido": 0,
         "contrato": 2,
-        "carta": "assets/cartas/generadas/534231523751362580_0f92bf32fbc62a72.png",
+        "carta": "assets/cartas/generadas/534231523751362580_90f5906ae1a192f0.png",
         "_id": "699fe1e370331e79012517eb"
+      },
+      {
+        "nombre": "alexiscarp9122018",
+        "id": "1313318947352744067",
+        "carta": "assets/cartas/generadas/1313318947352744067_af83aa1fdd68eae8.png",
+        "contrato": 1,
+        "mediaInicial": 83,
+        "media": 87.04,
+        "valor": 1630000,
+        "clausula": {
+          "tipo": null,
+          "monto": null,
+          "cantidadPartidos": null
+        },
+        "pais": "Argentina",
+        "prestadoDe": {
+          "equipoId": "699fe6b970331e7901251808",
+          "equipoNombre": "Super Bebelones Peronistas",
+          "temporadasRestantes": 1,
+          "contratoOriginal": 1
+        },
+        "partidosGanados": 14,
+        "partidosPerdidos": 11,
+        "golesAFavor": 15,
+        "golesEnContra": 15,
+        "suspendido": 0,
+        "_id": "69f2c9bdf78a647e4be64533",
+        "stats": {
+          "actividad": 87,
+          "tiro": 90,
+          "pase": 77,
+          "iq": 85,
+          "aura": 81,
+          "esquinazo": 78
+        }
       }
     ],
     "historial": [],
@@ -2373,6 +2391,15 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Alta",
+        "jugador": "alexiscarp9122018",
+        "jugadorId": "1313318947352744067",
+        "fecha": "2026-06-01T00:14:03.484Z",
+        "monto": 3900000,
+        "equipoRelacionado": "Super Libertarios Progresistas",
+        "detalle": "Compra de jugador"
       }
     ],
     "tablaHistorica": {
