@@ -860,67 +860,39 @@
         "contrato": 2
       },
       {
-        "prestadoDe": null,
-        "_id": "69d138f381ac3e82645e064f",
-        "nombre": "jaded10078",
-        "id": "934647569701797910",
-        "mediaInicial": 89,
-        "media": 91.25,
-        "valor": 2150000,
-        "pais": "Argentina",
-        "partidosGanados": 18,
-        "partidosPerdidos": 5,
-        "golesAFavor": 18,
-        "golesEnContra": 5,
-        "suspendido": 0,
-        "exEquipo": "Ghosts",
-        "createdAt": "2026-04-04T16:14:43.966Z",
-        "updatedAt": "2026-04-04T16:14:43.966Z",
-        "__v": 0,
-        "contrato": 3,
-        "carta": "assets/cartas/generadas/934647569701797910_a1bf9f1bd0618b60.png",
+        "nombre": "Colette 🇻🇪✏️",
+        "id": "743891228969533482",
+        "mediaInicial": 85,
+        "media": 85.92,
+        "stats": {
+          "actividad": 82,
+          "tiro": 84,
+          "pase": 84,
+          "iq": 89,
+          "aura": 86,
+          "esquinazo": 85
+        },
+        "valor": 1870000,
+        "pais": "Venezuela",
+        "partidosGanados": 8,
+        "partidosPerdidos": 2,
+        "golesAFavor": 8,
+        "golesEnContra": 2,
+        "suspendido": 12,
+        "exEquipo": "Tel Aviv City",
+        "carta": "assets/cartas/generadas/743891228969533482_bc976bf07969361e.png",
+        "contrato": 1,
+        "prestadoDe": {
+          "equipoId": "69cf277750f045493d72cfaa",
+          "equipoNombre": "Libertadores",
+          "temporadasRestantes": 1,
+          "contratoOriginal": 1
+        },
+        "_id": "69d459cb58e006e48b398ca1",
         "clausula": {
           "tipo": null,
           "monto": null,
           "cantidadPartidos": null
-        },
-        "stats": {
-          "actividad": 92,
-          "tiro": 91,
-          "pase": 90,
-          "iq": 87,
-          "aura": 97,
-          "esquinazo": 77
-        }
-      },
-      {
-        "nombre": "Sebas",
-        "id": "1449512445549871125",
-        "carta": "assets/cartas/generadas/1449512445549871125_4abe89681073f635.png",
-        "contrato": 3,
-        "mediaInicial": 88,
-        "media": 90.57,
-        "valor": 2050000,
-        "pais": "Peru",
-        "prestadoDe": null,
-        "partidosGanados": 3,
-        "partidosPerdidos": 1,
-        "golesAFavor": 3,
-        "golesEnContra": 1,
-        "suspendido": 0,
-        "_id": "69d42620b0c8a202fd545079",
-        "clausula": {
-          "tipo": null,
-          "monto": null,
-          "cantidadPartidos": null
-        },
-        "stats": {
-          "actividad": 88,
-          "tiro": 85,
-          "pase": 90,
-          "iq": 86,
-          "aura": 88,
-          "esquinazo": 91
         }
       }
     ],
@@ -1047,6 +1019,33 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "jaded10078",
+        "jugadorId": "934647569701797910",
+        "fecha": "2026-06-01T15:09:45.442Z",
+        "monto": 0,
+        "equipoRelacionado": "Dutch Lions",
+        "detalle": "Sale a préstamo por 2 temporada(s)"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "Colette 🇻🇪✏️",
+        "jugadorId": "743891228969533482",
+        "fecha": "2026-06-01T15:12:56.039Z",
+        "monto": 0,
+        "equipoRelacionado": "Libertadores",
+        "detalle": "Llega a préstamo por 1 temporada(s)"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "Sebas",
+        "jugadorId": "1449512445549871125",
+        "fecha": "2026-06-01T15:13:36.615Z",
+        "monto": 0,
+        "equipoRelacionado": "Libertadores",
+        "detalle": "Sale a préstamo por 1 temporada(s)"
       }
     ]
   },
@@ -1145,6 +1144,45 @@
           "esquinazo": 87
         },
         "carta": "assets/cartas/generadas/689386903203610685_13eb8f9e4bc33da2.png"
+      },
+      {
+        "prestadoDe": {
+          "equipoId": "69a0495570331e79012518c5",
+          "equipoNombre": "Ghosts",
+          "temporadasRestantes": 2,
+          "contratoOriginal": 3
+        },
+        "_id": "69d138f381ac3e82645e064f",
+        "nombre": "jaded10078",
+        "id": "934647569701797910",
+        "mediaInicial": 89,
+        "media": 91.25,
+        "valor": 2150000,
+        "pais": "Argentina",
+        "partidosGanados": 18,
+        "partidosPerdidos": 5,
+        "golesAFavor": 18,
+        "golesEnContra": 5,
+        "suspendido": 0,
+        "exEquipo": "Ghosts",
+        "createdAt": "2026-04-04T16:14:43.966Z",
+        "updatedAt": "2026-04-04T16:14:43.966Z",
+        "__v": 0,
+        "contrato": 3,
+        "carta": "assets/cartas/generadas/934647569701797910_a1bf9f1bd0618b60.png",
+        "clausula": {
+          "tipo": null,
+          "monto": null,
+          "cantidadPartidos": null
+        },
+        "stats": {
+          "actividad": 92,
+          "tiro": 91,
+          "pase": 90,
+          "iq": 87,
+          "aura": 97,
+          "esquinazo": 77
+        }
       }
     ],
     "historial": [
@@ -1304,6 +1342,15 @@
         "monto": 0,
         "equipoRelacionado": "Agente Libre",
         "detalle": "Rescisión por mutuo acuerdo"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "jaded10078",
+        "jugadorId": "934647569701797910",
+        "fecha": "2026-06-01T15:09:45.431Z",
+        "monto": 0,
+        "equipoRelacionado": "Ghosts",
+        "detalle": "Llega a préstamo por 2 temporada(s)"
       }
     ]
   },
@@ -1468,34 +1515,38 @@
         "carta": "assets/cartas/generadas/1381836864205361273_6d075a69aabe3221.png"
       },
       {
-        "nombre": "Colette 🇻🇪✏️",
-        "id": "743891228969533482",
-        "mediaInicial": 85,
-        "media": 85.92,
-        "stats": {
-          "actividad": 82,
-          "tiro": 84,
-          "pase": 84,
-          "iq": 89,
-          "aura": 86,
-          "esquinazo": 85
+        "nombre": "Sebas",
+        "id": "1449512445549871125",
+        "carta": "assets/cartas/generadas/1449512445549871125_4abe89681073f635.png",
+        "contrato": 3,
+        "mediaInicial": 88,
+        "media": 90.57,
+        "valor": 2050000,
+        "pais": "Peru",
+        "prestadoDe": {
+          "equipoId": "69a0495570331e79012518c5",
+          "equipoNombre": "Ghosts",
+          "temporadasRestantes": 1,
+          "contratoOriginal": 3
         },
-        "valor": 1870000,
-        "pais": "Venezuela",
-        "partidosGanados": 8,
-        "partidosPerdidos": 2,
-        "golesAFavor": 8,
-        "golesEnContra": 2,
-        "suspendido": 12,
-        "exEquipo": "Tel Aviv City",
-        "carta": "assets/cartas/generadas/743891228969533482_bc976bf07969361e.png",
-        "contrato": 1,
-        "prestadoDe": null,
-        "_id": "69d459cb58e006e48b398ca1",
+        "partidosGanados": 3,
+        "partidosPerdidos": 1,
+        "golesAFavor": 3,
+        "golesEnContra": 1,
+        "suspendido": 0,
+        "_id": "69d42620b0c8a202fd545079",
         "clausula": {
           "tipo": null,
           "monto": null,
           "cantidadPartidos": null
+        },
+        "stats": {
+          "actividad": 88,
+          "tiro": 85,
+          "pase": 90,
+          "iq": 86,
+          "aura": 88,
+          "esquinazo": 91
         }
       }
     ],
@@ -1675,6 +1726,24 @@
         "monto": 0,
         "equipoRelacionado": "Agente Libre",
         "detalle": "Rescisión por mutuo acuerdo"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "Colette 🇻🇪✏️",
+        "jugadorId": "743891228969533482",
+        "fecha": "2026-06-01T15:12:56.045Z",
+        "monto": 0,
+        "equipoRelacionado": "Ghosts",
+        "detalle": "Sale a préstamo por 1 temporada(s)"
+      },
+      {
+        "tipo": "Préstamo",
+        "jugador": "Sebas",
+        "jugadorId": "1449512445549871125",
+        "fecha": "2026-06-01T15:13:36.598Z",
+        "monto": 0,
+        "equipoRelacionado": "Ghosts",
+        "detalle": "Llega a préstamo por 1 temporada(s)"
       }
     ],
     "_raw_coach": "{\n  \"nombre\": \"hammeriti\",\n  \"id\": \"672164926948900864\",\n  \"pais\": \"Argentina\",\n  \"media\": 77,\n  \"carta\": \"https://cdn.discordapp.com/attachments/1403382463258165259/1510806526493987028/carta-672164926948900864.png?ex=6a1e27b9&is=6a1cd639&hm=77fe1f037fc890ee44f4cf651c1c5ca6b62d864af36811e79fe946d418467a1b&\",\n  \"stats\": {\n    \"actividad\": 82,\n    \"tiro\": 77,\n    \"pase\": 81,\n    \"iq\": 75,\n    \"aura\": 29,\n    \"esquinazo\": 87\n  }\n}"
