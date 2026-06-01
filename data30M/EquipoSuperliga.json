@@ -3,26 +3,7 @@
     "_id": "699fdb81c96e4af9dc494691",
     "nombre": "Tel Aviv City",
     "escudo": "assets/equipos/tel_aviv_city.png",
-    "coach": {
-      "nombre": "lukitaz_r",
-      "id": "1052388988368990279",
-      "carta": "assets/cartas/generadas/1052388988368990279_2b1f67625773fb84.png",
-      "_id": "699fdb81c96e4af9dc494692",
-      "pais": "Argentina",
-      "golesAFavor": 1,
-      "golesEnContra": 1,
-      "partidosGanados": 1,
-      "partidosPerdidos": 1,
-      "stats": {
-        "actividad": 83,
-        "tiro": 90,
-        "pase": 73,
-        "iq": 81,
-        "aura": 74,
-        "esquinazo": 79
-      },
-      "media": 85
-    },
+    "coach": {},
     "jugadores": [
       {
         "prestadoDe": null,
@@ -641,7 +622,7 @@
           "aura": 79,
           "esquinazo": 83
         },
-        "carta": "assets/cartas/generadas/1052388988368990279_426870e53b55faf9.png"
+        "carta": "assets/cartas/generadas/1052388988368990279_1dbc6171c0b7bf90.png"
       }
     ],
     "historial": [
@@ -1500,66 +1481,6 @@
           "monto": null,
           "cantidadPartidos": null
         }
-      },
-      {
-        "_modelInfo": {
-          "collectionName": "JugadorLibre",
-          "schemaDefaults": {
-            "nombre": "",
-            "id": "",
-            "mediaInicial": 80,
-            "media": 80,
-            "stats": {
-              "actividad": 80,
-              "tiro": 80,
-              "pase": 80,
-              "iq": 80,
-              "aura": 80,
-              "esquinazo": 80
-            },
-            "valor": 500000,
-            "pais": "Argentina",
-            "partidosGanados": 0,
-            "partidosPerdidos": 0,
-            "golesAFavor": 0,
-            "golesEnContra": 0,
-            "suspendido": 0,
-            "exEquipo": ""
-          },
-          "filePath": "/home/luca/platubot/data/JugadorLibre.json"
-        },
-        "nombre": "ThiagoG",
-        "id": "752669799263502356",
-        "mediaInicial": 78,
-        "media": 79,
-        "stats": {
-          "actividad": 90,
-          "tiro": 70,
-          "pase": 75,
-          "iq": 20,
-          "aura": 80,
-          "esquinazo": 0
-        },
-        "valor": 1200000,
-        "pais": "Argentina",
-        "partidosGanados": 5,
-        "partidosPerdidos": 3,
-        "golesAFavor": 5,
-        "golesEnContra": 3,
-        "suspendido": 0,
-        "exEquipo": "Libertadores",
-        "_id": "69f2c62af78a647e4be62765",
-        "createdAt": "2026-04-30T03:02:02.111Z",
-        "updatedAt": "2026-04-30T03:02:02.111Z",
-        "__v": 0,
-        "contrato": 1,
-        "carta": "assets/cartas/generadas/752669799263502356_cb206a2fba16cf19.png",
-        "prestadoDe": {
-          "equipoId": "699fdb81c96e4af9dc494691",
-          "equipoNombre": "Tel Aviv City",
-          "temporadasRestantes": 1,
-          "contratoOriginal": 1
-        }
       }
     ],
     "historial": [
@@ -1729,6 +1650,15 @@
         "monto": 200000,
         "equipoRelacionado": "",
         "detalle": "Premios de Partido"
+      },
+      {
+        "tipo": "Baja",
+        "jugador": "ThiagoG",
+        "jugadorId": "752669799263502356",
+        "fecha": "2026-06-01T01:28:52.774Z",
+        "monto": 0,
+        "equipoRelacionado": "Agente Libre",
+        "detalle": "Rescisión por mutuo acuerdo"
       }
     ],
     "_raw_coach": "{\n  \"nombre\": \"hammeriti\",\n  \"id\": \"672164926948900864\",\n  \"pais\": \"Argentina\",\n  \"media\": 77,\n  \"carta\": \"https://cdn.discordapp.com/attachments/1403382463258165259/1510806526493987028/carta-672164926948900864.png?ex=6a1e27b9&is=6a1cd639&hm=77fe1f037fc890ee44f4cf651c1c5ca6b62d864af36811e79fe946d418467a1b&\",\n  \"stats\": {\n    \"actividad\": 82,\n    \"tiro\": 77,\n    \"pase\": 81,\n    \"iq\": 75,\n    \"aura\": 29,\n    \"esquinazo\": 87\n  }\n}"
