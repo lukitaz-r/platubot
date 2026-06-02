@@ -178,7 +178,7 @@ async function runWizard(client, context, isInteraction) {
                 const attachmentField = submit.fields.getField("logo");
                 const attachmentUrl = attachmentField?.attachments.first()?.url;
                 if (attachmentUrl && (attachmentUrl.startsWith('http://') || attachmentUrl.startsWith('https://'))) {
-                    await submit.deferReply({ flags: 64 });
+                    await submit.deferUpdate();
                     const localPath = await descargarImagen(attachmentUrl, `${config.prefix}_logo`);
                     if (localPath) {
                         config.logo = localPath;
@@ -225,6 +225,7 @@ async function runWizard(client, context, isInteraction) {
                 step = 10;
                 await handleStep(i);
             } else if (i.customId === 'palette_apply_suggested') {
+                console.log("esto pasa")
                 if (config.sugTema) {
                     config.tema = { ...config.tema, ...config.sugTema };
                 }
