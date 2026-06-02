@@ -266,7 +266,6 @@
     "_id": "699fe1e370331e79012517eb"
   },
   {
-<<<<<<< Updated upstream
     "nombre": "santulado",
     "id": "1495584399725432883",
     "pais": "Argentina",
@@ -368,22 +367,4 @@
       "contratoOriginal": 1
     }
   }
-=======
-        "nombre": "santulado",
-        "id": "1495584399725432883",
-        "pais": "Argentina",
-        "media": 76.92,
-        "stats": {
-          "actividad": 78,
-          "tiro": 77,
-          "pase": 83,
-          "iq": 88,
-          "aura": 79,
-          "esquinazo": 75
-        },
-        "carta": "assets/cartas/generadas/1495584399725432883_6fcefd58bf55957a.png",
-        "contrato": 3,
-        "exEquipo": "Mafia Twittera S.A."
-      }
->>>>>>> Stashed changes
 ]
