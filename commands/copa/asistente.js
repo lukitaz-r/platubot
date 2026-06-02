@@ -159,8 +159,6 @@ async function runWizard(client, context, isInteraction) {
                     .setCustomId('modal_logo_upload')
                     .setTitle('Subir Logo del Torneo');
 
-                const { customId } = interaction
-
                 const fileInput = new FileUploadBuilder()
                     .setCustomId('e')
                     .setRequired(true);
