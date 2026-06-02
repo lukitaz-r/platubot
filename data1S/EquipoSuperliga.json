@@ -182,7 +182,7 @@
         "jugadorId": "1287076064832651327",
         "fecha": "2026-05-01T23:22:35.079Z",
         "monto": 0,
-        "equipoRelacionado": "Escuadrón Marrón por la Salvación de Occidente",
+        "equipoRelacionado": "Mafia Twittera S.A.",
         "detalle": "Sale a préstamo por 3 temporada(s)"
       },
       {
@@ -1182,7 +1182,7 @@
         "jugadorId": "672164926948900864",
         "fecha": "2026-05-14T21:46:44.675Z",
         "monto": 1500000,
-        "equipoRelacionado": "Escuadrón Marrón por la Salvación de Occidente",
+        "equipoRelacionado": "Mafia Twittera S.A.",
         "detalle": "Compra de jugador"
       },
       {
@@ -2194,7 +2194,7 @@
     "_id": "f1d5cf23-2561-4ec8-9d54-9c431d0834c4"
   },
   {
-    "nombre": "Escuadrón Marrón por la Salvación de Occidente",
+    "nombre": "Mafia Twittera S.A.",
     "escudo": "assets/equipos/escuadrón_marrón_por_la_salvación_de_occidente_1777677643476.png",
     "dinero": 4100000,
     "presupuestoInicial": 2000000,

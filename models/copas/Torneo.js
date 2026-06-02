@@ -5,6 +5,14 @@ const defaults = {
   prefix: '',
   estado: 'Configuracion', // 'Configuracion', 'Inscripcion', 'EnCurso', 'Finalizado'
   tipoJugadores: 'users',
+  tipoCompeticion: 'individual', // 'individual', 'duo', 'equipos'
+  logo: null,
+  inscripcionAbierta: true,
+  equipoConfig: {
+    minJugadores: 2,
+    maxJugadores: 5,
+  },
+  historialResultados: [],
   canalResultados: null,
 
   formatoPreset: 'personalizado',
@@ -46,4 +54,21 @@ const defaults = {
   createdBy: null
 };
 
-export default new JsonModel('Torneo', defaults);
+const torneoModel = new JsonModel('Torneo', defaults);
+
+// Invalidate cache on any tournament update
+const originalUpdate = torneoModel.updateDocument;
+torneoModel.updateDocument = async function (docInstance) {
+  const result = await originalUpdate.call(this, docInstance);
+  if (docInstance && docInstance.prefix) {
+    try {
+      const { invalidateCache } = await import('../../utils/visual/imageCache.js');
+      invalidateCache(docInstance.prefix);
+    } catch (e) {
+      console.error('[Torneo Model] Error invalidating cache:', e);
+    }
+  }
+  return result;
+};
+
+export default torneoModel;

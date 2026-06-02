@@ -14,6 +14,9 @@ import {
 } from 'discord.js';
 import Torneo from '../../models/copas/Torneo.js';
 import { generarPreviewTema, generarBracketCopa } from '../../utils/visual/copaVisualGenerator.js';
+import { extractPalette } from '../../utils/visual/colorExtractor.js';
+import { writeFile, mkdir } from 'fs/promises';
+import { join } from 'path';
 
 export default {
     name: 'copa-crear',
@@ -45,6 +48,13 @@ async function runWizard(client, context, isInteraction) {
         formatoPreset: 'personalizado',
         tipoEncuentro: 'unico', // 'unico', 'ida_vuelta', 'hibrido'
         tipoJugadores: 'users',
+        tipoCompeticion: 'individual', // 'individual' | 'duo' | 'equipos'
+        logo: null,
+        inscripcionAbierta: true,
+        equipoConfig: {
+            minJugadores: 2,
+            maxJugadores: 5,
+        },
         hayTercerPuesto: false,
         tema: {
             primario: '#1a1a2e',
@@ -72,28 +82,155 @@ async function runWizard(client, context, isInteraction) {
                 config.canalResultados = i.values[0];
                 step = 3;
                 await handleStep(i);
+            } else if (i.customId === 'select_competition_type') {
+                config.tipoCompeticion = i.values[0];
+                if (config.tipoCompeticion === 'equipos') {
+                    // Paso 3b: Modal de Configuración de Equipos
+                    const modal = new ModalBuilder()
+                        .setCustomId('modal_equipo_config')
+                        .setTitle('Configuración de Equipos');
+
+                    modal.addComponents(
+                        new ActionRowBuilder().addComponents(
+                            new TextInputBuilder()
+                                .setCustomId('min_jugadores')
+                                .setLabel('Mínimo de jugadores por equipo')
+                                .setPlaceholder('Ej: 2')
+                                .setValue('2')
+                                .setRequired(true)
+                                .setStyle(TextInputStyle.Short)
+                        ),
+                        new ActionRowBuilder().addComponents(
+                            new TextInputBuilder()
+                                .setCustomId('max_jugadores')
+                                .setLabel('Máximo de jugadores por equipo')
+                                .setPlaceholder('Ej: 5')
+                                .setValue('5')
+                                .setRequired(true)
+                                .setStyle(TextInputStyle.Short)
+                        ),
+                    );
+
+                    await i.showModal(modal);
+                    const submit = await i.awaitModalSubmit({ time: 60000 }).catch(() => null);
+                    if (!submit) return;
+
+                    const minJug = parseInt(submit.fields.getTextInputValue('min_jugadores'));
+                    const maxJug = parseInt(submit.fields.getTextInputValue('max_jugadores'));
+                    if (isNaN(minJug) || isNaN(maxJug) || minJug < 1 || maxJug < minJug) {
+                        return submit.reply({ content: '❌ Valores de configuración inválidos.', flags: 64 });
+                    }
+
+                    config.equipoConfig = { minJugadores: minJug, maxJugadores: maxJug };
+                    
+                    step = 4;
+                    await handleStep(submit);
+                } else {
+                    step = 4;
+                    await handleStep(i);
+                }
             } else if (i.customId === 'select_format') {
                 config.formatoPreset = i.values[0];
-                step = 5;
+                step = 6;
                 await handleStep(i);
             } else if (i.customId === 'select_match_type') {
                 config.tipoEncuentro = i.values[0];
-                step = 6;
+                if (config.tipoCompeticion === 'equipos') {
+                    config.tipoJugadores = 'teams'; // Asumido por defecto para equipos
+                    step = 8; // Saltar paso 7 (Representación)
+                } else {
+                    step = 7;
+                }
                 await handleStep(i);
             } else if (i.customId === 'select_type') {
                 config.tipoJugadores = i.values[0];
-                step = 7;
+                step = 8;
                 await handleStep(i);
             } else if (i.customId === 'third_place_yes') {
                 config.hayTercerPuesto = true;
-                step = 8;
+                step = 9;
                 await handleStep(i);
             } else if (i.customId === 'third_place_no') {
                 config.hayTercerPuesto = false;
-                step = 8;
+                step = 9;
+                await handleStep(i);
+            } else if (i.customId === 'logo_upload_yes') {
+                const modal = new ModalBuilder()
+                    .setCustomId('modal_logo_upload')
+                    .setTitle('Subir Logo del Torneo');
+
+                const urlInput = new TextInputBuilder()
+                    .setCustomId('logo_url')
+                    .setLabel('URL del Logo (Imagen)')
+                    .setPlaceholder('Ej: https://i.imgur.com/xyz.png')
+                    .setRequired(true)
+                    .setStyle(TextInputStyle.Short);
+
+                modal.addComponents(new ActionRowBuilder().addComponents(urlInput));
+
+                await i.showModal(modal);
+                const submit = await i.awaitModalSubmit({ time: 60000 }).catch(() => null);
+                if (!submit) return;
+
+                const attachmentUrl = submit.fields.getTextInputValue('logo_url');
+                if (attachmentUrl && (attachmentUrl.startsWith('http://') || attachmentUrl.startsWith('https://'))) {
+                    await submit.deferReply({ flags: 64 });
+                    const localPath = await descargarImagen(attachmentUrl, `${config.prefix}_logo`);
+                    if (localPath) {
+                        config.logo = localPath;
+                        
+                        try {
+                            const paleta = await extractPalette(localPath);
+                            config.sugTema = paleta;
+
+                            await submit.editReply({
+                                embeds: [
+                                    buildEmbed(
+                                        `Paso 9c: Paleta de Colores Sugerida`, 
+                                        `Hemos extraído la siguiente paleta de colores de tu logo:\n\n` +
+                                        `• **Primario (Fondo):** \`${paleta.primario}\`\n` +
+                                        `• **Secundario (Cajas):** \`${paleta.secundario}\`\n` +
+                                        `• **Acento (Destacados):** \`${paleta.acento}\`\n` +
+                                        `• **Borde:** \`${paleta.borde}\`\n` +
+                                        `• **Texto:** \`${paleta.texto}\`\n\n` +
+                                        `¿Deseas aplicar esta paleta sugerida o mantener la que configuraste anteriormente?`
+                                    )
+                                ],
+                                components: [
+                                    new ActionRowBuilder().addComponents(
+                                        new ButtonBuilder().setCustomId('palette_apply_suggested').setLabel('Aplicar Sugerida').setStyle(ButtonStyle.Success),
+                                        new ButtonBuilder().setCustomId('palette_keep_current').setLabel('Mantener Anterior').setStyle(ButtonStyle.Secondary)
+                                    )
+                                ]
+                            });
+                        } catch (err) {
+                            console.error('Error al extraer paleta:', err);
+                            step = 10;
+                            await handleStep(submit);
+                        }
+                    } else {
+                        step = 10;
+                        await handleStep(submit);
+                    }
+                } else {
+                    step = 10;
+                    await handleStep(submit || i);
+                }
+            } else if (i.customId === 'logo_upload_no') {
+                config.logo = null;
+                step = 10;
+                await handleStep(i);
+            } else if (i.customId === 'palette_apply_suggested') {
+                if (config.sugTema) {
+                    config.tema = { ...config.tema, ...config.sugTema };
+                }
+                step = 10;
+                await handleStep(i);
+            } else if (i.customId === 'palette_keep_current') {
+                step = 10;
                 await handleStep(i);
             } else if (i.customId === 'edit_design') {
-                step = 8;
+                step = 9;
                 await handleStep(i);
             } else if (i.customId === 'confirm_torneo') {
                 await saveTorneo(i);
@@ -130,9 +267,23 @@ async function runWizard(client, context, isInteraction) {
                 )]
             });
         } else if (step === 3) {
+            await i.update({
+                embeds: [buildEmbed(`Paso 3: Tipo de Competición`, `Selecciona cómo competirán los participantes:\n\n👤 **Individual:** Los jugadores se inscriben y juegan solos.\n👥 **Duo:** Se inscriben en parejas de 2 jugadores que juegan en simultáneo.\n⚔️ **Equipos:** Se inscriben equipos con roster, disputando enfrentamientos individuales al mejor de N.`)],
+                components: [new ActionRowBuilder().addComponents(
+                    new StringSelectMenuBuilder()
+                        .setCustomId('select_competition_type')
+                        .setPlaceholder('Seleccionar tipo de competición...')
+                        .addOptions([
+                            { label: 'Individual', value: 'individual', description: 'Cada jugador compite individualmente', emoji: '👤' },
+                            { label: 'Duo', value: 'duo', description: '2 jugadores por cupo de inscripción', emoji: '👥' },
+                            { label: 'Equipos', value: 'equipos', description: 'Equipos con roster (subpartidos al azar)', emoji: '⚔️' }
+                        ])
+                )]
+            });
+        } else if (step === 4) {
             const modal = new ModalBuilder()
-                .setCustomId('modal_step3')
-                .setTitle('3. Participantes');
+                .setCustomId('modal_step4')
+                .setTitle('4. Participantes');
             
             modal.addComponents(
                 new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('cant').setLabel('Cantidad de participantes').setPlaceholder('Ej: 16').setRequired(true).setStyle(TextInputStyle.Short))
@@ -146,10 +297,10 @@ async function runWizard(client, context, isInteraction) {
             if (isNaN(cant) || cant < 2) return submit.reply({ content: 'Cantidad inválida.', flags: 64 });
 
             config.cantidadParticipantes = cant;
-            step = 4;
+            step = 5;
 
             await submit.update({
-                embeds: [buildEmbed(`Paso 4: Formato del Torneo`, `Selecciona el formato de competición:`)],
+                embeds: [buildEmbed(`Paso 5: Formato del Torneo`, `Selecciona el formato de competición:`)],
                 components: [new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder().setCustomId('select_format').setPlaceholder('Seleccionar formato...').addOptions([
                         { label: 'Champions League', value: 'champions', description: 'Liguilla -> Playoff -> Eliminatoria' },
@@ -159,9 +310,9 @@ async function runWizard(client, context, isInteraction) {
                     ])
                 )]
             });
-        } else if (step === 5) {
+        } else if (step === 6) {
             await i.update({
-                embeds: [buildEmbed(`Paso 5: Tipo de Encuentro`, `Selecciona cómo se jugarán los partidos:`)],
+                embeds: [buildEmbed(`Paso 6: Tipo de Encuentro`, `Selecciona cómo se jugarán los partidos:`)],
                 components: [new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder().setCustomId('select_match_type').setPlaceholder('Seleccionar tipo de encuentro...').addOptions([
                         { label: 'Partido Único', value: 'unico', description: 'Un solo enfrentamiento por ronda' },
@@ -170,9 +321,9 @@ async function runWizard(client, context, isInteraction) {
                     ])
                 )]
             });
-        } else if (step === 6) {
+        } else if (step === 7) {
             await i.update({
-                embeds: [buildEmbed(`Paso 6: Tipo de Participantes`, `¿Qué representarán los participantes?`)],
+                embeds: [buildEmbed(`Paso 7: Tipo de Participantes`, `¿Qué representarán los participantes?`)],
                 components: [new ActionRowBuilder().addComponents(
                     new StringSelectMenuBuilder().setCustomId('select_type').setPlaceholder('Seleccionar tipo...').addOptions([
                         { label: 'Equipos', value: 'teams', description: 'Equipos con escudos' },
@@ -181,18 +332,18 @@ async function runWizard(client, context, isInteraction) {
                     ])
                 )]
             });
-        } else if (step === 7) {
+        } else if (step === 8) {
             await i.update({
-                embeds: [buildEmbed(`Paso 7: Tercer Puesto`, `¿Habrá partido por el tercer puesto?`)],
+                embeds: [buildEmbed(`Paso 8: Tercer Puesto`, `¿Habrá partido por el tercer puesto?`)],
                 components: [new ActionRowBuilder().addComponents(
                     new ButtonBuilder().setCustomId('third_place_yes').setLabel('Sí').setStyle(ButtonStyle.Success),
                     new ButtonBuilder().setCustomId('third_place_no').setLabel('No').setStyle(ButtonStyle.Danger)
                 )]
             });
-        } else if (step === 8) {
+        } else if (step === 9) {
             const modal = new ModalBuilder()
-                .setCustomId('modal_step8')
-                .setTitle('8. Personalización Visual');
+                .setCustomId('modal_step9')
+                .setTitle('9. Personalización Visual');
             
             modal.addComponents(
                 new ActionRowBuilder().addComponents(new TextInputBuilder().setCustomId('pri').setLabel('Color Primario (Fondo)').setValue(config.tema.primario).setPlaceholder('#1a1a2e').setRequired(true).setStyle(TextInputStyle.Short)),
@@ -211,19 +362,37 @@ async function runWizard(client, context, isInteraction) {
             config.tema.acento = submit.fields.getTextInputValue('acc');
             config.tema.texto = submit.fields.getTextInputValue('txt');
             config.tema.borde = submit.fields.getTextInputValue('bor');
-            step = 9;
 
-            await submit.deferUpdate();
+            await submit.update({
+                embeds: [buildEmbed(`Paso 9b: Logo del Torneo (Opcional)`, `¿Deseas agregar un logo para el torneo?\n\nEste logo se colocará como thumbnail en los embeds y reemplazará al emoji de copa en las imágenes del fixture/bracket.`)],
+                components: [new ActionRowBuilder().addComponents(
+                    new ButtonBuilder().setCustomId('logo_upload_yes').setLabel('Subir Logo').setStyle(ButtonStyle.Primary),
+                    new ButtonBuilder().setCustomId('logo_upload_no').setLabel('Continuar sin Logo').setStyle(ButtonStyle.Secondary)
+                )]
+            });
+        } else if (step === 10) {
+            // El usuario ya ingresó colores y logo. Mostrar resumen y generar previsualizaciones
+            let updateTarget = i;
+            if (i.deferred || i.replied) {
+                // Si la interacción ya fue respondida/diferida, usamos editReply
+                await i.editReply({
+                    embeds: [buildEmbed(`Paso 10: Generando Previsualizaciones`, `Por favor espera mientras generamos las previsualizaciones visuales de tu torneo...`)],
+                    components: [],
+                    files: []
+                });
+            } else {
+                await i.deferUpdate();
+            }
 
             const [previewTabla, previewBrackets] = await Promise.all([
-                generarPreviewTema(config.nombre, config.tema),
-                generarBracketCopa({ nombre: config.nombre, tema: config.tema })
+                generarPreviewTema(config.nombre, config.tema, config.logo),
+                generarBracketCopa({ nombre: config.nombre, tema: config.tema, logo: config.logo })
             ]);
 
             const fileTabla = new AttachmentBuilder(previewTabla, { name: 'tabla.png' });
             const fileBrackets = new AttachmentBuilder(previewBrackets, { name: 'brackets.png' });
 
-            const resumen = `**Nombre:** ${config.nombre}\n**Prefijo:** ${config.prefix}\n**Participantes:** ${config.cantidadParticipantes}\n**Formato:** ${config.formatoPreset}\n**Encuentros:** ${config.tipoEncuentro}\n**Tipo:** ${config.tipoJugadores}\n**Canal:** <#${config.canalResultados}>\n**3er Puesto:** ${config.hayTercerPuesto ? 'Sí' : 'No'}`;
+            const resumen = `**Nombre:** ${config.nombre}\n**Prefijo:** ${config.prefix}\n**Tipo Competición:** \`${config.tipoCompeticion}\`\n**Participantes:** ${config.cantidadParticipantes}\n**Formato:** ${config.formatoPreset}\n**Encuentros:** ${config.tipoEncuentro}\n**Tipo:** ${config.tipoJugadores}\n**Canal:** <#${config.canalResultados}>\n**3er Puesto:** ${config.hayTercerPuesto ? 'Sí' : 'No'}\n**Logo:** ${config.logo ? '✅ Subido' : '❌ No asignado'}`;
 
             const embedResumen = new EmbedBuilder()
                 .setTitle('🏁 Resumen del Torneo')
@@ -236,7 +405,7 @@ async function runWizard(client, context, isInteraction) {
                 .setImage('attachment://brackets.png')
                 .setColor('Gold');
 
-            await submit.message.edit({
+            await i.editReply({
                 embeds: [embedResumen, embedBrackets],
                 files: [fileTabla, fileBrackets],
                 components: [new ActionRowBuilder().addComponents(
@@ -249,7 +418,7 @@ async function runWizard(client, context, isInteraction) {
     }
 
     function buildEmbed(title, desc) {
-        return new EmbedBuilder().setTitle(title).setDescription(desc).setColor('Blue').setFooter({ text: `Paso ${step} de 9` });
+        return new EmbedBuilder().setTitle(title).setDescription(desc).setColor('Blue').setFooter({ text: `Paso ${step} de 10` });
     }
 
     async function saveTorneo(i) {
@@ -279,6 +448,9 @@ async function runWizard(client, context, isInteraction) {
         config.estado = 'Inscripcion';
         config.createdBy = user.id;
 
+        // Limpiar el tema sugerido temporal
+        delete config.sugTema;
+
         await Torneo.create(config);
 
         await i.editReply({
@@ -286,5 +458,23 @@ async function runWizard(client, context, isInteraction) {
             components: [],
             files: []
         });
+    }
+}
+
+async function descargarImagen(url, filename) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) return null;
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const extension = url.split('.').pop().split('?')[0] || 'png';
+        const dir = join(process.cwd(), 'assets', 'logos');
+        await mkdir(dir, { recursive: true });
+        const filePath = join(dir, `${filename}.${extension}`);
+        await writeFile(filePath, buffer);
+        return filePath; 
+    } catch (e) {
+        console.error('Error al descargar imagen:', e);
+        return null;
     }
 }

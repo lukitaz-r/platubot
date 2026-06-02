@@ -273,6 +273,42 @@ export default {
         );
         return interaction.showModal(modal);
       }
+
+      // Autojoin Torneo
+      if (customId.startsWith('autojoin_')) {
+          const prefix = customId.split('_')[1];
+          const Torneo = (await import('../../models/copas/Torneo.js')).default;
+          const torneo = await Torneo.findOne({ prefix }).catch(() => null);
+          if (!torneo) {
+              return interaction.reply({ content: '❌ Torneo no encontrado.', flags: 64 });
+          }
+
+          const genericCmd = client.commands.get('torneo-generic');
+          if (!genericCmd) {
+              return interaction.reply({ content: '❌ Error: Comando genérico de gestión no encontrado.', flags: 64 });
+          }
+
+          const mockMessage = {
+              guild: interaction.guild,
+              channel: interaction.channel,
+              author: interaction.user,
+              member: interaction.member,
+              reply: async (options) => {
+                  if (interaction.deferred || interaction.replied) {
+                      return await interaction.followUp({ ...options, fetchReply: true });
+                  }
+                  return await interaction.reply({ ...options, fetchReply: true });
+              }
+          };
+
+          try {
+              await genericCmd.runGeneric(client, mockMessage, [], torneo, 'inscribirme');
+          } catch (err) {
+              console.error('Error in autojoin button handler:', err);
+              await interaction.reply({ content: '❌ Hubo un error al procesar tu auto-inscripción.', flags: 64 }).catch(() => {});
+          }
+          return;
+      }
     }
 
     // 3. Manejar Modales
@@ -390,52 +426,161 @@ export default {
             if (!torneo) return interaction.editReply('❌ Torneo no encontrado.');
 
             let pName = '';
-            if (tipo === 'grupo') {
-                const m = torneo.enfrentamientosGrupos.find(x => x.local === val1 && x.visitante === val2);
-                if (!m) return interaction.editReply('❌ Partido no encontrado.');
-                if (m.completado) return interaction.editReply('⚠️ Ya validado.');
-                m.resultado = `${gl}-${gv}`; m.completado = true;
-                if (gl > gv) m.ganador = val1; else if (gv > gl) m.ganador = val2; else m.ganador = 'Empate';
-                const tL = torneo.equipos.find(eq => eq.nombre === val1); const tV = torneo.equipos.find(eq => eq.nombre === val2);
-                if (tL && tV) {
-                    tL.pj++; tV.pj++; tL.gf += gl; tL.gc += gv; tV.gf += gv; tV.gc += gl;
-                    if (gl > gv) { tL.pg++; tL.puntos += 3; tV.pp++; }
-                    else if (gv > gl) { tV.pg++; tV.puntos += 3; tL.pp++; }
-                    else { tL.pe++; tV.pe++; tL.puntos++; tV.puntos++; }
-                }
-                pName = `${val1} vs ${val2}`;
-            } else {
-                const ll = torneo.llaves[val1].find(x => x.id === val2);
-                if (!ll) return interaction.editReply('❌ Partido no encontrado.');
-                if (ll.ganador) return interaction.editReply('⚠️ Ya validado.');
-                
+            let isOverallFinished = false;
+            let ll = null;
+
+            if (tipoMatch === 'duelo') {
+                const duelIdx = parseInt(parts[6]);
                 let matchObj = null;
-                if (!tipoMatch || tipoMatch === 'unico' || tipoMatch === 'ida') matchObj = ll.ida;
-                else if (tipoMatch === 'vuelta') matchObj = ll.vuelta;
-                else if (tipoMatch === 'desempate') matchObj = ll.desempate;
-
-                if (!matchObj || matchObj.finalizado) return interaction.editReply('⚠️ Ya validado.');
-
-                matchObj.golesLocal = gl; matchObj.golesVisitante = gv; matchObj.finalizado = true; 
-                ll.resultado = `${gl}-${gv}`; // Legacy string
-                
-                if (!tipoMatch || tipoMatch === 'unico') {
-                    if (gl > gv) ll.ganador = ll.equipo1.discordId; else if (gv > gl) ll.ganador = ll.equipo2.discordId; else ll.ganador = ll.equipo1.discordId;
+                if (tipo === 'grupo') {
+                    matchObj = torneo.enfrentamientosGrupos.find(x => x.local === val1 && x.visitante === val2);
                 } else {
-                    const { determinarGanadorLlave } = await import('../../utils/generarBracket.js');
-                    const ganador = determinarGanadorLlave(ll);
-                    if (ganador) ll.ganador = ganador;
+                    matchObj = torneo.llaves[val1].find(x => x.id === val2);
+                    ll = matchObj;
                 }
+                if (!matchObj || !matchObj.duelosIndividuales?.[duelIdx]) return interaction.editReply('❌ Duelo no encontrado.');
                 
-                const lName = (tipoMatch === 'vuelta') ? ll.equipo2.nombre : ll.equipo1.nombre;
-                const vName = (tipoMatch === 'vuelta') ? ll.equipo1.nombre : ll.equipo2.nombre;
-                pName = `${lName} vs ${vName}`;
+                const d = matchObj.duelosIndividuales[duelIdx];
+                if (d.finalizado) return interaction.editReply('⚠️ Este duelo ya ha sido validado.');
+                
+                d.golesLocal = gl;
+                d.golesVisitante = gv;
+                d.finalizado = true;
+
+                pName = `Duelo: ${d.localJugadorNombre || d.localJugador} ${gl} - ${gv} ${d.visitanteJugadorNombre || d.visitanteJugador}`;
+
+                // Registrar en historial el duelo
+                if (!torneo.historialResultados) torneo.historialResultados = [];
+                torneo.historialResultados.push({
+                    accion: 'resultado',
+                    partido: `${d.localJugadorNombre || d.localJugador} vs ${d.visitanteJugadorNombre || d.visitanteJugador} (Duelo en ${val1} vs ${val2})`,
+                    resultado: `${gl}-${gv}`,
+                    tipo: 'duelo',
+                    cargadoPor: interaction.user.id,
+                    timestamp: new Date().toISOString()
+                });
+
+                // Calcular si se decidió el ganador general del partido/enfrentamiento
+                const finalizados = matchObj.duelosIndividuales.filter(du => du.finalizado);
+                let winsLocal = 0, winsVisitante = 0;
+                for (const du of finalizados) {
+                    if (du.golesLocal > du.golesVisitante) winsLocal++;
+                    else if (du.golesVisitante > du.golesLocal) winsVisitante++;
+                }
+
+                const majority = Math.ceil(matchObj.duelosIndividuales.length / 2);
+                let winner = null;
+                if (winsLocal >= majority) winner = 'local';
+                else if (winsVisitante >= majority) winner = 'visitante';
+                else if (finalizados.length === matchObj.duelosIndividuales.length) {
+                    if (winsLocal > winsVisitante) winner = 'local';
+                    else if (winsVisitante > winsLocal) winner = 'visitante';
+                    else winner = 'Empate';
+                }
+
+                if (winner) {
+                    isOverallFinished = true;
+                    let totGL = 0, totGV = 0;
+                    matchObj.duelosIndividuales.forEach(du => {
+                        totGL += du.golesLocal || 0;
+                        totGV += du.golesVisitante || 0;
+                    });
+                    
+                    if (tipo === 'grupo') {
+                        matchObj.resultado = `${totGL}-${totGV}`;
+                        matchObj.completado = true;
+                        matchObj.ganador = winner === 'local' ? val1 : (winner === 'visitante' ? val2 : 'Empate');
+                        
+                        const tL = torneo.equipos.find(eq => eq.nombre === val1);
+                        const tV = torneo.equipos.find(eq => eq.nombre === val2);
+                        if (tL && tV) {
+                            tL.pj++; tV.pj++; tL.gf += totGL; tL.gc += totGV; tV.gf += totGV; tV.gc += totGL;
+                            if (winner === 'local') { tL.pg++; tL.puntos += 3; tV.pp++; }
+                            else if (winner === 'visitante') { tV.pg++; tV.puntos += 3; tL.pp++; }
+                            else { tL.pe++; tV.pe++; tL.puntos++; tV.puntos++; }
+                        }
+                    } else {
+                        matchObj.resultado = `${totGL}-${totGV}`;
+                        matchObj.ganador = winner === 'local' ? matchObj.equipo1.discordId : matchObj.equipo2.discordId;
+                        matchObj.ida.finalizado = true;
+                        matchObj.completado = true;
+                    }
+
+                    // Registrar resultado global en historial
+                    torneo.historialResultados.push({
+                        accion: 'resultado',
+                        partido: `${val1} vs ${val2} (Global Equipos)`,
+                        resultado: `${totGL}-${totGV}`,
+                        tipo: tipo === 'grupo' ? 'grupo' : 'bracket',
+                        cargadoPor: interaction.user.id,
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            } else {
+                if (tipo === 'grupo') {
+                    const m = torneo.enfrentamientosGrupos.find(x => x.local === val1 && x.visitante === val2);
+                    if (!m) return interaction.editReply('❌ Partido no encontrado.');
+                    if (m.completado) return interaction.editReply('⚠️ Ya validado.');
+                    m.resultado = `${gl}-${gv}`; m.completado = true;
+                    if (gl > gv) m.ganador = val1; else if (gv > gl) m.ganador = val2; else m.ganador = 'Empate';
+                    const tL = torneo.equipos.find(eq => eq.nombre === val1); const tV = torneo.equipos.find(eq => eq.nombre === val2);
+                    if (tL && tV) {
+                        tL.pj++; tV.pj++; tL.gf += gl; tL.gc += gv; tV.gf += gv; tV.gc += gl;
+                        if (gl > gv) { tL.pg++; tL.puntos += 3; tV.pp++; }
+                        else if (gv > gl) { tV.pg++; tV.puntos += 3; tL.pp++; }
+                        else { tL.pe++; tV.pe++; tL.puntos++; tV.puntos++; }
+                    }
+                    pName = `${val1} vs ${val2}`;
+                    isOverallFinished = true;
+                } else {
+                    ll = torneo.llaves[val1].find(x => x.id === val2);
+                    if (!ll) return interaction.editReply('❌ Partido no encontrado.');
+                    if (ll.ganador) return interaction.editReply('⚠️ Ya validado.');
+                    
+                    let matchObj = null;
+                    if (!tipoMatch || tipoMatch === 'unico' || tipoMatch === 'ida') matchObj = ll.ida;
+                    else if (tipoMatch === 'vuelta') matchObj = ll.vuelta;
+                    else if (tipoMatch === 'desempate') matchObj = ll.desempate;
+
+                    if (!matchObj || matchObj.finalizado) return interaction.editReply('⚠️ Ya validado.');
+
+                    matchObj.golesLocal = gl; matchObj.golesVisitante = gv; matchObj.finalizado = true; 
+                    ll.resultado = `${gl}-${gv}`; // Legacy string
+                    
+                    if (!tipoMatch || tipoMatch === 'unico') {
+                        if (gl > gv) ll.ganador = ll.equipo1.discordId; else if (gv > gl) ll.ganador = ll.equipo2.discordId; else ll.ganador = ll.equipo1.discordId;
+                        isOverallFinished = true;
+                    } else {
+                        const { determinarGanadorLlave } = await import('../../utils/generarBracket.js');
+                        const ganador = determinarGanadorLlave(ll);
+                        if (ganador) {
+                            ll.ganador = ganador;
+                            isOverallFinished = true;
+                        }
+                    }
+                    
+                    const lName = (tipoMatch === 'vuelta') ? ll.equipo2.nombre : ll.equipo1.nombre;
+                    const vName = (tipoMatch === 'vuelta') ? ll.equipo1.nombre : ll.equipo2.nombre;
+                    pName = `${lName} vs ${vName}`;
+                }
+
+                // Registrar en historial
+                if (!torneo.historialResultados) torneo.historialResultados = [];
+                torneo.historialResultados.push({
+                    accion: 'resultado',
+                    partido: pName,
+                    resultado: `${gl}-${gv}`,
+                    tipo: tipoMatch || 'unico',
+                    cargadoPor: interaction.user.id,
+                    timestamp: new Date().toISOString()
+                });
             }
+
             await torneo.save();
-            const e = EmbedBuilder.from(interaction.message.embeds[0]).setTitle(`✅ Confirmado — Torneo`).setDescription(`**${pName}**\nResultado: ${gl} - ${gv}\nValidado por <@${interaction.user.id}>`).setColor('Green');
+            const e = EmbedBuilder.from(interaction.message.embeds[0]).setTitle('✅ Confirmado — Torneo').setDescription(`**${pName}**\nResultado: ${gl} - ${gv}\nValidado por <@${interaction.user.id}>`).setColor('Green');
             
             let newComponents = interaction.message.components;
-            if (tipo === 'grupo' || (tipo === 'bracket' && ll && ll.ganador)) {
+            if (isOverallFinished) {
                 newComponents = [];
             }
             

@@ -22,10 +22,11 @@ import { buildFixtureNavigation } from '../../utils/ui/fixtureNavigation.js';
 import { getFlagUrl } from '../../utils/visual/countryHelper.js';
 import generarRoundRobin from '../../utils/generarRoundRobin.js';
 import generarBracket from '../../utils/generarBracket.js';
-import { writeFile, mkdir } from 'fs/promises';
+import { writeFile, mkdir, readFile } from 'fs/promises';
 import { join } from 'path';
 import fetch from 'node-fetch';
 import { existsSync, readFileSync } from 'fs';
+import { getCachedImage } from '../../utils/visual/imageCache.js';
 
 export default {
     name: 'torneo-generic',
@@ -43,6 +44,10 @@ export default {
                 return handleFixture(client, message, args, torneo);
             case 'inscripcion':
                 return handleInscripcion(client, message, args, torneo);
+            case 'inscribirme':
+                return handleSelfInscripcion(client, message, args, torneo);
+            case 'agregar-miembro':
+                return handleAgregarMiembro(client, message, args, torneo);
             case 'participantes':
                 return handleParticipantes(client, message, args, torneo);
             case 'bracket':
@@ -60,14 +65,20 @@ async function handleTabla(client, message, args, torneo) {
     const loading = await message.reply('<a:loading:1461897825439711468> Generando tabla...');
     
     try {
-        const tabla = torneo.equipos.map(e => ({
+        const tabla = await Promise.all(torneo.equipos.map(async e => ({
             nombre: e.nombre,
-            avatar: getAvatarBase64(e.avatar),
+            avatar: await getAvatarBase64(e.avatar),
             pj: e.pj || 0, pg: e.pg || 0, pe: e.pe || 0, pp: e.pp || 0,
             gf: e.gf || 0, gc: e.gc || 0, puntos: e.puntos || 0
-        })).sort((a,b) => b.puntos - a.puntos || (b.gf-b.gc) - (a.gf-a.gc));
+        })));
+        tabla.sort((a,b) => b.puntos - a.puntos || (b.gf-b.gc) - (a.gf-a.gc));
 
-        const png = await generarTablaImagenCopa(torneo, tabla, torneo.nombre);
+        const png = await getCachedImage(
+            torneo.prefix,
+            'tabla',
+            { equipos: torneo.equipos, tema: torneo.tema, nombre: torneo.nombre, logo: torneo.logo },
+            () => generarTablaImagenCopa(torneo, tabla, torneo.nombre)
+        );
         const attachment = new AttachmentBuilder(png, { name: 'tabla.png' });
         await loading.edit({ content: '', files: [attachment] });
     } catch (error) {
@@ -80,12 +91,17 @@ async function handleParticipantes(client, message, args, torneo) {
     const loading = await message.reply('<a:loading:1461897825439711468> Generando lista de participantes...');
     try {
         const torneoCopy = JSON.parse(JSON.stringify(torneo));
-        torneoCopy.equipos = torneoCopy.equipos.map(e => ({
+        torneoCopy.equipos = await Promise.all(torneoCopy.equipos.map(async e => ({
             ...e,
-            avatar: getAvatarBase64(e.avatar)
-        }));
+            avatar: await getAvatarBase64(e.avatar)
+        })));
 
-        const png = await generarImagenParticipantes(torneoCopy);
+        const png = await getCachedImage(
+            torneo.prefix,
+            'participantes',
+            { equipos: torneo.equipos, tema: torneo.tema, nombre: torneo.nombre, logo: torneo.logo },
+            () => generarImagenParticipantes(torneoCopy)
+        );
         const attachment = new AttachmentBuilder(png, { name: 'participantes.png' });
         await loading.edit({ content: `👥 **Participantes — ${torneo.nombre}**`, files: [attachment] });
     } catch (error) {
@@ -101,7 +117,12 @@ async function handleBracket(client, message, args, torneo) {
     if (torneo.estado === 'Configuracion' || !torneo.fasesEliminatoria?.length) return message.reply('❌ El torneo aún no ha generado los brackets.');
     const loading = await message.reply('<a:loading:1461897825439711468> Generando bracket...');
     try {
-        const png = await generarBracketCopa(torneo);
+        const png = await getCachedImage(
+            torneo.prefix,
+            'bracket',
+            { llaves: torneo.llaves, faseActual: torneo.faseActual, tema: torneo.tema, nombre: torneo.nombre, logo: torneo.logo },
+            () => generarBracketCopa(torneo)
+        );
         const attachment = new AttachmentBuilder(png, { name: 'bracket.png' });
         await loading.edit({ content: `📊 **Bracket — ${torneo.nombre}**`, files: [attachment] });
     } catch (error) {
@@ -115,6 +136,180 @@ async function handleInscripcion(client, message, args, torneo) {
         return message.reply('❌ Solo administradores pueden usar este comando.');
     }
 
+    if (torneo.tipoCompeticion === 'duo') {
+        const row = new ActionRowBuilder().addComponents(
+            new UserSelectMenuBuilder()
+                .setCustomId(`admin_select_duo|${torneo.prefix}`)
+                .setPlaceholder('Selecciona a los 2 jugadores para el duo...')
+                .setMinValues(2)
+                .setMaxValues(2)
+        );
+
+        const msg = await message.reply({
+            content: '👥 **Inscripción Administrativa (Duo)**\nSelecciona a los dos usuarios que jugarán juntos:',
+            components: [row]
+        });
+
+        const collector = msg.createMessageComponentCollector({ 
+            filter: i => i.user.id === message.author.id, 
+            componentType: ComponentType.UserSelect,
+            time: 60000 
+        });
+
+        collector.on('collect', async interaction => {
+            const user1Id = interaction.values[0];
+            const user2Id = interaction.values[1];
+            
+            const user1 = interaction.users.get(user1Id);
+            const user2 = interaction.users.get(user2Id);
+
+            // Verificar si alguno ya está registrado
+            const yaInscrito = torneo.equipos.some(e => 
+                e.miembros?.some(m => m.discordId === user1Id || m.discordId === user2Id) ||
+                e.discordId === user1Id || e.discordId === user2Id
+            );
+
+            if (yaInscrito) {
+                return interaction.reply({ content: '❌ Uno o ambos jugadores ya están en el torneo.', flags: 64 });
+            }
+
+            const modalId = `modal_admin_duo|${user1Id}|${user2Id}`;
+            const modal = new ModalBuilder().setCustomId(modalId).setTitle('Registrar Pareja (Duo)');
+
+            modal.addComponents(
+                new ActionRowBuilder().addComponents(
+                    new TextInputBuilder()
+                        .setCustomId('nombre')
+                        .setLabel('Nombre del Duo / Pareja')
+                        .setValue(`${user1.username} & ${user2.username}`)
+                        .setStyle(TextInputStyle.Short)
+                        .setRequired(true)
+                )
+            );
+
+            await interaction.showModal(modal);
+
+            const modalSubmit = await interaction.awaitModalSubmit({
+                filter: i => i.customId === modalId && i.user.id === interaction.user.id,
+                time: 60000
+            }).catch(() => null);
+
+            if (modalSubmit) {
+                const nombreIngresado = modalSubmit.fields.getTextInputValue('nombre');
+                await modalSubmit.deferReply({ flags: 64 });
+
+                const nuevoDuo = {
+                    nombre: nombreIngresado,
+                    miembros: [
+                        { discordId: user1Id, avatar: user1.displayAvatarURL({ extension: 'png', size: 128 }) },
+                        { discordId: user2Id, avatar: user2.displayAvatarURL({ extension: 'png', size: 128 }) }
+                    ],
+                    puntos: 0, pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0
+                };
+
+                torneo.equipos.push(nuevoDuo);
+                await torneo.save();
+
+                await modalSubmit.editReply({ content: `✅ **Pareja registrada:** **${nombreIngresado}** se ha unido al torneo.` });
+                await msg.delete().catch(() => {});
+            }
+        });
+        return;
+    }
+
+    if (torneo.tipoCompeticion === 'equipos') {
+        const row = new ActionRowBuilder().addComponents(
+            new UserSelectMenuBuilder()
+                .setCustomId(`admin_select_owner|${torneo.prefix}`)
+                .setPlaceholder('Selecciona al propietario del equipo...')
+        );
+
+        const msg = await message.reply({
+            content: '🛡️ **Inscripción Administrativa (Equipos)**\nSelecciona al usuario que será propietario/coach del equipo:',
+            components: [row]
+        });
+
+        const collector = msg.createMessageComponentCollector({ 
+            filter: i => i.user.id === message.author.id, 
+            componentType: ComponentType.UserSelect,
+            time: 60000 
+        });
+
+        collector.on('collect', async interaction => {
+            const ownerId = interaction.values[0];
+            const ownerUser = interaction.users.get(ownerId);
+
+            const yaInscrito = torneo.equipos.some(e => 
+                e.propietario === ownerId || e.discordId === ownerId
+            );
+
+            if (yaInscrito) {
+                return interaction.reply({ content: `❌ **${ownerUser.tag}** ya tiene un equipo o ya está registrado.`, flags: 64 });
+            }
+
+            const modalId = `modal_admin_team|${ownerId}`;
+            const modal = new ModalBuilder().setCustomId(modalId).setTitle('Crear Equipo');
+
+            const nLabel = new LabelBuilder()
+                .setLabel('Nombre del Equipo')
+                .setTextInputComponent(
+                    new TextInputBuilder()
+                        .setCustomId('nombre')
+                        .setStyle(TextInputStyle.Short)
+                        .setPlaceholder('Ej: Los Galácticos')
+                        .setRequired(true)
+                );
+
+            const fileInput = new FileUploadBuilder()
+                .setCustomId('logo')
+                .setMaxValues(1)
+                .setRequired(true);
+
+            const labelInput = new LabelBuilder()
+                .setLabel("Escudo / Logo")
+                .setDescription("Sube una imagen para el escudo de tu equipo")
+                .setFileUploadComponent(fileInput);
+
+            modal.addLabelComponents(nLabel, labelInput);
+
+            await interaction.showModal(modal);
+
+            const modalSubmit = await interaction.awaitModalSubmit({
+                filter: i => i.customId === modalId && i.user.id === interaction.user.id,
+                time: 60000
+            }).catch(() => null);
+
+            if (modalSubmit) {
+                const nombreIngresado = modalSubmit.fields.getTextInputValue('nombre');
+                const attachmentField = modalSubmit.fields.getField("logo");
+                const attachmentUrl = attachmentField?.attachments.first()?.url;
+
+                if (!attachmentUrl) {
+                    return modalSubmit.reply({ content: '❌ Debes subir un logo para el equipo.', flags: 64 });
+                }
+
+                await modalSubmit.deferReply({ flags: 64 });
+                const localPath = await descargarImagen(attachmentUrl, `${torneo.prefix}_team_${ownerId}`);
+                
+                const nuevoEquipo = {
+                    nombre: nombreIngresado,
+                    avatar: localPath || ownerUser.displayAvatarURL({ extension: 'png' }),
+                    propietario: ownerId,
+                    miembros: [],
+                    puntos: 0, pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0
+                };
+
+                torneo.equipos.push(nuevoEquipo);
+                await torneo.save();
+
+                await modalSubmit.editReply({ content: `✅ **Equipo registrado:** **${nombreIngresado}** se ha unido al torneo. El propietario es <@${ownerId}>.` });
+                await msg.delete().catch(() => {});
+            }
+        });
+        return;
+    }
+
+    // Flujo Individual
     const row = new ActionRowBuilder().addComponents(
         new UserSelectMenuBuilder()
             .setCustomId(`admin_select_user|${torneo.prefix}`)
@@ -191,6 +386,7 @@ async function handleInscripcion(client, message, args, torneo) {
 
             await modalSubmit.deferReply({ flags: 64 });
             await inscribirFinal(client, modalSubmit, torneo, selectedUser, nombreIngresado, finalAvatar);
+            await msg.delete().catch(() => {});
         }
     });
 }
@@ -214,6 +410,409 @@ async function inscribirFinal(client, context, torneo, user, nombre, avatar) {
     torneo.equipos.push(nuevoEquipo);
     await torneo.save();
     await context.editReply({ content: `✅ **Inscripción Exitosa:** **${user.tag}** se ha unido como **${nombre}**.` });
+}
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function generarDuelosIndividuales(equipoLocal, equipoVisitante) {
+    if (!equipoLocal.miembros || !equipoVisitante.miembros) return [];
+    
+    const localPlayers = shuffle([...equipoLocal.miembros]);
+    const visitantePlayers = shuffle([...equipoVisitante.miembros]);
+    const n = Math.min(localPlayers.length, visitantePlayers.length);
+
+    return Array.from({ length: n }, (_, i) => ({
+        localJugador: localPlayers[i].discordId,
+        localJugadorNombre: localPlayers[i].nombre || localPlayers[i].discordId,
+        visitanteJugador: visitantePlayers[i].discordId,
+        visitanteJugadorNombre: visitantePlayers[i].nombre || visitantePlayers[i].discordId,
+        golesLocal: null,
+        golesVisitante: null,
+        finalizado: false,
+    }));
+}
+
+async function handleSelfInscripcion(client, message, args, torneo) {
+    if (torneo.estado !== 'Inscripcion') {
+        return message.reply('❌ La inscripción para este torneo no está abierta.');
+    }
+    if (!torneo.inscripcionAbierta) {
+        return message.reply('❌ La auto-inscripción está deshabilitada en este torneo.');
+    }
+
+    const userId = message.author.id;
+    const yaInscrito = torneo.equipos.some(e => {
+        if (torneo.tipoCompeticion === 'duo') {
+            return e.miembros?.some(m => m.discordId === userId) || e.discordId === userId;
+        }
+        if (torneo.tipoCompeticion === 'equipos') {
+            return e.propietario === userId || e.miembros?.some(m => m.discordId === userId) || e.discordId === userId;
+        }
+        return e.discordId === userId;
+    });
+
+    if (yaInscrito) {
+        return message.reply('❌ Ya estás inscrito o formas parte de un equipo en este torneo.');
+    }
+
+    if (torneo.equipos.length >= torneo.cantidadParticipantes) {
+        return message.reply('❌ El torneo ya ha alcanzado el límite máximo de participantes.');
+    }
+
+    if (torneo.tipoCompeticion === 'duo') {
+        const row = new ActionRowBuilder().addComponents(
+            new UserSelectMenuBuilder()
+                .setCustomId(`self_select_partner|${torneo.prefix}`)
+                .setPlaceholder('Selecciona a tu pareja (compañero)...')
+        );
+
+        const msg = await message.reply({
+            content: '👥 **Inscripción en Duo**\nPor favor, selecciona a tu compañero de juego del menú:',
+            components: [row]
+        });
+
+        const collector = msg.createMessageComponentCollector({
+            filter: i => i.user.id === userId,
+            time: 60000
+        });
+
+        collector.on('collect', async interaction => {
+            const partnerId = interaction.values[0];
+            if (partnerId === userId) {
+                return interaction.reply({ content: '❌ No puedes elegirte a ti mismo como compañero.', flags: 64 });
+            }
+
+            const partnerUser = interaction.users.get(partnerId);
+
+            const partnerInscrito = torneo.equipos.some(e => 
+                e.miembros?.some(m => m.discordId === partnerId) ||
+                e.discordId === partnerId
+            );
+
+            if (partnerInscrito) {
+                return interaction.reply({ content: `❌ **${partnerUser.username}** ya está registrado en el torneo.`, flags: 64 });
+            }
+
+            const modalId = `modal_self_duo|${partnerId}`;
+            const modal = new ModalBuilder().setCustomId(modalId).setTitle('Registrar Pareja (Duo)');
+
+            modal.addComponents(
+                new ActionRowBuilder().addComponents(
+                    new TextInputBuilder()
+                        .setCustomId('nombre')
+                        .setLabel('Nombre del Duo')
+                        .setValue(`${message.author.username} & ${partnerUser.username}`)
+                        .setStyle(TextInputStyle.Short)
+                        .setRequired(true)
+                )
+            );
+
+            await interaction.showModal(modal);
+
+            const modalSubmit = await interaction.awaitModalSubmit({
+                filter: i => i.customId === modalId && i.user.id === interaction.user.id,
+                time: 60000
+            }).catch(() => null);
+
+            if (modalSubmit) {
+                const nombreIngresado = modalSubmit.fields.getTextInputValue('nombre');
+                await modalSubmit.deferReply({ flags: 64 });
+
+                const nuevoDuo = {
+                    nombre: nombreIngresado,
+                    miembros: [
+                        { discordId: userId, avatar: message.author.displayAvatarURL({ extension: 'png', size: 128 }) },
+                        { discordId: partnerId, avatar: partnerUser.displayAvatarURL({ extension: 'png', size: 128 }) }
+                    ],
+                    puntos: 0, pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0
+                };
+
+                torneo.equipos.push(nuevoDuo);
+                await torneo.save();
+
+                await modalSubmit.editReply({ content: `✅ **Inscripción de Duo Exitosa:** Te has inscrito junto a **${partnerUser.tag}** como **${nombreIngresado}**.` });
+                await msg.delete().catch(() => {});
+            }
+        });
+        return;
+    }
+
+    if (torneo.tipoCompeticion === 'equipos') {
+        const row = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setCustomId(`self_create_team_btn|${torneo.prefix}`)
+                .setLabel('Registrar Equipo')
+                .setStyle(ButtonStyle.Success)
+        );
+
+        const msg = await message.reply({
+            content: '⚔️ **Inscripción por Equipos**\nPresiona el botón para abrir el formulario y registrar tu equipo:',
+            components: [row]
+        });
+
+        const collector = msg.createMessageComponentCollector({
+            filter: i => i.user.id === userId,
+            time: 60000
+        });
+
+        collector.on('collect', async interaction => {
+            const modalId = `modal_self_team|${torneo.prefix}`;
+            const modal = new ModalBuilder().setCustomId(modalId).setTitle('Registrar mi Equipo');
+
+            const nLabel = new LabelBuilder()
+                .setLabel('Nombre del Equipo')
+                .setTextInputComponent(
+                    new TextInputBuilder()
+                        .setCustomId('nombre')
+                        .setStyle(TextInputStyle.Short)
+                        .setPlaceholder('Ej: Los Intocables')
+                        .setRequired(true)
+                );
+
+            const fileInput = new FileUploadBuilder()
+                .setCustomId('logo')
+                .setMaxValues(1)
+                .setRequired(true);
+
+            const labelInput = new LabelBuilder()
+                .setLabel("Escudo / Logo")
+                .setDescription("Sube la imagen para el logo de tu equipo")
+                .setFileUploadComponent(fileInput);
+
+            modal.addLabelComponents(nLabel, labelInput);
+
+            await interaction.showModal(modal);
+
+            const modalSubmit = await interaction.awaitModalSubmit({
+                filter: i => i.customId === modalId && i.user.id === interaction.user.id,
+                time: 60000
+            }).catch(() => null);
+
+            if (modalSubmit) {
+                const nombreIngresado = modalSubmit.fields.getTextInputValue('nombre');
+                const attachmentField = modalSubmit.fields.getField("logo");
+                const attachmentUrl = attachmentField?.attachments.first()?.url;
+
+                if (!attachmentUrl) {
+                    return modalSubmit.reply({ content: '❌ Debes subir una imagen para el escudo de tu equipo.', flags: 64 });
+                }
+
+                await modalSubmit.deferReply({ flags: 64 });
+                const localPath = await descargarImagen(attachmentUrl, `${torneo.prefix}_team_${userId}`);
+
+                const nuevoEquipo = {
+                    nombre: nombreIngresado,
+                    avatar: localPath || message.author.displayAvatarURL({ extension: 'png' }),
+                    propietario: userId,
+                    miembros: [
+                        { discordId: userId, nombre: message.author.username, avatar: message.author.displayAvatarURL({ extension: 'png' }) }
+                    ],
+                    puntos: 0, pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0
+                };
+
+                torneo.equipos.push(nuevoEquipo);
+                await torneo.save();
+
+                await modalSubmit.editReply({ content: `✅ **Inscripción de Equipo Exitosa:** Has creado y registrado el equipo **${nombreIngresado}**.` });
+                await msg.delete().catch(() => {});
+            }
+        });
+        return;
+    }
+
+    if (torneo.tipoJugadores === 'users') {
+        const nuevoEquipo = {
+            nombre: message.author.username,
+            discordId: userId,
+            avatar: message.author.displayAvatarURL({ extension: 'png', size: 128 }),
+            puntos: 0, pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0
+        };
+
+        torneo.equipos.push(nuevoEquipo);
+        await torneo.save();
+        return message.reply(`✅ **Inscripción Exitosa:** Te has inscrito como **${message.author.username}**.`);
+    }
+
+    const row = new ActionRowBuilder().addComponents(
+        new ButtonBuilder()
+            .setCustomId(`self_register_indiv_btn|${torneo.prefix}`)
+            .setLabel('Completar Inscripción')
+            .setStyle(ButtonStyle.Primary)
+    );
+
+    const msg = await message.reply({
+        content: `👤 **Inscripción Individual (${torneo.tipoJugadores === 'countries' ? 'País' : 'Equipo'})**\nPresiona el botón para ingresar tu nombre y detalles:`,
+        components: [row]
+    });
+
+    const collector = msg.createMessageComponentCollector({
+        filter: i => i.user.id === userId,
+        time: 60000
+    });
+
+    collector.on('collect', async interaction => {
+        const modalId = `modal_self_indiv|${torneo.prefix}`;
+        const modal = new ModalBuilder().setCustomId(modalId).setTitle('Completar Registro');
+
+        const label = torneo.tipoJugadores === 'countries' ? 'Nombre del País' : 'Nombre del Equipo';
+        const nLabel = new LabelBuilder()
+            .setLabel(label)
+            .setTextInputComponent(
+                new TextInputBuilder()
+                    .setCustomId('nombre')
+                    .setStyle(TextInputStyle.Short)
+                    .setPlaceholder('Ej: Brasil / Barcelona')
+                    .setRequired(true)
+            );
+
+        if (torneo.tipoJugadores === 'teams') {
+            const fileInput = new FileUploadBuilder().setCustomId('logo').setMaxValues(1).setRequired(true);
+            const labelInput = new LabelBuilder().setLabel("Escudo / Logo").setDescription("Sube la imagen para el logo").setFileUploadComponent(fileInput);
+            modal.addLabelComponents(nLabel, labelInput);
+        } else {
+            modal.addLabelComponents(nLabel);
+        }
+
+        await interaction.showModal(modal);
+
+        const modalSubmit = await interaction.awaitModalSubmit({
+            filter: i => i.customId === modalId && i.user.id === interaction.user.id,
+            time: 60000
+        }).catch(() => null);
+
+        if (modalSubmit) {
+            const nombreIngresado = modalSubmit.fields.getTextInputValue('nombre');
+            let finalAvatar = message.author.displayAvatarURL({ extension: 'png', size: 128 });
+
+            if (torneo.tipoJugadores === 'teams') {
+                const attachmentField = modalSubmit.fields.getField("logo");
+                const attachmentUrl = attachmentField?.attachments.first()?.url;
+                if (attachmentUrl) {
+                    const localPath = await descargarImagen(attachmentUrl, `${torneo.prefix}_${userId}`);
+                    if (localPath) finalAvatar = localPath;
+                }
+            } else if (torneo.tipoJugadores === 'countries') {
+                const flagUrl = getFlagUrl(nombreIngresado);
+                if (flagUrl) finalAvatar = flagUrl;
+            }
+
+            await modalSubmit.deferReply({ flags: 64 });
+
+            const nuevoEquipo = {
+                nombre: nombreIngresado,
+                discordId: userId,
+                avatar: finalAvatar,
+                puntos: 0, pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0
+            };
+
+            torneo.equipos.push(nuevoEquipo);
+            await torneo.save();
+
+            await modalSubmit.editReply({ content: `✅ **Inscripción Exitosa:** Te has inscrito como **${nombreIngresado}**.` });
+            await msg.delete().catch(() => {});
+        }
+    });
+}
+
+async function handleAgregarMiembro(client, message, args, torneo) {
+    if (torneo.tipoCompeticion !== 'equipos') {
+        return message.reply('❌ Este comando solo está disponible en torneos de **Equipos**.');
+    }
+
+    const userId = message.author.id;
+    const isAdmin = message.member.permissions.has('Administrator');
+    const miEquipo = torneo.equipos.find(e => e.propietario === userId);
+
+    if (!miEquipo && !isAdmin) {
+        return message.reply('❌ No eres el propietario de ningún equipo registrado en este torneo.');
+    }
+
+    let equipoTarget = miEquipo;
+
+    if (isAdmin && torneo.equipos.length > 0) {
+        if (!equipoTarget) {
+            const rowSelect = new ActionRowBuilder().addComponents(
+                new StringSelectMenuBuilder()
+                    .setCustomId(`admin_select_target_team|${torneo.prefix}`)
+                    .setPlaceholder('Selecciona el equipo al que agregar el miembro...')
+                    .addOptions(torneo.equipos.map(e => ({
+                        label: e.nombre,
+                        value: e.propietario,
+                        description: `Propietario ID: ${e.propietario}`
+                    })))
+            );
+
+            const msgSelect = await message.reply({
+                content: '⚙️ **Selección de Equipo (Administrador)**\nPor favor, selecciona a qué equipo deseas agregar el miembro:',
+                components: [rowSelect]
+            });
+
+            const iSelect = await msgSelect.awaitMessageComponent({ time: 30000 }).catch(() => null);
+            if (!iSelect) return;
+
+            equipoTarget = torneo.equipos.find(e => e.propietario === iSelect.values[0]);
+            await iSelect.deferUpdate();
+            await msgSelect.delete().catch(() => {});
+        }
+    }
+
+    if (!equipoTarget) {
+        return message.reply('❌ No se ha podido determinar el equipo objetivo.');
+    }
+
+    const limitMax = torneo.equipoConfig?.maxJugadores || 5;
+    if (equipoTarget.miembros && equipoTarget.miembros.length >= limitMax) {
+        return message.reply(`❌ El equipo **${equipoTarget.nombre}** ya alcanzó el límite máximo de **${limitMax}** jugadores.`);
+    }
+
+    const row = new ActionRowBuilder().addComponents(
+        new UserSelectMenuBuilder()
+            .setCustomId(`select_new_member|${torneo.prefix}`)
+            .setPlaceholder('Selecciona al usuario para agregar al equipo...')
+    );
+
+    const msg = await message.reply({
+        content: `👥 **Agregar miembro a ${equipoTarget.nombre}**\nSelecciona al usuario que deseas agregar:`,
+        components: [row]
+    });
+
+    const collector = msg.createMessageComponentCollector({
+        filter: i => i.user.id === userId,
+        time: 60000
+    });
+
+    collector.on('collect', async interaction => {
+        const selectedId = interaction.values[0];
+        const selectedUser = interaction.users.get(selectedId);
+
+        const yaRegistrado = torneo.equipos.some(e =>
+            e.miembros?.some(m => m.discordId === selectedId) ||
+            e.propietario === selectedId ||
+            e.discordId === selectedId
+        );
+
+        if (yaRegistrado) {
+            return interaction.reply({ content: `❌ **${selectedUser.username}** ya está registrado en este torneo o forma parte de un equipo.`, flags: 64 });
+        }
+
+        if (!equipoTarget.miembros) equipoTarget.miembros = [];
+        equipoTarget.miembros.push({
+            discordId: selectedId,
+            nombre: selectedUser.username,
+            avatar: selectedUser.displayAvatarURL({ extension: 'png', size: 128 })
+        });
+
+        await torneo.save();
+
+        await interaction.reply({ content: `✅ **Miembro agregado con éxito:** **${selectedUser.tag}** se ha unido a **${equipoTarget.nombre}**.` });
+        await msg.delete().catch(() => {});
+    });
 }
 
 async function descargarImagen(url, filename) {
@@ -277,7 +876,7 @@ async function renderAndSendFixture(client, context, torneo, idx, fasesData, lab
     const fase = fasesData[idx];
     const enfs = fase.data;
 
-    const partidosRender = enfs.map(e => {
+    const partidosRender = await Promise.all(enfs.map(async e => {
         const localNombre = e.local || e.equipo1?.nombre;
         const visitanteNombre = e.visitante || e.equipo2?.nombre;
         
@@ -314,20 +913,27 @@ async function renderAndSendFixture(client, context, torneo, idx, fasesData, lab
             visitante: visitanteNombre,
             resultado: resText,
             ganador: ganadorNombre,
-            avatarL: getAvatarBase64(teamL?.avatar || e.equipo1?.avatar),
-            avatarV: getAvatarBase64(teamV?.avatar || e.equipo2?.avatar),
+            avatarL: await getAvatarBase64(teamL?.avatar || e.equipo1?.avatar),
+            avatarV: await getAvatarBase64(teamV?.avatar || e.equipo2?.avatar),
             ida: e.ida,
             vuelta: e.vuelta,
-            desempate: e.desempate
+            desempate: e.desempate,
+            duelosIndividuales: e.duelosIndividuales
         };
-    });
+    }));
 
-    const buffer = await generarFixtureImagen({
-        titulo: torneo.nombre,
-        subtitulo: fase.name,
-        partidos: partidosRender,
-        tema: torneo.tema
-    });
+    const key = `fixture_${fase.name.replace(/[^a-zA-Z0-9]/g, '_')}`;
+    const buffer = await getCachedImage(
+        torneo.prefix,
+        key,
+        { partidos: partidosRender, tema: torneo.tema, titulo: torneo.nombre, subtitulo: fase.name },
+        () => generarFixtureImagen({
+            titulo: torneo.nombre,
+            subtitulo: fase.name,
+            partidos: partidosRender,
+            tema: torneo.tema
+        })
+    );
 
     const attachment = new AttachmentBuilder(buffer, { name: 'fixture.png' });
     const content = `📅 **Fixture: ${torneo.nombre} — ${fase.name}**`;
@@ -375,12 +981,12 @@ async function renderAndSendFixture(client, context, torneo, idx, fasesData, lab
     });
 }
 
-function getAvatarBase64(avatarUrl) {
+async function getAvatarBase64(avatarUrl) {
     if (!avatarUrl) return null;
     if (avatarUrl.startsWith('http')) return avatarUrl;
     try {
         if (existsSync(avatarUrl)) {
-            const buffer = readFileSync(avatarUrl);
+            const buffer = await readFile(avatarUrl);
             const ext = avatarUrl.split('.').pop();
             return `data:image/${ext};base64,${buffer.toString('base64')}`;
         }
@@ -438,10 +1044,17 @@ async function handleGestion(client, message, args, torneo) {
         new ButtonBuilder().setCustomId(`gt_tema|${torneo.prefix}`).setLabel('🎨 Tema').setStyle(ButtonStyle.Secondary),
         new ButtonBuilder().setCustomId(`gt_canal|${torneo.prefix}`).setLabel('📺 Canal').setStyle(ButtonStyle.Secondary),
         new ButtonBuilder().setCustomId(`gt_borrar|${torneo.prefix}`).setLabel('🗑️ Borrar').setStyle(ButtonStyle.Danger),
-        new ButtonBuilder().setCustomId(`gt_refresh|${torneo.prefix}`).setLabel('🔃 Refresh').setStyle(ButtonStyle.Secondary),
+        new ButtonBuilder().setCustomId(`gt_refresh|${torneo.prefix}`).setLabel('🔃').setStyle(ButtonStyle.Secondary),
     );
 
-    const panelMsg = await message.reply({ embeds: [embed], components: [row1, row2] });
+    const row3 = new ActionRowBuilder().addComponents(
+        new ButtonBuilder().setCustomId(`gt_publicar|${torneo.prefix}`).setLabel('📢 Publicar').setStyle(ButtonStyle.Primary),
+        new ButtonBuilder().setCustomId(`gt_reiniciar_fase|${torneo.prefix}`).setLabel('⏪ Reiniciar Fase').setStyle(ButtonStyle.Danger),
+        new ButtonBuilder().setCustomId(`gt_historial|${torneo.prefix}`).setLabel('📜 Historial').setStyle(ButtonStyle.Secondary),
+        new ButtonBuilder().setCustomId(`gt_inscripcion_embed|${torneo.prefix}`).setLabel('📣 Inscripción').setStyle(ButtonStyle.Success),
+    );
+
+    const panelMsg = await message.reply({ embeds: [embed], components: [row1, row2, row3] });
 
     const collector = panelMsg.createMessageComponentCollector({ 
         filter: i => i.user.id === message.author.id, 
@@ -480,6 +1093,18 @@ async function handleGestion(client, message, args, torneo) {
                 await i.deferUpdate();
                 await handleGestion(client, message, args, freshTorneo);
                 await panelMsg.delete().catch(() => {});
+                break;
+            case 'gt_publicar':
+                await handlePublicarActualizacion(i, freshTorneo);
+                break;
+            case 'gt_reiniciar_fase':
+                await handleReiniciarFase(i, freshTorneo);
+                break;
+            case 'gt_historial':
+                await handleHistorial(i, freshTorneo);
+                break;
+            case 'gt_inscripcion_embed':
+                await handleInscripcionEmbed(i, freshTorneo);
                 break;
         }
     });
@@ -716,6 +1341,22 @@ async function handleSortearAdmin(interaction, torneo, panelMsg) {
     try {
         if (torneo.formatoPreset === 'directa') {
             const data = generarBracket(torneo.equipos, torneo.tipoEncuentro);
+            
+            // Si es torneo de equipos, generar duelos individuales para la primera fase de eliminación directa
+            if (torneo.tipoCompeticion === 'equipos') {
+                const primeraFase = data.fasesEliminatoria[0];
+                const matchesR1 = data.llaves[primeraFase];
+                matchesR1.forEach(m => {
+                    if (m.equipo1.discordId && m.equipo2.discordId && m.equipo2.discordId !== 'BYE') {
+                        const eqL = torneo.equipos.find(e => e.propietario === m.equipo1.discordId || e.discordId === m.equipo1.discordId);
+                        const eqV = torneo.equipos.find(e => e.propietario === m.equipo2.discordId || e.discordId === m.equipo2.discordId);
+                        if (eqL && eqV) {
+                            m.duelosIndividuales = generarDuelosIndividuales(eqL, eqV);
+                        }
+                    }
+                });
+            }
+
             torneo.llaves = data.llaves;
             torneo.fasesEliminatoria = data.fasesEliminatoria;
             torneo.faseActual = 0;
@@ -726,13 +1367,18 @@ async function handleSortearAdmin(interaction, torneo, panelMsg) {
             roundRobin.forEach((fecha, fIdx) => {
                 fecha.partidos.forEach(p => {
                     if (p.localId !== 'BYE' && p.visitanteId !== 'BYE') {
+                        const eqL = torneo.equipos.find(e => e.nombre === p.localNombre);
+                        const eqV = torneo.equipos.find(e => e.nombre === p.visitanteNombre);
+                        const duelos = (torneo.tipoCompeticion === 'equipos' && eqL && eqV) ? generarDuelosIndividuales(eqL, eqV) : [];
+
                         matches.push({
                             local: p.localNombre,
                             visitante: p.visitanteNombre,
                             resultado: 'Pendiente',
                             ganador: null,
                             completado: false,
-                            fecha: fIdx + 1
+                            fecha: fIdx + 1,
+                            duelosIndividuales: duelos
                         });
                     }
                 });
@@ -821,15 +1467,29 @@ async function handleAvanzarFaseAdmin(interaction, torneo, panelMsg) {
         if (fresh.playoffsHabilitados) {
             const tabla = fresh.equipos.sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf);
             
-            // Determinar cuántos avanzan (la mayor potencia de 2 posible menor o igual al total, max la mitad si son pocos, o ajustarlo a torneo estándar)
             let n = Math.pow(2, Math.floor(Math.log2(tabla.length)));
-            if (n === tabla.length && n > 2) n = n / 2; // Si hay 4, pasan 2. Si hay 8, pasan 4.
-            if (n < 2) n = 2; // Mínimo una final
+            if (n === tabla.length && n > 2) n = n / 2;
+            if (n < 2) n = 2;
 
             const clasificados = tabla.slice(0, n);
             const { default: genBracket } = await import('../../utils/generarBracket.js');
             const data = genBracket(clasificados, fresh.tipoEncuentro);
             
+            // Si es torneo de equipos, generar duelos individuales para la primera fase de eliminación directa
+            if (fresh.tipoCompeticion === 'equipos') {
+                const primeraFase = data.fasesEliminatoria[0];
+                const matchesR1 = data.llaves[primeraFase];
+                matchesR1.forEach(m => {
+                    if (m.equipo1.discordId && m.equipo2.discordId && m.equipo2.discordId !== 'BYE') {
+                        const eqL = fresh.equipos.find(e => e.propietario === m.equipo1.discordId || e.discordId === m.equipo1.discordId);
+                        const eqV = fresh.equipos.find(e => e.propietario === m.equipo2.discordId || e.discordId === m.equipo2.discordId);
+                        if (eqL && eqV) {
+                            m.duelosIndividuales = generarDuelosIndividuales(eqL, eqV);
+                        }
+                    }
+                });
+            }
+
             fresh.llaves = data.llaves;
             fresh.fasesEliminatoria = data.fasesEliminatoria;
             fresh.faseActual = 0;
@@ -842,7 +1502,6 @@ async function handleAvanzarFaseAdmin(interaction, torneo, panelMsg) {
             return interaction.reply({ content: '🏆 **¡La fase de grupos (liga) ha finalizado!** El torneo ha terminado.', flags: 64 });
         }
     } else {
-        // Estamos en eliminatorias
         if (!fresh.fasesEliminatoria || fresh.fasesEliminatoria.length === 0) {
             return interaction.reply({ content: '❌ No hay fases eliminatorias configuradas.', flags: 64 });
         }
@@ -850,7 +1509,6 @@ async function handleAvanzarFaseAdmin(interaction, torneo, panelMsg) {
         const fase = fresh.fasesEliminatoria[fresh.faseActual];
         const matches = fresh.llaves[fase] || [];
         
-        // Excluir BYEs de la validación
         if (matches.some(m => !m.ganador && m.equipo2.discordId !== 'BYE')) {
             return interaction.reply({ content: `❌ Todos los partidos de la fase **${fase}** deben tener un ganador para poder avanzar.`, flags: 64 });
         }
@@ -867,8 +1525,233 @@ async function handleAvanzarFaseAdmin(interaction, torneo, panelMsg) {
             
             return interaction.reply({ content: '🏆 **¡El torneo ha finalizado!** Se ha completado la gran final.', flags: 64 });
         } else {
+            // Si es un torneo de equipos, generar duelos individuales para la nueva fase
+            if (fresh.tipoCompeticion === 'equipos') {
+                const nextMatches = fresh.llaves[sgte] || [];
+                nextMatches.forEach(m => {
+                    if (m.equipo1.discordId && m.equipo2.discordId && m.equipo2.discordId !== 'BYE') {
+                        const eqL = fresh.equipos.find(e => e.propietario === m.equipo1.discordId || e.discordId === m.equipo1.discordId);
+                        const eqV = fresh.equipos.find(e => e.propietario === m.equipo2.discordId || e.discordId === m.equipo2.discordId);
+                        if (eqL && eqV) {
+                            m.duelosIndividuales = generarDuelosIndividuales(eqL, eqV);
+                        }
+                    }
+                });
+            }
+
             await fresh.save();
             return interaction.reply({ content: `✅ Fase avanzada con éxito. Se generaron los cruces de **${sgte}**.`, flags: 64 });
         }
+    }
+}
+
+async function handlePublicarActualizacion(interaction, torneo) {
+    if (!torneo.canalResultados) {
+        return interaction.reply({ content: '❌ No hay canal de resultados configurado.', flags: 64 });
+    }
+    const canal = await interaction.client.channels.fetch(torneo.canalResultados).catch(() => null);
+    if (!canal) {
+        return interaction.reply({ content: '❌ Canal de resultados no encontrado o inaccesible.', flags: 64 });
+    }
+
+    await interaction.deferReply({ flags: 64 });
+
+    try {
+        const esDirecta = torneo.formatoPreset === 'directa';
+        let files = [];
+        let embed = new EmbedBuilder()
+            .setTitle(`📢 Actualización — ${torneo.nombre}`)
+            .setColor(torneo.tema.acento)
+            .setTimestamp();
+
+        if (torneo.logo) {
+            embed.setThumbnail(torneo.logo);
+        }
+
+        // 1. Tabla de posiciones (si no es directa y hay equipos)
+        if (!esDirecta && torneo.equipos?.length > 0) {
+            const tabla = await Promise.all(torneo.equipos.map(async e => ({
+                nombre: e.nombre,
+                avatar: await getAvatarBase64(e.avatar),
+                pj: e.pj || 0, pg: e.pg || 0, pe: e.pe || 0, pp: e.pp || 0,
+                gf: e.gf || 0, gc: e.gc || 0, puntos: e.puntos || 0
+            })));
+            tabla.sort((a,b) => b.puntos - a.puntos || (b.gf-b.gc) - (a.gf-a.gc));
+
+            const png = await getCachedImage(
+                torneo.prefix,
+                'tabla',
+                { equipos: torneo.equipos, tema: torneo.tema, nombre: torneo.nombre, logo: torneo.logo },
+                () => generarTablaImagenCopa(torneo, tabla, torneo.nombre)
+            );
+            files.push(new AttachmentBuilder(png, { name: 'tabla.png' }));
+            embed.setImage('attachment://tabla.png');
+        }
+
+        // 2. Últimos 5 resultados del historial
+        const ultimos = torneo.historialResultados?.slice(-5).reverse() || [];
+        const resultadosTexto = ultimos.map(r =>
+            `**${r.partido}**: ${r.resultado} — por <@${r.cargadoPor}>`
+        ).join('\n') || 'Sin resultados recientes.';
+        embed.setDescription(`### Últimos Resultados:\n${resultadosTexto}`);
+
+        await canal.send({ embeds: [embed], files });
+        await interaction.editReply({ content: '✅ Actualización publicada con éxito en el canal configurado.' });
+    } catch (e) {
+        console.error('[Gestion] Error en handlePublicarActualizacion:', e);
+        await interaction.editReply({ content: '❌ Ocurrió un error al publicar la actualización.' });
+    }
+}
+
+async function handleReiniciarFase(interaction, torneo) {
+    if (torneo.faseActual === 0 && !torneo.gruposHabilitados) {
+        return interaction.reply({ content: '❌ No hay fase anterior a la que volver.', flags: 64 });
+    }
+
+    const row = new ActionRowBuilder().addComponents(
+        new ButtonBuilder().setCustomId('confirm_reset_yes').setLabel('Confirmar Reinicio').setStyle(ButtonStyle.Danger),
+        new ButtonBuilder().setCustomId('confirm_reset_no').setLabel('Cancelar').setStyle(ButtonStyle.Secondary),
+    );
+
+    const faseNombre = torneo.fasesEliminatoria?.[torneo.faseActual] || (torneo.gruposHabilitados ? 'Fase de Grupos' : 'Configuración');
+
+    const resp = await interaction.reply({
+        content: `⚠️ **¿Estás seguro de reiniciar la fase actual (${faseNombre})?** Esto regenerará los cruces de esta fase y se perderán los resultados cargados en la misma.`,
+        components: [row],
+        flags: 64
+    });
+
+    const btn = await resp.awaitMessageComponent({ time: 30000 }).catch(() => null);
+    if (btn?.customId !== 'confirm_reset_yes') {
+        return btn?.update({ content: 'Acción cancelada.', components: [] });
+    }
+
+    await btn.deferUpdate();
+
+    if (torneo.faseActual > 0) {
+        const faseAnterior = torneo.fasesEliminatoria[torneo.faseActual - 1];
+        const faseActual = torneo.fasesEliminatoria[torneo.faseActual];
+        
+        // Limpiar llaves de la fase actual
+        if (torneo.llaves && torneo.llaves[faseActual]) {
+            torneo.llaves[faseActual] = torneo.llaves[faseActual].map(m => ({
+                ...m,
+                equipo1: { nombre: 'TBD', discordId: null },
+                equipo2: { nombre: 'TBD', discordId: null },
+                ida: { golesLocal: null, golesVisitante: null, finalizado: false },
+                vuelta: m.vuelta ? { golesLocal: null, golesVisitante: null, finalizado: false } : null,
+                desempate: m.desempate ? { golesLocal: null, golesVisitante: null, finalizado: false } : null,
+                ganador: null,
+                resultado: null,
+                completado: false
+            }));
+        }
+        
+        // Reactivar llaves de la fase anterior (volver a poner ganador: null)
+        if (torneo.llaves && torneo.llaves[faseAnterior]) {
+            torneo.llaves[faseAnterior] = torneo.llaves[faseAnterior].map(m => ({
+                ...m,
+                ganador: null,
+                resultado: null,
+                completado: false,
+                ida: { ...m.ida, finalizado: false, golesLocal: null, golesVisitante: null },
+                vuelta: m.vuelta ? { ...m.vuelta, finalizado: false, golesLocal: null, golesVisitante: null } : null,
+                desempate: m.desempate ? { ...m.desempate, finalizado: false, golesLocal: null, golesVisitante: null } : null
+            }));
+        }
+        
+        torneo.faseActual--;
+    } else if (torneo.gruposHabilitados) {
+        // Si estaba en la primera fase de eliminación directa y el torneo habilitó grupos, volvemos a grupos!
+        torneo.llaves = {};
+        torneo.fasesEliminatoria = [];
+        torneo.faseActual = 0;
+        
+        // Limpiar enfrentamientos de grupo para que vuelvan a estar pendientes
+        torneo.enfrentamientosGrupos = torneo.enfrentamientosGrupos.map(m => ({
+            ...m,
+            golesLocal: null,
+            golesVisitante: null,
+            ganador: null,
+            completado: false
+        }));
+    }
+
+    await torneo.save();
+    
+    // Invalidar toda la caché del torneo para que se refresque
+    const { invalidateCache } = await import('../../utils/visual/imageCache.js');
+    invalidateCache(torneo.prefix);
+
+    const faseNueva = torneo.fasesEliminatoria?.[torneo.faseActual] || (torneo.gruposHabilitados ? 'Fase de Grupos' : 'Configuración');
+    await btn.editReply({ content: `✅ **Fase reiniciada.** Ahora estás en: **${faseNueva}**`, components: [] });
+}
+
+async function handleHistorial(interaction, torneo) {
+    const hist = torneo.historialResultados || [];
+    const ultimos = hist.slice(-20).reverse();
+    
+    if (!ultimos.length) {
+        return interaction.reply({ content: '📜 Aún no hay registros de resultados en el historial de este torneo.', flags: 64 });
+    }
+
+    const texto = ultimos.map((h, i) =>
+        `\`${new Date(h.timestamp).toLocaleDateString()}\` **${h.partido}** (\`${h.tipo || 'único'}\`) ➔ **${h.resultado}** — por <@${h.cargadoPor}>`
+    ).join('\n');
+
+    const embed = new EmbedBuilder()
+        .setTitle(`📜 Historial de Resultados — ${torneo.nombre}`)
+        .setDescription(texto)
+        .setColor(torneo.tema.acento)
+        .setFooter({ text: `Mostrando los últimos ${ultimos.length} registros` })
+        .setTimestamp();
+
+    await interaction.reply({ embeds: [embed], flags: 64 });
+}
+
+async function handleInscripcionEmbed(interaction, torneo) {
+    if (!torneo.canalResultados) {
+        return interaction.reply({ content: '❌ No hay canal de resultados configurado. Configure un canal primero.', flags: 64 });
+    }
+    const canal = await interaction.client.channels.fetch(torneo.canalResultados).catch(() => null);
+    if (!canal) {
+        return interaction.reply({ content: '❌ Canal de resultados no encontrado.', flags: 64 });
+    }
+
+    await interaction.deferReply({ flags: 64 });
+
+    try {
+        const plazasLibres = torneo.cantidadParticipantes - torneo.equipos.length;
+        
+        const embed = new EmbedBuilder()
+            .setTitle(`📣 ¡Inscripciones Abiertas! — ${torneo.nombre}`)
+            .setDescription(
+                `¡Te invitamos a inscribirte en este emocionante torneo!\n\n` +
+                `**Información del Torneo:**\n` +
+                `> 🏆 **Nombre:** ${torneo.nombre}\n` +
+                `> ⚔️ **Modo:** \`${torneo.tipoCompeticion.toUpperCase()}\`\n` +
+                `> 👥 **Plazas Disponibles:** **${plazasLibres}** libres de ${torneo.cantidadParticipantes}\n` +
+                `> 🔑 **Prefijo:** \`${torneo.prefix}\``
+            )
+            .setColor(torneo.tema.acento)
+            .setTimestamp();
+
+        if (torneo.logo) {
+            embed.setThumbnail(torneo.logo);
+        }
+
+        const button = new ButtonBuilder()
+            .setCustomId(`autojoin_${torneo.prefix}`)
+            .setLabel('🎮 Inscribirme')
+            .setStyle(ButtonStyle.Success)
+            .setDisabled(plazasLibres <= 0 || torneo.estado !== 'Inscripcion');
+
+        const row = new ActionRowBuilder().addComponents(button);
+
+        await canal.send({ embeds: [embed], components: [row] });
+        await interaction.editReply({ content: '✅ Embed de inscripción publicado correctamente en el canal de resultados.' });
+    } catch (e) {
+        console.error('[Gestion] Error en handleInscripcionEmbed:', e);
+        await interaction.editReply({ content: '❌ Ocurrió un error al publicar el embed de inscripción.' });
     }
 }

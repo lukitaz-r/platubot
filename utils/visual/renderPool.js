@@ -15,13 +15,24 @@ const WORKER_FILE = pathToFileURL(join(__dirname, 'renderWorker.js')).href;
 
 const pool = new Piscina({
     filename: WORKER_FILE,
-    minThreads: 1,
+    minThreads: 2,
     maxThreads: Math.max(2, Math.min(4, (globalThis.navigator?.hardwareConcurrency ?? 4) - 1)),
-    idleTimeout: 30_000, // Destruir workers inactivos tras 30s
+    idleTimeout: 60_000, // Destruir workers inactivos tras 60s
 });
 
 pool.on('error', (err) => {
     console.error('[RenderPool] Error en worker thread:', err);
+});
+
+// ── Precalentamiento de Workers ───────────────────────────────────────────────
+const dummyElement = { type: 'div', props: { children: 'prewarm' } };
+Promise.all([
+    pool.run({ element: dummyElement, width: 10, height: 10 }),
+    pool.run({ element: dummyElement, width: 10, height: 10 })
+]).then(() => {
+    console.log('[RenderPool] Workers precalentados y listos.');
+}).catch((err) => {
+    console.error('[RenderPool] Error al precalentar workers:', err);
 });
 
 // ── API pública ───────────────────────────────────────────────────────────────

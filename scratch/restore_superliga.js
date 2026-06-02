@@ -6,7 +6,7 @@ const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 const match2 = {
   "_id": "1778199361459_8pq42h0sf8w",
   "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-  "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+  "localNombre": "Mafia Twittera S.A.",
   "visitanteId": "69a0495570331e79012518c5",
   "visitanteNombre": "Ghosts",
   "duelosIndividuales": [
@@ -57,7 +57,7 @@ const match2 = {
 const match3 = {
   "_id": "1778199361460_np2c24dgeh",
   "localId": "5f11cb02-6f21-42dc-af13-4b9cd270f832",
-  "localNombre": "Escuadrón Marrón por la Salvación de Occidente",
+  "localNombre": "Mafia Twittera S.A.",
   "visitanteId": "69cf284150f045493d72d175",
   "visitanteNombre": "Atletico Monarquia",
   "duelosIndividuales": [

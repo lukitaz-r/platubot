@@ -55,7 +55,13 @@ export async function generarFixtureImagen(options) {
     const width = 800;
     const rowHeight = 70;
     const headerHeight = 150;
-    const totalHeight = headerHeight + (partidos.length * rowHeight) + 40;
+    let duelsCount = 0;
+    partidos.forEach(p => {
+        if (p.duelosIndividuales) {
+            duelsCount += p.duelosIndividuales.length;
+        }
+    });
+    const totalHeight = headerHeight + (partidos.length * rowHeight) + (duelsCount * 40) + 40;
 
     const bgProps = { 
         position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
@@ -119,7 +125,7 @@ export async function generarFixtureImagen(options) {
             };
         }
         
-        return {
+        const matchRow = {
             type: 'div',
             props: {
                 style: { display: 'flex', alignItems: 'center', justifyContent: 'center', height: `${rowHeight}px`, position: 'relative' },
@@ -149,6 +155,68 @@ export async function generarFixtureImagen(options) {
                         }
                     }
                 ]
+            }
+        };
+
+        const duelElements = [];
+        if (p.duelosIndividuales && p.duelosIndividuales.length > 0) {
+            p.duelosIndividuales.forEach(d => {
+                const dDone = d.finalizado;
+                const dRes = dDone ? `${d.golesLocal}-${d.golesVisitante}` : 'VS';
+                duelElements.push({
+                    type: 'div',
+                    props: {
+                        style: { 
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                            height: '36px', background: 'rgba(0,0,0,0.15)', margin: '2px 80px', 
+                            borderRadius: '6px', border: `1px dashed ${t.borde}33` 
+                        },
+                        children: [
+                            // Local Jugador
+                            {
+                                type: 'div',
+                                props: {
+                                    style: { display: 'flex', alignItems: 'center', gap: '8px', flex: 1, justifyContent: 'flex-end', paddingRight: '15px' },
+                                    children: [
+                                        { type: 'div', props: { style: { fontSize: '12px', fontWeight: 600, color: dDone && d.golesLocal > d.golesVisitante ? t.acento : `${t.texto}cc` }, children: d.localJugadorNombre } }
+                                    ]
+                                }
+                            },
+                            // Score Cajita
+                            {
+                                type: 'div',
+                                props: {
+                                    style: { 
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                                        width: '60px', height: '24px', background: 'rgba(0,0,0,0.4)', 
+                                        borderRadius: '4px', border: `1px solid ${dDone ? t.acento : t.borde}aa` 
+                                    },
+                                    children: [
+                                        { type: 'div', props: { style: { fontSize: '11px', fontWeight: 800, color: dDone ? t.texto : `${t.texto}44` }, children: dRes } }
+                                    ]
+                                }
+                            },
+                            // Visitante Jugador
+                            {
+                                type: 'div',
+                                props: {
+                                    style: { display: 'flex', alignItems: 'center', gap: '8px', flex: 1, justifyContent: 'flex-start', paddingLeft: '15px' },
+                                    children: [
+                                        { type: 'div', props: { style: { fontSize: '12px', fontWeight: 600, color: dDone && d.golesVisitante > d.golesLocal ? t.acento : `${t.texto}cc` }, children: d.visitanteJugadorNombre } }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                });
+            });
+        }
+
+        return {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'column', gap: '4px', borderBottom: `1px solid ${t.borde}22`, paddingBottom: '10px', marginBottom: '10px' },
+                children: [matchRow, ...duelElements]
             }
         };
     });

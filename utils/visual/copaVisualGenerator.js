@@ -1,5 +1,6 @@
 import { renderToBuffer } from './renderPool.js';
 import { existsSync, readFileSync } from 'fs';
+import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { getFlagUrl } from './countryHelper.js';
 
@@ -34,44 +35,159 @@ function hexToRgba(hex, alpha) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-const avatarCache = {};
-function getSafeAvatar(avatarUrl) {
+const MAX_CACHE = 200;
+const avatarCache = new Map();
+
+function setCached(key, value) {
+    if (avatarCache.size >= MAX_CACHE) {
+        const oldest = avatarCache.keys().next().value;
+        avatarCache.delete(oldest);
+    }
+    avatarCache.set(key, value);
+}
+
+export async function getSafeAvatarAsync(avatarUrl) {
     if (!avatarUrl) return null;
-    if (avatarUrl.startsWith('http')) return avatarUrl;
-    if (avatarCache[avatarUrl]) return avatarCache[avatarUrl];
+    if (avatarUrl.startsWith('http') || avatarUrl.startsWith('data:')) return avatarUrl;
+    if (avatarCache.has(avatarUrl)) return avatarCache.get(avatarUrl);
     try {
         if (existsSync(avatarUrl)) {
-            const buffer = readFileSync(avatarUrl);
+            const buffer = await readFile(avatarUrl);
             const ext = avatarUrl.split('.').pop() || 'png';
             const data = `data:image/${ext};base64,${buffer.toString('base64')}`;
-            avatarCache[avatarUrl] = data;
+            setCached(avatarUrl, data);
             return data;
         }
     } catch (e) {}
     return null;
 }
 
-function avatarElement(url, nombre, t, size = 28, filter = 'none') {
-  const flagUrl = getFlagUrl(nombre);
+function getSafeAvatar(avatarUrl) {
+    if (!avatarUrl) return null;
+    if (avatarUrl.startsWith('http') || avatarUrl.startsWith('data:')) return avatarUrl;
+    if (avatarCache.has(avatarUrl)) return avatarCache.get(avatarUrl);
+    try {
+        if (existsSync(avatarUrl)) {
+            const buffer = readFileSync(avatarUrl);
+            const ext = avatarUrl.split('.').pop() || 'png';
+            const data = `data:image/${ext};base64,${buffer.toString('base64')}`;
+            setCached(avatarUrl, data);
+            return data;
+        }
+    } catch (e) {}
+    return null;
+}
+
+export async function preProcessAvatars(torneo) {
+    if (!torneo) return;
+    
+    // 1. Torneo logo
+    if (torneo.logo) {
+        torneo.logo = await getSafeAvatarAsync(torneo.logo);
+    }
+
+    // 2. Torneo equipos
+    if (torneo.equipos) {
+        await Promise.all(torneo.equipos.map(async eq => {
+            if (eq.avatar) {
+                eq.avatar = await getSafeAvatarAsync(eq.avatar);
+            }
+            if (eq.miembros) {
+                await Promise.all(eq.miembros.map(async m => {
+                    if (m.avatar) {
+                        m.avatar = await getSafeAvatarAsync(m.avatar);
+                    }
+                }));
+            }
+        }));
+    }
+
+    // 3. Torneo llaves (brackets matches)
+    if (torneo.llaves) {
+        const promises = [];
+        for (const phase in torneo.llaves) {
+            const matches = torneo.llaves[phase] || [];
+            for (const match of matches) {
+                if (match.equipo1) {
+                    promises.push((async () => {
+                        match.equipo1.avatar = await getSafeAvatarAsync(match.equipo1.avatar);
+                        if (match.equipo1.miembros) {
+                            await Promise.all(match.equipo1.miembros.map(async m => {
+                                m.avatar = await getSafeAvatarAsync(m.avatar);
+                            }));
+                        }
+                    })());
+                }
+                if (match.equipo2) {
+                    promises.push((async () => {
+                        match.equipo2.avatar = await getSafeAvatarAsync(match.equipo2.avatar);
+                        if (match.equipo2.miembros) {
+                            await Promise.all(match.equipo2.miembros.map(async m => {
+                                m.avatar = await getSafeAvatarAsync(m.avatar);
+                            }));
+                        }
+                    })());
+                }
+            }
+        }
+        await Promise.all(promises);
+    }
+}
+
+function avatarElement(urlOrEquipo, nombre, t, size = 28, filter = 'none') {
+  const isObject = urlOrEquipo && typeof urlOrEquipo === 'object';
+  const equipo = isObject ? urlOrEquipo : null;
+  const url = isObject ? equipo.avatar : urlOrEquipo;
+  const teamNombre = nombre || equipo?.nombre;
+
+  if (equipo && equipo.miembros && equipo.miembros.length === 2) {
+      const safeUrl1 = getSafeAvatar(equipo.miembros[0].avatar || getFlagUrl(equipo.miembros[0].nombre));
+      const safeUrl2 = getSafeAvatar(equipo.miembros[1].avatar || getFlagUrl(equipo.miembros[1].nombre));
+      
+      return {
+          type: 'div',
+          props: {
+              style: { position: 'relative', width: `${size + 10}px`, height: `${size}px`, flexShrink: 0, display: 'flex', filter: filter },
+              children: [
+                  {
+                      type: 'div',
+                      props: {
+                          style: { width: `${size}px`, height: `${size}px`, borderRadius: '50%', background: '#111', border: `1px solid ${hexToRgba(t.borde, 0.25)}`, overflow: 'hidden', position: 'absolute', left: 0, zIndex: 2, display: 'flex' },
+                          children: safeUrl1 ? { type: 'img', props: { src: safeUrl1, width: size, height: size, style: { objectFit: 'cover' } } } : { type: 'span', props: { style: { margin: 'auto', fontSize: `${size*0.4}px` }, children: '👤' } }
+                      }
+                  },
+                  {
+                      type: 'div',
+                      props: {
+                          style: { width: `${size}px`, height: `${size}px`, borderRadius: '50%', background: '#111', border: `1px solid ${hexToRgba(t.borde, 0.25)}`, overflow: 'hidden', position: 'absolute', left: '10px', zIndex: 1, display: 'flex' },
+                          children: safeUrl2 ? { type: 'img', props: { src: safeUrl2, width: size, height: size, style: { objectFit: 'cover' } } } : { type: 'span', props: { style: { margin: 'auto', fontSize: `${size*0.4}px` }, children: '👤' } }
+                      }
+                  }
+              ]
+          }
+      };
+  }
+
+  // Normal single avatar
+  const flagUrl = getFlagUrl(teamNombre);
   const safeUrl = getSafeAvatar(url || flagUrl);
-  const imgSz = size;
   
   return {
     type: 'div',
     props: {
       style: {
-        width: `${imgSz}px`, height: `${imgSz}px`, borderRadius: '6px',
+        width: `${size}px`, height: `${size}px`, borderRadius: '6px',
         background: '#111', flexShrink: 0, overflow: 'hidden', display: 'flex',
         filter: filter, border: `1px solid ${hexToRgba(t.borde, 0.2)}`
       },
       children: safeUrl ? {
         type: 'img',
-        props: { src: safeUrl, width: imgSz, height: imgSz, style: { objectFit: 'cover' } }
+        props: { src: safeUrl, width: size, height: size, style: { objectFit: 'cover' } }
       } : {
         type: 'div',
         props: {
-          style: { width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: hexToRgba(t.texto, 0.25), fontSize: `${Math.round(imgSz * 0.45)}px`, fontWeight: 800 },
-          children: (nombre && nombre !== 'TBD') ? nombre[0].toUpperCase() : '?'
+          style: { width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: hexToRgba(t.texto, 0.25), fontSize: `${Math.round(size * 0.45)}px`, fontWeight: 800 },
+          children: (teamNombre && teamNombre !== 'TBD') ? teamNombre[0].toUpperCase() : '?'
         }
       }
     }
@@ -111,7 +227,7 @@ function buildTeamRowBracket(equipo, isWinner, isLoser, isBye, gIda, gVue, gDes,
         }
     };
 
-    const avatar = avatarElement(equipo.avatar, equipo.nombre, t, rowH - 12, avFilter);
+    const avatar = avatarElement(equipo, equipo.nombre, t, rowH - 12, avFilter);
     const name = { 
         type: 'div', 
         props: { 
@@ -195,7 +311,30 @@ function buildConnectors(fromTops, toTops, xStart, width, color, cardH, directio
     return lines;
 }
 
+function buildBracketHeaderElement(torneo, t) {
+    const logoSrc = torneo.logo ? getSafeAvatar(torneo.logo) : null;
+    
+    const children = [];
+    if (logoSrc) {
+        children.push({
+            type: 'img',
+            props: { src: logoSrc, width: 64, height: 64, style: { borderRadius: '50%', objectFit: 'cover', marginBottom: '16px' } }
+        });
+    }
+    children.push({ type: 'div', props: { style: { fontSize: '42px', fontWeight: 900, color: t.texto, letterSpacing: '10px', textShadow: `0 0 30px ${t.acento}66` }, children: torneo.nombre?.toUpperCase() } });
+    children.push({ type: 'div', props: { style: { fontSize: '13px', fontWeight: 600, color: t.acento, textTransform: 'uppercase', letterSpacing: '6px', marginTop: '10px', opacity: 0.8 }, children: 'Brackets de Eliminación Directa' } });
+
+    return {
+        type: 'div',
+        props: {
+            style: { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '30px', position: 'relative' },
+            children: children
+        }
+    };
+}
+
 export async function generarBracketCopa(torneo) {
+    await preProcessAvatars(torneo);
     const t = getTheme(torneo.tema);
     const phases = torneo.fasesEliminatoria || ['Semifinales', 'Final'];
     const nPhases = phases.length;
@@ -219,148 +358,89 @@ export async function generarBracketCopa(torneo) {
         ...wingData.slice(0, nPhases - 1).map(w => Math.max(w.left?.length || 0, w.right?.length || 0))
     );
 
-    const minCardSpace = currentSize.cardH + 20; 
-    const areaH = Math.max(440, maxMatchesSide * minCardSpace);
-    const yOffset = 180; 
-    const CANVAS_H = Math.max(720, areaH + yOffset + 50);
+    const matchSpacing = 40;
+    const verticalPad = 80;
+    const headerHeight = torneo.logo ? 240 : 180;
+    const wingH = maxMatchesSide * (currentSize.cardH + matchSpacing) - matchSpacing;
+    const areaH = Math.max(wingH, finalSize.cardH) + verticalPad;
+    const CANVAS_H = headerHeight + areaH;
 
-    const headerTop = 135; 
-    const padX = isSmall ? 80 : 40;
-    
-    let maxSideW = currentSize.cardW;
-    let maxFinalW = finalSize.cardW;
-    phases.forEach((p, idx) => {
-        const matches = (torneo.llaves && torneo.llaves[p]) || [];
-        matches.forEach(m => {
-            const extra = (m.vuelta ? 40 : 0) + (m.desempate ? 40 : 0);
-            if (idx === nPhases - 1) {
-                if (finalSize.cardW + extra > maxFinalW) maxFinalW = finalSize.cardW + extra;
-            } else {
-                if (currentSize.cardW + extra > maxSideW) maxSideW = currentSize.cardW + extra;
-            }
-        });
-    });
-
-    const gapBetweenCols = 60; 
-    const numSideCols = nPhases - 1;
-
-    const minSideWidth = numSideCols * maxSideW + (numSideCols > 0 ? (numSideCols - 1) * gapBetweenCols : 0);
-    const minCanvasW = padX * 2 + minSideWidth * 2 + maxFinalW + gapBetweenCols * 2;
-    
-    const CANVAS_W = Math.max(1280, minCanvasW);
-    const x_Final = (CANVAS_W - maxFinalW) / 2;
-    
-    let gapX;
-    if (numSideCols > 1) {
-        const sideW = x_Final - padX - gapBetweenCols;
-        gapX = (sideW - maxSideW) / (numSideCols - 1);
-    } else {
-        gapX = maxSideW + gapBetweenCols;
-    }
-
-    function getTops(n) {
-        if (n === 0) return [];
-        const sp = areaH / n;
-        return Array.from({ length: n }, (_, i) => Math.round(i * sp + sp / 2) - currentSize.cardH / 2);
-    }
+    const columnW = currentSize.cardW + 80;
+    const xCenter = 150 + (nPhases - 1) * columnW;
+    const CANVAS_W = xCenter * 2;
 
     const elements = [];
-    const x_L = Array.from({ length: nPhases - 1 }, (_, i) => padX + i * gapX);
-    const x_R_Edge = Array.from({ length: nPhases - 1 }, (_, i) => CANVAS_W - padX - i * gapX);
+    const leftTopsHistory = [];
+    const rightTopsHistory = [];
 
-    for (let i = 0; i < nPhases - 1; i++) {
-        const leftMatches = wingData[i].left || [];
-        const rightMatches = wingData[i].right || [];
-        const lTops = getTops(leftMatches.length);
-        const rTops = getTops(rightMatches.length);
+    const yOffset = headerHeight;
 
-        // Headers
-        elements.push({
-            type: 'div',
-            props: {
-                style: { position: 'absolute', top: `${headerTop}px`, left: `${x_L[i]}px`, width: `${maxSideW}px`, display: 'flex', justifyContent: 'center' },
-                children: {
-                    type: 'div',
-                    props: {
-                        style: { fontSize: '13px', fontWeight: 900, color: t.acento, padding: '6px 20px', background: hexToRgba(t.acento, 0.1), border: `2px solid ${hexToRgba(t.acento, 0.25)}`, borderRadius: '30px', textTransform: 'uppercase', letterSpacing: '2px' },
-                        children: wingData[i].label
-                    }
-                }
-            }
-        });
+    for (let pIdx = 0; pIdx < nPhases - 1; pIdx++) {
+        const w = wingData[pIdx];
+        const nMatches = w.left?.length || 0;
+        if (nMatches === 0) continue;
+
+        const xLeft = 100 + pIdx * columnW;
+        const xRight = CANVAS_W - 100 - pIdx * columnW - currentSize.cardW - (w.left[0]?.vuelta ? 40 : 0) - (w.left[0]?.desempate ? 40 : 0);
+
+        const groupH = areaH / nMatches;
         
-        elements.push({
-            type: 'div',
-            props: {
-                style: { position: 'absolute', top: `${headerTop}px`, left: `${x_R_Edge[i] - maxSideW}px`, width: `${maxSideW}px`, display: 'flex', justifyContent: 'center' },
-                children: {
-                    type: 'div',
-                    props: {
-                        style: { fontSize: '13px', fontWeight: 900, color: t.acento, padding: '6px 20px', background: hexToRgba(t.acento, 0.1), border: `2px solid ${hexToRgba(t.acento, 0.25)}`, borderRadius: '30px', textTransform: 'uppercase', letterSpacing: '2px' },
-                        children: wingData[i].label
-                    }
-                }
-            }
-        });
+        const leftTops = [];
+        const rightTops = [];
 
-        leftMatches.forEach((m, idx) => {
-            elements.push({ type: 'div', props: { style: { position: 'absolute', left: `${x_L[i]}px`, top: `${yOffset + lTops[idx]}px`, display: 'flex' }, children: [buildMatchCardBracket(m, t, currentSize, false)] } });
-        });
-        
-        rightMatches.forEach((m, idx) => {
-            const w = currentSize.cardW + (m.vuelta ? 40 : 0) + (m.desempate ? 40 : 0);
-            elements.push({ type: 'div', props: { style: { position: 'absolute', left: `${x_R_Edge[i] - w}px`, top: `${yOffset + rTops[idx]}px`, display: 'flex' }, children: [buildMatchCardBracket(m, t, currentSize, true)] } });
-        });
+        for (let mIdx = 0; mIdx < nMatches; mIdx++) {
+            const y = yOffset + mIdx * groupH + groupH / 2 - currentSize.cardH / 2;
+            
+            leftTops.push(y);
+            elements.push({ type: 'div', props: { style: { position: 'absolute', left: `${xLeft}px`, top: `${y}px`, display: 'flex' }, children: [buildMatchCardBracket(w.left[mIdx], t, currentSize, false)] } });
 
-        // Conectores
-        if (i < nPhases - 1) {
-            const nextLCount = wingData[i+1]?.left?.length || (i === nPhases - 2 ? 1 : 0);
-            const nextRCount = wingData[i+1]?.right?.length || (i === nPhases - 2 ? 1 : 0);
-            
-            const nextLTops = (i === nPhases - 2) ? [areaH/2 - currentSize.cardH/2] : getTops(nextLCount);
-            const nextRTops = (i === nPhases - 2) ? [areaH/2 - currentSize.cardH/2] : getTops(nextRCount);
-            
-            if (leftMatches.length > 0 && nextLCount > 0) {
-                // To connect accurately, we must find the exact right-edge of each left match
-                const fromTopsL = lTops;
-                const nextXT = (i === nPhases - 2) ? x_Final : x_L[i+1];
-                
-                // Simple average width for the connector start
-                const startX = x_L[i] + maxSideW;
-                const connW = nextXT - startX;
-                
-                elements.push(...buildConnectors(fromTopsL, nextLTops, startX, connW, hexToRgba(t.acento, 0.25), currentSize.cardH, 'right').map(l => ({ ...l, props: { ...l.props, style: { ...l.props.style, top: `${parseFloat(l.props.style.top) + yOffset}px` } } })));
-            }
-            
-            if (rightMatches.length > 0 && nextRCount > 0) {
-                const fromTopsR = rTops;
-                const startX = (i === nPhases - 2) ? x_Final + maxFinalW : x_R_Edge[i+1];
-                const connW = (x_R_Edge[i] - maxSideW) - startX;
-                
-                elements.push(...buildConnectors(fromTopsR, nextRTops, startX, connW, hexToRgba(t.acento, 0.25), currentSize.cardH, 'left').map(l => ({ ...l, props: { ...l.props, style: { ...l.props.style, top: `${parseFloat(l.props.style.top) + yOffset}px` } } })));
+            if (w.right && w.right[mIdx]) {
+                rightTops.push(y);
+                elements.push({ type: 'div', props: { style: { position: 'absolute', left: `${xRight}px`, top: `${y}px`, display: 'flex' }, children: [buildMatchCardBracket(w.right[mIdx], t, currentSize, true)] } });
             }
         }
+
+        leftTopsHistory.push(leftTops);
+        rightTopsHistory.push(rightTops);
     }
 
-    // Final
-    const finalMatch = wingData[nPhases - 1].center;
+    for (let pIdx = 0; pIdx < leftTopsHistory.length - 1; pIdx++) {
+        const xStartL = 100 + pIdx * columnW + currentSize.cardW + (wingData[pIdx].left[0]?.vuelta ? 40 : 0) + (wingData[pIdx].left[0]?.desempate ? 40 : 0);
+        const conWL = columnW - currentSize.cardW - (wingData[pIdx].left[0]?.vuelta ? 40 : 0) - (wingData[pIdx].left[0]?.desempate ? 40 : 0);
+        elements.push(...buildConnectors(leftTopsHistory[pIdx], leftTopsHistory[pIdx + 1], xStartL, conWL, hexToRgba(t.acento, 0.4), currentSize.cardH, 'right'));
+
+        const xStartR = CANVAS_W - 100 - (pIdx + 1) * columnW;
+        elements.push(...buildConnectors(rightTopsHistory[pIdx], rightTopsHistory[pIdx + 1], xStartR, conWL, hexToRgba(t.acento, 0.4), currentSize.cardH, 'left'));
+    }
+
+    if (leftTopsHistory.length > 0) {
+        const pIdx = leftTopsHistory.length - 1;
+        const xStartL = 100 + pIdx * columnW + currentSize.cardW + (wingData[pIdx].left[0]?.vuelta ? 40 : 0) + (wingData[pIdx].left[0]?.desempate ? 40 : 0);
+        const conWL = xCenter - xStartL;
+        const finalTop = yOffset + areaH / 2 - finalSize.cardH / 2;
+        elements.push(...buildConnectors(leftTopsHistory[pIdx], [finalTop], xStartL, conWL, hexToRgba(t.acento, 0.5), currentSize.cardH, 'right'));
+
+        const xStartR = xCenter + finalSize.cardW + (wingData[nPhases - 1].center?.vuelta ? 40 : 0) + (wingData[nPhases - 1].center?.desempate ? 40 : 0);
+        const conWR = (CANVAS_W - 100 - pIdx * columnW) - xStartR;
+        elements.push(...buildConnectors(rightTopsHistory[pIdx], [finalTop], xStartR, conWR, hexToRgba(t.acento, 0.5), currentSize.cardH, 'left'));
+    }
+
+    const finalMatch = wingData[nPhases - 1]?.center;
     if (finalMatch) {
+        const x_Final = xCenter;
+        const maxFinalW = finalSize.cardW + (finalMatch.vuelta ? 40 : 0) + (finalMatch.desempate ? 40 : 0);
+        
         elements.push({
             type: 'div',
             props: {
-                style: { position: 'absolute', top: `${headerTop - 10}px`, left: `${x_Final}px`, width: `${maxFinalW}px`, display: 'flex', justifyContent: 'center' },
-                children: {
-                    type: 'div',
-                    props: {
-                        style: { fontSize: '16px', fontWeight: 900, letterSpacing: '5px', color: '#fbbf24', padding: '8px 32px', background: 'rgba(251,191,36,0.15)', border: '2px solid rgba(251,191,36,0.6)', borderRadius: '40px', boxShadow: '0 0 30px rgba(251,191,36,0.3)' },
-                        children: '🏆 GRAN FINAL'
-                    }
-                }
+                style: { position: 'absolute', left: `${x_Final + maxFinalW/2 - 60}px`, top: `${yOffset + areaH/2 - finalSize.cardH/2 - 50}px`, display: 'flex', flexDirection: 'column', alignItems: 'center' },
+                children: [
+                    { type: 'div', props: { style: { fontSize: '10px', color: t.acento, fontWeight: 900, letterSpacing: '3px', marginBottom: '4px' }, children: '🏆 GRAN FINAL' } }
+                ]
             }
         });
         
         const finalW = finalSize.cardW + (finalMatch.vuelta ? 40 : 0) + (finalMatch.desempate ? 40 : 0);
-        // Center the actual card inside the x_Final area
         const centeredX = x_Final + (maxFinalW - finalW) / 2;
         
         elements.push({ type: 'div', props: { style: { position: 'absolute', left: `${centeredX}px`, top: `${yOffset + areaH/2 - finalSize.cardH/2}px`, display: 'flex' }, children: [buildMatchCardBracket(finalMatch, t, finalSize, false, true)] } });
@@ -373,32 +453,68 @@ export async function generarBracketCopa(torneo) {
             children: [
                 { type: 'div', props: { style: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: `linear-gradient(180deg, ${hexToRgba(t.secundario, 0.7)} 0%, ${t.primario} 100%)` } } },
                 { type: 'div', props: { style: { position: 'absolute', top: '50%', left: '50%', width: '1000px', height: '1000px', background: `radial-gradient(circle, ${hexToRgba(t.acento, 0.07)} 0%, transparent 70%)`, transform: 'translate(-50%, -50%)' } } },
-                {
-                    type: 'div',
-                    props: {
-                        style: { display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '30px', position: 'relative' },
-                        children: [
-                            { type: 'div', props: { style: { fontSize: '42px', fontWeight: 900, color: t.texto, letterSpacing: '10px', textShadow: `0 0 30px ${t.acento}66` }, children: torneo.nombre?.toUpperCase() } },
-                            { type: 'div', props: { style: { fontSize: '13px', fontWeight: 600, color: t.acento, textTransform: 'uppercase', letterSpacing: '6px', marginTop: '10px', opacity: 0.8 }, children: 'Brackets de Eliminación Directa' } }
-                        ]
-                    }
-                },
+                buildBracketHeaderElement(torneo, t),
                 ...elements
             ]
         }
     };
-    return await renderToBuffer(root, CANVAS_W, CANVAS_H);
+    const scale = nPhases > 4 ? 1.5 : 2;
+    return await renderToBuffer(root, CANVAS_W, CANVAS_H, { scale });
 }
 
 // ── Tablas y Participantes (Sin cambios) ───────────────────────────────────
 
+function buildHeaderElement(torneo, titulo, subtitulo, t) {
+    const logoSrc = torneo.logo ? getSafeAvatar(torneo.logo) : null;
+    
+    if (logoSrc) {
+        return {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '12px' },
+                children: [
+                    {
+                        type: 'div',
+                        props: {
+                            style: { display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '12px' },
+                            children: [
+                                {
+                                    type: 'img',
+                                    props: { src: logoSrc, width: 36, height: 36, style: { borderRadius: '50%', objectFit: 'cover' } }
+                                },
+                                {
+                                    type: 'div',
+                                    props: { style: { fontSize: '22px', fontWeight: 700, color: '#ffffff', letterSpacing: '1px' }, children: titulo }
+                                }
+                            ]
+                        }
+                    },
+                    subtitulo ? { type: 'div', props: { style: { fontSize: '11px', opacity: 0.5, letterSpacing: '2px', textTransform: 'uppercase', marginTop: '4px' }, children: subtitulo } } : null
+                ]
+            }
+        };
+    } else {
+        return {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '12px' },
+                children: [
+                    { type: 'div', props: { style: { fontSize: '22px', fontWeight: 700, color: '#ffffff', letterSpacing: '1px' }, children: `🏆 ${titulo}` } },
+                    subtitulo ? { type: 'div', props: { style: { fontSize: '11px', opacity: 0.5, letterSpacing: '2px', textTransform: 'uppercase', marginTop: '4px' }, children: subtitulo } } : null
+                ]
+            }
+        };
+    }
+}
+
 async function renderTablaBase(torneo, equipos, titulo, subtitulo) {
+    await preProcessAvatars(torneo);
     const t = getTheme(torneo.tema);
     const cols = ['', 'Jugador', 'PJ', 'PG', 'WO', 'PP', 'GF', 'GC', 'DG', 'PTS'];
     const colWidths = [40, 260, 48, 48, 48, 48, 48, 48, 48, 56];
     const totalWidth = colWidths.reduce((s, w) => s + w, 0) + 40;
     const rowHeight = 40;
-    const headerHeight = 80;
+    const headerHeight = torneo.logo ? 120 : 80;
     const totalHeight = headerHeight + 48 + equipos.length * rowHeight + 30;
 
     const rows = equipos.map((e, idx) => {
@@ -409,7 +525,7 @@ async function renderTablaBase(torneo, equipos, titulo, subtitulo) {
                 style: { display: 'flex', flexDirection: 'row', alignItems: 'center', height: `${rowHeight}px`, background: idx % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.07)', borderBottom: `1px solid ${hexToRgba(t.borde, 0.15)}` },
                 children: [
                     { type: 'div', props: { style: { width: `${colWidths[0]}px`, textAlign: 'center', fontSize: '14px', fontWeight: 700, paddingLeft: '10px', color: idx < (torneo.clasificadosPorGrupo || 1) ? '#ffd700' : t.texto }, children: `${idx + 1}` } },
-                    { type: 'div', props: { style: { width: `${colWidths[1]}px`, display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '8px', overflow: 'hidden' }, children: [avatarElement(e.avatar, e.nombre, t), { type: 'div', props: { style: { fontSize: '14px', fontWeight: 600, color: '#ffffff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, children: e.nombre } }] } },
+                    { type: 'div', props: { style: { width: `${colWidths[1]}px`, display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '8px', overflow: 'hidden' }, children: [avatarElement(e, e.nombre, t), { type: 'div', props: { style: { fontSize: '14px', fontWeight: 600, color: '#ffffff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, children: e.nombre } }] } },
                     ...[e.pj || 0, e.pg || 0, e.pe || 0, e.pp || 0, e.gf || 0, e.gc || 0, dif, e.puntos || 0].map((val, vi) => ({
                         type: 'div',
                         props: { style: { width: `${colWidths[vi + 2]}px`, textAlign: 'center', fontSize: '13px', fontWeight: vi === 7 ? 700 : 400, color: vi === 7 ? t.acento : vi === 6 ? (val > 0 ? '#2ecc71' : val < 0 ? '#e74c3c' : '#a0a0c0') : '#d0d0d0' }, children: `${val > 0 && vi === 6 ? '+' : ''}${val}` }
@@ -424,7 +540,7 @@ async function renderTablaBase(torneo, equipos, titulo, subtitulo) {
         props: {
             style: { display: 'flex', flexDirection: 'column', width: `${totalWidth}px`, height: `${totalHeight}px`, background: `linear-gradient(135deg, ${t.primario} 0%, ${t.secundario} 100%)`, fontFamily: 'Inter', color: '#e0e0e0', padding: '20px' },
             children: [
-                { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '12px' }, children: [{ type: 'div', props: { style: { fontSize: '22px', fontWeight: 700, color: '#ffffff', letterSpacing: '1px' }, children: `🏆 ${titulo}` } }, subtitulo ? { type: 'div', props: { style: { fontSize: '11px', opacity: 0.5, letterSpacing: '2px', textTransform: 'uppercase', marginTop: '4px' }, children: subtitulo } } : null] } },
+                buildHeaderElement(torneo, titulo, subtitulo, t),
                 { type: 'div', props: { style: { display: 'flex', flexDirection: 'row', background: hexToRgba(t.acento, 0.1), borderRadius: '8px 8px 0 0', padding: '8px 0', borderBottom: `1px solid ${hexToRgba(t.acento, 0.25)}` }, children: cols.map((col, i) => ({ type: 'div', props: { style: { width: `${colWidths[i]}px`, textAlign: i === 1 ? 'left' : 'center', fontSize: '12px', fontWeight: 700, color: t.acento, textTransform: 'uppercase', letterSpacing: '0.5px', paddingLeft: i === 1 ? '8px' : '0' }, children: col } })) } },
                 ...rows
             ]
@@ -433,14 +549,59 @@ async function renderTablaBase(torneo, equipos, titulo, subtitulo) {
     return await renderToBuffer(root, totalWidth, totalHeight);
 }
 
+function buildParticipantsHeaderElement(torneo, t) {
+    const logoSrc = torneo.logo ? getSafeAvatar(torneo.logo) : null;
+    
+    if (logoSrc) {
+        return {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' },
+                children: [
+                    {
+                        type: 'div',
+                        props: {
+                            style: { display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '12px' },
+                            children: [
+                                {
+                                    type: 'img',
+                                    props: { src: logoSrc, width: 36, height: 36, style: { borderRadius: '50%', objectFit: 'cover' } }
+                                },
+                                {
+                                    type: 'div',
+                                    props: { style: { fontSize: '24px', fontWeight: 900, color: t.texto, letterSpacing: '1px' }, children: '👥 PARTICIPANTES' }
+                                }
+                            ]
+                        }
+                    },
+                    { type: 'div', props: { style: { fontSize: '11px', color: t.acento, fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', marginTop: '4px' }, children: torneo.nombre } }
+                ]
+            }
+        };
+    } else {
+        return {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' },
+                children: [
+                    { type: 'div', props: { style: { fontSize: '24px', fontWeight: 900, color: t.texto, letterSpacing: '1px' }, children: `👥 PARTICIPANTES` } },
+                    { type: 'div', props: { style: { fontSize: '11px', color: t.acento, fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', marginTop: '4px' }, children: torneo.nombre } }
+                ]
+            }
+        };
+    }
+}
+
 export async function generarImagenParticipantes(torneo) {
+    await preProcessAvatars(torneo);
     const t = getTheme(torneo.tema);
     const equipos = [...torneo.equipos].sort((a, b) => a.nombre.localeCompare(b.nombre));
     const colCount = equipos.length > 12 ? 2 : 1;
     const itemsPerCol = Math.ceil(equipos.length / colCount);
     const rowHeight = 46;
     const width = colCount === 2 ? 720 : 400;
-    const height = 120 + (itemsPerCol * rowHeight) + 40;
+    const headerHeight = torneo.logo ? 160 : 120;
+    const height = headerHeight + (itemsPerCol * rowHeight) + 40;
 
     const renderColumn = (items) => ({
         type: 'div',
@@ -452,7 +613,7 @@ export async function generarImagenParticipantes(torneo) {
                     style: { display: 'flex', alignItems: 'center', padding: '8px 16px', background: hexToRgba(t.secundario, 0.5), borderRadius: '8px', border: `1px solid ${hexToRgba(t.borde, 0.25)}` },
                     children: [
                         { type: 'div', props: { style: { fontSize: '12px', color: t.acento, fontWeight: 800, width: '24px' }, children: `${equipos.indexOf(e) + 1}.` } },
-                        avatarElement(e.avatar, e.nombre, t, 30),
+                        avatarElement(e, e.nombre, t, 30),
                         { type: 'div', props: { style: { fontSize: '14px', fontWeight: 600, color: t.texto, flex: 1, overflow: 'hidden', whiteSpace: 'nowrap' }, children: e.nombre } }
                     ]
                 }
@@ -465,7 +626,7 @@ export async function generarImagenParticipantes(torneo) {
         props: {
             style: { display: 'flex', flexDirection: 'column', width: `${width}px`, height: `${height}px`, background: t.primario, padding: '32px', fontFamily: 'Inter' },
             children: [
-                { type: 'div', props: { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '24px' }, children: [{ type: 'div', props: { style: { fontSize: '24px', fontWeight: 900, color: t.texto, letterSpacing: '1px' }, children: `👥 PARTICIPANTES` } }, { type: 'div', props: { style: { fontSize: '11px', color: t.acento, fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', marginTop: '4px' }, children: torneo.nombre } }] } },
+                buildParticipantsHeaderElement(torneo, t),
                 { type: 'div', props: { style: { display: 'flex', gap: '20px' }, children: colCount === 2 ? [renderColumn(equipos.slice(0, itemsPerCol)), renderColumn(equipos.slice(itemsPerCol))] : [renderColumn(equipos)] } }
             ]
         }
@@ -477,10 +638,10 @@ export async function generarTablaImagenCopa(torneo, tabla, titulo) {
     return await renderTablaBase(torneo, tabla, titulo, 'Tabla de Posiciones');
 }
 
-export async function generarPreviewTema(nombre, tema) {
+export async function generarPreviewTema(nombre, tema, logo = null) {
     const mockTabla = [
         { nombre: 'Ejemplo Local', avatar: '', puntos: 9, pj: 3, pg: 3, pe: 0, pp: 0, gf: 10, gc: 2 },
         { nombre: 'Ejemplo Visitante', avatar: '', puntos: 6, pj: 3, pg: 2, pe: 0, pp: 1, gf: 5, gc: 4 }
     ];
-    return await renderTablaBase({ tema, clasificadosPorGrupo: 1 }, mockTabla, nombre, 'Vista Previa del Diseño');
+    return await renderTablaBase({ tema, clasificadosPorGrupo: 1, logo }, mockTabla, nombre, 'Vista Previa del Diseño');
 }

@@ -267,18 +267,40 @@ export default async function submission(client, message) {
     };
 
     if (!torneo) return warn('❌ El torneo no está en curso.');
-    if (!torneo.equipos.some(e => e.discordId === message.author.id)) return warn('❌ No estás inscrito en este torneo.');
+    const esParticipante = torneo.equipos.some(e => {
+        if (torneo.tipoCompeticion === 'duo') {
+            return e.miembros?.some(m => m.discordId === message.author.id);
+        }
+        if (torneo.tipoCompeticion === 'equipos') {
+            return e.propietario === message.author.id ||
+                   e.miembros?.some(m => m.discordId === message.author.id);
+        }
+        return e.discordId === message.author.id;
+    });
+    if (!esParticipante) return warn('❌ No estás inscrito en este torneo.');
     if (message.attachments.size === 0) return warn('❌ Debes adjuntar la **foto del marcador** para reportar un resultado.');
+
+    const isPlayerInTeam = (team, playerId) => {
+        if (!team) return false;
+        if (torneo.tipoCompeticion === 'duo') {
+            return team.miembros?.some(m => m.discordId === playerId);
+        }
+        if (torneo.tipoCompeticion === 'equipos') {
+            return team.propietario === playerId || team.miembros?.some(m => m.discordId === playerId);
+        }
+        return team.discordId === playerId;
+    };
 
     const pendingOptions = [];
 
     // Buscar en grupos
     if (torneo.gruposHabilitados) {
-        const matches = (torneo.enfrentamientosGrupos || []).filter(e => 
-            !e.completado && 
-            (torneo.equipos.find(eq => eq.nombre === e.local)?.discordId === message.author.id ||
-             torneo.equipos.find(eq => eq.nombre === e.visitante)?.discordId === message.author.id)
-        );
+        const matches = (torneo.enfrentamientosGrupos || []).filter(e => {
+            if (e.completado) return false;
+            const eqL = torneo.equipos.find(eq => eq.nombre === e.local);
+            const eqV = torneo.equipos.find(eq => eq.nombre === e.visitante);
+            return isPlayerInTeam(eqL, message.author.id) || isPlayerInTeam(eqV, message.author.id);
+        });
         matches.forEach(m => {
             pendingOptions.push({
                 label: `GRUPO: ${m.local} vs ${m.visitante}`.slice(0, 100),
@@ -293,9 +315,9 @@ export default async function submission(client, message) {
         const llaves = torneo.llaves[faseActual] || [];
         llaves.forEach(ll => {
             if (ll.ganador) return;
-            const isEq1 = ll.equipo1?.discordId === message.author.id;
-            const isEq2 = ll.equipo2?.discordId === message.author.id;
-            if (isEq1 || isEq2) {
+            const eq1 = torneo.equipos.find(e => e.nombre === ll.equipo1?.nombre);
+            const eq2 = torneo.equipos.find(e => e.nombre === ll.equipo2?.nombre);
+            if (isPlayerInTeam(eq1, message.author.id) || isPlayerInTeam(eq2, message.author.id)) {
                 pendingOptions.push({
                     label: `${faseActual.toUpperCase()}: ${ll.equipo1.nombre} vs ${ll.equipo2.nombre}`.slice(0, 100),
                     value: `bracket|${faseActual}|${ll.id}`
@@ -329,8 +351,93 @@ export default async function submission(client, message) {
     const [tipo, val1, val2] = selResp.values[0].split('|');
     let displayMatch = '';
     let customId = '';
-
     let baseCustomId = '';
+
+    let matchObj = null;
+    if (tipo === 'grupo') {
+        matchObj = torneo.enfrentamientosGrupos.find(x => x.local === val1 && x.visitante === val2);
+    } else {
+        const fase = val1;
+        const llId = val2;
+        matchObj = torneo.llaves[fase].find(l => l.id === llId);
+    }
+
+    if (torneo.tipoCompeticion === 'equipos') {
+        if (!matchObj || !matchObj.duelosIndividuales) {
+            return warn('❌ No se encontraron duelos individuales para este enfrentamiento.');
+        }
+
+        const duelOptions = matchObj.duelosIndividuales
+            .map((d, di) => ({
+                label: `Duelo ${di + 1}: ${d.localJugadorNombre || d.localJugador} vs ${d.visitanteJugadorNombre || d.visitanteJugador}`,
+                description: d.finalizado ? '✅ Ya registrado' : '⏳ Pendiente',
+                value: `${di}`,
+                emoji: d.finalizado ? '✅' : '⏳'
+            }))
+            .filter(o => o.emoji === '⏳');
+
+        if (!duelOptions.length) {
+            return warn('❌ Todos los duelos individuales de este partido ya han sido reportados.');
+        }
+
+        const selectDuel = new StringSelectMenuBuilder()
+            .setCustomId('sel_copa_duel')
+            .setPlaceholder('¿Qué duelo quieres reportar?')
+            .addOptions(duelOptions);
+
+        const duelMsg = await message.channel.send({
+            content: `<@${message.author.id}>, has seleccionado **${tipo === 'grupo' ? val1 + ' vs ' + val2 : matchObj.equipo1.nombre + ' vs ' + matchObj.equipo2.nombre}**.\nAhora selecciona el duelo específico a reportar:`,
+            components: [new ActionRowBuilder().addComponents(selectDuel)]
+        });
+
+        const duelFilter = i => i.customId === 'sel_copa_duel' && i.user.id === message.author.id;
+        const duelResp = await duelMsg.awaitMessageComponent({ filter: duelFilter, time: 60000 }).catch(() => null);
+        await duelMsg.delete().catch(() => {});
+
+        if (!duelResp) {
+            await message.delete().catch(() => {});
+            return;
+        }
+        await duelResp.deferUpdate().catch(() => {});
+
+        const duelIdx = parseInt(duelResp.values[0]);
+        const duelo = matchObj.duelosIndividuales[duelIdx];
+        
+        const baseCustomId = `aprv|torneo|${torneo.prefix}|${tipo}|${val1}|${val2}|duelo|${duelIdx}`;
+        
+        try {
+            const approvalChannel = await client.channels.fetch(process.env.CANAL_APROBACION).catch(() => null);
+            if (!approvalChannel) return console.error("Canal de aprobación no encontrado.");
+
+            const allAttachments = [...message.attachments.values()];
+            const userNote = message.content?.trim() ? `\n📝 **Nota:** ${message.content}` : '';
+
+            const embed = new EmbedBuilder()
+                .setTitle(`📋 Duelo Pendiente — Torneo ${torneo.nombre}`)
+                .setAuthor({ name: message.author.tag, iconURL: message.author.displayAvatarURL() })
+                .setDescription(
+                    `**Duelo:** ${duelo.localJugadorNombre} vs ${duelo.visitanteJugadorNombre}\n` +
+                    `**Enfrentamiento:** ${tipo === 'grupo' ? val1 + ' vs ' + val2 : matchObj.equipo1.nombre + ' vs ' + matchObj.equipo2.nombre}\n` +
+                    `Reportado por <@${message.author.id}>${userNote}`
+                )
+                .setColor('Blue')
+                .setTimestamp()
+                .setFooter({ text: `Torneo: ${torneo.prefix} | ${allAttachments.length} imagen(es)` });
+
+            const row = new ActionRowBuilder().addComponents(
+                new ButtonBuilder().setCustomId(`${baseCustomId}|${message.author.id}`).setLabel('✅ Validar Duelo').setStyle(ButtonStyle.Success),
+                new ButtonBuilder().setCustomId(`deny|torneo|${torneo.prefix}|none|${message.author.id}`).setLabel('❌ Denegar').setStyle(ButtonStyle.Danger)
+            );
+
+            await approvalChannel.send({ embeds: [embed], components: [row], files: allAttachments.map(a => a.url) });
+
+            const confirm = await message.channel.send(`✅ <@${message.author.id}> Duelo de **${duelo.localJugadorNombre} vs ${duelo.visitanteJugadorNombre}** enviado a revisión.`);
+            setTimeout(() => confirm.delete().catch(() => {}), 8000);
+        } catch (error) {
+            console.error("Error in team duel submission:", error);
+        }
+        return;
+    }
 
     if (tipo === 'grupo') {
         displayMatch = `${val1} vs ${val2}`;

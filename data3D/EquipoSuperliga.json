@@ -2233,8 +2233,13 @@
   },
   {
     "nombre": "Mafia Twittera S.A.",
+<<<<<<< Updated upstream
     "escudo": "assets/equipos/mafia_twittera_s.a._1780270081360.png",
     "dinero": 3199100,
+=======
+    "escudo": "assets/equipos/escuadrón_marrón_por_la_salvación_de_occidente_1777677643476.png",
+    "dinero": 4100000,
+>>>>>>> Stashed changes
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
