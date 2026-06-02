@@ -872,58 +872,5 @@
     "faseActual": 0,
     "createdBy": "534499521653112844",
     "_id": "a679d92b-975c-4d23-a3e3-7ccc37798244"
-  },
-  {
-    "nombre": "Copa Duo",
-    "prefix": "duo",
-    "estado": "Inscripcion",
-    "tipoJugadores": "users",
-    "tipoCompeticion": "duo",
-    "logo": "/home/luca/platubot/assets/logos/duo_logo.png",
-    "inscripcionAbierta": true,
-    "equipoConfig": {
-      "minJugadores": 2,
-      "maxJugadores": 5
-    },
-    "historialResultados": [],
-    "canalResultados": "1445225113799622656",
-    "formatoPreset": "euro",
-    "cantidadParticipantes": 12,
-    "clasificadosDirectos": [],
-    "championsConfig": {
-      "directos": 0,
-      "playoff": 0,
-      "eliminados": 0,
-      "bracketSize": 0
-    },
-    "tema": {
-      "primario": "#000000",
-      "secundario": "#000000",
-      "acento": "#000000",
-      "texto": "#ffffff",
-      "borde": "#000000"
-    },
-    "gruposHabilitados": true,
-    "cantidadGrupos": 3,
-    "jugadoresPorGrupo": 4,
-    "clasificadosPorGrupo": 2,
-    "mejorTercero": true,
-    "cantMejoresTerceros": 0,
-    "sorteoGrupos": true,
-    "criteriosClasificacion": [
-      "puntos",
-      "dif",
-      "gf"
-    ],
-    "playoffsHabilitados": true,
-    "tipoEncuentro": "hibrido",
-    "hayTercerPuesto": true,
-    "fasesEliminatoria": [],
-    "equipos": [],
-    "enfrentamientosGrupos": [],
-    "llaves": {},
-    "faseActual": 0,
-    "createdBy": "1052388988368990279",
-    "_id": "1db1f8bd-208d-45cc-bf6c-c4e1f78ceb3c"
   }
 ]
