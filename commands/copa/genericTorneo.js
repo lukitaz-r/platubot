@@ -1565,7 +1565,8 @@ async function handlePublicarActualizacion(interaction, torneo) {
             .setTimestamp();
 
         if (torneo.logo) {
-            embed.setThumbnail(torneo.logo);
+            files.push(new AttachmentBuilder(torneo.logo, { name: 'logo_copa.png' }));
+            embed.setThumbnail('attachment://logo_copa.png');
         }
 
         // 1. Tabla de posiciones (si no es directa y hay equipos)
@@ -1722,6 +1723,7 @@ async function handleInscripcionEmbed(interaction, torneo) {
 
     try {
         const plazasLibres = torneo.cantidadParticipantes - torneo.equipos.length;
+        const files = [];
         
         const embed = new EmbedBuilder()
             .setTitle(`📣 ¡Inscripciones Abiertas! — ${torneo.nombre}`)
@@ -1737,7 +1739,8 @@ async function handleInscripcionEmbed(interaction, torneo) {
             .setTimestamp();
 
         if (torneo.logo) {
-            embed.setThumbnail(torneo.logo);
+            files.push(new AttachmentBuilder(torneo.logo, { name: 'logo_copa.png' }));
+            embed.setThumbnail('attachment://logo_copa.png');
         }
 
         const button = new ButtonBuilder()
@@ -1748,7 +1751,7 @@ async function handleInscripcionEmbed(interaction, torneo) {
 
         const row = new ActionRowBuilder().addComponents(button);
 
-        await canal.send({ embeds: [embed], components: [row] });
+        await canal.send({ embeds: [embed], components: [row], files });
         await interaction.editReply({ content: '✅ Embed de inscripción publicado correctamente en el canal de resultados.' });
     } catch (e) {
         console.error('[Gestion] Error en handleInscripcionEmbed:', e);

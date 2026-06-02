@@ -3,7 +3,8 @@ import {
     ActionRowBuilder, 
     StringSelectMenuBuilder,
     ButtonStyle,
-    ButtonBuilder
+    ButtonBuilder,
+    AttachmentBuilder
 } from 'discord.js';
 import Torneo from '../../models/copas/Torneo.js';
 
@@ -35,9 +36,11 @@ export default {
             )
             .setTimestamp();
 
+        const files = [];
         // Si hay logo en el primer torneo listado, podemos usarlo como miniatura
         if (activos[0]?.logo) {
-            embed.setThumbnail(activos[0].logo);
+            files.push(new AttachmentBuilder(activos[0].logo, { name: 'logo_copa.png' }));
+            embed.setThumbnail('attachment://logo_copa.png');
         }
 
         const select = new StringSelectMenuBuilder()
@@ -54,7 +57,8 @@ export default {
 
         const msg = await message.reply({
             embeds: [embed],
-            components: [new ActionRowBuilder().addComponents(select)]
+            components: [new ActionRowBuilder().addComponents(select)],
+            files
         });
 
         const collector = msg.createMessageComponentCollector({
