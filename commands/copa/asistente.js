@@ -162,7 +162,7 @@ async function runWizard(client, context, isInteraction) {
                     .setTitle('Subir Logo del Torneo');
 
                 const fileInput = new FileUploadBuilder()
-                    .setCustomId('e')
+                    .setCustomId('logo')
                     .setRequired(true);
 
                 const inputLabel = new LabelBuilder()
