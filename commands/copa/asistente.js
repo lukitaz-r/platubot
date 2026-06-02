@@ -10,7 +10,9 @@ import {
     TextInputBuilder,
     TextInputStyle,
     SlashCommandBuilder,
-    AttachmentBuilder
+    AttachmentBuilder,
+    FileUploadBuilder,
+    LabelBuilder
 } from 'discord.js';
 import Torneo from '../../models/copas/Torneo.js';
 import { generarPreviewTema, generarBracketCopa } from '../../utils/visual/copaVisualGenerator.js';
