@@ -175,7 +175,7 @@ async function runWizard(client, context, isInteraction) {
                 const submit = await i.awaitModalSubmit({ time: 60000 }).catch(() => null);
                 if (!submit) return;
 
-                const attachmentField = modalSubmit.fields.getField("logo");
+                const attachmentField = submit.fields.getField("logo");
                 const attachmentUrl = attachmentField?.attachments.first()?.url;
                 if (attachmentUrl && (attachmentUrl.startsWith('http://') || attachmentUrl.startsWith('https://'))) {
                     await submit.deferReply({ flags: 64 });
