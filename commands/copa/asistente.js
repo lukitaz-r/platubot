@@ -159,20 +159,24 @@ async function runWizard(client, context, isInteraction) {
                     .setCustomId('modal_logo_upload')
                     .setTitle('Subir Logo del Torneo');
 
-                const urlInput = new TextInputBuilder()
-                    .setCustomId('logo_url')
-                    .setLabel('URL del Logo (Imagen)')
-                    .setPlaceholder('Ej: https://i.imgur.com/xyz.png')
-                    .setRequired(true)
-                    .setStyle(TextInputStyle.Short);
+                const { customId } = interaction
 
-                modal.addComponents(new ActionRowBuilder().addComponents(urlInput));
+                const fileInput = new FileUploadBuilder()
+                    .setCustomId('e')
+                    .setRequired(true);
+
+                const inputLabel = new LabelBuilder()
+                    .setLabel("Escudo del Equipo")
+                    .setFileUploadComponent(fileInput);
+
+                modal.addLabelComponents(nLabel, inputLabel);
 
                 await i.showModal(modal);
                 const submit = await i.awaitModalSubmit({ time: 60000 }).catch(() => null);
                 if (!submit) return;
 
-                const attachmentUrl = submit.fields.getTextInputValue('logo_url');
+                const attachmentField = modalSubmit.fields.getField("logo");
+                const attachmentUrl = attachmentField?.attachments.first()?.url;
                 if (attachmentUrl && (attachmentUrl.startsWith('http://') || attachmentUrl.startsWith('https://'))) {
                     await submit.deferReply({ flags: 64 });
                     const localPath = await descargarImagen(attachmentUrl, `${config.prefix}_logo`);
