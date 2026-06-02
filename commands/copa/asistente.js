@@ -169,7 +169,7 @@ async function runWizard(client, context, isInteraction) {
                     .setLabel("Escudo del Equipo")
                     .setFileUploadComponent(fileInput);
 
-                modal.addLabelComponents(nLabel, inputLabel);
+                modal.addLabelComponents(inputLabel);
 
                 await i.showModal(modal);
                 const submit = await i.awaitModalSubmit({ time: 60000 }).catch(() => null);
