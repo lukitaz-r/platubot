@@ -925,6 +925,14 @@
         "tipo": "unico",
         "cargadoPor": "1393029583778873415",
         "timestamp": "2026-06-04T22:09:42.728Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "alexiscarp9122018 vs lfc_rojas",
+        "resultado": "1-0",
+        "tipo": "unico",
+        "cargadoPor": "1393029583778873415",
+        "timestamp": "2026-06-04T22:55:20.501Z"
       }
     ],
     "canalResultados": "1432891524261216378",
@@ -1038,23 +1046,23 @@
         "discordId": "1281896348643495948",
         "avatar": "https://cdn.discordapp.com/avatars/1281896348643495948/ffa1303b57bf4207979ac57670e2bfbf.png",
         "puntos": 0,
-        "pj": 0,
+        "pj": 1,
         "pg": 0,
         "pe": 0,
-        "pp": 0,
+        "pp": 1,
         "gf": 0,
-        "gc": 0
+        "gc": 1
       },
       {
         "nombre": "alexiscarp9122018",
         "discordId": "1313318947352744067",
         "avatar": "https://cdn.discordapp.com/avatars/1313318947352744067/feaf1ef3b3ce42900df909095ae07e6d.png",
-        "puntos": 3,
-        "pj": 2,
-        "pg": 1,
+        "puntos": 6,
+        "pj": 3,
+        "pg": 2,
         "pe": 0,
         "pp": 1,
-        "gf": 2,
+        "gf": 3,
         "gc": 3
       },
       {
@@ -1158,9 +1166,9 @@
       {
         "local": "alexiscarp9122018",
         "visitante": "lfc_rojas",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "1-0",
+        "ganador": "alexiscarp9122018",
+        "completado": true,
         "fecha": 2,
         "duelosIndividuales": []
       },
