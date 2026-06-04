@@ -933,6 +933,30 @@
         "tipo": "unico",
         "cargadoPor": "1393029583778873415",
         "timestamp": "2026-06-04T22:55:20.501Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "polentarg vs tterss",
+        "resultado": "0-1",
+        "tipo": "unico",
+        "cargadoPor": "1393029583778873415",
+        "timestamp": "2026-06-04T23:07:38.268Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "lfc_rojas vs tterss",
+        "resultado": "0-1",
+        "tipo": "unico",
+        "cargadoPor": "1393029583778873415",
+        "timestamp": "2026-06-04T23:07:48.534Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "alexiscarp9122018 vs hammeriti",
+        "resultado": "3-0",
+        "tipo": "unico",
+        "cargadoPor": "672164926948900864",
+        "timestamp": "2026-06-04T23:42:48.739Z"
       }
     ],
     "canalResultados": "1432891524261216378",
@@ -986,23 +1010,23 @@
         "discordId": "1381836864205361273",
         "avatar": "https://cdn.discordapp.com/avatars/1381836864205361273/565476d5f3bc6e42e027fe45e7ead3fe.png",
         "puntos": 0,
-        "pj": 1,
-        "pg": 0,
-        "pe": 0,
-        "pp": 1,
-        "gf": 0,
-        "gc": 1
-      },
-      {
-        "nombre": "tterss",
-        "discordId": "751663890441699409",
-        "avatar": "https://cdn.discordapp.com/avatars/751663890441699409/7aeaf87084e75efb09936689cf50c18d.png",
-        "puntos": 0,
         "pj": 2,
         "pg": 0,
         "pe": 0,
         "pp": 2,
         "gf": 0,
+        "gc": 2
+      },
+      {
+        "nombre": "tterss",
+        "discordId": "751663890441699409",
+        "avatar": "https://cdn.discordapp.com/avatars/751663890441699409/7aeaf87084e75efb09936689cf50c18d.png",
+        "puntos": 6,
+        "pj": 4,
+        "pg": 2,
+        "pe": 0,
+        "pp": 2,
+        "gf": 2,
         "gc": 2
       },
       {
@@ -1022,12 +1046,12 @@
         "discordId": "672164926948900864",
         "avatar": "https://cdn.discordapp.com/avatars/672164926948900864/566634cff94ac21b668b2dab2cf9405f.png",
         "puntos": 0,
-        "pj": 0,
+        "pj": 1,
         "pg": 0,
         "pe": 0,
-        "pp": 0,
+        "pp": 1,
         "gf": 0,
-        "gc": 0
+        "gc": 2
       },
       {
         "nombre": "r1ver_camp91218",
@@ -1046,23 +1070,23 @@
         "discordId": "1281896348643495948",
         "avatar": "https://cdn.discordapp.com/avatars/1281896348643495948/ffa1303b57bf4207979ac57670e2bfbf.png",
         "puntos": 0,
-        "pj": 1,
+        "pj": 2,
         "pg": 0,
         "pe": 0,
-        "pp": 1,
+        "pp": 2,
         "gf": 0,
-        "gc": 1
+        "gc": 2
       },
       {
         "nombre": "alexiscarp9122018",
         "discordId": "1313318947352744067",
         "avatar": "https://cdn.discordapp.com/avatars/1313318947352744067/feaf1ef3b3ce42900df909095ae07e6d.png",
-        "puntos": 6,
-        "pj": 3,
-        "pg": 2,
+        "puntos": 9,
+        "pj": 4,
+        "pg": 3,
         "pe": 0,
         "pp": 1,
-        "gf": 3,
+        "gf": 5,
         "gc": 3
       },
       {
@@ -1157,9 +1181,9 @@
       {
         "local": "polentarg",
         "visitante": "tterss",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "0-1",
+        "ganador": "tterss",
+        "completado": true,
         "fecha": 2,
         "duelosIndividuales": []
       },
@@ -1256,9 +1280,9 @@
       {
         "local": "lfc_rojas",
         "visitante": "tterss",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "0-1",
+        "ganador": "tterss",
+        "completado": true,
         "fecha": 4,
         "duelosIndividuales": []
       },
@@ -1292,9 +1316,9 @@
       {
         "local": "alexiscarp9122018",
         "visitante": "hammeriti",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "3-0",
+        "ganador": "alexiscarp9122018",
+        "completado": true,
         "fecha": 5,
         "duelosIndividuales": []
       },
@@ -1905,6 +1929,7 @@
     "llaves": {},
     "faseActual": 0,
     "createdBy": "534499521653112844",
-    "_id": "fd4ab705-1660-4fb7-8192-39f63689cf09"
+    "_id": "fd4ab705-1660-4fb7-8192-39f63689cf09",
+    "_raw_equipos": "[\n  {\n    \"nombre\": \"gabriel_seh\",\n    \"discordId\": \"534499521653112844\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/534499521653112844/435c74fd5e7da50f4e463cdff146a4db.png\",\n    \"puntos\": 3,\n    \"pj\": 2,\n    \"pg\": 1,\n    \"pe\": 0,\n    \"pp\": 1,\n    \"gf\": 1,\n    \"gc\": 1\n  },\n  {\n    \"nombre\": \"polentarg\",\n    \"discordId\": \"1381836864205361273\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1381836864205361273/565476d5f3bc6e42e027fe45e7ead3fe.png\",\n    \"puntos\": 0,\n    \"pj\": 2,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 2,\n    \"gf\": 0,\n    \"gc\": 2\n  },\n  {\n    \"nombre\": \"tterss\",\n    \"discordId\": \"751663890441699409\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/751663890441699409/7aeaf87084e75efb09936689cf50c18d.png\",\n    \"puntos\": 6,\n    \"pj\": 4,\n    \"pg\": 2,\n    \"pe\": 0,\n    \"pp\": 2,\n    \"gf\": 2,\n    \"gc\": 2\n  },\n  {\n    \"nombre\": \"benjaa303\",\n    \"discordId\": \"992866773047193710\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/992866773047193710/1670386c9f76221c84907e3305a9c3e0.png\",\n    \"puntos\": 0,\n    \"pj\": 0,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 0,\n    \"gf\": 0,\n    \"gc\": 0\n  },\n  {\n    \"nombre\": \"hammeriti\",\n    \"discordId\": \"672164926948900864\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/672164926948900864/566634cff94ac21b668b2dab2cf9405f.png\",\n    \"puntos\": 0,\n    \"pj\": 1,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 1,\n    \"gf\": 0,\n    \"gc\": 2\n  },\n  {\n    \"nombre\": \"r1ver_camp91218\",\n    \"discordId\": \"1009269112196841532\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1009269112196841532/3b39eb91a4dcb16abaefd4da5bf5bce2.png\",\n    \"puntos\": 9,\n    \"pj\": 3,\n    \"pg\": 3,\n    \"pe\": 0,\n    \"pp\": 0,\n    \"gf\": 5,\n    \"gc\": 1\n  },\n  {\n    \"nombre\": \"lfc_rojas\",\n    \"discordId\": \"1281896348643495948\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1281896348643495948/ffa1303b57bf4207979ac57670e2bfbf.png\",\n    \"puntos\": 0,\n    \"pj\": 2,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 2,\n    \"gf\": 0,\n    \"gc\": 2\n  },\n  {\n    \"nombre\": \"alexiscarp9122018\",\n    \"discordId\": \"1313318947352744067\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1313318947352744067/feaf1ef3b3ce42900df909095ae07e6d.png\",\n    \"puntos\": 9,\n    \"pj\": 4,\n    \"pg\": 3,\n    \"pe\": 0,\n    \"pp\": 1,\n    \"gf\": 5,\n    \"gc\": 3\n  },\n  {\n    \"nombre\": \"tato_aa\",\n    \"discordId\": \"1344037515098849362\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1344037515098849362/37bbe16b271a6d07282cd478025a7eab.png\",\n    \"puntos\": 0,\n    \"pj\": 0,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 0,\n    \"gf\": 0,\n    \"gc\": 0\n  },\n  {\n    \"nombre\": \"karkos.mp3\",\n    \"discordId\": \"1287076064832651327\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1287076064832651327/ecafe396cfc74a4a93fa3cdb1e9b7b0a.png\",\n    \"puntos\": 0,\n    \"pj\": 0,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 0,\n    \"gf\": 0,\n    \"gc\": 0\n  }\n]"
   }
 ]
