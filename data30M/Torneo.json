@@ -903,7 +903,7 @@
       "texto": "#ffffff",
       "borde": "#08080f"
     },
-    "gruposHabilitados": false,
+    "gruposHabilitados": true,
     "cantidadGrupos": 0,
     "jugadoresPorGrupo": 0,
     "clasificadosPorGrupo": 2,
@@ -1041,7 +1041,818 @@
         "gc": 0
       }
     ],
-    "enfrentamientosGrupos": [],
+    "enfrentamientosGrupos": [
+      {
+        "local": "lfc_rojas",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 1,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 1,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 1,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 1,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 1,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 2,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 2,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 2,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 2,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 2,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "lfc_rojas",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 3,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 3,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 3,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 3,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 3,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 4,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 4,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 4,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "lfc_rojas",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 4,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 4,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 5,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 5,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 5,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 5,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 5,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 6,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 6,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 6,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 6,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "lfc_rojas",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 6,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 7,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "lfc_rojas",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 7,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 7,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 7,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 7,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 8,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 8,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 8,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 8,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "lfc_rojas",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 8,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 9,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "lfc_rojas",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 9,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 9,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 9,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "polentarg",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 9,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "r1ver_camp91218",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 10,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 10,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 10,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 10,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 10,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 11,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 11,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 11,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 11,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 11,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 12,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "lfc_rojas",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 12,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 12,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 12,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 12,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 13,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 13,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 13,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 13,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 13,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 14,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 14,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 14,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 14,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 14,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 15,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 15,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 15,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 15,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 15,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 16,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 16,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 16,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 16,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 16,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tterss",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 17,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "lfc_rojas",
+        "visitante": "alexiscarp9122018",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 17,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "hammeriti",
+        "visitante": "benjaa303",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 17,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "gabriel_seh",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 17,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "tato_aa",
+        "visitante": "karkos.mp3",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 17,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "r1ver_camp91218",
+        "visitante": "tato_aa",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 18,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "benjaa303",
+        "visitante": "polentarg",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 18,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "alexiscarp9122018",
+        "visitante": "tterss",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 18,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "karkos.mp3",
+        "visitante": "lfc_rojas",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 18,
+        "duelosIndividuales": []
+      },
+      {
+        "local": "gabriel_seh",
+        "visitante": "hammeriti",
+        "resultado": "Pendiente",
+        "ganador": null,
+        "completado": false,
+        "fecha": 18,
+        "duelosIndividuales": []
+      }
+    ],
     "llaves": {},
     "faseActual": 0,
     "createdBy": "534499521653112844",
