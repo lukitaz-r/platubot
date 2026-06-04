@@ -909,6 +909,22 @@
         "tipo": "unico",
         "cargadoPor": "1344037515098849362",
         "timestamp": "2026-06-04T21:33:32.581Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "r1ver_camp91218 vs tterss",
+        "resultado": "1-0",
+        "tipo": "unico",
+        "cargadoPor": "1393029583778873415",
+        "timestamp": "2026-06-04T21:43:27.345Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "gabriel_seh vs r1ver_camp91218",
+        "resultado": "0-1",
+        "tipo": "unico",
+        "cargadoPor": "1393029583778873415",
+        "timestamp": "2026-06-04T22:09:42.728Z"
       }
     ],
     "canalResultados": "1432891524261216378",
@@ -950,12 +966,12 @@
         "discordId": "534499521653112844",
         "avatar": "https://cdn.discordapp.com/avatars/534499521653112844/435c74fd5e7da50f4e463cdff146a4db.png",
         "puntos": 3,
-        "pj": 1,
+        "pj": 2,
         "pg": 1,
         "pe": 0,
-        "pp": 0,
+        "pp": 1,
         "gf": 1,
-        "gc": 0
+        "gc": 1
       },
       {
         "nombre": "polentarg",
@@ -974,12 +990,12 @@
         "discordId": "751663890441699409",
         "avatar": "https://cdn.discordapp.com/avatars/751663890441699409/7aeaf87084e75efb09936689cf50c18d.png",
         "puntos": 0,
-        "pj": 1,
+        "pj": 2,
         "pg": 0,
         "pe": 0,
-        "pp": 1,
+        "pp": 2,
         "gf": 0,
-        "gc": 1
+        "gc": 2
       },
       {
         "nombre": "benjaa303",
@@ -1009,12 +1025,12 @@
         "nombre": "r1ver_camp91218",
         "discordId": "1009269112196841532",
         "avatar": "https://cdn.discordapp.com/avatars/1009269112196841532/3b39eb91a4dcb16abaefd4da5bf5bce2.png",
-        "puntos": 3,
-        "pj": 1,
-        "pg": 1,
+        "puntos": 9,
+        "pj": 3,
+        "pg": 3,
         "pe": 0,
         "pp": 0,
-        "gf": 3,
+        "gf": 5,
         "gc": 1
       },
       {
@@ -1079,9 +1095,9 @@
       {
         "local": "r1ver_camp91218",
         "visitante": "tterss",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "1-0",
+        "ganador": "r1ver_camp91218",
+        "completado": true,
         "fecha": 1,
         "duelosIndividuales": []
       },
@@ -1115,9 +1131,9 @@
       {
         "local": "gabriel_seh",
         "visitante": "r1ver_camp91218",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "0-1",
+        "ganador": "r1ver_camp91218",
+        "completado": true,
         "fecha": 2,
         "duelosIndividuales": []
       },
