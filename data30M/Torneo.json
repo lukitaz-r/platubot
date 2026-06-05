@@ -1939,5 +1939,179 @@
     "createdBy": "534499521653112844",
     "_id": "fd4ab705-1660-4fb7-8192-39f63689cf09",
     "_raw_equipos": "[\n  {\n    \"nombre\": \"gabriel_seh\",\n    \"discordId\": \"534499521653112844\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/534499521653112844/435c74fd5e7da50f4e463cdff146a4db.png\",\n    \"puntos\": 3,\n    \"pj\": 2,\n    \"pg\": 1,\n    \"pe\": 0,\n    \"pp\": 1,\n    \"gf\": 1,\n    \"gc\": 1\n  },\n  {\n    \"nombre\": \"polentarg\",\n    \"discordId\": \"1381836864205361273\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1381836864205361273/565476d5f3bc6e42e027fe45e7ead3fe.png\",\n    \"puntos\": 0,\n    \"pj\": 2,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 2,\n    \"gf\": 0,\n    \"gc\": 2\n  },\n  {\n    \"nombre\": \"tterss\",\n    \"discordId\": \"751663890441699409\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/751663890441699409/7aeaf87084e75efb09936689cf50c18d.png\",\n    \"puntos\": 6,\n    \"pj\": 4,\n    \"pg\": 2,\n    \"pe\": 0,\n    \"pp\": 2,\n    \"gf\": 2,\n    \"gc\": 2\n  },\n  {\n    \"nombre\": \"benjaa303\",\n    \"discordId\": \"992866773047193710\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/992866773047193710/1670386c9f76221c84907e3305a9c3e0.png\",\n    \"puntos\": 0,\n    \"pj\": 0,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 0,\n    \"gf\": 0,\n    \"gc\": 0\n  },\n  {\n    \"nombre\": \"hammeriti\",\n    \"discordId\": \"672164926948900864\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/672164926948900864/566634cff94ac21b668b2dab2cf9405f.png\",\n    \"puntos\": 0,\n    \"pj\": 1,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 1,\n    \"gf\": 0,\n    \"gc\": 2\n  },\n  {\n    \"nombre\": \"r1ver_camp91218\",\n    \"discordId\": \"1009269112196841532\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1009269112196841532/3b39eb91a4dcb16abaefd4da5bf5bce2.png\",\n    \"puntos\": 9,\n    \"pj\": 3,\n    \"pg\": 3,\n    \"pe\": 0,\n    \"pp\": 0,\n    \"gf\": 5,\n    \"gc\": 1\n  },\n  {\n    \"nombre\": \"lfc_rojas\",\n    \"discordId\": \"1281896348643495948\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1281896348643495948/ffa1303b57bf4207979ac57670e2bfbf.png\",\n    \"puntos\": 0,\n    \"pj\": 2,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 2,\n    \"gf\": 0,\n    \"gc\": 2\n  },\n  {\n    \"nombre\": \"alexiscarp9122018\",\n    \"discordId\": \"1313318947352744067\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1313318947352744067/feaf1ef3b3ce42900df909095ae07e6d.png\",\n    \"puntos\": 9,\n    \"pj\": 4,\n    \"pg\": 3,\n    \"pe\": 0,\n    \"pp\": 1,\n    \"gf\": 5,\n    \"gc\": 3\n  },\n  {\n    \"nombre\": \"tato_aa\",\n    \"discordId\": \"1344037515098849362\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1344037515098849362/37bbe16b271a6d07282cd478025a7eab.png\",\n    \"puntos\": 0,\n    \"pj\": 0,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 0,\n    \"gf\": 0,\n    \"gc\": 0\n  },\n  {\n    \"nombre\": \"karkos.mp3\",\n    \"discordId\": \"1287076064832651327\",\n    \"avatar\": \"https://cdn.discordapp.com/avatars/1287076064832651327/ecafe396cfc74a4a93fa3cdb1e9b7b0a.png\",\n    \"puntos\": 0,\n    \"pj\": 0,\n    \"pg\": 0,\n    \"pe\": 0,\n    \"pp\": 0,\n    \"gf\": 0,\n    \"gc\": 0\n  }\n]"
+  },
+  {
+    "nombre": "Copa clashubi",
+    "prefix": "ccl",
+    "estado": "Inscripcion",
+    "tipoJugadores": "users",
+    "tipoCompeticion": "individual",
+    "logo": "/home/luca/platubot/assets/logos/ccl_logo.png",
+    "inscripcionAbierta": true,
+    "equipoConfig": {
+      "minJugadores": 2,
+      "maxJugadores": 5
+    },
+    "historialResultados": [],
+    "canalResultados": "1512091482876547182",
+    "formatoPreset": "personalizado",
+    "cantidadParticipantes": 10,
+    "clasificadosDirectos": [],
+    "championsConfig": {
+      "directos": 0,
+      "playoff": 0,
+      "eliminados": 0,
+      "bracketSize": 0
+    },
+    "tema": {
+      "primario": "#000000",
+      "secundario": "#000000",
+      "acento": "#070100",
+      "texto": "#ffffff",
+      "borde": "#0a0000"
+    },
+    "gruposHabilitados": true,
+    "cantidadGrupos": 3,
+    "jugadoresPorGrupo": 4,
+    "clasificadosPorGrupo": 2,
+    "mejorTercero": false,
+    "cantMejoresTerceros": 0,
+    "sorteoGrupos": true,
+    "criteriosClasificacion": [
+      "puntos",
+      "dif",
+      "gf"
+    ],
+    "playoffsHabilitados": true,
+    "tipoEncuentro": "ida_vuelta",
+    "hayTercerPuesto": false,
+    "fasesEliminatoria": [],
+    "equipos": [
+      {
+        "nombre": "gabriel_seh",
+        "discordId": "534499521653112844",
+        "avatar": "https://cdn.discordapp.com/avatars/534499521653112844/435c74fd5e7da50f4e463cdff146a4db.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "tterss",
+        "discordId": "751663890441699409",
+        "avatar": "https://cdn.discordapp.com/avatars/751663890441699409/7aeaf87084e75efb09936689cf50c18d.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "r1ver_camp91218",
+        "discordId": "1009269112196841532",
+        "avatar": "https://cdn.discordapp.com/avatars/1009269112196841532/3b39eb91a4dcb16abaefd4da5bf5bce2.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "benjaa303",
+        "discordId": "992866773047193710",
+        "avatar": "https://cdn.discordapp.com/avatars/992866773047193710/1670386c9f76221c84907e3305a9c3e0.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "alexiscarp9122018",
+        "discordId": "1313318947352744067",
+        "avatar": "https://cdn.discordapp.com/avatars/1313318947352744067/feaf1ef3b3ce42900df909095ae07e6d.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "lfc_rojas",
+        "discordId": "1281896348643495948",
+        "avatar": "https://cdn.discordapp.com/avatars/1281896348643495948/ffa1303b57bf4207979ac57670e2bfbf.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "karkos.mp3",
+        "discordId": "1287076064832651327",
+        "avatar": "https://cdn.discordapp.com/avatars/1287076064832651327/ecafe396cfc74a4a93fa3cdb1e9b7b0a.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "polentarg",
+        "discordId": "1381836864205361273",
+        "avatar": "https://cdn.discordapp.com/avatars/1381836864205361273/8e61cc188157de74aa160a2d8b9b2d69.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "tato_aa",
+        "discordId": "1344037515098849362",
+        "avatar": "https://cdn.discordapp.com/avatars/1344037515098849362/37bbe16b271a6d07282cd478025a7eab.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      },
+      {
+        "nombre": "hammeriti",
+        "discordId": "672164926948900864",
+        "avatar": "https://cdn.discordapp.com/avatars/672164926948900864/566634cff94ac21b668b2dab2cf9405f.png",
+        "puntos": 0,
+        "pj": 0,
+        "pg": 0,
+        "pe": 0,
+        "pp": 0,
+        "gf": 0,
+        "gc": 0
+      }
+    ],
+    "enfrentamientosGrupos": [],
+    "llaves": {},
+    "faseActual": 0,
+    "createdBy": "534499521653112844",
+    "_id": "a8d7fe86-873e-4a29-8206-bd66ead0c9c4"
   }
 ]
