@@ -600,7 +600,7 @@
       {
         "nombre": "FacuZ16 🇵🇦",
         "id": "1285655821346144267",
-        "carta": "assets/cartas/generadas/1285655821346144267_78b3a7ce5febebd8.png",
+        "carta": "assets/cartas/generadas/1285655821346144267_ae1b57929677160a.png",
         "contrato": 3,
         "mediaInicial": 86,
         "media": 86.99,
@@ -846,7 +846,7 @@
         "id": "751663890441699409",
         "pais": "Argentina",
         "media": 92.12,
-        "carta": "assets/cartas/generadas/751663890441699409_b85aacab13c9e006.png",
+        "carta": "assets/cartas/generadas/751663890441699409_89f512b491d9d5b7.png",
         "stats": {
           "actividad": 98,
           "tiro": 86,
@@ -885,7 +885,7 @@
         "golesEnContra": 2,
         "suspendido": 12,
         "exEquipo": "Tel Aviv City",
-        "carta": "",
+        "carta": "assets/cartas/generadas/743891228969533482_fe3d48987e560483.png",
         "contrato": 1,
         "prestadoDe": {
           "equipoId": "69cf277750f045493d72cfaa",
@@ -1096,7 +1096,7 @@
       {
         "nombre": "Rojas 🃏",
         "id": "1281896348643495948",
-        "carta": "assets/cartas/generadas/1281896348643495948_b50533956ae58a73.png",
+        "carta": "assets/cartas/generadas/1281896348643495948_29870bb9bc168a24.png",
         "contrato": 2,
         "mediaInicial": 86,
         "media": 86.71,
@@ -1174,7 +1174,7 @@
         "updatedAt": "2026-04-04T16:14:43.966Z",
         "__v": 0,
         "contrato": 2,
-        "carta": "assets/cartas/generadas/934647569701797910_a1bf9f1bd0618b60.png",
+        "carta": "assets/cartas/generadas/934647569701797910_6765658465ec4b69.png",
         "clausula": {
           "tipo": null,
           "monto": null,
@@ -1522,7 +1522,7 @@
       {
         "nombre": "Sebas",
         "id": "1449512445549871125",
-        "carta": "assets/cartas/generadas/1449512445549871125_4abe89681073f635.png",
+        "carta": "assets/cartas/generadas/1449512445549871125_e4e5da503084945d.png",
         "contrato": 2,
         "mediaInicial": 90,
         "media": 90.35,
@@ -2310,13 +2310,8 @@
   },
   {
     "nombre": "Mafia Twittera S.A.",
-<<<<<<< Updated upstream
     "escudo": "assets/equipos/mafia_twittera_s.a._1780270081360.png",
     "dinero": 5393544,
-=======
-    "escudo": "assets/equipos/escuadrón_marrón_por_la_salvación_de_occidente_1777677643476.png",
-    "dinero": 4100000,
->>>>>>> Stashed changes
     "presupuestoInicial": 2000000,
     "ingresosPartidos": 0,
     "ingresosPosicion": 0,
@@ -2367,7 +2362,7 @@
         "golesEnContra": 0,
         "suspendido": 0,
         "contrato": 1,
-        "carta": "assets/cartas/generadas/534231523751362580_90f5906ae1a192f0.png",
+        "carta": "assets/cartas/generadas/534231523751362580_6c631413d5813193.png",
         "_id": "699fe1e370331e79012517eb"
       },
       {
@@ -2418,7 +2413,7 @@
           "aura": 85,
           "esquinazo": 76
         },
-        "carta": "assets/cartas/generadas/664977038905704454_9ce019c84d25b063.png",
+        "carta": "assets/cartas/generadas/664977038905704454_d3163fbcc38c091e.png",
         "contrato": 66,
         "mediaInicial": 81
       }

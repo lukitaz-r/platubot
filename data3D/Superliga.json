@@ -6448,7 +6448,7 @@
   {
     "nombre": "Superliga",
     "temporada": "Temporada 4",
-    "actual": true,
+    "actual": false,
     "fechas": [
       {
         "partidos": [
@@ -9350,7 +9350,7 @@
       }
     ],
     "fechaInicio": 1778862254845,
-    "fechaFin": null,
+    "fechaFin": 1780330108113,
     "equipos": [
       "699fe1e370331e79012517ea",
       "699fe6b970331e7901251808",
