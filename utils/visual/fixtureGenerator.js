@@ -5,9 +5,37 @@ import { getFlagUrl } from './countryHelper.js';
 
 // ── Helpers Visuales ────────────────────────────────────────────────────────
 
-function avatarElement(url, nombre, t, size = 32) {
+function avatarElement(urlOrMiembros, nombre, t, size = 32) {
+    if (Array.isArray(urlOrMiembros) && urlOrMiembros.length === 2) {
+        const safeUrl1 = urlOrMiembros[0].avatar || getFlagUrl(urlOrMiembros[0].nombre);
+        const safeUrl2 = urlOrMiembros[1].avatar || getFlagUrl(urlOrMiembros[1].nombre);
+        
+        return {
+            type: 'div',
+            props: {
+                style: { position: 'relative', width: `${size + 12}px`, height: `${size}px`, flexShrink: 0, display: 'flex' },
+                children: [
+                    {
+                        type: 'div',
+                        props: {
+                            style: { width: `${size}px`, height: `${size}px`, borderRadius: '50%', background: '#111', border: `1px solid ${t.borde}44`, overflow: 'hidden', position: 'absolute', left: 0, zIndex: 2, display: 'flex' },
+                            children: safeUrl1 ? { type: 'img', props: { src: safeUrl1, width: size, height: size, style: { objectFit: 'cover' } } } : { type: 'span', props: { style: { margin: 'auto', fontSize: `${size*0.4}px` }, children: '👤' } }
+                        }
+                    },
+                    {
+                        type: 'div',
+                        props: {
+                            style: { width: `${size}px`, height: `${size}px`, borderRadius: '50%', background: '#111', border: `1px solid ${t.borde}44`, overflow: 'hidden', position: 'absolute', left: '12px', zIndex: 1, display: 'flex' },
+                            children: safeUrl2 ? { type: 'img', props: { src: safeUrl2, width: size, height: size, style: { objectFit: 'cover' } } } : { type: 'span', props: { style: { margin: 'auto', fontSize: `${size*0.4}px` }, children: '👤' } }
+                        }
+                    }
+                ]
+            }
+        };
+    }
+
     const flagUrl = getFlagUrl(nombre);
-    const finalUrl = url || flagUrl;
+    const finalUrl = urlOrMiembros || flagUrl;
 
     if (finalUrl) {
         return {

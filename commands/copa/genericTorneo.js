@@ -63,24 +63,36 @@ export default {
 
 async function handleTabla(client, message, args, torneo) {
     if (torneo.estado === 'Configuracion') return message.reply('❌ El torneo aún no ha comenzado.');
+    
+    const grupoSeleccionado = args[0]?.toUpperCase();
+    
+    // Si se especificó un grupo, validar que exista al menos un equipo en él
+    if (grupoSeleccionado && !torneo.equipos.some(e => e.grupo?.toUpperCase() === grupoSeleccionado)) {
+        return message.reply(`❌ El grupo **${grupoSeleccionado}** no existe en este torneo.`);
+    }
+
     const loading = await message.reply('<a:loading:1461897825439711468> Generando tabla...');
     
     try {
         const tabla = await Promise.all(torneo.equipos.map(async e => ({
             nombre: e.nombre,
             avatar: await getAvatarBase64(e.avatar),
+            miembros: e.miembros,
             pj: e.pj || 0, pg: e.pg || 0, pe: e.pe || 0, pp: e.pp || 0,
-            gf: e.gf || 0, gc: e.gc || 0, puntos: e.puntos || 0
+            gf: e.gf || 0, gc: e.gc || 0, puntos: e.puntos || 0,
+            grupo: e.grupo
         })));
         tabla.sort((a,b) => b.puntos - a.puntos || (b.gf-b.gc) - (a.gf-a.gc));
 
+        const key = grupoSeleccionado ? `tabla_${grupoSeleccionado}` : 'tabla';
+
         const png = await getCachedImage(
             torneo.prefix,
-            'tabla',
+            key,
             { equipos: torneo.equipos, tema: torneo.tema, nombre: torneo.nombre, logo: torneo.logo },
-            () => generarTablaImagenCopa(torneo, tabla, torneo.nombre)
+            () => generarTablaImagenCopa(torneo, tabla, torneo.nombre, grupoSeleccionado)
         );
-        const attachment = new AttachmentBuilder(png, { name: 'tabla.png' });
+        const attachment = new AttachmentBuilder(png, { name: `${key}.png` });
         await loading.edit({ content: '', files: [attachment] });
     } catch (error) {
         console.error(error);
@@ -833,6 +845,15 @@ async function descargarImagen(url, filename) {
 async function handleFixture(client, message, args, torneo) {
     if (torneo.estado === 'Configuracion') return message.reply('❌ El fixture aún no ha sido generado.');
 
+    const grupoSeleccionado = args.find(arg => arg.length === 1 && /^[A-Z]$/i.test(arg))?.toUpperCase();
+
+    if (grupoSeleccionado && torneo.gruposHabilitados) {
+        const existeGrupo = torneo.enfrentamientosGrupos.some(e => e.grupo === grupoSeleccionado);
+        if (!existeGrupo) {
+            return message.reply(`❌ El grupo **${grupoSeleccionado}** no existe en este torneo.`);
+        }
+    }
+
     // Recopilar todas las fases disponibles
     const labels = [];
     const fasesData = []; // [{ type: 'grupo' | 'bracket', name: string, data: any }]
@@ -861,18 +882,25 @@ async function handleFixture(client, message, args, torneo) {
         if (currentIdx === -1) currentIdx = 0;
     } else {
         const pendIdx = fasesData.findIndex(f => {
-            if (f.type === 'grupo') return f.data.some(m => !m.completado);
+            if (f.type === 'grupo') {
+                const dataFiltrada = grupoSeleccionado ? f.data.filter(m => m.grupo === grupoSeleccionado) : f.data;
+                return dataFiltrada.some(m => !m.completado);
+            }
             return f.data.some(m => !m.ganador);
         });
         currentIdx = pendIdx !== -1 ? pendIdx : 0;
     }
 
-    await renderAndSendFixture(client, message, torneo, currentIdx, fasesData, labels);
+    await renderAndSendFixture(client, message, torneo, currentIdx, fasesData, labels, null, grupoSeleccionado);
 }
 
-async function renderAndSendFixture(client, context, torneo, idx, fasesData, labels, existingMsg = null) {
+async function renderAndSendFixture(client, context, torneo, idx, fasesData, labels, existingMsg = null, grupoSeleccionado = null) {
     const fase = fasesData[idx];
-    const enfs = fase.data;
+    let enfs = fase.data;
+
+    if (fase.type === 'grupo' && grupoSeleccionado) {
+        enfs = enfs.filter(e => e.grupo === grupoSeleccionado);
+    }
 
     const partidosRender = await Promise.all(enfs.map(async e => {
         const localNombre = e.local || e.equipo1?.nombre;
@@ -885,7 +913,7 @@ async function renderAndSendFixture(client, context, torneo, idx, fasesData, lab
         if (fase.type === 'bracket' && torneo.tipoEncuentro === 'ida_vuelta') {
             const resParts = [];
             if (e.ida?.finalizado) resParts.push(`${e.ida.golesLocal}-${e.ida.golesVisitante}`);
-            if (e.vuelta?.finalizado) resParts.push(`${e.vuelta.golesLocal}-${e.vuelta.golesVisitante}`);
+            if (e.vuelta?.finalizado) resParts.push(`${e.vuelta.golesVisitante}-${e.vuelta.golesLocal}`);
             if (e.desempate?.finalizado) resParts.push(`(${e.desempate.golesLocal}-${e.desempate.golesVisitante})`);
             
             if (resParts.length > 0) {
@@ -911,30 +939,39 @@ async function renderAndSendFixture(client, context, torneo, idx, fasesData, lab
             visitante: visitanteNombre,
             resultado: resText,
             ganador: ganadorNombre,
-            avatarL: await getAvatarBase64(teamL?.avatar || e.equipo1?.avatar),
-            avatarV: await getAvatarBase64(teamV?.avatar || e.equipo2?.avatar),
+            avatarL: teamL?.miembros?.length === 2 
+                ? await Promise.all(teamL.miembros.map(async m => ({ ...m, avatar: await getAvatarBase64(m.avatar) }))) 
+                : await getAvatarBase64(teamL?.avatar || e.equipo1?.avatar),
+            avatarV: teamV?.miembros?.length === 2 
+                ? await Promise.all(teamV.miembros.map(async m => ({ ...m, avatar: await getAvatarBase64(m.avatar) }))) 
+                : await getAvatarBase64(teamV?.avatar || e.equipo2?.avatar),
             ida: e.ida,
             vuelta: e.vuelta,
             desempate: e.desempate,
-            duelosIndividuales: e.duelosIndividuales
+            duelosIndividuales: e.duelosIndividuales,
+            grupo: e.grupo
         };
     }));
 
-    const key = `fixture_${fase.name.replace(/[^a-zA-Z0-9]/g, '_')}`;
+    const key = `fixture_${fase.name.replace(/[^a-zA-Z0-9]/g, '_')}${grupoSeleccionado ? `_${grupoSeleccionado}` : ''}`;
+    const subtituloImagen = fase.type === 'grupo' && grupoSeleccionado
+        ? `${fase.name} — Grupo ${grupoSeleccionado}`
+        : fase.name;
+
     const buffer = await getCachedImage(
         torneo.prefix,
         key,
-        { partidos: partidosRender, tema: torneo.tema, titulo: torneo.nombre, subtitulo: fase.name },
+        { partidos: partidosRender, tema: torneo.tema, titulo: torneo.nombre, subtitulo: subtituloImagen },
         () => generarFixtureImagen({
             titulo: torneo.nombre,
-            subtitulo: fase.name,
+            subtitulo: subtituloImagen,
             partidos: partidosRender,
             tema: torneo.tema
         })
     );
 
-    const attachment = new AttachmentBuilder(buffer, { name: 'fixture.png' });
-    const content = `📅 **Fixture: ${torneo.nombre} — ${fase.name}**`;
+    const attachment = new AttachmentBuilder(buffer, { name: `${key}.png` });
+    const content = `📅 **Fixture: ${torneo.nombre} — ${fase.name}${fase.type === 'grupo' && grupoSeleccionado ? ` (Grupo ${grupoSeleccionado})` : ''}**`;
     const components = buildFixtureNavigation(`torneo_${torneo.prefix}`, idx, fasesData.length, labels);
 
     let msg;
@@ -975,7 +1012,7 @@ async function renderAndSendFixture(client, context, torneo, idx, fasesData, lab
             });
         }
 
-        await renderAndSendFixture(client, context, fresh, nextIdx, freshFasesData, freshLabels, msg);
+        await renderAndSendFixture(client, context, fresh, nextIdx, freshFasesData, freshLabels, msg, grupoSeleccionado);
     });
 }
 
@@ -1386,29 +1423,82 @@ async function handleSortearAdmin(interaction, torneo, panelMsg) {
             
             if (isNaN(numero)) return interaction.deferReply({ content: '❌ La cantidad de vueltas debe ser un numero válido.', flags: 64 })
         
-            const roundRobin = generarRoundRobin(torneo.equipos, numero);
-            const matches = [];
-            roundRobin.forEach((fecha, fIdx) => {
-                fecha.partidos.forEach(p => {
-                    if (p.localId !== 'BYE' && p.visitanteId !== 'BYE') {
-                        const eqL = torneo.equipos.find(e => e.nombre === p.localNombre);
-                        const eqV = torneo.equipos.find(e => e.nombre === p.visitanteNombre);
-                        const duelos = (torneo.tipoCompeticion === 'equipos' && eqL && eqV) ? generarDuelosIndividuales(eqL, eqV) : [];
+            if (torneo.gruposHabilitados) {
+                let numGrupos = torneo.cantidadGrupos;
+                if (!numGrupos || numGrupos <= 0) {
+                    numGrupos = Math.ceil(torneo.equipos.length / 4) || 1;
+                }
+                
+                const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const grupos = Array.from({ length: numGrupos }, (_, i) => ({
+                    nombre: alphabet[i] || `Grupo ${i + 1}`,
+                    equipos: []
+                }));
 
-                        matches.push({
-                            local: p.localNombre,
-                            visitante: p.visitanteNombre,
-                            resultado: 'Pendiente',
-                            ganador: null,
-                            completado: false,
-                            fecha: fIdx + 1,
-                            duelosIndividuales: duelos
+                const tempEquipos = [...torneo.equipos];
+                shuffle(tempEquipos);
+
+                tempEquipos.forEach((eq, idx) => {
+                    const gIdx = idx % numGrupos;
+                    grupos[gIdx].equipos.push(eq);
+                    const originalEq = torneo.equipos.find(e => e.nombre === eq.nombre);
+                    if (originalEq) {
+                        originalEq.grupo = grupos[gIdx].nombre;
+                    }
+                });
+
+                const matches = [];
+                grupos.forEach(g => {
+                    if (g.equipos.length > 0) {
+                        const roundRobin = generarRoundRobin(g.equipos, numero);
+                        roundRobin.forEach((fecha, fIdx) => {
+                            fecha.partidos.forEach(p => {
+                                if (p.localId !== 'BYE' && p.visitanteId !== 'BYE') {
+                                    const eqL = torneo.equipos.find(e => e.nombre === p.localNombre);
+                                    const eqV = torneo.equipos.find(e => e.nombre === p.visitanteNombre);
+                                    const duelos = (torneo.tipoCompeticion === 'equipos' && eqL && eqV) ? generarDuelosIndividuales(eqL, eqV) : [];
+
+                                    matches.push({
+                                        local: p.localNombre,
+                                        visitante: p.visitanteNombre,
+                                        resultado: 'Pendiente',
+                                        ganador: null,
+                                        completado: false,
+                                        fecha: fIdx + 1,
+                                        duelosIndividuales: duelos,
+                                        grupo: g.nombre
+                                    });
+                                }
+                            });
                         });
                     }
                 });
-            });
-            torneo.enfrentamientosGrupos = matches;
-            torneo.gruposHabilitados = true;
+
+                torneo.enfrentamientosGrupos = matches;
+            } else {
+                const roundRobin = generarRoundRobin(torneo.equipos, numero);
+                const matches = [];
+                roundRobin.forEach((fecha, fIdx) => {
+                    fecha.partidos.forEach(p => {
+                        if (p.localId !== 'BYE' && p.visitanteId !== 'BYE') {
+                            const eqL = torneo.equipos.find(e => e.nombre === p.localNombre);
+                            const eqV = torneo.equipos.find(e => e.nombre === p.visitanteNombre);
+                            const duelos = (torneo.tipoCompeticion === 'equipos' && eqL && eqV) ? generarDuelosIndividuales(eqL, eqV) : [];
+
+                            matches.push({
+                                local: p.localNombre,
+                                visitante: p.visitanteNombre,
+                                resultado: 'Pendiente',
+                                ganador: null,
+                                completado: false,
+                                fecha: fIdx + 1,
+                                duelosIndividuales: duelos
+                            });
+                        }
+                    });
+                });
+                torneo.enfrentamientosGrupos = matches;
+            }
         }
 
         torneo.estado = 'EnCurso';
@@ -1489,13 +1579,46 @@ async function handleAvanzarFaseAdmin(interaction, torneo, panelMsg) {
         }
 
         if (fresh.playoffsHabilitados) {
-            const tabla = fresh.equipos.sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf);
-            
-            let n = Math.pow(2, Math.floor(Math.log2(tabla.length)));
-            if (n === tabla.length && n > 2) n = n / 2;
-            if (n < 2) n = 2;
+            let clasificados = [];
+            if (fresh.equipos.some(e => e.grupo)) {
+                const grupos = {};
+                fresh.equipos.forEach(eq => {
+                    const g = eq.grupo || 'A';
+                    if (!grupos[g]) grupos[g] = [];
+                    grupos[g].push(eq);
+                });
 
-            const clasificados = tabla.slice(0, n);
+                Object.keys(grupos).forEach(g => {
+                    grupos[g].sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf);
+                });
+
+                const terceros = [];
+                const clasificadosPorGrupo = fresh.clasificadosPorGrupo || 2;
+
+                Object.keys(grupos).sort().forEach(g => {
+                    const grupoEquipos = grupos[g];
+                    const directos = grupoEquipos.slice(0, clasificadosPorGrupo);
+                    clasificados.push(...directos);
+
+                    if (fresh.mejorTercero && grupoEquipos.length > clasificadosPorGrupo) {
+                        terceros.push(grupoEquipos[clasificadosPorGrupo]);
+                    }
+                });
+
+                if (fresh.mejorTercero && terceros.length > 0) {
+                    terceros.sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf);
+                    const cantTerceros = fresh.cantMejoresTerceros || 0;
+                    clasificados.push(...terceros.slice(0, cantTerceros));
+                }
+            } else {
+                const tabla = fresh.equipos.sort((a, b) => b.puntos - a.puntos || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf);
+                let n = Math.pow(2, Math.floor(Math.log2(tabla.length)));
+                if (n === tabla.length && n > 2) n = n / 2;
+                if (n < 2) n = 2;
+                clasificados = tabla.slice(0, n);
+            }
+
+            const n = clasificados.length;
             const { default: genBracket } = await import('../../utils/generarBracket.js');
             const data = genBracket(clasificados, fresh.tipoEncuentro);
             
@@ -1598,8 +1721,10 @@ async function handlePublicarActualizacion(interaction, torneo) {
             const tabla = await Promise.all(torneo.equipos.map(async e => ({
                 nombre: e.nombre,
                 avatar: await getAvatarBase64(e.avatar),
+                miembros: e.miembros,
                 pj: e.pj || 0, pg: e.pg || 0, pe: e.pe || 0, pp: e.pp || 0,
-                gf: e.gf || 0, gc: e.gc || 0, puntos: e.puntos || 0
+                gf: e.gf || 0, gc: e.gc || 0, puntos: e.puntos || 0,
+                grupo: e.grupo
             })));
             tabla.sort((a,b) => b.puntos - a.puntos || (b.gf-b.gc) - (a.gf-a.gc));
 

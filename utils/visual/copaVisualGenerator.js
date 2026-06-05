@@ -507,24 +507,16 @@ function buildHeaderElement(torneo, titulo, subtitulo, t) {
     }
 }
 
-async function renderTablaBase(torneo, equipos, titulo, subtitulo) {
-    await preProcessAvatars(torneo);
-    const t = getTheme(torneo.tema);
-    const cols = ['', 'Jugador', 'PJ', 'PG', 'WO', 'PP', 'GF', 'GC', 'DG', 'PTS'];
-    const colWidths = [40, 260, 48, 48, 48, 48, 48, 48, 48, 56];
-    const totalWidth = colWidths.reduce((s, w) => s + w, 0) + 40;
+function renderGroupTableComponent(gName, groupEquipos, colWidths, cols, t, torneo) {
     const rowHeight = 40;
-    const headerHeight = torneo.logo ? 120 : 80;
-    const totalHeight = headerHeight + 48 + equipos.length * rowHeight + 30;
-
-    const rows = equipos.map((e, idx) => {
+    const rows = groupEquipos.map((e, idx) => {
         const dif = (e.gf || 0) - (e.gc || 0);
         return {
             type: 'div',
             props: {
                 style: { display: 'flex', flexDirection: 'row', alignItems: 'center', height: `${rowHeight}px`, background: idx % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.07)', borderBottom: `1px solid ${hexToRgba(t.borde, 0.15)}` },
                 children: [
-                    { type: 'div', props: { style: { width: `${colWidths[0]}px`, textAlign: 'center', fontSize: '14px', fontWeight: 700, paddingLeft: '10px', color: idx < (torneo.clasificadosPorGrupo || 1) ? '#ffd700' : t.texto }, children: `${idx + 1}` } },
+                    { type: 'div', props: { style: { width: `${colWidths[0]}px`, textAlign: 'center', fontSize: '14px', fontWeight: 700, paddingLeft: '10px', color: idx < (torneo.clasificadosPorGrupo || 2) ? '#ffd700' : t.texto }, children: `${idx + 1}` } },
                     { type: 'div', props: { style: { width: `${colWidths[1]}px`, display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '8px', overflow: 'hidden' }, children: [avatarElement(e, e.nombre, t), { type: 'div', props: { style: { fontSize: '14px', fontWeight: 600, color: '#ffffff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, children: e.nombre } }] } },
                     ...[e.pj || 0, e.pg || 0, e.pe || 0, e.pp || 0, e.gf || 0, e.gc || 0, dif, e.puntos || 0].map((val, vi) => ({
                         type: 'div',
@@ -535,18 +527,208 @@ async function renderTablaBase(torneo, equipos, titulo, subtitulo) {
         };
     });
 
-    const root = {
+    return {
         type: 'div',
         props: {
-            style: { display: 'flex', flexDirection: 'column', width: `${totalWidth}px`, height: `${totalHeight}px`, background: `linear-gradient(135deg, ${t.primario} 0%, ${t.secundario} 100%)`, fontFamily: 'Inter', color: '#e0e0e0', padding: '20px' },
+            style: { display: 'flex', flexDirection: 'column', marginBottom: '20px', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: `1px solid ${hexToRgba(t.borde, 0.3)}`, padding: '15px', width: '100%' },
             children: [
-                buildHeaderElement(torneo, titulo, subtitulo, t),
-                { type: 'div', props: { style: { display: 'flex', flexDirection: 'row', background: hexToRgba(t.acento, 0.1), borderRadius: '8px 8px 0 0', padding: '8px 0', borderBottom: `1px solid ${hexToRgba(t.acento, 0.25)}` }, children: cols.map((col, i) => ({ type: 'div', props: { style: { width: `${colWidths[i]}px`, textAlign: i === 1 ? 'left' : 'center', fontSize: '12px', fontWeight: 700, color: t.acento, textTransform: 'uppercase', letterSpacing: '0.5px', paddingLeft: i === 1 ? '8px' : '0' }, children: col } })) } },
+                {
+                    type: 'div',
+                    props: {
+                        style: { display: 'flex', alignItems: 'center', marginBottom: '10px' },
+                        children: [
+                            { type: 'div', props: { style: { fontSize: '18px', fontWeight: 900, color: t.acento, letterSpacing: '1px' }, children: `GRUPO ${gName}` } }
+                        ]
+                    }
+                },
+                { 
+                    type: 'div', 
+                    props: { 
+                        style: { display: 'flex', flexDirection: 'row', background: hexToRgba(t.acento, 0.1), borderRadius: '8px 8px 0 0', padding: '8px 0', borderBottom: `1px solid ${hexToRgba(t.acento, 0.25)}` }, 
+                        children: cols.map((col, i) => ({ type: 'div', props: { style: { width: `${colWidths[i]}px`, textAlign: i === 1 ? 'left' : 'center', fontSize: '12px', fontWeight: 700, color: t.acento, textTransform: 'uppercase', letterSpacing: '0.5px', paddingLeft: i === 1 ? '8px' : '0' }, children: col } })) 
+                    } 
+                },
                 ...rows
             ]
         }
     };
-    return await renderToBuffer(root, totalWidth, totalHeight);
+}
+
+async function renderTablaBase(torneo, equipos, titulo, subtitulo, grupoSel = null) {
+    await preProcessAvatars(torneo);
+    const t = getTheme(torneo.tema);
+    const cols = ['', 'Jugador', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DG', 'PTS'];
+    
+    const selectedGroup = grupoSel?.toUpperCase();
+    const hasSelectedGroup = selectedGroup && equipos.some(e => e.grupo?.toUpperCase() === selectedGroup);
+
+    if (hasSelectedGroup) {
+        const filteredEquipos = equipos.filter(e => e.grupo?.toUpperCase() === selectedGroup);
+        filteredEquipos.sort((a,b) => b.puntos - a.puntos || (b.gf-b.gc) - (a.gf-a.gc) || b.gf - a.gf);
+
+        const colWidths = [40, 260, 48, 48, 48, 48, 48, 48, 48, 56];
+        const totalWidth = colWidths.reduce((s, w) => s + w, 0) + 40;
+        const rowHeight = 40;
+        const headerHeight = torneo.logo ? 120 : 80;
+        const totalHeight = headerHeight + 48 + filteredEquipos.length * rowHeight + 30;
+
+        const rows = filteredEquipos.map((e, idx) => {
+            const dif = (e.gf || 0) - (e.gc || 0);
+            return {
+                type: 'div',
+                props: {
+                    style: { display: 'flex', flexDirection: 'row', alignItems: 'center', height: `${rowHeight}px`, background: idx % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.07)', borderBottom: `1px solid ${hexToRgba(t.borde, 0.15)}` },
+                    children: [
+                        { type: 'div', props: { style: { width: `${colWidths[0]}px`, textAlign: 'center', fontSize: '14px', fontWeight: 700, paddingLeft: '10px', color: idx < (torneo.clasificadosPorGrupo || 1) ? '#ffd700' : t.texto }, children: `${idx + 1}` } },
+                        { type: 'div', props: { style: { width: `${colWidths[1]}px`, display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '8px', overflow: 'hidden' }, children: [avatarElement(e, e.nombre, t), { type: 'div', props: { style: { fontSize: '14px', fontWeight: 600, color: '#ffffff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, children: e.nombre } }] } },
+                        ...[e.pj || 0, e.pg || 0, e.pe || 0, e.pp || 0, e.gf || 0, e.gc || 0, dif, e.puntos || 0].map((val, vi) => ({
+                            type: 'div',
+                            props: { style: { width: `${colWidths[vi + 2]}px`, textAlign: 'center', fontSize: '13px', fontWeight: vi === 7 ? 700 : 400, color: vi === 7 ? t.acento : vi === 6 ? (val > 0 ? '#2ecc71' : val < 0 ? '#e74c3c' : '#a0a0c0') : '#d0d0d0' }, children: `${val > 0 && vi === 6 ? '+' : ''}${val}` }
+                        }))
+                    ]
+                }
+            };
+        });
+
+        const root = {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'column', width: `${totalWidth}px`, height: `${totalHeight}px`, background: `linear-gradient(135deg, ${t.primario} 0%, ${t.secundario} 100%)`, fontFamily: 'Inter', color: '#e0e0e0', padding: '20px' },
+                children: [
+                    buildHeaderElement(torneo, titulo, `Grupo ${selectedGroup}`, t),
+                    { type: 'div', props: { style: { display: 'flex', flexDirection: 'row', background: hexToRgba(t.acento, 0.1), borderRadius: '8px 8px 0 0', padding: '8px 0', borderBottom: `1px solid ${hexToRgba(t.acento, 0.25)}` }, children: cols.map((col, i) => ({ type: 'div', props: { style: { width: `${colWidths[i]}px`, textAlign: i === 1 ? 'left' : 'center', fontSize: '12px', fontWeight: 700, color: t.acento, textTransform: 'uppercase', letterSpacing: '0.5px', paddingLeft: i === 1 ? '8px' : '0' }, children: col } })) } },
+                    ...rows
+                ]
+            }
+        };
+        return await renderToBuffer(root, totalWidth, totalHeight);
+    }
+
+    const hasGroups = torneo.gruposHabilitados && equipos.some(e => e.grupo);
+
+    if (hasGroups) {
+        const groups = {};
+        equipos.forEach(e => {
+            const gName = e.grupo || 'A';
+            if (!groups[gName]) groups[gName] = [];
+            groups[gName].push(e);
+        });
+        
+        const sortedGroupNames = Object.keys(groups).sort();
+        sortedGroupNames.forEach(gName => {
+            groups[gName].sort((a,b) => b.puntos - a.puntos || (b.gf-b.gc) - (a.gf-a.gc) || b.gf - a.gf);
+        });
+
+        const useTwoCols = sortedGroupNames.length > 2;
+        const colWidths = useTwoCols 
+            ? [40, 180, 42, 42, 42, 42, 42, 42, 42, 50] 
+            : [40, 260, 48, 48, 48, 48, 48, 48, 48, 56]; 
+            
+        const singleTableWidth = colWidths.reduce((s, w) => s + w, 0) + 30;
+        const totalWidth = useTwoCols ? (singleTableWidth * 2) + 60 : singleTableWidth + 40;
+        
+        const headerHeight = torneo.logo ? 120 : 80;
+        const getGroupHeight = (gEquipos) => 10 + 30 + 30 + (gEquipos.length * 40) + 20;
+        
+        let groupsAreaHeight = 0;
+        if (useTwoCols) {
+            let leftColHeight = 0;
+            let rightColHeight = 0;
+            sortedGroupNames.forEach((gName, idx) => {
+                const h = getGroupHeight(groups[gName]);
+                if (idx % 2 === 0) leftColHeight += h;
+                else rightColHeight += h;
+            });
+            groupsAreaHeight = Math.max(leftColHeight, rightColHeight);
+        } else {
+            sortedGroupNames.forEach(gName => {
+                groupsAreaHeight += getGroupHeight(groups[gName]);
+            });
+        }
+        
+        const totalHeight = headerHeight + groupsAreaHeight + 60;
+        const groupElements = sortedGroupNames.map(gName => 
+            renderGroupTableComponent(gName, groups[gName], colWidths, cols, t, torneo)
+        );
+        
+        const root = {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'column', width: `${totalWidth}px`, height: `${totalHeight}px`, background: `linear-gradient(135deg, ${t.primario} 0%, ${t.secundario} 100%)`, fontFamily: 'Inter', color: '#e0e0e0', padding: '30px' },
+                children: [
+                    buildHeaderElement(torneo, titulo, subtitulo, t),
+                    {
+                        type: 'div',
+                        props: {
+                            style: { 
+                                display: 'flex', 
+                                flexDirection: 'row', 
+                                flexWrap: 'wrap', 
+                                width: '100%', 
+                                gap: '30px',
+                                marginTop: '10px'
+                            },
+                            children: useTwoCols ? [
+                                {
+                                    type: 'div',
+                                    props: {
+                                        style: { display: 'flex', flexDirection: 'column', width: '48%' },
+                                        children: groupElements.filter((_, idx) => idx % 2 === 0)
+                                    }
+                                },
+                                {
+                                    type: 'div',
+                                    props: {
+                                        style: { display: 'flex', flexDirection: 'column', width: '48%' },
+                                        children: groupElements.filter((_, idx) => idx % 2 !== 0)
+                                    }
+                                }
+                            ] : groupElements
+                        }
+                    }
+                ]
+            }
+        };
+        
+        return await renderToBuffer(root, totalWidth, totalHeight);
+    } else {
+        const colWidths = [40, 260, 48, 48, 48, 48, 48, 48, 48, 56];
+        const totalWidth = colWidths.reduce((s, w) => s + w, 0) + 40;
+        const rowHeight = 40;
+        const headerHeight = torneo.logo ? 120 : 80;
+        const totalHeight = headerHeight + 48 + equipos.length * rowHeight + 30;
+
+        const rows = equipos.map((e, idx) => {
+            const dif = (e.gf || 0) - (e.gc || 0);
+            return {
+                type: 'div',
+                props: {
+                    style: { display: 'flex', flexDirection: 'row', alignItems: 'center', height: `${rowHeight}px`, background: idx % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.07)', borderBottom: `1px solid ${hexToRgba(t.borde, 0.15)}` },
+                    children: [
+                        { type: 'div', props: { style: { width: `${colWidths[0]}px`, textAlign: 'center', fontSize: '14px', fontWeight: 700, paddingLeft: '10px', color: idx < (torneo.clasificadosPorGrupo || 1) ? '#ffd700' : t.texto }, children: `${idx + 1}` } },
+                        { type: 'div', props: { style: { width: `${colWidths[1]}px`, display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '8px', overflow: 'hidden' }, children: [avatarElement(e, e.nombre, t), { type: 'div', props: { style: { fontSize: '14px', fontWeight: 600, color: '#ffffff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }, children: e.nombre } }] } },
+                        ...[e.pj || 0, e.pg || 0, e.pe || 0, e.pp || 0, e.gf || 0, e.gc || 0, dif, e.puntos || 0].map((val, vi) => ({
+                            type: 'div',
+                            props: { style: { width: `${colWidths[vi + 2]}px`, textAlign: 'center', fontSize: '13px', fontWeight: vi === 7 ? 700 : 400, color: vi === 7 ? t.acento : vi === 6 ? (val > 0 ? '#2ecc71' : val < 0 ? '#e74c3c' : '#a0a0c0') : '#d0d0d0' }, children: `${val > 0 && vi === 6 ? '+' : ''}${val}` }
+                        }))
+                    ]
+                }
+            };
+        });
+
+        const root = {
+            type: 'div',
+            props: {
+                style: { display: 'flex', flexDirection: 'column', width: `${totalWidth}px`, height: `${totalHeight}px`, background: `linear-gradient(135deg, ${t.primario} 0%, ${t.secundario} 100%)`, fontFamily: 'Inter', color: '#e0e0e0', padding: '20px' },
+                children: [
+                    buildHeaderElement(torneo, titulo, subtitulo, t),
+                    { type: 'div', props: { style: { display: 'flex', flexDirection: 'row', background: hexToRgba(t.acento, 0.1), borderRadius: '8px 8px 0 0', padding: '8px 0', borderBottom: `1px solid ${hexToRgba(t.acento, 0.25)}` }, children: cols.map((col, i) => ({ type: 'div', props: { style: { width: `${colWidths[i]}px`, textAlign: i === 1 ? 'left' : 'center', fontSize: '12px', fontWeight: 700, color: t.acento, textTransform: 'uppercase', letterSpacing: '0.5px', paddingLeft: i === 1 ? '8px' : '0' }, children: col } })) } },
+                    ...rows
+                ]
+            }
+        };
+        return await renderToBuffer(root, totalWidth, totalHeight);
+    }
 }
 
 function buildParticipantsHeaderElement(torneo, t) {
@@ -634,8 +816,8 @@ export async function generarImagenParticipantes(torneo) {
     return await renderToBuffer(root, width, height);
 }
 
-export async function generarTablaImagenCopa(torneo, tabla, titulo) {
-    return await renderTablaBase(torneo, tabla, titulo, 'Tabla de Posiciones');
+export async function generarTablaImagenCopa(torneo, tabla, titulo, grupoSel = null) {
+    return await renderTablaBase(torneo, tabla, titulo, 'Tabla de Posiciones', grupoSel);
 }
 
 export async function generarPreviewTema(nombre, tema, logo = null) {
