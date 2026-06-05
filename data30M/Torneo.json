@@ -965,6 +965,22 @@
         "tipo": "unico",
         "cargadoPor": "1393029583778873415",
         "timestamp": "2026-06-05T00:06:45.239Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "benjaa303 vs hammeriti",
+        "resultado": "1-2",
+        "tipo": "unico",
+        "cargadoPor": "672164926948900864",
+        "timestamp": "2026-06-05T05:02:29.079Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "lfc_rojas vs benjaa303",
+        "resultado": "2-0",
+        "tipo": "unico",
+        "cargadoPor": "1393029583778873415",
+        "timestamp": "2026-06-05T05:11:56.526Z"
       }
     ],
     "canalResultados": "1432891524261216378",
@@ -1042,24 +1058,24 @@
         "discordId": "992866773047193710",
         "avatar": "https://cdn.discordapp.com/avatars/992866773047193710/1670386c9f76221c84907e3305a9c3e0.png",
         "puntos": 0,
-        "pj": 0,
+        "pj": 2,
         "pg": 0,
         "pe": 0,
-        "pp": 0,
-        "gf": 0,
-        "gc": 0
+        "pp": 2,
+        "gf": 1,
+        "gc": 4
       },
       {
         "nombre": "hammeriti",
         "discordId": "672164926948900864",
         "avatar": "https://cdn.discordapp.com/avatars/672164926948900864/566634cff94ac21b668b2dab2cf9405f.png",
-        "puntos": 0,
-        "pj": 2,
-        "pg": 0,
+        "puntos": 3,
+        "pj": 3,
+        "pg": 1,
         "pe": 0,
         "pp": 2,
-        "gf": 0,
-        "gc": 3
+        "gf": 2,
+        "gc": 4
       },
       {
         "nombre": "r1ver_camp91218",
@@ -1077,12 +1093,12 @@
         "nombre": "lfc_rojas",
         "discordId": "1281896348643495948",
         "avatar": "https://cdn.discordapp.com/avatars/1281896348643495948/ffa1303b57bf4207979ac57670e2bfbf.png",
-        "puntos": 3,
-        "pj": 3,
-        "pg": 1,
+        "puntos": 6,
+        "pj": 4,
+        "pg": 2,
         "pe": 0,
         "pp": 2,
-        "gf": 1,
+        "gf": 3,
         "gc": 2
       },
       {
@@ -1126,9 +1142,9 @@
       {
         "local": "lfc_rojas",
         "visitante": "benjaa303",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "2-0",
+        "ganador": "lfc_rojas",
+        "completado": true,
         "fecha": 1,
         "duelosIndividuales": []
       },
@@ -1207,9 +1223,9 @@
       {
         "local": "benjaa303",
         "visitante": "hammeriti",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "1-2",
+        "ganador": "hammeriti",
+        "completado": true,
         "fecha": 2,
         "duelosIndividuales": []
       },
