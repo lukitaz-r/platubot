@@ -52,16 +52,33 @@ export async function generarFixtureImagen(options) {
         borde: tema?.borde || '#0f3460',
     };
 
-    const width = 800;
     const rowHeight = 70;
     const headerHeight = 150;
-    let duelsCount = 0;
-    partidos.forEach(p => {
-        if (p.duelosIndividuales) {
-            duelsCount += p.duelosIndividuales.length;
+
+    // Determinar columnas según cantidad de partidos
+    const cols = partidos.length > 8 ? 2 : 1;
+    const width = cols === 2 ? 1500 : 800;
+
+    // Calcular altura total considerando duelos individuales en cada columna
+    let col1Height = 0;
+    let col2Height = 0;
+    
+    partidos.forEach((p, idx) => {
+        const duels = p.duelosIndividuales?.length || 0;
+        const matchHeight = rowHeight + (duels * 40) + 20; // 20px de padding/gap
+        if (cols === 1) {
+            col1Height += matchHeight;
+        } else {
+            if (idx < Math.ceil(partidos.length / 2)) {
+                col1Height += matchHeight;
+            } else {
+                col2Height += matchHeight;
+            }
         }
     });
-    const totalHeight = headerHeight + (partidos.length * rowHeight) + (duelsCount * 40) + 40;
+
+    const maxColsHeight = Math.max(col1Height, col2Height);
+    const totalHeight = headerHeight + maxColsHeight + 40;
 
     const bgProps = { 
         position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
@@ -160,6 +177,7 @@ export async function generarFixtureImagen(options) {
 
         const duelElements = [];
         if (p.duelosIndividuales && p.duelosIndividuales.length > 0) {
+            const duelMargin = cols === 2 ? '2px 30px' : '2px 80px';
             p.duelosIndividuales.forEach(d => {
                 const dDone = d.finalizado;
                 const dRes = dDone ? `${d.golesLocal}-${d.golesVisitante}` : 'VS';
@@ -168,7 +186,7 @@ export async function generarFixtureImagen(options) {
                     props: {
                         style: { 
                             display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                            height: '36px', background: 'rgba(0,0,0,0.15)', margin: '2px 80px', 
+                            height: '36px', background: 'rgba(0,0,0,0.15)', margin: duelMargin, 
                             borderRadius: '6px', border: `1px dashed ${t.borde}33` 
                         },
                         children: [
@@ -221,6 +239,9 @@ export async function generarFixtureImagen(options) {
         };
     });
 
+    const column1Rows = rows.slice(0, Math.ceil(rows.length / 2));
+    const column2Rows = rows.slice(Math.ceil(rows.length / 2));
+
     const root = {
         type: 'div',
         props: {
@@ -240,8 +261,38 @@ export async function generarFixtureImagen(options) {
                 {
                     type: 'div',
                     props: {
-                        style: { display: 'flex', flexDirection: 'column', padding: '10px 0', position: 'relative' },
-                        children: rows
+                        style: { 
+                            display: 'flex', 
+                            flexDirection: 'row', 
+                            padding: '10px 40px', 
+                            position: 'relative',
+                            width: '100%',
+                            gap: '40px'
+                        },
+                        children: cols === 1 ? [
+                            {
+                                type: 'div',
+                                props: {
+                                    style: { display: 'flex', flexDirection: 'column', width: '100%' },
+                                    children: rows
+                                }
+                            }
+                        ] : [
+                            {
+                                type: 'div',
+                                props: {
+                                    style: { display: 'flex', flexDirection: 'column', flex: 1 },
+                                    children: column1Rows
+                                }
+                            },
+                            {
+                                type: 'div',
+                                props: {
+                                    style: { display: 'flex', flexDirection: 'column', flex: 1 },
+                                    children: column2Rows
+                                }
+                            }
+                        ]
                     }
                 }
             ]

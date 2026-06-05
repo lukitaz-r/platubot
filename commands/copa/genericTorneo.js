@@ -27,6 +27,7 @@ import { join } from 'path';
 import fetch from 'node-fetch';
 import { existsSync, readFileSync } from 'fs';
 import { getCachedImage } from '../../utils/visual/imageCache.js';
+import { isNumberObject } from 'util/types';
 
 export default {
     name: 'torneo-generic',
@@ -211,7 +212,6 @@ async function handleInscripcion(client, message, args, torneo) {
                 await torneo.save();
 
                 await modalSubmit.editReply({ content: `✅ **Pareja registrada:** **${nombreIngresado}** se ha unido al torneo.` });
-                await msg.delete().catch(() => {});
             }
         });
         return;
@@ -303,7 +303,6 @@ async function handleInscripcion(client, message, args, torneo) {
                 await torneo.save();
 
                 await modalSubmit.editReply({ content: `✅ **Equipo registrado:** **${nombreIngresado}** se ha unido al torneo. El propietario es <@${ownerId}>.` });
-                await msg.delete().catch(() => {});
             }
         });
         return;
@@ -386,7 +385,6 @@ async function handleInscripcion(client, message, args, torneo) {
 
             await modalSubmit.deferReply({ flags: 64 });
             await inscribirFinal(client, modalSubmit, torneo, selectedUser, nombreIngresado, finalAvatar);
-            await msg.delete().catch(() => {});
         }
     });
 }
@@ -1336,8 +1334,6 @@ async function handleSortearAdmin(interaction, torneo, panelMsg) {
         return interaction.reply({ content: `❌ Faltan participantes (${torneo.equipos.length}/${torneo.cantidadParticipantes}).`, flags: 64 });
     }
 
-    await interaction.deferUpdate();
-
     try {
         if (torneo.formatoPreset === 'directa') {
             const data = generarBracket(torneo.equipos, torneo.tipoEncuentro);
@@ -1362,7 +1358,35 @@ async function handleSortearAdmin(interaction, torneo, panelMsg) {
             torneo.faseActual = 0;
             torneo.gruposHabilitados = false;
         } else {
-            const roundRobin = generarRoundRobin(torneo.equipos);
+            const modal = new ModalBuilder()
+                .setCustomId(`modal_fixture_admin`)
+                .setTitle(`¿Cuántas vueltas?`);
+
+            const nLabel = new LabelBuilder()
+                .setLabel('Vueltas')
+                .setTextInputComponent(
+                    new TextInputBuilder()
+                        .setCustomId('num')
+                        .setStyle(TextInputStyle.Short)
+                        .setValue("1")
+                        .setRequired(true)
+                );
+
+            modal.addLabelComponents(nLabel);
+    
+            await interaction.showModal(modal);
+            const modalSubmit = await interaction.awaitModalSubmit({
+                filter: i => i.user.id === interaction.user.id,
+                time: 60000
+            }).catch(() => null);
+            
+            if (!modalSubmit) return;
+
+            const numero = parseInt(submit.fields.getTextInputValue('num')) ?? null;
+            
+            if (isNaN(numero)) return interaction.deferReply({ content: '❌ La cantidad de vueltas debe ser un numero válido.', flags: 64 })
+        
+            const roundRobin = generarRoundRobin(torneo.equipos, numero);
             const matches = [];
             roundRobin.forEach((fecha, fIdx) => {
                 fecha.partidos.forEach(p => {
