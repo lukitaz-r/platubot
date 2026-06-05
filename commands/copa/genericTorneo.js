@@ -1382,7 +1382,7 @@ async function handleSortearAdmin(interaction, torneo, panelMsg) {
             
             if (!modalSubmit) return;
 
-            const numero = parseInt(submit.fields.getTextInputValue('num')) ?? null;
+            const numero = parseInt(modalSubmit.fields.getTextInputValue('num')) ?? null;
             
             if (isNaN(numero)) return interaction.deferReply({ content: '❌ La cantidad de vueltas debe ser un numero válido.', flags: 64 })
         
