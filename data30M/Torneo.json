@@ -957,6 +957,14 @@
         "tipo": "unico",
         "cargadoPor": "672164926948900864",
         "timestamp": "2026-06-04T23:42:48.739Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "lfc_rojas vs hammeriti",
+        "resultado": "1-0",
+        "tipo": "unico",
+        "cargadoPor": "1393029583778873415",
+        "timestamp": "2026-06-05T00:06:45.239Z"
       }
     ],
     "canalResultados": "1432891524261216378",
@@ -1046,12 +1054,12 @@
         "discordId": "672164926948900864",
         "avatar": "https://cdn.discordapp.com/avatars/672164926948900864/566634cff94ac21b668b2dab2cf9405f.png",
         "puntos": 0,
-        "pj": 1,
+        "pj": 2,
         "pg": 0,
         "pe": 0,
-        "pp": 1,
+        "pp": 2,
         "gf": 0,
-        "gc": 2
+        "gc": 3
       },
       {
         "nombre": "r1ver_camp91218",
@@ -1069,12 +1077,12 @@
         "nombre": "lfc_rojas",
         "discordId": "1281896348643495948",
         "avatar": "https://cdn.discordapp.com/avatars/1281896348643495948/ffa1303b57bf4207979ac57670e2bfbf.png",
-        "puntos": 0,
-        "pj": 2,
-        "pg": 0,
+        "puntos": 3,
+        "pj": 3,
+        "pg": 1,
         "pe": 0,
         "pp": 2,
-        "gf": 0,
+        "gf": 1,
         "gc": 2
       },
       {
@@ -1208,9 +1216,9 @@
       {
         "local": "lfc_rojas",
         "visitante": "hammeriti",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "1-0",
+        "ganador": "lfc_rojas",
+        "completado": true,
         "fecha": 3,
         "duelosIndividuales": []
       },
