@@ -981,6 +981,14 @@
         "tipo": "unico",
         "cargadoPor": "1393029583778873415",
         "timestamp": "2026-06-05T05:11:56.526Z"
+      },
+      {
+        "accion": "resultado",
+        "partido": "alexiscarp9122018 vs tato_aa",
+        "resultado": "1-0",
+        "tipo": "unico",
+        "cargadoPor": "1344037515098849362",
+        "timestamp": "2026-06-05T05:40:16.843Z"
       }
     ],
     "canalResultados": "1432891524261216378",
@@ -1105,12 +1113,12 @@
         "nombre": "alexiscarp9122018",
         "discordId": "1313318947352744067",
         "avatar": "https://cdn.discordapp.com/avatars/1313318947352744067/feaf1ef3b3ce42900df909095ae07e6d.png",
-        "puntos": 9,
-        "pj": 4,
-        "pg": 3,
+        "puntos": 12,
+        "pj": 5,
+        "pg": 4,
         "pe": 0,
         "pp": 1,
-        "gf": 5,
+        "gf": 6,
         "gc": 3
       },
       {
@@ -1118,12 +1126,12 @@
         "discordId": "1344037515098849362",
         "avatar": "https://cdn.discordapp.com/avatars/1344037515098849362/37bbe16b271a6d07282cd478025a7eab.png",
         "puntos": 0,
-        "pj": 0,
+        "pj": 1,
         "pg": 0,
         "pe": 0,
-        "pp": 0,
+        "pp": 1,
         "gf": 0,
-        "gc": 0
+        "gc": 1
       },
       {
         "nombre": "karkos.mp3",
@@ -1313,9 +1321,9 @@
       {
         "local": "alexiscarp9122018",
         "visitante": "tato_aa",
-        "resultado": "Pendiente",
-        "ganador": null,
-        "completado": false,
+        "resultado": "1-0",
+        "ganador": "alexiscarp9122018",
+        "completado": true,
         "fecha": 4,
         "duelosIndividuales": []
       },
