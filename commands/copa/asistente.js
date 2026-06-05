@@ -132,9 +132,97 @@ async function runWizard(client, context, isInteraction) {
                     await handleStep(i);
                 }
             } else if (i.customId === 'select_format') {
-                config.formatoPreset = i.values[0];
-                step = 6;
-                await handleStep(i);
+                const selectedFormat = i.values[0];
+                config.formatoPreset = selectedFormat;
+
+                if (selectedFormat === 'personalizado') {
+                    const modal = new ModalBuilder()
+                        .setCustomId('modal_personalizado')
+                        .setTitle('Configuración Manual de Grupos');
+
+                    modal.addComponents(
+                        new ActionRowBuilder().addComponents(
+                            new TextInputBuilder()
+                                .setCustomId('cantidad_grupos')
+                                .setLabel('Cantidad de grupos')
+                                .setPlaceholder('Ej: 4')
+                                .setValue('4')
+                                .setStyle(TextInputStyle.Short)
+                                .setRequired(true)
+                        ),
+                        new ActionRowBuilder().addComponents(
+                            new TextInputBuilder()
+                                .setCustomId('jugadores_grupo')
+                                .setLabel('Jugadores por grupo')
+                                .setPlaceholder('Ej: 4')
+                                .setValue('4')
+                                .setStyle(TextInputStyle.Short)
+                                .setRequired(true)
+                        ),
+                        new ActionRowBuilder().addComponents(
+                            new TextInputBuilder()
+                                .setCustomId('clasificados_grupo')
+                                .setLabel('Clasificados por grupo')
+                                .setPlaceholder('Ej: 2')
+                                .setValue('2')
+                                .setStyle(TextInputStyle.Short)
+                                .setRequired(true)
+                        ),
+                        new ActionRowBuilder().addComponents(
+                            new TextInputBuilder()
+                                .setCustomId('mejor_tercero')
+                                .setLabel('¿Habilitar mejores terceros? (S/N)')
+                                .setPlaceholder('S / N')
+                                .setValue('N')
+                                .setStyle(TextInputStyle.Short)
+                                .setRequired(true)
+                        ),
+                        new ActionRowBuilder().addComponents(
+                            new TextInputBuilder()
+                                .setCustomId('cant_mejores_terceros')
+                                .setLabel('Cantidad mejores terceros clasificados')
+                                .setPlaceholder('Ej: 0, 2, 4')
+                                .setValue('0')
+                                .setStyle(TextInputStyle.Short)
+                                .setRequired(true)
+                        )
+                    );
+
+                    await i.showModal(modal);
+                    const submit = await i.awaitModalSubmit({ time: 60000 }).catch(() => null);
+                    if (!submit) return;
+
+                    const cantGrupos = parseInt(submit.fields.getTextInputValue('cantidad_grupos'));
+                    const jugGrupo = parseInt(submit.fields.getTextInputValue('jugadores_grupo'));
+                    const clasGrupo = parseInt(submit.fields.getTextInputValue('clasificados_grupo'));
+                    const mejor3 = submit.fields.getTextInputValue('mejor_tercero').toUpperCase() === 'S';
+                    const cantMejores3 = parseInt(submit.fields.getTextInputValue('cant_mejores_terceros')) || 0;
+
+                    if (isNaN(cantGrupos) || isNaN(jugGrupo) || isNaN(clasGrupo) || cantGrupos < 1 || jugGrupo < 2 || clasGrupo < 1) {
+                        return submit.reply({ content: '❌ Configuración de grupos inválida. Todos los valores numéricos deben ser mayores a cero.', flags: 64 });
+                    }
+
+                    if (cantGrupos * jugGrupo !== config.cantidadParticipantes) {
+                        return submit.reply({ content: `❌ La cantidad de participantes en los grupos (${cantGrupos} grupos x ${jugGrupo} jugadores = ${cantGrupos * jugGrupo}) no coincide con la cantidad total de participantes configurada (${config.cantidadParticipantes}).`, flags: 64 });
+                    }
+
+                    if (clasGrupo >= jugGrupo) {
+                        return submit.reply({ content: `❌ La cantidad de clasificados por grupo (${clasGrupo}) debe ser menor que la cantidad de jugadores por grupo (${jugGrupo}).`, flags: 64 });
+                    }
+
+                    config.gruposHabilitados = true;
+                    config.cantidadGrupos = cantGrupos;
+                    config.jugadoresPorGrupo = jugGrupo;
+                    config.clasificadosPorGrupo = clasGrupo;
+                    config.mejorTercero = mejor3;
+                    config.cantMejoresTerceros = cantMejores3;
+
+                    step = 6;
+                    await handleStep(submit);
+                } else {
+                    step = 6;
+                    await handleStep(i);
+                }
             } else if (i.customId === 'select_match_type') {
                 config.tipoEncuentro = i.values[0];
                 if (config.tipoCompeticion === 'equipos') {
